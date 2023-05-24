@@ -56,16 +56,6 @@ data = data.dropna(subset=['latitude', 'longitude'])
 
 # df1=df.loc[df['nb_points'] > 1]
 
-# Autres éléments interactifs dans la sidebar
-st.sidebar.header("Options")
-selected_project = st.sidebar.selectbox('ICPE sites-multiple', ["Select a project", 'Nombre de site-multiple par commune', 'Map of icpe for selected commune', 'Map of polygons'])
-# filtered_data = data1[data1["PROJET"] == selected_project]
-st.sidebar.subheader("Project Details")
-st.sidebar.write("Project Name:", selected_project)
-# st.sidebar.write("Number of Polygons:", len(filtered_data))
-
-
-
 @st.cache_data
 def load_data(nrows):
     # data = pd.read_csv(DATA_URL, nrows=nrows)
@@ -158,7 +148,7 @@ st.plotly_chart(fig1)
 
 st.subheader('Map of polygons')
 # Load GeoJSON data
-data1 = gpd.read_file(r'C:\Users\olivier.parrot\Desktop\projet_uee\claude_0610\mise_jour_p\sauvegarde\Avis_Projet_commune1.shp')
+data1 = gpd.read_file('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/Avis_Projet_commune.zip')
 # data.info()
 data1 = data1.to_crs("EPSG:4326")
 geojson_data = data1.__geo_interface__
