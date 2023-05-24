@@ -74,11 +74,13 @@ if st.checkbox('Show raw data'):
     st.subheader('Raw data')
     st.write(data)
     
-    # Créer le bouton de téléchargement
-    csv = data.to_csv(index=False)
-    b64 = base64.b64encode(csv.encode()).decode()
-    href = f'<a href="data:file/csv;base64,{b64}" download="raw_data.csv">Télécharger les données brutes</a>'
-    st.markdown(href, unsafe_allow_html=True)
+    import streamlit as st
+
+# Votre code pour charger et prétraiter les données
+
+# Créer le bouton de téléchargement
+csv_url = 'https://github.com/olivierparrot01/ICPE/raw/main/2022_GUN_extraction_geocoded.csv'
+st.markdown(f'<a href="{csv_url}" download="raw_data.csv">Télécharger les données brutes</a>', unsafe_allow_html=True)
 
 
 
