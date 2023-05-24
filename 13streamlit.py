@@ -31,7 +31,7 @@ DATE_COLUMN = 'insee'
 # data["result_c_1"] = data[ "result_c_1"].fillna(0).astype(int).astype(str)
 
 
-data = pd.read_csv('https://github.com/olivierparrot01/ICPE/blob/main/2022_GUN_extraction_geocoded.csv')
+data = pd.read_csv('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/2022_GUN_extraction_geocoded.csv')
 
 
 # data["result_c_1"] = data["result_c_1"].fillna("").astype(str).str.split(".", expand=True)[0].astype(int)
