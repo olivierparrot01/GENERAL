@@ -78,9 +78,6 @@ if st.checkbox('Show raw data'):
 
 # Votre code pour charger et prétraiter les données
 
-# Créer le bouton de téléchargement
-csv_url = 'https://github.com/olivierparrot01/ICPE/raw/main/2022_GUN_extraction_geocoded.csv'
-st.markdown(f'<a href="{csv_url}" download="raw_data.csv">Télécharger les données brutes</a>', unsafe_allow_html=True)
 
 # Créer le bouton de téléchargement
 csv_file = data.to_csv(index=False)
