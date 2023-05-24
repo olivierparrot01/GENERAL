@@ -6,7 +6,7 @@ Created on Mon May 22 18:10:52 2023
 """
 import streamlit as st
 import pandas as pd
-import geopandas as gpd
+
 import numpy as np
 # from simpledbf import Dbf5
 import matplotlib.pyplot as plt
@@ -151,26 +151,6 @@ fig1.update_layout(mapbox_center={"lat": center_lat, "lon": center_lon})
 
 st.plotly_chart(fig1)
 
-st.subheader('Map of polygons')
-# Load GeoJSON data
-data1 = gpd.read_file(r'C:\Users\olivier.parrot\Desktop\projet_uee\claude_0610\mise_jour_p\sauvegarde\Avis_Projet_commune1.shp')
-# data.info()
-data1 = data1.to_crs("EPSG:4326")
-geojson_data = data1.__geo_interface__
-# Créer la carte choroplèthe
-fig = px.choropleth_mapbox(data1, geojson=geojson_data, locations=data1.index,
-                           color_continuous_scale='Viridis', range_color=(0, 20),                           
-                           mapbox_style="open-street-map",
-                           hover_data={"PROJET": True, "DATE_PUBLI": True},
-                           opacity=0.4,
-                           zoom=7, center={"lat": 43.7102, "lon": 6.2570})
-
-# Mettre à jour le style et la mise en page
-fig.update_layout(margin={"r": 0, "t": 0, "l": 0, "b": 0})
-fig.update_layout(mapbox_center={"lat": data1.geometry.centroid.y.mean(), "lon": data1.geometry.centroid.x.mean()})
-
-# Afficher la figure dans Streamlit
-st.plotly_chart(fig)
 
 # Autres éléments interactifs dans la sidebar
 
