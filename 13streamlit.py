@@ -35,7 +35,7 @@ DATE_COLUMN = 'insee'
 
 
 # data = pd.read_csv('https://github.com/olivierparrot01/ICPE/blob/main/2022_GUN_extraction_geocoded.csv')
-data = pd.read_csv('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/2022_GUN_extraction_geocoded.csv')
+
 
 data = pd.read_csv('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/2022_GUN_extraction_geocoded.csv')
 # https://github.com/olivierparrot01/ICPE/blob/main/2022_GUN_extraction_geocoded.csv
@@ -69,18 +69,28 @@ data_load_state = st.text('Loading data...')
 data = load_data(10000)
 data_load_state.text("Done!")
 
-# Afficher le bouton de téléchargement si la case est cochée
+# Afficher si la case est cochée
 if st.checkbox('Show raw data'):
     st.subheader('Raw data')
     st.write(data)
     
-    import streamlit as st
+    
 
 # Votre code pour charger et prétraiter les données
 
 # Créer le bouton de téléchargement
 csv_url = 'https://github.com/olivierparrot01/ICPE/raw/main/2022_GUN_extraction_geocoded.csv'
 st.markdown(f'<a href="{csv_url}" download="raw_data.csv">Télécharger les données brutes</a>', unsafe_allow_html=True)
+
+# Créer le bouton de téléchargement
+csv_file = data.to_csv(index=False)
+href = f'<a href="data:text/csv;charset=utf-8,{csv_file}" download="donnees.csv">Télécharger les données</a>'
+st.markdown(href, unsafe_allow_html=True)
+
+
+
+
+
 
 
 
