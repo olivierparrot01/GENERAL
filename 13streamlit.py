@@ -56,10 +56,10 @@ data0['nb_points'] = data0.groupby(['latitude', 'longitude'])['longitude'].trans
 
 
 data0 = data0.dropna(subset=['latitude', 'longitude'])
-data0['groupe'] = data0.groupby(['latitude', 'longitude']).ngroup() + 1
+
 data0['nb_points'] = data0['nb_points'].astype(int)
 data0 = data0.loc[data0['nb_points'] >= 2]
-
+data0['groupe'] = data0.groupby(['latitude', 'longitude']).ngroup() + 1
 
 @st.cache_data
 def load_data(nrows):
