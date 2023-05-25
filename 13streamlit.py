@@ -164,19 +164,17 @@ LOCALITE_to_filter = st.multiselect('Select commune', LOCALITE_list)
 filtered_data1 = data1[data1['LOCALITE'].isin(LOCALITE_to_filter)]
 
 
+# Calculer le centre des coordonnées des données filtrées
+center_lat = np.mean(filtered_data1['latitude'])
+center_lon = np.mean(filtered_data1['longitude'])
 
-
-
-# Créer la carte choroplèthe
+# Créer la carte choroplèthe centrée sur les données filtrées
 fig = px.choropleth_mapbox(filtered_data1, geojson=geojson_data, locations=filtered_data1.index,
-                           color_continuous_scale='Viridis', range_color=(0, 20),                           
+                           color_continuous_scale='Viridis', range_color=(0, 20),
                            mapbox_style="open-street-map",
                            hover_data={"PROJET": True, "DATE_PUBLI": True},
                            opacity=0.4,
-                           zoom=7, center={"lat": 43.7102, "lon": 6.2570})
-
-# Centrer la carte sur la sélection
-fig.update_geos(center=dict(lon=YOUR_LONGITUDE, lat=YOUR_LATITUDE), zoom=YOUR_ZOOM_LEVEL)
+                           zoom=7, center={"lat": center_lat, "lon": center_lon})
 
 # Afficher la carte
 # Mettre à jour le style et la mise en page
