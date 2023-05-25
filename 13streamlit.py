@@ -45,7 +45,7 @@ data = pd.read_csv('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/
 
 # data["result_c_1"] = data[ "result_c_1"].astype(str).fillna("").astype(int)
 # data["insee"] = data[ "insee"].astype(str)
-data =data0
+data0 =data
 data0[["Code_AIOT", "Code_posta", "insee", "result_c_1"]] = data[["Code_AIOT", "Code_posta", "insee", "result_c_1"]].fillna(0).astype(int).astype(str)
 
  
