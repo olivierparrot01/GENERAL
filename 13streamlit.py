@@ -162,9 +162,13 @@ geojson_data = data1.__geo_interface__
 LOCALITE_list = data1['LOCALITE'].unique().tolist()
 LOCALITE_to_filter = st.multiselect('Select commune', LOCALITE_list)
 filtered_data1 = data1[data1['LOCALITE'].isin(LOCALITE_to_filter)]
-
-
 center = {"lat": 43.9333, "lon": 6.0679}  # Coordonnées approximatives du centre de la région PACA
+
+
+if st.checkbox('Show'):
+    st.write(filtered_data1)
+
+
 
 # Créer la carte choroplèthe centrée sur les données filtrées
 fig = px.choropleth_mapbox(filtered_data1, geojson=geojson_data, locations=filtered_data1.index,
