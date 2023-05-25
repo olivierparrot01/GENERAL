@@ -46,7 +46,7 @@ data = pd.read_csv('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/
 # data["result_c_1"] = data[ "result_c_1"].astype(str).fillna("").astype(int)
 # data["insee"] = data[ "insee"].astype(str)
 data0 =data
-data0[["Code_AIOT","nom_usuel", "Code_posta", "insee", "result_c_1"]] = data[["Code_AIOT","nom_usuel", "Code_posta", "insee", "result_c_1"]].fillna(0).astype(int).astype(str)
+data0[["Code_AIOT","Nom_usuel", "Code_posta", "insee", "result_c_1"]] = data[["Code_AIOT","Nom_usuel", "Code_posta", "insee", "result_c_1"]].fillna(0).astype(int).astype(str)
 
  
 distinct_count = data["insee"].nunique()
@@ -122,7 +122,7 @@ if st.checkbox('Show attributes'):
 
 
   
-fig = px.scatter_mapbox(data0, lat="latitude", lon="longitude", hover_data=["nom_usuel", "code_aiot"],  size=data0['nb_points'] / 15, zoom=7)
+fig = px.scatter_mapbox(data0, lat="latitude", lon="longitude", hover_data=["Nom_usuel", "code_aiot"],  size=data0['nb_points'] / 15, zoom=7)
 center_lat = 43.7102  # Approximate latitude center of PACA region
 center_lon = 6.2570  # Approximate longitude center of PACA region
 fig.update_layout(mapbox_center={"lat": center_lat, "lon": center_lon})
