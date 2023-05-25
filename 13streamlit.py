@@ -157,6 +157,16 @@ data1 = gpd.read_file('https://raw.githubusercontent.com/olivierparrot01/ICPE/ma
 # data.info()
 data1 = data1.to_crs("EPSG:4326")
 geojson_data = data1.__geo_interface__
+
+
+LOCALITE_list = data1['LOCALITE'].unique().tolist()
+LOCALITE_to_filter = st.multiselect('Select commune', LOCALITE_list)
+filtered_data1 = data1[data1['commune_si'].isin(LOCALITE_to_filter)]
+
+
+
+
+
 # Créer la carte choroplèthe
 fig = px.choropleth_mapbox(data1, geojson=geojson_data, locations=data1.index,
                            color_continuous_scale='Viridis', range_color=(0, 20),                           
