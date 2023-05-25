@@ -120,7 +120,7 @@ else:
 if st.checkbox('Show attributes'):
     st.write(filtered_data)
 
-fig = px.scatter_mapbox(data, lat="latitude", lon="longitude", hover_data=["nom_usuel", "code_aiot"],  size=data['nb_points'] / 15, zoom=7)
+fig = px.scatter_mapbox(data0, lat="latitude", lon="longitude", hover_data=["nom_usuel", "code_aiot"],  size=data['nb_points'] / 15, zoom=7)
 center_lat = 43.7102  # Approximate latitude center of PACA region
 center_lon = 6.2570  # Approximate longitude center of PACA region
 fig.update_layout(mapbox_center={"lat": center_lat, "lon": center_lon})
