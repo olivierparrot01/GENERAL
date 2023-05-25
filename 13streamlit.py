@@ -165,7 +165,8 @@ filtered_data1 = data1[data1['LOCALITE'].isin(LOCALITE_to_filter)]
 center = {"lat": 43.9333, "lon": 6.0679}  # Coordonnées approximatives du centre de la région PACA
 
 
-if st.checkbox('Show'):
+if st.checkbox('Show', key='my_checkbox'):
+    
     st.write(filtered_data1)
 
 
