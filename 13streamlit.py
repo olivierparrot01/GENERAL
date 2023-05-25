@@ -161,7 +161,7 @@ geojson_data = data1.__geo_interface__
 
 LOCALITE_list = data1['LOCALITE'].unique().tolist()
 LOCALITE_to_filter = st.multiselect('Select commune', LOCALITE_list)
-filtered_data1 = data1[data1['commune_si'].isin(LOCALITE_to_filter)]
+filtered_data1 = data1[data1['LOCALITE'].isin(LOCALITE_to_filter)]
 
 
 
