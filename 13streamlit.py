@@ -210,11 +210,11 @@ fig = px.choropleth_mapbox(filtered_data1, geojson=geojson_data, locations=filte
 
 # # Afficher la carte
 # # Mettre à jour le style et la mise en page
- fig.update_layout(margin={"r": 0, "t": 0, "l": 0, "b": 0})
- fig.update_layout(mapbox_center={"lat": data1.geometry.centroid.y.mean(), "lon": data1.geometry.centroid.x.mean()})
+fig.update_layout(margin={"r": 0, "t": 0, "l": 0, "b": 0})
+fig.update_layout(mapbox_center={"lat": data1.geometry.centroid.y.mean(), "lon": data1.geometry.centroid.x.mean()})
 
 # # Afficher la figure dans Streamlit
- st.plotly_chart(fig)
+st.plotly_chart(fig)
    
    
    
