@@ -52,6 +52,7 @@ data[["Code_AIOT", "Code_posta", "insee", "result_c_1"]] = data[["Code_AIOT", "C
 distinct_count = data["insee"].nunique()
 print("Distinct count of 'insee':", distinct_count)
 data['nb_points'] = data.groupby(['latitude', 'longitude'])['longitude'].transform('size')
+data['groupe'] = data.groupby(['latitude', 'longitude']).ngroup() + 1
 data = data.dropna(subset=['latitude', 'longitude'])
 
 # df1=df.loc[df['nb_points'] > 1]
@@ -79,7 +80,7 @@ if st.checkbox('Show raw data'):
     
 data['nb_points'] = data['nb_points'].astype(int)
 data = data.loc[data['nb_points'] >= 2]
-data['groupe'] = data.groupby(['latitude', 'longitude']).ngroup() + 1
+
    
 
 # Votre code pour charger et prétraiter les données
