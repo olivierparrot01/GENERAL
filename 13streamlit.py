@@ -193,7 +193,7 @@ data_load_state.text("Done!")
 
 if st.checkbox('Show', key='my_checkbox'):
     
-    st.write(data)
+    st.write(data['LOCALITE'])
 
 
   
