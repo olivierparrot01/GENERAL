@@ -79,10 +79,6 @@ if st.checkbox('Show raw data'):
 # Votre code pour charger et prétraiter les données
 
 
-# Créer le bouton de téléchargement
-csv_file = data.to_csv(index=False)
-href = f'<a href="data:text/csv;charset=utf-8,{csv_file}" download="donnees.csv">Télécharger les données</a>'
-st.markdown(href, unsafe_allow_html=True)
 
 
 
