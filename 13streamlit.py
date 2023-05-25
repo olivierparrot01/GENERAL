@@ -55,7 +55,7 @@ data['nb_points'] = data.groupby(['latitude', 'longitude'])['longitude'].transfo
 data['groupe'] = data.groupby(['latitude', 'longitude']).ngroup() + 1
 data = data.dropna(subset=['latitude', 'longitude'])
 
-# df1=df.loc[df['nb_points'] > 1]
+
 data['nb_points'] = data['nb_points'].astype(int)
 data = data.loc[data['nb_points'] >= 2]
 
@@ -78,8 +78,7 @@ if st.checkbox('Show raw data'):
     st.subheader('Raw data')
     st.write(data)
     
-data['nb_points'] = data['nb_points'].astype(int)
-data = data.loc[data['nb_points'] >= 2]
+
 
    
 
