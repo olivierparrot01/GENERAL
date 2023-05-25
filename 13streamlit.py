@@ -48,14 +48,14 @@ data = pd.read_csv('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/
 data0 =data
 data0[["Code_AIOT", "Code_posta", "insee", "result_c_1"]] = data[["Code_AIOT", "Code_posta", "insee", "result_c_1"]].fillna(0).astype(int).astype(str)
 
+data0 = data0.dropna(subset=['latitude', 'longitude'])
  
 distinct_count = data["insee"].nunique()
-print("Distinct count of 'insee':", distinct_count)
+# print("Distinct count of 'insee':", distinct_count)
 data0['nb_points'] = data0.groupby(['latitude', 'longitude'])['longitude'].transform('size')
 
 
 
-data0 = data0.dropna(subset=['latitude', 'longitude'])
 
 data0['nb_points'] = data0['nb_points'].astype(int)
 data0 = data0.loc[data0['nb_points'] >= 2]
