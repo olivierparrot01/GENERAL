@@ -16,7 +16,7 @@ import requests
 
 
 
-st.title('ICPE sites-multiple (plusieurs ICPE))'
+st.title('ICPE sites-multiple (plusieurs ICPE)')
 
 DATE_COLUMN = 'insee'
 
