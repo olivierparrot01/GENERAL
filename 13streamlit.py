@@ -164,9 +164,7 @@ LOCALITE_to_filter = st.multiselect('Select commune', LOCALITE_list)
 filtered_data1 = data1[data1['LOCALITE'].isin(LOCALITE_to_filter)]
 
 
-# Calculer le centre des coordonnées des données filtrées
-center_lat = np.mean(filtered_data1['latitude'])
-center_lon = np.mean(filtered_data1['longitude'])
+center = {"lat": 43.9333, "lon": 6.0679}  # Coordonnées approximatives du centre de la région PACA
 
 # Créer la carte choroplèthe centrée sur les données filtrées
 fig = px.choropleth_mapbox(filtered_data1, geojson=geojson_data, locations=filtered_data1.index,
@@ -174,7 +172,7 @@ fig = px.choropleth_mapbox(filtered_data1, geojson=geojson_data, locations=filte
                            mapbox_style="open-street-map",
                            hover_data={"PROJET": True, "DATE_PUBLI": True},
                            opacity=0.4,
-                           zoom=7, center={"lat": center_lat, "lon": center_lon})
+                           zoom=7, center=center)
 
 # Afficher la carte
 # Mettre à jour le style et la mise en page
@@ -183,7 +181,6 @@ fig.update_layout(mapbox_center={"lat": data1.geometry.centroid.y.mean(), "lon":
 
 # Afficher la figure dans Streamlit
 st.plotly_chart(fig)
-
 
 # Autres éléments interactifs dans la sidebar
 
