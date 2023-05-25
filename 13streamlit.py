@@ -97,7 +97,7 @@ st.write("<p style='font-size:30px; color:red'>Sélectionnez un nombre</p>", uns
 # selected_count = st.number_input('', value=int(count_by_commune.min()), min_value=int(count_by_commune.min()), max_value=int(count_by_commune.max()), step=1)
 selected_count = st.slider('', int(count_by_commune.min()), int(count_by_commune.max()), step=1, format="%d", key="my-slider")
 
-st.subheader(f"Commune(s) avec (count = {selected_count}) sites-multiple")
+st.subheader(f"Commune(s) avec {selected_count} sites-multiple")
 filtered_data = data[data['commune_si'].map(count_by_commune) == selected_count]
 filtered_count_by_commune = filtered_data['commune_si'].value_counts()
 filtered_communes = filtered_count_by_commune.index.tolist()
