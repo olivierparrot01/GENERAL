@@ -52,7 +52,7 @@ data[["Code_AIOT", "Code_posta", "insee", "result_c_1"]] = data[["Code_AIOT", "C
 distinct_count = data["insee"].nunique()
 print("Distinct count of 'insee':", distinct_count)
 data['nb_points'] = data.groupby(['latitude', 'longitude'])['longitude'].transform('size')
-data['groupe'] = data.groupby(['latitude', 'longitude']).ngroup() + 1
+data['groupe'] = pd.factorize(data[['latitude', 'longitude']].apply(tuple, axis=1))[0] + 1
 data = data.dropna(subset=['latitude', 'longitude'])
 
 
