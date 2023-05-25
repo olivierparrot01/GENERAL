@@ -78,7 +78,7 @@ data_load_state.text("Done!")
 # Afficher si la case est cochée
 if st.checkbox('Show raw data'):
     st.subheader('Raw data')
-    st.write(data)
+    st.write(data0)
     
 
 
