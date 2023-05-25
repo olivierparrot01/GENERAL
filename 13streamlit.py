@@ -79,7 +79,7 @@ if st.checkbox('Show raw data'):
     
 data['nb_points'] = data['nb_points'].astype(int)
 data = data.loc[data['nb_points'] >= 2]
-data['groupe'] = data.groupby(['latitude', 'logitude']).ngroup() + 1
+data['groupe'] = data.groupby(['latitude', 'longitude']).ngroup() + 1
    
 
 # Votre code pour charger et prétraiter les données
