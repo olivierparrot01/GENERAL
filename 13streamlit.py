@@ -45,19 +45,19 @@ data = pd.read_csv('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/
 
 # data["result_c_1"] = data[ "result_c_1"].astype(str).fillna("").astype(int)
 # data["insee"] = data[ "insee"].astype(str)
-
-data[["Code_AIOT", "Code_posta", "insee", "result_c_1"]] = data[["Code_AIOT", "Code_posta", "insee", "result_c_1"]].fillna(0).astype(int).astype(str)
+data =data0
+data0[["Code_AIOT", "Code_posta", "insee", "result_c_1"]] = data[["Code_AIOT", "Code_posta", "insee", "result_c_1"]].fillna(0).astype(int).astype(str)
 
  
 distinct_count = data["insee"].nunique()
 print("Distinct count of 'insee':", distinct_count)
-data['nb_points'] = data.groupby(['latitude', 'longitude'])['longitude'].transform('size')
-data['groupe'] = pd.factorize(data[['latitude', 'longitude']].apply(tuple, axis=1))[0] + 1
-data = data.dropna(subset=['latitude', 'longitude'])
+data0['nb_points'] = data0.groupby(['latitude', 'longitude'])['longitude'].transform('size')
+data0['groupe'] = pd.factorize(data0[['latitude', 'longitude']].apply(tuple, axis=1))[0] + 1
+data0 = data0.dropna(subset=['latitude', 'longitude'])
 
 
-data['nb_points'] = data['nb_points'].astype(int)
-data = data.loc[data['nb_points'] >= 2]
+data0['nb_points'] = data0['nb_points'].astype(int)
+data0 = data0.loc[data0['nb_points'] >= 2]
 
 
 @st.cache_data
@@ -65,9 +65,9 @@ def load_data(nrows):
     # data = pd.read_csv(DATA_URL, nrows=nrows)
     # data=dbf.to_dataframe()
     lowercase = lambda x: str(x).lower()
-    data.rename(lowercase, axis='columns', inplace=True)
+    data0.rename(lowercase, axis='columns', inplace=True)
     # data[DATE_COLUMN] = pd.to_datetime(data[DATE_COLUMN])
-    return data
+    return data0
 
 data_load_state = st.text('Loading data...')
 data = load_data(10000)
