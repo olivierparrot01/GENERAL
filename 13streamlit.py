@@ -48,7 +48,7 @@ data = pd.read_csv('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/
 
 data[["Code_AIOT", "Code_posta", "insee", "result_c_1"]] = data[["Code_AIOT", "Code_posta", "insee", "result_c_1"]].fillna(0).astype(int).astype(str)
 
-# 
+ 
 distinct_count = data["insee"].nunique()
 print("Distinct count of 'insee':", distinct_count)
 data['nb_points'] = data.groupby(['latitude', 'longitude'])['longitude'].transform('size')
