@@ -108,7 +108,8 @@ st.subheader(f"Commune(s) avec {selected_count} sites-multiple")
 filtered_data = data[data['commune_si'].map(count_by_commune) == selected_count]
 filtered_count_by_commune = filtered_data['commune_si'].value_counts()
 filtered_communes = filtered_count_by_commune.index.tolist()
-data00 = data.loc[data['commune_si'] == filtered_data['commune_si']]
+data00 = data[data['commune_si'].isin(filtered_data['commune_si'])]
+
 
 if len(filtered_communes) > 0:
     communes_text = '\n'.join(filtered_communes)
