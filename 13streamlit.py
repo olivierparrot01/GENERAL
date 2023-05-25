@@ -176,6 +176,21 @@ LOCALITE_to_filter = st.multiselect('Select commune', LOCALITE_list)
 filtered_data1 = data1[data1['LOCALITE'].isin(LOCALITE_to_filter)]
 center = {"lat": 43.9333, "lon": 6.0679}  # Coordonnées approximatives du centre de la région PACA
 
+
+@st.cache_data
+def load_filtered_data1(nrows):
+    # data = pd.read_csv(DATA_URL, nrows=nrows)
+    # data=dbf.to_dataframe()
+    #lowercase = lambda x: str(x).lower()
+    #data0.rename(lowercase, axis='columns', inplace=True)
+    # data[DATE_COLUMN] = pd.to_datetime(data[DATE_COLUMN])
+    return filtered_data1
+
+data_load_state = st.text('Loading data...')
+data = load_data(10000)
+data_load_state.text("Done!")
+
+
 if st.checkbox('Show', key='my_checkbox'):
     
     st.write(filtered_data1)
