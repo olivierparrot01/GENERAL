@@ -108,6 +108,7 @@ st.subheader(f"Commune(s) avec {selected_count} sites-multiple")
 filtered_data = data[data['commune_si'].map(count_by_commune) == selected_count]
 filtered_count_by_commune = filtered_data['commune_si'].value_counts()
 filtered_communes = filtered_count_by_commune.index.tolist()
+data00 = data.loc[data['commune_si'] == filtered_data['commune_si']]
 
 if len(filtered_communes) > 0:
     communes_text = '\n'.join(filtered_communes)
@@ -122,7 +123,7 @@ if st.checkbox('Show attributes'):
 
 
   
-fig = px.scatter_mapbox(filtered_data, lat="latitude", lon="longitude", hover_data=["Nom_usuel", "Code_AIOT"],  size=filtered_data['nb_points'] / 15, zoom=7)
+fig = px.scatter_mapbox(data00, lat="latitude", lon="longitude", hover_data=["Nom_usuel", "Code_AIOT"],  size=filtered_data['nb_points'] / 15, zoom=7)
 center_lat = 43.7102  # Approximate latitude center of PACA region
 center_lon = 6.2570  # Approximate longitude center of PACA region
 fig.update_layout(mapbox_center={"lat": center_lat, "lon": center_lon})
