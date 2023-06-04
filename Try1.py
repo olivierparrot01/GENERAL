@@ -25,6 +25,7 @@ data = data.dropna(subset=['latitude', 'longitude'])
 data['nb_points'] = data.groupby(['latitude', 'longitude'])['longitude'].transform('size')
 
 data['groupe'] = data.groupby(['latitude', 'longitude']).ngroup() + 1
+data['nb_points'] = data['nb_points'].astype(int)
 
 # Sélectionner le nombre de points dans la barre latérale
 
