@@ -127,7 +127,23 @@ group_counts = data.groupby('commune_si')['groupe'].nunique()
 #st.write("Nombre de groupes :", group_counts)
 
 
-st.bar_chart(group_counts)
+
+
+
+# Calculer le comptage des groupes par commune
+
+
+
+# Créer un DataFrame à partir de la série
+
+df_counts = pd.DataFrame({'Commune_si': group_counts.index, 'Nombre de groupes': group_counts.values})
+
+# Afficher le graphique à barres dans Streamlit
+
+st.bar_chart(df_counts, x='Commune_si', y='Nombre de groupes')
+
+
+#st.bar_chart(group_counts)
 
 st.subheader('Filtrer communes par nb de sites-multiple')
 
