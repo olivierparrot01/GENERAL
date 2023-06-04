@@ -136,11 +136,11 @@ group_counts = data.groupby('commune_si')['groupe'].nunique()
 
 # Créer un DataFrame à partir de la série
 
-df_counts = pd.DataFrame({'Commune_si': group_counts.index, 'Nombre de groupes': group_counts.values})
+df_counts = pd.DataFrame({'commune_si': group_counts.index, 'Nombre de groupes': group_counts.values})
 
 # Afficher le graphique à barres dans Streamlit
 
-st.bar_chart(df_counts, x='Commune_si', y='Nombre de groupes')
+st.bar_chart(df_counts, x='commune_si', y='Nombre de groupes')
 
 
 #st.bar_chart(group_counts)
