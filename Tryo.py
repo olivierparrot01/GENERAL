@@ -268,15 +268,15 @@ if st.checkbox('Show', key='my_checkbox'):
 
 #fig = px.choropleth_mapbox(filtered_data1, geojson=geojson_data, locations=filtered_data1.index,
 
-                            color_continuous_scale='Viridis', range_color=(0, 20),
+                            #color_continuous_scale='Viridis', range_color=(0, 20),
 
-                            mapbox_style="open-street-map",
+                            #mapbox_style="open-street-map",
 
-                            hover_data={"PROJET": True, "DATE_PUBLI": True},
+                           # hover_data={"PROJET": True, "DATE_PUBLI": True},
 
-                            opacity=0.4,
+                            #opacity=0.4,
 
-                            zoom=7, center=center)
+                            #zoom=7, center=center)
 
 # # Afficher la carte
 
