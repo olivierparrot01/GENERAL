@@ -21,9 +21,10 @@ def load_data():
 data = load_data()
 
 data = data.dropna(subset=['latitude', 'longitude'])
-
+#data['nb_points'] = data['nb_points'].astype(int)
 data['nb_points'] = data.groupby(['latitude', 'longitude'])['longitude'].transform('size')
-
+data['nb_points'] = data['nb_points'].astype(int)
+data = data.loc[data['nb_points'] >= 2]
 data['groupe'] = data.groupby(['latitude', 'longitude']).ngroup() + 1
 data['nb_points'] = data['nb_points'].astype(int)
 
