@@ -28,7 +28,7 @@ import requests
 
 st.title('ICPE sites-multiple (plusieurs ICPE)')
 
-DATE_COLUMN = 'insee'
+#DATE_COLUMN = 'insee'
 
 # DATA_URL = (r'C:\Users\olivier.parrot\Desktop\cartopas\icpe\icpe_3103\icpe_geocoded_dreal_nondreal.csv')
 
@@ -58,11 +58,12 @@ data = pd.read_csv('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/
 
 # data["insee"] = data[ "insee"].astype(str)
 
-data0 =data
 
-data0[["Code_AIOT", "Code_posta", "insee", "result_c_1"]] = data[["Code_AIOT", "Code_posta", "insee", "result_c_1"]].fillna(0).astype(int).astype(str)
+#af ta0 =data
 
-data0 = data0.dropna(subset=['latitude', 'longitude'])
+#data0[["Code_AIOT", "Code_posta", "insee", "result_c_1"]] = data[["Code_AIOT", "Code_posta", "insee", "result_c_1"]].fillna(0).astype(int).astype(str)
+
+data = data.dropna(subset=['latitude', 'longitude'])
 
  
 
@@ -70,15 +71,15 @@ distinct_count = data["insee"].nunique()
 
 # print("Distinct count of 'insee':", distinct_count)
 
-data0['nb_points'] = data0.groupby(['latitude', 'longitude'])['longitude'].transform('size')
+data['nb_points'] = data.groupby(['latitude', 'longitude'])['longitude'].transform('size')
 
-data0['nb_points'] = data0['nb_points'].astype(int)
+data['nb_points'] = data['nb_points'].astype(int)
 
-data0 = data0.loc[data0['nb_points'] >= 2]
+data = data.loc[data['nb_points'] >= 2]
 
-data0['groupe'] =0
+#data0['groupe'] =0
 
-data0['groupe'] = data0.groupby(['latitude', 'longitude']).ngroup() + 1
+data['groupe'] = data.groupby(['latitude', 'longitude']).ngroup() + 1
 
 @st.cache_data
 
@@ -90,11 +91,11 @@ def load_data(nrows):
 
     lowercase = lambda x: str(x).lower()
 
-    data0.rename(lowercase, axis='columns', inplace=True)
+    data.rename(lowercase, axis='columns', inplace=True)
 
     # data[DATE_COLUMN] = pd.to_datetime(data[DATE_COLUMN])
 
-    return data0
+    return data
 
 data_load_state = st.text('Loading data...')
 
@@ -108,7 +109,7 @@ if st.checkbox('Show data'):
 
     st.subheader('data')
 
-    st.write(data0)
+    st.write(data)
 
     
 
@@ -118,7 +119,7 @@ if st.checkbox('Show data'):
 
 st.subheader('Nombre de site-multiple par commune')
 
-count_by_commune = data['commune_si'].value_counts()
+#count_by_commune = data['commune_si'].value_counts()
 
 st.bar_chart(count_by_commune)
 
