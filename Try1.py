@@ -47,6 +47,7 @@ select_commune = st.sidebar.selectbox('Select commune', commune_options)
 # Filtrer davantage les données en fonction de la commune sélectionnée
 
 state_data = filtered_data[filtered_data['Commune_si'] == select_commune]
+st.write(state_data)
 
 # Afficher la carte des sites ICPE sur la commune sélectionnée
 
