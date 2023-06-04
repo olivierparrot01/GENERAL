@@ -124,7 +124,7 @@ st.subheader('Nombre de site-multiple par commune')
 group_counts = data.groupby('commune_si')['groupe'].nunique()
 
 
-#st.write("Nombre de groupes :", group_counts)
+st.write("Nombre de groupes :", group_counts)
 
 
 
