@@ -119,7 +119,7 @@ if st.checkbox('Show data'):
 
 st.subheader('Nombre de site-multiple par commune')
 
-#count_by_commune = data['commune_si'].value_counts()
+count_by_commune = data['commune_si'].value_counts()
 #group_counts = state_data['groupe'].nunique()
 group_counts = data.groupby('commune_si')['groupe'].nunique()
 
@@ -151,7 +151,7 @@ st.write("<p style='font-size:30px; color:red'>Sélectionnez un nombre</p>", uns
 
 # selected_count = st.number_input('', value=int(count_by_commune.min()), min_value=int(count_by_commune.min()), max_value=int(count_by_commune.max()), step=1)
 
-selected_count = st.slider('', int(group_counts.min()), int(group_counts.max()), step=1, format="%d", key="my-slider")
+selected_count = st.slider('', int(count_by_commune.min()), int(count_by_commune.max()), step=1, format="%d", key="my-slider")
 
 st.subheader(f"Commune(s) avec {selected_count} sites-multiple")
 
