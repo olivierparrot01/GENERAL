@@ -4,8 +4,13 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 # Load data from CSV file
-df = pd.read_csv('your_file.csv')
+#df = pd.read_csv('your_file.csv')
+df= pd.read_csv('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/1gun.csv)
+                
 
+                   
+                   
+                
 # Define distance bins
 distance_bins = list(range(0, 600, 100)) + [np.inf]  # Up to 500m and then >500m
 
@@ -28,3 +33,4 @@ for i in range(len(hist_data)):
 
 # Show the plot in Streamlit
 st.pyplot(plt)
+
