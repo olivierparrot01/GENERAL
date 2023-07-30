@@ -15,8 +15,7 @@ df= pd.read_csv('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/1gu
 distance_bins = list(range(0, 600, 100)) + [np.inf]  # Up to 500m and then >500m
 
 # Categorize distances into bins
-df['distance_category'] = pd.cut(df['Di
-stance'], bins=distance_bins, labels=['0-100m', '100-200m', '200-300m', '300-400m', '400-500m', '>500m'])
+df['distance_category'] = pd.cut(df['Distance'], bins=distance_bins, labels=['0-100m', '100-200m', '200-300m', '300-400m', '400-500m', '>500m'])
 
 # Create histogram
 hist_data = df['distance_category'].value_counts().sort_index()
