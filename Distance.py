@@ -5,7 +5,7 @@ import numpy as np
 
 # Load data from CSV file
 #df = pd.read_csv('your_file.csv')
-df= pd.read_csv('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/1gun.csv)
+df= pd.read_csv('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/1gun.csv')
                 
 
                    
@@ -19,6 +19,7 @@ df['distance_category'] = pd.cut(df['distance'], bins=distance_bins, labels=['0-
 
 # Create histogram
 hist_data = df['distance_category'].value_counts().sort_index()
+
 
 # Plot the histogram
 plt.bar(hist_data.index, hist_data.values)
