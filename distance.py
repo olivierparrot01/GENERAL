@@ -39,17 +39,7 @@ for bar in bars:
                 xytext=(0, 3),  # 3 points vertical offset
                 textcoords="offset points",
                 ha='center', va='bottom')
-#numerical values below the bars for 'Statut_IED' and 'Statut_Seveso'
-for bar_statut_ied, bar_statut_seveso in zip(bars_statut_ied, bars_statut_seveso):
-    height_ied = bar_statut_ied.get_height()
-    height_seveso = bar_statut_seveso.get_height()
-    total_height = height_ied + height_seveso
-    ax.annotate('{:.2f}'.format(height_ied / total_height * 100),
-                xy=(bar_statut_ied.get_x() + bar_statut_ied.get_width() / 2, height_ied),
-                xytext=(0, 3),  # 3 points vertical offset
-                textcoords="offset points",
-  
-              ha='center', va='bottom')
+
 st.write('Counts:')
 st.write(hist_data)
 st.write('Proportions of Statut_IED:')
