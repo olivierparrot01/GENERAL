@@ -1,4 +1,4 @@
-import streamlit as st
+nonimport streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
@@ -48,7 +48,14 @@ for bar_statut_ied, bar_statut_seveso in zip(bars_statut_ied, bars_statut_seveso
                 xy=(bar_statut_ied.get_x() + bar_statut_ied.get_width() / 2, height_ied),
                 xytext=(0, 3),  # 3 points vertical offset
                 textcoords="offset points",
-                ha='center', va='bottom')
+  
+              ha='center', va='bottom')
+st.write('Counts:')
+st.write(hist_data)
+st.write('Proportions of Statut_IED:')
+st.write(statut_ied_proportions * 100)
+st.write('Proportions of Statut_Seveso:')
+st.write(statut_seveso_proportions * 100)
 # Customize the plot
 plt.xlabel('Distance')
 plt.ylabel('Count')
