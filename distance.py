@@ -16,8 +16,8 @@ df['distance_category'] = pd.cut(df['Distance'], bins=distance_bins, labels=['0-
 hist_data = df['distance_category'].value_counts().sort_index()
 
 # Calculate proportions for 'Statut_IED' and 'Statut_Seveso' in each distance category
-statut_ied_proportions = df[df['Statut'] == 'Statut_IED']['distance_category'].value_counts(normalize=True).sort_index()
-statut_seveso_proportions = df[df['Statut'] == 'Statut_Seveso']['distance_category'].value_counts(normalize=True).sort_index()
+statut_ied_proportions = df[df['Statut_IED'] == 'Oui']['distance_category'].value_counts(normalize=True).sort_index()
+statut_seveso_proportions = df[df['Statut_Seveso'] == 'Seveso']['distance_category'].value_counts(normalize=True).sort_index()
 
 # Plot the histogram
 fig, ax = plt.subplots()
