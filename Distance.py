@@ -5,8 +5,7 @@ import numpy as np
 
 # Load data from CSV file
 #df = pd.read_csv('your_file.csv')
-df= pd.read_csv('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/1geocodage.
-csv')
+df= pd.read_csv('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/1geocodage.csv')
                 
 
                    
