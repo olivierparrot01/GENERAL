@@ -1,4 +1,4 @@
-import streamlit as st
+jeimport streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
@@ -64,8 +64,8 @@ st.pyplot(fig)
 # Display numerical values below the bars
 st.write('Counts:')
 st.write(hist_data)
-st.write('Proportions of Statut_IED:')
-st.write(statut_ied_proportions * 100)
+st.write('nb Statut_IED:')
+st.write(statut_ied_proportions )
 st.write('Proportions of Seveso seuil haut:')
 st.write(statut_seveso_haut_proportions * 100)
 st.write('Proportions of Seveso seuil bas:')
