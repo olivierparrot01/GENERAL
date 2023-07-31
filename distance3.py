@@ -7,7 +7,7 @@ import base64
 
 df = pd.read_csv('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/1geocodage.csv')
 
-# Define distance bins (100 m interval)
+# Define di stance bins (100 m interval)
 distance_bins = list(range(0, 1001, 100))
 
 # Create histogram for distances
