@@ -1,6 +1,7 @@
-unimport streamlit as st
+import streamlit as st
 import pandas as pd
 import numpy as np
+
 import base64
 
 # Load data from CSV file
@@ -52,6 +53,6 @@ plt.xticks(rotation=45)
 st.pyplot(plt)
 
 # Add download links for each DataFrame
-#st.markdown(get_csv_download_link(df[df['Statut_IED'] == 'Oui'], 'df_statut_ied'), unsafe_allow_html=True)
-#st.markdown(get_csv_download_link(df[df['Statut_Sev'] == 'Seveso seuil haut'], 'df_statut_seveso_haut'), unsafe_allow_html=True)
-#st.markdown(get_csv_download_link(df[df['Statut_Sev'] == 'Seveso seuil bas'], 'df_statut_seveso_bas'), unsafe_allow_html=True)
+st.markdown(get_csv_download_link(df[df['Statut_IED'] == 'Oui'], 'df_statut_ied'), unsafe_allow_html=True)
+st.markdown(get_csv_download_link(df[df['Statut_Sev'] == 'Seveso seuil haut'], 'df_statut_seveso_haut'), unsafe_allow_html=True)
+st.markdown(get_csv_download_link(df[df['Statut_Sev'] == 'Seveso seuil bas'], 'df_statut_seveso_bas'), unsafe_allow_html=True)
