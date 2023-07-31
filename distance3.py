@@ -17,10 +17,10 @@ hist_data = df['Distance'].value_counts(bins=distance_bins, sort=False)
 statut_ied_counts = df[df['Statut_IED'] == 'Oui']['Distance'].value_counts(bins=distance_bins, sort=False).sort_index()
 
 # Calculate the count for 'Seveso seuil haut' in each distance category
-statut_seveso_haut_counts = df[df['Statut_Seveso'] == 'Seveso seuil haut']['Distance'].value_counts(bins=distance_bins, sort=False).sort_index()
+statut_seveso_haut_counts = df[df['Statut_Sev'] == 'Seveso seuil haut']['Distance'].value_counts(bins=distance_bins, sort=False).sort_index()
 
 # Calculate the count for 'Seveso seuil bas' in each distance category
-statut_seveso_bas_counts = df[df['Statut_Seveso'] == 'Seveso seuil bas']['Distance'].value_counts(bins=distance_bins, sort=False).sort_index()
+statut_seveso_bas_counts = df[df['Statut_Sev'] == 'Seveso seuil bas']['Distance'].value_counts(bins=distance_bins, sort=False).sort_index()
 
 # Plot the histogram for distances
 plt.figure(figsize=(10, 5))
