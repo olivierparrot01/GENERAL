@@ -1,11 +1,9 @@
 import streamlit as st
 import pandas as pd
-import matplotlib.pyplot as plt
 import numpy as np
 
 # Load data from CSV file
-df= pd.read_csv('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/1geocodage.csv')
-
+df = pd.read_csv('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/1geocodage.csv')
 
 # Define distance bins (100 m interval)
 distance_bins = list(range(0, 1001, 100))
@@ -17,30 +15,35 @@ hist_data = df['Distance'].value_counts(bins=distance_bins, sort=False)
 statut_ied_counts = df[df['Statut_IED'] == 'Oui']['Distance'].value_counts(bins=distance_bins, sort=False).sort_index()
 
 # Calculate the count for 'Seveso seuil haut' in each distance category
-statut_seveso_haut_counts = df[df['Statut_Sev'] == 'Seveso seuil haut']['Distance'].value_counts(bins=distance_bins, sort=False).sort_index()
+statut_seveso_haut_counts = df[df['Statut_Seveso'] == 'Seveso seuil haut']['Distance'].value_counts(bins=distance_bins, sort=False).sort_index()
 
 # Calculate the count for 'Seveso seuil bas' in each distance category
-statut_seveso_bas_counts = df[df['Statut_Sev'] == 'Seveso seuil bas']['Distance'].value_counts(bins=distance_bins, sort=False).sort_index()
+statut_seveso_bas_counts = df[df['Statut_Seveso'] == 'Seveso seuil bas']['Distance'].value_counts(bins=distance_bins, sort=False).sort_index()
 
-# Plot the histogram for distances
-plt.figure(figsize=(10, 5))
-plt.subplot(1, 2, 1)
-plt.bar(hist_data.index.mid, hist_data.values)
-plt.xlabel('Distance (m)')
-plt.ylabel('Count')
-plt.title('Distance Histogram (100 m intervals)')
-plt.xticks(rotation=45)
+# Show the table for distances
+st.write("Distance Histogram (100 m intervals)")
+st.table(hist_data)
 
-# Plot the counts for 'Statut_IED' in each distance category
-plt.subplot(1, 2, 2)
-plt.bar(statut_ied_counts.index.mid, statut_ied_counts.values, label='Statut_IED')
-plt.bar(statut_seveso_haut_counts.index.mid, statut_seveso_haut_counts.values, label='Seveso seuil haut', alpha=0.7)
-plt.bar(statut_seveso_bas_counts.index.mid, statut_seveso_bas_counts.values, label='Seveso seuil bas', alpha=0.7)
-plt.xlabel('Distance (m)')
-plt.ylabel('Count')
-plt.title('Counts in Each Distance Category')
-plt.legend()
-plt.xticks(rotation=45)
+# Show the table for 'Statut_IED' counts
+st.write("Counts of 'Statut_IED' in Each Distance Category")
+st.table(statut_ied_counts)
 
-# Show the plot in Streamlit
-st.pyplot(plt)
+# Show the table for 'Seveso seuil haut' counts
+st.write("Counts of 'Seveso seuil haut' in Each Distance Category")
+st.table(statut_seveso_haut_counts)
+
+# Show the table for 'Seveso seuil bas' counts
+st.write("Counts of 'Seveso seuil bas' in Each Distance Category")
+st.table(statut_seveso_bas_counts)
+
+# Add download buttons for each table
+def download_button(df, label):
+    csv = df.to_csv(index=False)
+    b64 = base64.b64encode(csv.encode()).decode()
+    href = f'<a href="data:file/csv;base64,{b64}" download="{label}.csv">Download {label} as CSV</a>'
+    return href
+
+st.markdown(download_button(hist_data, 'Distance Histogram'), unsafe_allow_html=True)
+st.markdown(download_button(statut_ied_counts, 'Statut_IED Counts'), unsafe_allow_html=True)
+st.markdown(download_button(statut_seveso_haut_counts, 'Statut_Seveso_Haut Counts'), unsafe_allow_html=True)
+st.markdown(download_button(statut_seveso_bas_counts, 'Statut_Seveso_Bas Counts'), unsafe_allow_html=True)
