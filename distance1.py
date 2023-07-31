@@ -10,7 +10,7 @@ import pandas as pd
 # Supposons que vous avez déjà chargé votre fichier CSV dans le DataFrame df
 
 # Utilisez un masque booléen pour sélectionner les lignes où la colonne "score" est supérieure à 0.5
-mask = df['result_scor'] > 0.5
+mask = df['result_sco'] > 0.5
 df=df[mask]
 # Affichez les lignes sélectionnées
 print(selected_rows)
