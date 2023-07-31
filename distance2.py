@@ -41,7 +41,7 @@ bin_centers = [int(b.mid) for b in pd.cut(df['Distance'], bins=distance_bins).va
 bin_counts = df['Distance'].value_counts().sort_index().values
 
 # Draw the curve for all distance values
-ax.plot(bin_centers, bin_counts, marker='o', linestyle='-', color='blue')
+ax.plot(bin_centers[:-1], bin_counts, marker='o', linestyle='-', color='blue')
 
 # Add labels to the bars
 for bar in bars:
