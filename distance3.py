@@ -4,7 +4,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 # Load data from CSV file
-df = pd.read_csv('your_file.csv')
+df= pd.read_csv('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/1geocodage.csv')
+
 
 # Define distance bins (100 m interval)
 distance_bins = list(range(0, 1001, 100))
