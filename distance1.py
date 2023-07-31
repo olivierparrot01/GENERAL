@@ -5,7 +5,7 @@ import numpy as np
 
 # Load data from CSV file
 df = pd.read_csv('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/1geocodage.csv')              
-df=df.loc(df['result_scor']>0.5])
+df=df.loc(df['result_scor']>0.5)
 # Define distance bins (up to 1000m in 100m intervals, then >1000m)
 distance_bins = list(range(0, 1100, 100)) + [np.inf]
 
