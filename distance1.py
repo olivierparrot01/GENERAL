@@ -13,7 +13,6 @@ import pandas as pd
 mask = df['result_sco'] > 0.5
 df=df[mask]
 # Affichez les lignes sélectionnées
-print(selected_rows)
 
 df=df1.loc[float(df1['result_sco'])>0.5]
 # Define distance bins (up to 1000m in 100m intervals, then >1000m)
