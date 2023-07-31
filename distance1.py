@@ -4,7 +4,17 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 # Load data from CSV file
-df1= pd.read_csv('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/1geocodage.csv')              
+df= pd.read_csv('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/1geocodage.csv')              
+import pandas as pd
+
+# Supposons que vous avez déjà chargé votre fichier CSV dans le DataFrame df
+
+# Utilisez un masque booléen pour sélectionner les lignes où la colonne "score" est supérieure à 0.5
+mask = df['result_scor'] > 0.5
+df=df[mask]
+# Affichez les lignes sélectionnées
+print(selected_rows)
+
 df=df1.loc[float(df1['result_sco'])>0.5]
 # Define distance bins (up to 1000m in 100m intervals, then >1000m)
 distance_bins = list(range(0, 1100, 100)) + [np.inf]
