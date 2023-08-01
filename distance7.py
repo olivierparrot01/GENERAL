@@ -39,7 +39,7 @@ for criterion in selected_criteria:
         unique_values = filtered_df['result_typ'].unique()
         selected_value = st.selectbox(f"Select result_typ:", options=unique_values)
         filtered_df = filtered_df[filtered_df['result_typ'] == selected_value]
-    elif criterion == 'result_scor':
+    elif criterion == 'result_sco':
         criterion_value = st.slider("Select result_scor:", min_value=filtered_df['result_scor'].min(), max_value=filtered_df['result_scor'].max(), step=1)
         filtered_df = filtered_df[filtered_df['result_scor'] >= criterion_value]
 
