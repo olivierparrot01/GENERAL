@@ -12,7 +12,7 @@ df = df[np.isfinite(df['Distance'])]
 
 # Convert 'Distance' column to integers
 df['Distance'] = df['Distance'].astype(int)
-df = df[df['result_hou']is not null]
+
 
 # Custom format function for the dropdown menu
 def format_interval_label(interval_index):
