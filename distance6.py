@@ -1,14 +1,22 @@
 import streamlit as st
 import pandas as pd
-import matplotlib.pyplot as plt
 import numpy as np
 import base64
 
-# Load data from CSV file
+# Load data from CSV
 df = pd.read_csv('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/1geocodage.csv')
 
-# Define distance bins (100 m interval)
-distance_bins = list(range(0, 1001, 100))
+# Filter out negative and non-finite values from the 'Distance' column
+df = df[df['Distance'] >= 0]
+df = df[np.isfinite(df['Distance'])]
+
+# Convert 'Distance' column to integers
+df['Distance'] = df['Distance'].astype(int)
+
+distance_bins = np.arange(0, 1100, 100)
+
+# Add a final interval for [1000, max]
+distance_bins = np.append(distance_bins, df['Distance'].max())
 
 # Create histogram for distances
 hist_data = df['Distance'].value_counts(bins=distance_bins, sort=False)
@@ -17,10 +25,17 @@ hist_data = df['Distance'].value_counts(bins=distance_bins, sort=False)
 statut_ied_counts = df[df['Statut_IED'] == 'Oui']['Distance'].value_counts(bins=distance_bins, sort=False).sort_index()
 
 # Calculate the count for 'Seveso seuil haut' in each distance category
-statut_seveso_haut_counts = df[df['Statut_Seveso'] == 'Seveso seuil haut']['Distance'].value_counts(bins=distance_bins, sort=False).sort_index()
+statut_seveso_haut_counts = df[df['Statut_Sev'] == 'Seveso seuil haut']['Distance'].value_counts(bins=distance_bins, sort=False).sort_index()
 
 # Calculate the count for 'Seveso seuil bas' in each distance category
-statut_seveso_bas_counts = df[df['Statut_Seveso'] == 'Seveso seuil bas']['Distance'].value_counts(bins=distance_bins, sort=False).sort_index()
+statut_seveso_bas_counts = df[df['Statut_Sev'] == 'Seveso seuil bas']['Distance'].value_counts(bins=distance_bins, sort=False).sort_index()
+
+# Convert interval edges to strings
+hist_data.index = hist_data.index.astype(str)
+statut_ied_counts.index = statut_ied_counts.index.astype(str)
+statut_seveso_haut_counts.index = statut_seveso_haut_counts.index.astype(str)
+statut_seveso_bas_counts.index = statut_seveso_bas_counts.index.astype(str)
+
 
 # Create a function to convert DataFrame to CSV and get the link for download
 def get_csv_download_link(df, filename):
@@ -29,30 +44,65 @@ def get_csv_download_link(df, filename):
     href = f'<a href="data:file/csv;base64,{b64}" download="{filename}.csv">Download {filename} CSV File</a>'
     return href
 
-# Show the histogram for distances
-plt.figure(figsize=(10, 5))
-plt.subplot(1, 2, 1)
-plt.bar(hist_data.index.mid, hist_data.values)
-plt.xlabel('Distance (m)')
-plt.ylabel('Count')
-plt.title('Distance Histogram (100 m intervals)')
-plt.xticks(rotation=45)
 
-# Plot the counts for 'Statut_IED' in each distance category
-plt.subplot(1, 2, 2)
-plt.bar(statut_ied_counts.index.mid, statut_ied_counts.values, label='Statut_IED')
-plt.bar(statut_seveso_haut_counts.index.mid, statut_seveso_haut_counts.values, label='Seveso seuil haut', alpha=0.7)
-plt.bar(statut_seveso_bas_counts.index.mid, statut_seveso_bas_counts.values, label='Seveso seuil bas', alpha=0.7)
-plt.xlabel('Distance (m)')
-plt.ylabel('Count')
-plt.title('Counts in Each Distance Category')
-plt.legend()
-plt.xticks(rotation=45)
 
-# Show the plot in Streamlit
-st.pyplot(plt)
+# Show the table for distances
+st.write("Counts of ICPE tout type in Each Distance Category (100 m intervals)")
+st.table(hist_data)
 
-# Add download links for each DataFrame
-st.markdown(get_csv_download_link(df[df['Statut_IED'] == 'Oui'], 'df_statut_ied'), unsafe_allow_html=True)
-st.markdown(get_csv_download_link(df[df['Statut_Seveso'] == 'Seveso seuil haut'], 'df_statut_seveso_haut'), unsafe_allow_html=True)
-st.markdown(get_csv_download_link(df[df['Statut_Seveso'] == 'Seveso seuil bas'], 'df_statut_seveso_bas'), unsafe_allow_html=True)
+# Show the table for 'Statut_IED' counts
+st.write("Counts of 'Statut_IED' in Each Distance Category")
+st.table(statut_ied_counts)
+st.markdown(get_csv_download_link(df[df['Statut_IED'] == 'Oui'], 'df_statut_ied_all'), unsafe_allow_html=True)
+# Show the table for 'Seveso seuil haut' counts
+st.write("Counts of 'Seveso seuil haut' in Each Distance Category")
+st.table(statut_seveso_haut_counts)
+st.markdown(get_csv_download_link(df[df['Statut_Sev'] == 'Seveso seuil haut'], 'df_statut_seveso_haut_all'), unsafe_allow_html=True)
+# Show the table for 'Seveso seuil bas' counts
+st.write("Counts of 'Seveso seuil bas' in Each Distance Category")
+st.table(statut_seveso_bas_counts)
+st.markdown(get_csv_download_link(df[df['Statut_Sev'] == 'Seveso seuil bas'], 'df_statut_seveso_bas_all'), unsafe_allow_html=True)
+st.markdown(get_csv_download_link(df[df['Statut_Sev'] == 'Seveso seuil bas'], 'df_statut_seveso_bas_all'), unsafe_allow_html=True)
+
+# Create a function to filter DataFrame based on selected interval
+def filter_dataframe_by_interval(interval, statut):
+    if statut == 'Statut_IED':
+        return df[df['Distance'].between(interval.left, interval.right) & (df['Statut_IED'] == 'Oui')]
+    elif statut == 'Seveso seuil haut':
+        return df[df['Distance'].between(interval.left, interval.right) & (df['Statut_Sev'] == 'Seveso seuil haut')]
+    elif statut == 'Seveso seuil bas':
+        return df[df['Distance'].between(interval.left, interval.right) & (df['Statut_Sev'] == 'Seveso seuil bas')]
+# Custom format function for the slider
+def format_interval_value(value):
+    return f"{value * 100}"
+
+# Custom format function for the dropdown menu
+def format_interval_label(interval_index):
+    if interval_index == len(interval_indices) - 1:
+        return f"[{distance_bins[interval_index]}, max]"
+    left = distance_bins[interval_index]
+    right = distance_bins[interval_index + 1]
+    return f"[{left}, {right}]"
+
+# Create a list of formatted interval labels for the dropdown menu
+interval_indices = list(range(len(distance_bins) - 1))
+dropdown_labels = [format_interval_label(interval_index) for interval_index in interval_indices]
+
+# Add a dropdown menu to select an interval
+selected_interval_index = st.selectbox("Select an Interval:", options=interval_indices, format_func=format_interval_label)
+
+selected_interval_left = distance_bins[selected_interval_index]
+selected_interval_right = distance_bins[selected_interval_index + 1]
+
+
+if st.button(f"Download Filtered Data for Interval {selected_interval_left} to {selected_interval_right} (Statut_IED)"):
+    filtered_df_statut_ied = filter_dataframe_by_interval(pd.Interval(selected_interval_left, selected_interval_right), 'Statut_IED')
+    st.markdown(get_csv_download_link(filtered_df_statut_ied, f'df_statut_ied_interval_{selected_interval_left}_{selected_interval_right}'), unsafe_allow_html=True)
+
+if st.button(f"Download Filtered Data for Interval {selected_interval_left} to {selected_interval_right} (Seveso seuil haut)"):
+    filtered_df_statut_seveso_haut = filter_dataframe_by_interval(pd.Interval(selected_interval_left, selected_interval_right), 'Seveso seuil haut')
+    st.markdown(get_csv_download_link(filtered_df_statut_seveso_haut, f'df_statut_seveso_haut_interval_{selected_interval_left}_{selected_interval_right}'), unsafe_allow_html=True)
+
+if st.button(f"Download Filtered Data for Interval {selected_interval_left} to {selected_interval_right} (Seveso seuil bas)"):
+    filtered_df_statut_seveso_bas = filter_dataframe_by_interval(pd.Interval(selected_interval_left, selected_interval_right), 'Seveso seuil bas')
+    st.markdown(get_csv_download_link(filtered_df_statut_seveso_bas, f'df_statut_seveso_haut_interval_{selected_interval_left}_{selected_interval_right}'), unsafe_allow_html=True)
