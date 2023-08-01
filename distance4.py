@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 import base64
 
-# Load data from CSV
+# Load data from  CSV
 df = pd.read_csv('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/1geocodage.csv')
 
 # Filter out non-finite values from the 'Distance' column
