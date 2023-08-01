@@ -5,6 +5,10 @@ import base64
 
 # Load data from CSV
 df = pd.read_csv('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/1geocodage.csv')
+
+# Filter out non-finite values from the 'Distance' column
+df = df[np.isfinite(df['Distance'])]
+
 df['Distance'] =df['Distance'].astype(int)
 # Define distance bins (100 m interval)
 distance_bins = list(range(0, 1100, 100))
