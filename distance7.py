@@ -12,6 +12,41 @@ df = df[np.isfinite(df['Distance'])]
 
 # Convert 'Distance' column to integers
 df['Distance'] = df['Distance'].astype(int)
+df = df[df['result_hou']is not null]
+
+# Custom format function for the dropdown menu
+def format_interval_label(interval_index):
+    if interval_index == len(interval_indices) - 1:
+        return f"[{distance_bins[interval_index]}, max]"
+    left = distance_bins[interval_index]
+    right = distance_bins[interval_index + 1]
+    return f"[{left}, {right}]"
+
+# Create a multiselect to choose multiple criteria to filter the DataFrame
+selected_criteria = st.multiselect("Select Criteria:", options=df.columns)
+
+# Apply the selected criteria to filter the DataFrame
+filtered_df = df.copy()
+for criterion in selected_criteria:
+    # Check if the column contains numeric values
+    if pd.api.types.is_numeric_dtype(filtered_df[criterion]):
+        criterion_value = st.slider(f"Select {criterion}:", min_value=filtered_df[criterion].min(), max_value=filtered_df[criterion].max(), step=0.01)
+        filtered_df = filtered_df[filtered_df[criterion] >= criterion_value]
+    else:
+        # For non-numeric columns, allow selection from unique values
+        unique_values = filtered_df[criterion].unique()
+        selected_value = st.selectbox(f"Select {criterion}:", options=unique_values)
+        filtered_df = filtered_df[filtered_df[criterion] == selected_value]
+
+# Show the table for filtered DataFrame
+st.write("Filtered DataFrame")
+st.table(filtered_df)
+
+# Add download link for the filtered DataFrame
+st.markdown(get_csv_download_link(filtered_df, f'df_filtered'), unsafe_allow_html=True)
+
+
+
 
 # Create a slider to select rows based on the 'result_sco' column
 selected_result_sco = st.slider("Select Result Score:", min_value=df['result_sco'].min(), max_value=df['result_sco'].max(), step=0.01)
