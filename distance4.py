@@ -22,11 +22,10 @@ statut_seveso_haut_counts = df[df['Statut_Sev'] == 'Seveso seuil haut']['Distanc
 statut_seveso_bas_counts = df[df['Statut_Sev'] == 'Seveso seuil bas']['Distance'].value_counts(bins=distance_bins, sort=False).sort_index()
 
 # Update interval edges to integers
-hist_data.index = hist_data.index.astype(int)
-statut_ied_counts.index = statut_ied_counts.index.astype(int)
-statut_seveso_haut_counts.index = statut_seveso_haut_counts.index.astype(int)
-statut_seveso_bas_counts.index = statut_seveso_bas_counts.index.astype(int)
-
+hist_data.index = hist_data.index
+statut_ied_counts.index = statut_ied_counts.index
+statut_seveso_haut_counts.index = statut_seveso_haut_counts
+statut_seveso_bas_counts.index = statut_seveso_bas_counts
 # Show the table for distances
 st.write("Distance Histogram (100 m intervals)")
 st.table(hist_data)
