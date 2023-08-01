@@ -7,8 +7,7 @@ import base64
 df = pd.read_csv('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/1geocodage.csv')
 
 # Define distance bins (100 m interval)
-distance_bins = list(range(0, 1001, 100)) 
-#+ [(df['Distance'].max() + 1)]
+distance_bins = list(range(0, 1100, 100))
 
 # Create histogram for distances
 hist_data = df['Distance'].value_counts(bins=distance_bins, sort=False)
@@ -21,6 +20,12 @@ statut_seveso_haut_counts = df[df['Statut_Sev'] == 'Seveso seuil haut']['Distanc
 
 # Calculate the count for 'Seveso seuil bas' in each distance category
 statut_seveso_bas_counts = df[df['Statut_Sev'] == 'Seveso seuil bas']['Distance'].value_counts(bins=distance_bins, sort=False).sort_index()
+
+# Update interval edges to integers
+hist_data.index = hist_data.index.astype(int)
+statut_ied_counts.index = statut_ied_counts.index.astype(int)
+statut_seveso_haut_counts.index = statut_seveso_haut_counts.index.astype(int)
+statut_seveso_bas_counts.index = statut_seveso_bas_counts.index.astype(int)
 
 # Show the table for distances
 st.write("Distance Histogram (100 m intervals)")
