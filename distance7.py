@@ -11,7 +11,7 @@ import pandas as pd
 import numpy as np
 import base64
 
-# Load data from CSV file
+# Load data from CSV  file
 df = pd.read_csv('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/1geocodage.csv')
 
 # Define distance bins (100 m interval)
