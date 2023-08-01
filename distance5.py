@@ -74,16 +74,18 @@ def filter_dataframe_by_interval(interval, statut):
 def format_interval_value(value):
     return f"{value * 100}"
 
-# Custom format function for the slider
-def format_interval_value(value):
-    return f"{value * 100}"
+# Custom format function for the dropdown menu
+def format_interval_label(interval_index):
+    left = distance_bins[interval_index]
+    right = distance_bins[interval_index + 1]
+    return f"[{left}, {right}]"
 
-# Create a list of formatted interval values for the slider
-slider_values = list(range(0, 11))  # 0, 1, 2, ..., 10
-slider_labels = [format_interval_value(value) for value in slider_values]
+# Create a list of formatted interval labels for the dropdown menu
+interval_indices = list(range(len(distance_bins) - 1))
+dropdown_labels = [format_interval_label(interval_index) for interval_index in interval_indices]
 
 # Add a dropdown menu to select an interval
-selected_interval_index = st.selectbox("Select an Interval:", options=slider_values, format_func=format_interval_value)
+selected_interval_index = st.selectbox("Select an Interval:", options=interval_indices, format_func=format_interval_label)
 
 selected_interval_left = distance_bins[selected_interval_index]
 selected_interval_right = distance_bins[selected_interval_index + 1]
