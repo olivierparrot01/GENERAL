@@ -57,7 +57,10 @@ def get_csv_download_link(df, filename):
     href = f'<a href="data:file/csv;base64,{b64}" download="{filename}.csv">Download {filename} CSV File</a>'
     return href
 
-
+# Add download links for each DataFrame
+st.markdown(get_csv_download_link(df[df['Statut_IED'] == 'Oui'], 'df_statut_ied_all'), unsafe_allow_html=True)
+st.markdown(get_csv_download_link(df[df['Statut_Sev'] == 'Seveso seuil haut'], 'df_statut_seveso_haut_all'), unsafe_allow_html=True)
+st.markdown(get_csv_download_link(df[df['Statut_Sev'] == 'Seveso seuil bas'], 'df_statut_seveso_bas_all'), unsafe_allow_html=True)
 
 # Create a function to filter DataFrame based on selected interval
 def filter_dataframe_by_interval(interval, statut):
@@ -69,7 +72,7 @@ def filter_dataframe_by_interval(interval, statut):
         return df[df['Distance'].between(interval.left, interval.right) & (df['Statut_Sev'] == 'Seveso seuil bas')]
 
 # Add download links for the filtered DataFrames
-selected_interval = st.slider("Select an Interval:", min_value=0, max_value=len(distance_bins)-2, step=1)
+selected_interval = st.slider("Select an Interval:", min_value=0, max_value=len(distance_bins)-2, step=1, format="%.0f")
 selected_interval_left = distance_bins[selected_interval]
 selected_interval_right = distance_bins[selected_interval + 1]
 
