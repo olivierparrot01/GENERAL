@@ -43,8 +43,6 @@ for criterion in selected_criteria:
         selected_result_sco = st.slider("Select Result Score:", min_value=df['result_sco'].min(), max_value=df['result_sco'].max(), step=0.01)
         filtered_df = filtered_df[filtered_df['result_sco'] >= selected_result_sco]
 
-# Add download link for the filtered DataFrame
-st.markdown(get_csv_download_link(filtered_df, f'df_filtered'), unsafe_allow_html=True)
 
 # Show the table for filtered DataFrame
 #st.write("Filtered DataFrame")
@@ -88,6 +86,8 @@ statut_seveso_bas_counts.index = statut_seveso_bas_counts.index.astype(str)
 # Show the table for distances
 st.write("Counts of ICPE tout type in Each Distance Category (100 m intervals)")
 st.table(hist_data)
+# Add download link for the filtered DataFrame
+st.markdown(get_csv_download_link(filtered_df, f'df_filtered'), unsafe_allow_html=True)
 
 # Show the table for 'Statut_IED' counts
 st.write("Counts of 'Statut_IED' in Each Distance Category")
