@@ -37,16 +37,15 @@ st.table(statut_seveso_haut_counts)
 # Show the table for 'Seveso seuil bas' counts
 st.write("Counts of 'Seveso seuil bas' in Each Distance Category")
 st.table(statut_seveso_bas_counts)
-
-# Add download buttons for each table
-def download_button(df, label):
+# Create a function to convert DataFrame to CSV and get the link for download
+def get_csv_download_link(df, filename):
     csv = df.to_csv(index=False)
     b64 = base64.b64encode(csv.encode()).decode()
-    href = f'<a href="data:file/csv;base64,{b64}" download="{label}.csv">Download {label} as CSV</a>'
+    href = f'<a href="data:file/csv;base64,{b64}" download="{filename}.csv">Download {filename} CSV File</a>'
     return href
 
-st.markdown(download_button(hist_data, 'Distance Histogram'), unsafe_allow_html=True)
-st.markdown(download_button(statut_ied_counts, 'Statut_IED Counts'), unsafe_allow_html=True)
-st.markdown(download_button(statut_seveso_haut_counts, 'Statut_Seveso_Haut Counts'), unsafe_allow_html=True)
 
-
+# Add download links for each DataFrame
+st.markdown(get_csv_download_link(df[df['Statut_IED'] == 'Oui'], 'df_statut_ied'), unsafe_allow_html=True)
+st.markdown(get_csv_download_link(df[df['Statut_Sev'] == 'Seveso seuil haut'], 'df_statut_seveso_haut'), unsafe_allow_html=True)
+st.markdown(get_csv_download_link(df[df['Statut_Sev'] == 'Seveso seuil bas'], 'df_statut_seveso_bas'), unsafe_allow_html=True)
