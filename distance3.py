@@ -13,7 +13,7 @@ distance_bins = list(range(0, 1001, 100))
 # Create histogram for distances
 hist_data = df['Distance'].value_counts(bins=distance_bins, sort=False)
 
-# Calculate the count for 'Statut_IED' in each distance category
+# Calculate the  count for 'Statut_IED' in each distance category
 statut_ied_counts = df[df['Statut_IED'] == 'Oui']['Distance'].value_counts(bins=distance_bins, sort=False).sort_index()
 
 # Calculate the count for 'Seveso seuil haut' in each distance category
