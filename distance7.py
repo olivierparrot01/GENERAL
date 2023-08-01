@@ -48,7 +48,7 @@ for criterion in selected_criteria:
 #st.table(filtered_df)
 
 # Create a slider to select rows based on the 'result_sco' column
-selected_result_sco = st.slider("Select Result Score:", min_value=df['result_sco'].min(), max_value=df['result_sco'].max(), step=0.01)
+#selected_result_sco = st.slider("Select Result Score:", min_value=df['result_sco'].min(), max_value=df['result_sco'].max(), step=0.01)
 
 # Filter the DataFrame based on the selected 'result_sco' value
 #df = df[df['result_sco'] >= selected_result_sco]
