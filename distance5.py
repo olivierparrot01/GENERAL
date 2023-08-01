@@ -53,7 +53,12 @@ st.table(statut_seveso_bas_counts)
 # Create a function to filter DataFrame based on selected interval
 def filter_dataframe_by_interval(interval):
     return df[df['Distance'].isin(pd.interval_range(interval.left, interval.right))]
-
+# Create a function to convert DataFrame to CSV and get the link for download
+def get_csv_download_link(df, filename):
+    csv = df.to_csv(index=False)
+    b64 = base64.b64encode(csv.encode()).decode()
+    href = f'<a href="data:file/csv;base64,{b64}" download="{filename}.csv">Download {filename} CSV File</a>'
+    return href
 # Add download links for the filtered DataFrames
 selected_interval = st.slider("Select an Interval:", min_value=0, max_value=len(distance_bins)-2, step=1)
 selected_interval_left = distance_bins[selected_interval]
