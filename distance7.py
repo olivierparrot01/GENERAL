@@ -30,20 +30,18 @@ def format_interval_label(interval_index):
     return f"[{left}, {right}]"
 
 # Create a multiselect to choose multiple criteria to filter the DataFrame
-selected_criteria = st.multiselect("Select Criteria:", options=df.columns)
+selected_criteria = st.multiselect("Select Criteria:", options=['result_typ', 'result_scor'])
 
 # Apply the selected criteria to filter the DataFrame
 filtered_df = df.copy()
 for criterion in selected_criteria:
-    # Check if the column contains numeric values
-    if pd.api.types.is_numeric_dtype(filtered_df[criterion]):
-        criterion_value = st.slider(f"Select {criterion}:", min_value=filtered_df[criterion].min(), max_value=filtered_df[criterion].max(), step=0.01)
-        filtered_df = filtered_df[filtered_df[criterion] >= criterion_value]
-    else:
-        # For non-numeric columns, allow selection from unique values
-        unique_values = filtered_df[criterion].unique()
-        selected_value = st.selectbox(f"Select {criterion}:", options=unique_values)
-        filtered_df = filtered_df[filtered_df[criterion] == selected_value]
+    if criterion == 'result_typ':
+        unique_values = filtered_df['result_typ'].unique()
+        selected_value = st.selectbox(f"Select result_typ:", options=unique_values)
+        filtered_df = filtered_df[filtered_df['result_typ'] == selected_value]
+    elif criterion == 'result_scor':
+        criterion_value = st.slider("Select result_scor:", min_value=filtered_df['result_scor'].min(), max_value=filtered_df['result_scor'].max(), step=1)
+        filtered_df = filtered_df[filtered_df['result_scor'] >= criterion_value]
 
 # Show the table for filtered DataFrame
 st.write("Filtered DataFrame")
