@@ -13,6 +13,13 @@ df = df[np.isfinite(df['Distance'])]
 # Convert 'Distance' column to integers
 df['Distance'] = df['Distance'].astype(int)
 
+# Create a function to convert DataFrame to CSV and get the link for download
+def get_csv_download_link(df, filename):
+    csv = df.to_csv(index=False)
+    b64 = base64.b64encode(csv.encode()).decode()
+    href = f'<a href="data:file/csv;base64,{b64}" download="{filename}.csv">Download {filename} CSV File</a>'
+    return href
+
 
 # Custom format function for the dropdown menu
 def format_interval_label(interval_index):
@@ -77,13 +84,6 @@ statut_ied_counts.index = statut_ied_counts.index.astype(str)
 statut_seveso_haut_counts.index = statut_seveso_haut_counts.index.astype(str)
 statut_seveso_bas_counts.index = statut_seveso_bas_counts.index.astype(str)
 
-
-# Create a function to convert DataFrame to CSV and get the link for download
-def get_csv_download_link(df, filename):
-    csv = df.to_csv(index=False)
-    b64 = base64.b64encode(csv.encode()).decode()
-    href = f'<a href="data:file/csv;base64,{b64}" download="{filename}.csv">Download {filename} CSV File</a>'
-    return href
 
 
 
