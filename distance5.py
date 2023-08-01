@@ -60,7 +60,7 @@ def get_csv_download_link(df, filename):
     href = f'<a href="data:file/csv;base64,{b64}" download="{filename}.csv">Download {filename} CSV File</a>'
     return href
 # Add download links for the filtered DataFrames
-selected_interval = st.slider("Select an Interval:", min_value=0, max_value=len(distance_bins)-2, step=1)
+selected_interval = st.slider("Select an Interval:", min_value=100, max_value=1000, step=100)
 selected_interval_left = distance_bins[selected_interval]
 selected_interval_right = distance_bins[selected_interval + 1]
 
