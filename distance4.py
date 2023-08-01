@@ -7,6 +7,7 @@ import base64
 df = pd.read_csv('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/1geocodage.csv')
 
 # Filter out non-finite values from the 'Distance' column
+df = df[df['Distance'] >= 0]
 df = df[np.isfinite(df['Distance'])]
 
 df['Distance'] =df['Distance'].astype(int)
