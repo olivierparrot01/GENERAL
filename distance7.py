@@ -47,17 +47,17 @@ for criterion in selected_criteria:
 #st.write("Filtered DataFrame")
 #st.table(filtered_df)
 
-# Add download link for the filtered DataFrame
-st.markdown(get_csv_download_link(filtered_df, f'df_filtered'), unsafe_allow_html=True)
-
-
-
-
 # Create a slider to select rows based on the 'result_sco' column
 selected_result_sco = st.slider("Select Result Score:", min_value=df['result_sco'].min(), max_value=df['result_sco'].max(), step=0.01)
 
 # Filter the DataFrame based on the selected 'result_sco' value
-df = df[df['result_sco'] >= selected_result_sco]
+#df = df[df['result_sco'] >= selected_result_sco]
+
+# Add download link for the filtered DataFrame
+st.markdown(get_csv_download_link(filtered_df, f'df_filtered'), unsafe_allow_html=True)
+
+df=filtered_df
+
 
 distance_bins = np.arange(0, 1100, 100)
 
