@@ -35,7 +35,7 @@ statut_seveso_haut_counts.index = statut_seveso_haut_counts.index.astype(str)
 statut_seveso_bas_counts.index = statut_seveso_bas_counts.index.astype(str)
 
 # Show the table for distances
-st.write("Distance Histogram (100 m intervals)")
+st.write(""Counts of ICPE tout type in Each Distance Category" (100 m intervals)")
 st.table(hist_data)
 
 # Show the table for 'Statut_IED' counts
