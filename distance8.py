@@ -15,10 +15,10 @@ hist_data = df['Distance'].value_counts(bins=distance_bins, sort=False)
 statut_ied_counts = df[df['Statut_IED'] == 'Oui']['Distance'].value_counts(bins=distance_bins, sort=False).sort_index()
 
 # Calculate the count for 'Seveso seuil haut' in each distance category
-statut_seveso_haut_counts = df[df['Statut_Seveso'] == 'Seveso seuil haut']['Distance'].value_counts(bins=distance_bins, sort=False).sort_index()
+statut_seveso_haut_counts = df[df['Statut_Sev'] == 'Seveso seuil haut']['Distance'].value_counts(bins=distance_bins, sort=False).sort_index()
 
 # Calculate the count for 'Seveso seuil bas' in each distance category
-statut_seveso_bas_counts = df[df['Statut_Seveso'] == 'Seveso seuil bas']['Distance'].value_counts(bins=distance_bins, sort=False).sort_index()
+statut_seveso_bas_counts = df[df['Statut_Sev'] == 'Seveso seuil bas']['Distance'].value_counts(bins=distance_bins, sort=False).sort_index()
 
 # Create a function to convert DataFrame to CSV and get the link for download
 def get_csv_download_link(df, filename):
@@ -30,5 +30,5 @@ def get_csv_download_link(df, filename):
 
 # Add download links for each DataFrame
 st.markdown(get_csv_download_link(df[df['Statut_IED'] == 'Oui'], 'df_statut_ied'), unsafe_allow_html=True)
-st.markdown(get_csv_download_link(df[df['Statut_Seveso'] == 'Seveso seuil haut'], 'df_statut_seveso_haut'), unsafe_allow_html=True)
-st.markdown(get_csv_download_link(df[df['Statut_Seveso'] == 'Seveso seuil bas'], 'df_statut_seveso_bas'), unsafe_allow_html=True)
+st.markdown(get_csv_download_link(df[df['Statut_Sev'] == 'Seveso seuil haut'], 'df_statut_seveso_haut'), unsafe_allow_html=True)
+st.markdown(get_csv_download_link(df[df['Statut_Sev'] == 'Seveso seuil bas'], 'df_statut_seveso_bas'), unsafe_allow_html=True)
