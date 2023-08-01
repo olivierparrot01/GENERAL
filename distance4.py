@@ -3,16 +3,18 @@ import pandas as pd
 import numpy as np
 import base64
 
-# Load data from  CSV
+# Load data from CSV
 df = pd.read_csv('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/1geocodage.csv')
 
-# Filter out non-finite values from the 'Distance' column
+# Filter out negative and non-finite values from the 'Distance' column
 df = df[df['Distance'] >= 0]
 df = df[np.isfinite(df['Distance'])]
 
-df['Distance'] =df['Distance'].astype(int)
-# Define distance bins (100 m interval)
-distance_bins = list(range(0, 1100, 100))
+# Convert 'Distance' column to integers
+df['Distance'] = df['Distance'].astype(int)
+
+# Define custom distance bins (100 m interval)
+distance_bins = np.arange(0, 1100, 100)
 
 # Create histogram for distances
 hist_data = df['Distance'].value_counts(bins=distance_bins, sort=False)
@@ -26,11 +28,12 @@ statut_seveso_haut_counts = df[df['Statut_Sev'] == 'Seveso seuil haut']['Distanc
 # Calculate the count for 'Seveso seuil bas' in each distance category
 statut_seveso_bas_counts = df[df['Statut_Sev'] == 'Seveso seuil bas']['Distance'].value_counts(bins=distance_bins, sort=False).sort_index()
 
-# Update interval edges to integers
-hist_data.index = hist_data.index
-statut_ied_counts.index = statut_ied_counts.index
-statut_seveso_haut_counts.index = statut_seveso_haut_counts
-statut_seveso_bas_counts.index = statut_seveso_bas_counts
+# Convert interval edges to strings
+hist_data.index = hist_data.index.astype(str)
+statut_ied_counts.index = statut_ied_counts.index.astype(str)
+statut_seveso_haut_counts.index = statut_seveso_haut_counts.index.astype(str)
+statut_seveso_bas_counts.index = statut_seveso_bas_counts.index.astype(str)
+
 # Show the table for distances
 st.write("Distance Histogram (100 m intervals)")
 st.table(hist_data)
