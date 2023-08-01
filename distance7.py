@@ -146,4 +146,4 @@ if st.button(f"Download Filtered Data for Interval {selected_interval_left} to {
 
 if st.button(f"Download Filtered Data for Interval {selected_interval_left} to {selected_interval_right} ICPE tout type"):
     filtered_df_statut_seveso_bas = filter_dataframe_by_interval(pd.Interval(selected_interval_left, selected_interval_right), 'ICPE tout type')
-    st.markdown(get_csv_download_link(filtered_df, f'df_statut_seveso_haut_interval_{selected_interval_left}_{selected_interval_right}'), unsafe_allow_html=True)
+    st.markdown(get_csv_download_link(filtered_df, f'ICPE tout type_interval_{selected_interval_left}_{selected_interval_right}'), unsafe_allow_html=True)
