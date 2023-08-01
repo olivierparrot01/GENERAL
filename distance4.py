@@ -29,7 +29,7 @@ statut_seveso_haut_counts = df[df['Statut_Sev'] == 'Seveso seuil haut']['Distanc
 statut_seveso_bas_counts = df[df['Statut_Sev'] == 'Seveso seuil bas']['Distance'].value_counts(bins=distance_bins, sort=False).sort_index()
 
 # Convert interval edges to strings
-hist_data.index = hist_data.index.astype(str)
+hist_data.index = hist_data.index.astype(int)
 statut_ied_counts.index = statut_ied_counts.index.astype(str)
 statut_seveso_haut_counts.index = statut_seveso_haut_counts.index.astype(str)
 statut_seveso_bas_counts.index = statut_seveso_bas_counts.index.astype(str)
