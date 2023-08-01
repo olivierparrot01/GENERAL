@@ -10,7 +10,7 @@ df = pd.read_csv('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/1g
 # Define di stance bins (100 m interval)
 distance_bins = list(range(0, 1001, 100))
 
-# Create histogram for distances
+# Create histogram for  distances
 hist_data = df['Distance'].value_counts(bins=distance_bins, sort=False)
 
 # Calculate the  count for 'Statut_IED' in each distance category
