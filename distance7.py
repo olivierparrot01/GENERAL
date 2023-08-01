@@ -1,4 +1,4 @@
-import streamlit as st
+#import streamlit as st
 import pandas as pd
 import numpy as np
 import base64
@@ -44,8 +44,8 @@ for criterion in selected_criteria:
         filtered_df = filtered_df[filtered_df['result_scor'] >= criterion_value]
 
 # Show the table for filtered DataFrame
-st.write("Filtered DataFrame")
-st.table(filtered_df)
+#st.write("Filtered DataFrame")
+#st.table(filtered_df)
 
 # Add download link for the filtered DataFrame
 st.markdown(get_csv_download_link(filtered_df, f'df_filtered'), unsafe_allow_html=True)
