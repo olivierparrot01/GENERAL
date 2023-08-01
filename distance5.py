@@ -71,10 +71,15 @@ def filter_dataframe_by_interval(interval, statut):
     elif statut == 'Seveso seuil bas':
         return df[df['Distance'].between(interval.left, interval.right) & (df['Statut_Sev'] == 'Seveso seuil bas')]
 
+# Custom format function for the slider
+def format_interval_value(value):
+    return f"{value * 100}"
+
 # Add download links for the filtered DataFrames
-selected_interval = st.slider("Select an Interval:", min_value=0, max_value=len(distance_bins)-2, step=1, format="%d00")
+selected_interval = st.slider("Select an Interval:", min_value=0, max_value=len(distance_bins)-2, step=1, format_func=format_interval_value)
 selected_interval_left = distance_bins[selected_interval]
 selected_interval_right = distance_bins[selected_interval + 1]
+
 
 if st.button(f"Download Filtered Data for Interval {selected_interval_left} to {selected_interval_right} (Statut_IED)"):
     filtered_df_statut_ied = filter_dataframe_by_interval(pd.Interval(selected_interval_left, selected_interval_right), 'Statut_IED')
