@@ -74,14 +74,20 @@ def filter_dataframe_by_interval(interval, statut):
 def format_interval_value(value):
     return f"{value * 100}"
 
+# Custom format function for the slider
+def format_interval_value(value):
+    return f"{value * 100}"
+
 # Create a list of formatted interval values for the slider
 slider_values = list(range(0, 11))  # 0, 1, 2, ..., 10
 slider_labels = [format_interval_value(value) for value in slider_values]
 
-# Add download links for the filtered DataFrames
-selected_interval_index = st.slider("Select an Interval:", min_value=0, max_value=len(distance_bins)-2, step=1, value=0, format="%.0f", key="slider", options=slider_values, labels=slider_labels)
+# Add a dropdown menu to select an interval
+selected_interval_index = st.selectbox("Select an Interval:", options=slider_values, format_func=format_interval_value)
+
 selected_interval_left = distance_bins[selected_interval_index]
 selected_interval_right = distance_bins[selected_interval_index + 1]
+
 
 if st.button(f"Download Filtered Data for Interval {selected_interval_left} to {selected_interval_right} (Statut_IED)"):
     filtered_df_statut_ied = filter_dataframe_by_interval(pd.Interval(selected_interval_left, selected_interval_right), 'Statut_IED')
