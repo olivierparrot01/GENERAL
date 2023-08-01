@@ -72,7 +72,7 @@ def filter_dataframe_by_interval(interval, statut):
         return df[df['Distance'].between(interval.left, interval.right) & (df['Statut_Sev'] == 'Seveso seuil bas')]
 
 # Add download links for the filtered DataFrames
-selected_interval = st.slider("Select an Interval:", min_value=0, max_value=len(distance_bins)-2, step=1, format="%.0f")
+selected_interval = st.slider("Select an Interval:", min_value=0, max_value=len(distance_bins)-2, step=1, format_func=lambda x: f"{x*100}")
 selected_interval_left = distance_bins[selected_interval]
 selected_interval_right = distance_bins[selected_interval + 1]
 
@@ -82,8 +82,4 @@ if st.button(f"Download Filtered Data for Interval {selected_interval_left} to {
 
 if st.button(f"Download Filtered Data for Interval {selected_interval_left} to {selected_interval_right} (Seveso seuil haut)"):
     filtered_df_statut_seveso_haut = filter_dataframe_by_interval(pd.Interval(selected_interval_left, selected_interval_right), 'Seveso seuil haut')
-    st.markdown(get_csv_download_link(filtered_df_statut_seveso_haut, f'df_statut_seveso_haut_interval_{selected_interval_left}_{selected_interval_right}'), unsafe_allow_html=True)
-
-if st.button(f"Download Filtered Data for Interval {selected_interval_left} to {selected_interval_right} (Seveso seuil bas)"):
-    filtered_df_statut_seveso_bas = filter_dataframe_by_interval(pd.Interval(selected_interval_left, selected_interval_right), 'Seveso seuil bas')
-    st.markdown(get_csv_download_link(filtered_df_statut_seveso_bas, f'df_statut_seveso_bas_interval_{selected_interval_left}_{selected_interval_right}'), unsafe_allow_html=True)
+   
