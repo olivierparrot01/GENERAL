@@ -48,5 +48,5 @@ def download_button(df, label):
 st.markdown(download_button(hist_data, 'Distance Histogram'), unsafe_allow_html=True)
 st.markdown(download_button(statut_ied_counts, 'Statut_IED Counts'), unsafe_allow_html=True)
 st.markdown(download_button(statut_seveso_haut_counts, 'Statut_Seveso_Haut Counts'), unsafe_allow_html=True)
-st.markdown(download_button(statut_seveso_bas_counts, 'Statut_Seveso_Bas Counts'), unsafe_allow_html=True)
+
 
