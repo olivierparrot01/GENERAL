@@ -30,7 +30,7 @@ def format_interval_label(interval_index):
     return f"[{left}, {right}]"
 
 # Create a multiselect to choose multiple criteria to filter the DataFrame
-selected_criteria = st.multiselect("Select Criteria:", options=['result_typ', 'result_sco'])
+selected_criteria = st.multiselect("Selectionner les critères:", options=['result_typ', 'result_sco'])
 
 # Apply the selected criteria to filter the DataFrame
 filtered_df = df.copy()
@@ -43,6 +43,8 @@ for criterion in selected_criteria:
         selected_result_sco = st.slider("Select Result Score:", min_value=df['result_sco'].min(), max_value=df['result_sco'].max(), step=0.01)
         filtered_df = filtered_df[filtered_df['result_sco'] >= selected_result_sco]
 
+# Add download link for the filtered DataFrame
+st.markdown(get_csv_download_link(filtered_df, f'df_filtered'), unsafe_allow_html=True)
 
 # Show the table for filtered DataFrame
 #st.write("Filtered DataFrame")
@@ -53,9 +55,6 @@ for criterion in selected_criteria:
 
 # Filter the DataFrame based on the selected 'result_sco' value
 #df = df[df['result_sco'] >= selected_result_sco]
-
-# Add download link for the filtered DataFrame
-st.markdown(get_csv_download_link(filtered_df, f'df_filtered'), unsafe_allow_html=True)
 
 df=filtered_df
 
