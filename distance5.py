@@ -57,10 +57,7 @@ def get_csv_download_link(df, filename):
     href = f'<a href="data:file/csv;base64,{b64}" download="{filename}.csv">Download {filename} CSV File</a>'
     return href
 
-# Add download links for each DataFrame
-st.markdown(get_csv_download_link(df[df['Statut_IED'] == 'Oui'], 'df_statut_ied_all'), unsafe_allow_html=True)
-st.markdown(get_csv_download_link(df[df['Statut_Sev'] == 'Seveso seuil haut'], 'df_statut_seveso_haut_all'), unsafe_allow_html=True)
-st.markdown(get_csv_download_link(df[df['Statut_Sev'] == 'Seveso seuil bas'], 'df_statut_seveso_bas_all'), unsafe_allow_html=True)
+
 
 # Create a function to filter DataFrame based on selected interval
 def filter_dataframe_by_interval(interval, statut):
