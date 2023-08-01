@@ -13,6 +13,12 @@ df = df[np.isfinite(df['Distance'])]
 # Convert 'Distance' column to integers
 df['Distance'] = df['Distance'].astype(int)
 
+# Create a slider to select rows based on the 'result_sco' column
+selected_result_sco = st.slider("Select Result Score:", min_value=df['result_sco'].min(), max_value=df['result_sco'].max(), step=0.01)
+
+# Filter the DataFrame based on the selected 'result_sco' value
+df = df[df['result_sco'] >= selected_result_sco]
+
 distance_bins = np.arange(0, 1100, 100)
 
 # Add a final interval for [1000, max]
