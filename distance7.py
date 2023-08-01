@@ -78,9 +78,7 @@ def filter_dataframe_by_interval(interval, statut):
         return df[df['Distance'].between(interval.left, interval.right) & (df['Statut_Sev'] == 'Seveso seuil haut')]
     elif statut == 'Seveso seuil bas':
         return df[df['Distance'].between(interval.left, interval.right) & (df['Statut_Sev'] == 'Seveso seuil bas')]
-# Custom format function for the slider
-def format_interval_value(value):
-    return f"{value * 100}"
+
 
 # Custom format function for the dropdown menu
 def format_interval_label(interval_index):
