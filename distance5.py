@@ -13,8 +13,10 @@ df = df[np.isfinite(df['Distance'])]
 # Convert 'Distance' column to integers
 df['Distance'] = df['Distance'].astype(int)
 
-# Define custom distance bins (100 m interval)
 distance_bins = np.arange(0, 1100, 100)
+
+# Add a final interval for [1000, max]
+distance_bins = np.append(distance_bins, df['Distance'].max())
 
 # Create histogram for distances
 hist_data = df['Distance'].value_counts(bins=distance_bins, sort=False)
@@ -76,6 +78,8 @@ def format_interval_value(value):
 
 # Custom format function for the dropdown menu
 def format_interval_label(interval_index):
+    if interval_index == len(interval_indices) - 1:
+        return f"[{distance_bins[interval_index]}, max]"
     left = distance_bins[interval_index]
     right = distance_bins[interval_index + 1]
     return f"[{left}, {right}]"
