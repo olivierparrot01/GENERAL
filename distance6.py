@@ -62,7 +62,7 @@ st.markdown(get_csv_download_link(df[df['Statut_Sev'] == 'Seveso seuil haut'], '
 st.write("Counts of 'Seveso seuil bas' in Each Distance Category")
 st.table(statut_seveso_bas_counts)
 st.markdown(get_csv_download_link(df[df['Statut_Sev'] == 'Seveso seuil bas'], 'df_statut_seveso_bas_all'), unsafe_allow_html=True)
-st.markdown(get_csv_download_link(df[df['Statut_Sev'] == 'Seveso seuil bas'], 'df_statut_seveso_bas_all'), unsafe_allow_html=True)
+
 
 # Create a function to filter DataFrame based on selected interval
 def filter_dataframe_by_interval(interval, statut):
