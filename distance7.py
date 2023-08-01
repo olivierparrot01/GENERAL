@@ -4,7 +4,7 @@ import numpy as np
 import base64
 
 # Load data from CSV
-df = pd.read_csv('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/1geocodage.csv')
+df = pd.read_csv('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/2geocodage.csv')
 
 # Filter out negative and non-finite values from the 'Distance' column
 df = df[df['Distance'] >= 0]
