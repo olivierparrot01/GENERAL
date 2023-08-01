@@ -63,8 +63,10 @@ if st.button("Download Filtered Data"):
     filtered_df_statut_ied = filter_dataframe_by_interval(pd.Interval(selected_interval_left, selected_interval_right))
     st.markdown(get_csv_download_link(filtered_df_statut_ied, f'df_statut_ied_interval_{selected_interval_left}_{selected_interval_right}'), unsafe_allow_html=True)
 
+if st.button("Download Filtered Data"):
     filtered_df_statut_seveso_haut = filter_dataframe_by_interval(pd.Interval(selected_interval_left, selected_interval_right))
     st.markdown(get_csv_download_link(filtered_df_statut_seveso_haut, f'df_statut_seveso_haut_interval_{selected_interval_left}_{selected_interval_right}'), unsafe_allow_html=True)
 
+if st.button("Download Filtered Data"):
     filtered_df_statut_seveso_bas = filter_dataframe_by_interval(pd.Interval(selected_interval_left, selected_interval_right))
     st.markdown(get_csv_download_link(filtered_df_statut_seveso_bas, f'df_statut_seveso_bas_interval_{selected_interval_left}_{selected_interval_right}'), unsafe_allow_html=True)
