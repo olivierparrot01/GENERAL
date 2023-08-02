@@ -34,6 +34,7 @@ def format_interval_label(interval_index):
 
 # Create a multiselect to choose multiple criteria to filter the DataFrame
 st.markdown("<h2 style='font-size:22px;'>Filtrer le fichier de géocodage selon le type de réponse de l'API et le score</h2>", unsafe_allow_html=True)
+st.markdown("<h2 style='font-size:10px;'>(le filtre n'est pas obligatoire) 
 selected_criteria = st.multiselect("", options=['result_typ', 'result_sco'])
 
 # Apply the selected criteria to filter the DataFrame
@@ -141,7 +142,7 @@ interval_indices = list(range(len(distance_bins) - 1))
 dropdown_labels = [format_interval_label(interval_index) for interval_index in interval_indices]
 
 # Add a dropdown menu to select an interval
-st.markdown("<h2 style='font-size:18px;'>Choisir un intervalle :</h2>", unsafe_allow_html=True)
+st.markdown("<h2 style='font-size:18px;'>Télécharger les données pour un intervalle particulier :</h2>", unsafe_allow_html=True)
 selected_interval_index = st.selectbox("", options=interval_indices, format_func=format_interval_label)
 
 
