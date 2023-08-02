@@ -112,7 +112,7 @@ def filter_dataframe_by_interval(interval, statut):
     elif statut == 'Seveso seuil bas':
         return df[df['Distance'].between(interval.left, interval.right) & (df['Statut_Sev'] == 'Seveso seuil bas')]
     if statut == 'Code_AIOT':
-        return df[df['Distance'].between(interval.left, interval.right) & (df['Code_AIOT'].notna())
+        return df[df['Distance'].between(interval.left, interval.right) & (df['Code_AIOT'].notna())]
 
 # Custom format function for the dropdown menu
 def format_interval_label(interval_index):
