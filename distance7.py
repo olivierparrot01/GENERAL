@@ -88,21 +88,21 @@ statut_seveso_bas_counts.index = statut_seveso_bas_counts.index.astype(str)
 
 
 # Show the table for distances
-st.write("Counts of ICPE tout type in Each Distance Category (100 m intervals)")
+st.write("Nb ICPE tout type par intervalle de distance (par rapport à GUN)")
 st.table(hist_data)
 # Add download link for the filtered DataFrame
 st.markdown(get_csv_download_link(filtered_df, f'df_filtered'), unsafe_allow_html=True)
 
 # Show the table for 'Statut_IED' counts
-st.write("Counts of 'Statut_IED' in Each Distance Category")
+st.write("Nb ICPE 'IED' par intervalle de distance (par rapport à GUN)")
 st.table(statut_ied_counts)
 st.markdown(get_csv_download_link(df[df['Statut_IED'] == 'Oui'], 'df_statut_ied_all'), unsafe_allow_html=True)
 # Show the table for 'Seveso seuil haut' counts
-st.write("Counts of 'Seveso seuil haut' in Each Distance Category")
+st.write("Nb ICPE 'Seveso seuil' haut par intervalle de distance (par rapport à GUN)")
 st.table(statut_seveso_haut_counts)
 st.markdown(get_csv_download_link(df[df['Statut_Sev'] == 'Seveso seuil haut'], 'df_statut_seveso_haut_all'), unsafe_allow_html=True)
 # Show the table for 'Seveso seuil bas' counts
-st.write("Counts of 'Seveso seuil bas' in Each Distance Category")
+st.write("Nb ICPE 'Seveso seuil bas' par intervalle de distance (par rapport à GUN)")
 st.table(statut_seveso_bas_counts)
 st.markdown(get_csv_download_link(df[df['Statut_Sev'] == 'Seveso seuil bas'], 'df_statut_seveso_bas_all'), unsafe_allow_html=True)
 
