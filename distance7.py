@@ -91,7 +91,7 @@ statut_seveso_bas_counts.index = statut_seveso_bas_counts.index.astype(str)
 # st.write("Nb ICPE tout type par intervalle de distance (par rapport à GUN)")
 # Create a multiselect to choose multiple criteria to filter the DataFrame
 st.markdown("<h2 style='font-size:18px;'>Nb ICPE de tout type par intervalle de distance en m (par rapport à GUN)</h2>", unsafe_allow_html=True)
-selected_criteria = st.multiselect("", options=['result_typ', 'result_sco'])
+#selected_criteria = st.multiselect("", options=['result_typ', 'result_sco'])
 
 st.table(hist_data)
 # Add download link for the filtered DataFrame
