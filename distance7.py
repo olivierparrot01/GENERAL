@@ -141,8 +141,9 @@ interval_indices = list(range(len(distance_bins) - 1))
 dropdown_labels = [format_interval_label(interval_index) for interval_index in interval_indices]
 
 # Add a dropdown menu to select an interval
-selected_interval_index = st.selectbox("", options=interval_indices, format_func=format_interval_label)
 st.markdown("<h2 style='font-size:18px;'>Choisir un intervalle</h2>", unsafe_allow_html=True)
+selected_interval_index = st.selectbox("", options=interval_indices, format_func=format_interval_label)
+
 
 selected_interval_left = distance_bins[selected_interval_index]
 selected_interval_right = distance_bins[selected_interval_index + 1]
