@@ -89,7 +89,7 @@ statut_seveso_bas_counts.index = statut_seveso_bas_counts.index.astype(str)
 
 # Show the table for distances
 # st.write("Nb ICPE tout type par intervalle de distance (par rapport à GUN)")
-# Create a multiselect to choose multiple criteria to filter the DataFrame
+
 st.markdown("<h2 style='font-size:18px;'>Nb ICPE de tout type par intervalle de distance en m (par rapport à GUN)</h2>", unsafe_allow_html=True)
 #selected_criteria = st.multiselect("", options=['result_typ', 'result_sco'])
 
@@ -98,15 +98,20 @@ st.table(hist_data)
 st.markdown(get_csv_download_link(filtered_df, f'fichier geocodage correspondant'), unsafe_allow_html=True)
 
 # Show the table for 'Statut_IED' counts
-st.write("Nb ICPE 'IED' par intervalle de distance (par rapport à GUN)")
+st.markdown("<h2 style='font-size:18px;'>Nb ICPE 'IED' par intervalle de distance en m (par rapport à GUN)</h2>", unsafe_allow_html=True)
+
+#st.write("Nb ICPE 'IED' par intervalle de distance (par rapport à GUN)")
 st.table(statut_ied_counts)
 st.markdown(get_csv_download_link(df[df['Statut_IED'] == 'Oui'], 'fichier geocodage correspondant'), unsafe_allow_html=True)
 # Show the table for 'Seveso seuil haut' counts
-st.write("Nb ICPE 'Seveso seuil' haut par intervalle de distance (par rapport à GUN)")
+st.markdown("<h2 style='font-size:18px;'>Nb ICPE 'Seveso seuil haut'  par intervalle de distance en m (par rapport à GUN)</h2>", unsafe_allow_html=True)
+#st.write("Nb ICPE 'Seveso seuil' haut par intervalle de distance (par rapport à GUN)")
 st.table(statut_seveso_haut_counts)
 st.markdown(get_csv_download_link(df[df['Statut_Sev'] == 'Seveso seuil haut'], 'fichier geocodage correspondant'), unsafe_allow_html=True)
 # Show the table for 'Seveso seuil bas' counts
-st.write("Nb ICPE 'Seveso seuil bas' par intervalle de distance (par rapport à GUN)")
+st.markdown("<h2 style='font-size:18px;'>Nb ICPE 'Seveso seuil bas'  par intervalle de distance en m (par rapport à GUN)</h2>", unsafe_allow_html=True)
+
+#st.write("Nb ICPE 'Seveso seuil bas' par intervalle de distance (par rapport à GUN)")
 st.table(statut_seveso_bas_counts)
 st.markdown(get_csv_download_link(df[df['Statut_Sev'] == 'Seveso seuil bas'], 'fichier geocodage correspondant'), unsafe_allow_html=True)
 
