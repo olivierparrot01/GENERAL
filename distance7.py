@@ -47,7 +47,7 @@ for criterion in selected_criteria:
         selected_value = st.selectbox(f"", options=unique_values)
         filtered_df = filtered_df[filtered_df['result_typ'] == selected_value]
     elif criterion == 'result_sco':
-        selected_result_sco = st.slider("", min_value=df['result_sco'].min(), max_value=df['result_sco'].max(), step=0.01)
+        selected_result_sco = st.slider("Le score est supérieur ou égal à :", min_value=df['result_sco'].min(), max_value=df['result_sco'].max(), step=0.01)
         filtered_df = filtered_df[filtered_df['result_sco'] >= selected_result_sco]
 
 
