@@ -33,7 +33,7 @@ def format_interval_label(interval_index):
 #selected_criteria = st.multiselect("##Filtrer le fichier de geocodage:", options=['result_typ', 'result_sco'])
 
 # Create a multiselect to choose multiple criteria to filter the DataFrame
-st.markdown("<h2 style='font-size:24px;'>Filtrer le fichier de géocodage</h2>", unsafe_allow_html=True)
+st.markdown("<h2 style='font-size:22px;'>Filtrer le fichier de géocodage selon le type de réponse de l'API et le score</h2>", unsafe_allow_html=True)
 selected_criteria = st.multiselect("", options=['result_typ', 'result_sco'])
 
 # Apply the selected criteria to filter the DataFrame
