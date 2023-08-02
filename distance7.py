@@ -121,6 +121,7 @@ def format_interval_label(interval_index):
     left = distance_bins[interval_index]
     right = distance_bins[interval_index + 1]
     return f"[{left}, {right}]"
+    
 
 # Create a list of formatted interval labels for the dropdown menu
 interval_indices = list(range(len(distance_bins) - 1))
