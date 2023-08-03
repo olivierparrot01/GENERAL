@@ -67,8 +67,9 @@ statut_seveso_bas_counts = df[df['Statut_Sev'] == 'Seveso seuil bas']['Distance'
 hist_data.index = hist_data.index.astype(str)
 statut_ied_counts.index = statut_ied_counts.index.astype(str)
 statut_seveso_haut_counts.index = statut_seveso_haut_counts.index.astype(str)
+statut_seveso_haut_counts.index= [f"[{int(interval.left)}, {int(interval.right)}]" for interval in hist_data.index]
 statut_seveso_bas_counts.index = statut_seveso_bas_counts.index.astype(str)
-
+statut_seveso_bas_counts.index= [f"[{int(interval.left)}, {int(interval.right)}]" for interval in hist_data.index]
 
 
 
