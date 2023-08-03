@@ -13,7 +13,7 @@ df = df[np.isfinite(df['Distance'])]
 # Convert 'Distance' column to integers
 df['Distance'] = df['Distance'].astype(int)
 
-# Create a function to convert DataFrame to CSV and get the  link for download
+# Create a function to convert DataFrame to CSV and get the link  for download
 def get_csv_download_link(df, filename):
     csv = df.to_csv(index=False)
     b64 = base64.b64encode(csv.encode()).decode()
@@ -21,25 +21,12 @@ def get_csv_download_link(df, filename):
     return href
 
 
-# Custom format function for the dropdown menu
-def format_interval_label(interval_index):
-    if interval_index == len(interval_indices) - 1:
-        return f"[{distance_bins[interval_index]}, max]"
-    left = distance_bins[interval_index]
-    right = distance_bins[interval_index + 1]
-    return f"[{left}, {right}]"
-
-# Create a multiselect to choose multiple criteria to filter the DataFrame
-#selected_criteria = st.multiselect("##Filtrer le fichier de geocodage:", options=['result_typ', 'result_sco'])
-
 # Create a multiselect to choose multiple criteria to filter the DataFrame
 st.markdown("<h2 style='font-size:22px;'>Filtrer le fichier de géocodage selon le type de réponse de l'API et le score</h2>", unsafe_allow_html=True)
-#st.markdown("<h2 style='font-size:18px;'>(le filtre n'est pas obligatoire)</h2>", unsafe_allow_html=True)
-st.markdown("<center><h2 style='font-size:18px;'>(le filtre n'est pas obligatoire)</h2><center>", unsafe_allow_html=True) 
-
+st.markdown("<center><h2 style='font-size:18px;'>(le filtre n'est pas obligatoire)</h2></center>", unsafe_allow_html=True)
 selected_criteria = st.multiselect("", options=['result_typ', 'result_sco'])
 
-# Apply the selected criteria to filter the DataFrame
+# Apply the selected criteria to filterthe DataFrame
 filtered_df = df.copy()
 for criterion in selected_criteria:
     if criterion == 'result_typ':
@@ -50,16 +37,11 @@ for criterion in selected_criteria:
         selected_result_sco = st.slider("Le score est supérieur ou égal à :", min_value=df['result_sco'].min(), max_value=df['result_sco'].max(), step=0.01)
         filtered_df = filtered_df[filtered_df['result_sco'] >= selected_result_sco]
 
+df = filtered_df
 
-# Show the table for filtered DataFrame
-#st.write("Filtered DataFrame")
-#st.table(filtered_df)
+# Rest of your code...
 
-# Create a slider to select rows based on the 'result_sco' column
-#selected_result_sco = st.slider("Select Result Score:", min_value=df['result_sco'].min(), max_value=df['result_sco'].max(), step=0.01)
 
-# Filter the DataFrame based on the selected 'result_sco' value
-#df = df[df['result_sco'] >= selected_result_sco]
 
 df=filtered_df
 
@@ -68,23 +50,28 @@ distance_bins = np.arange(0, 1100, 100)
 
 # Add a final interval for [1000, max]
 distance_bins = np.append(distance_bins, df['Distance'].max())
-
+distance_bins = distance_bins.astype(int)
 # Create histogram for distances
 hist_data = df['Distance'].value_counts(bins=distance_bins, sort=False)
-
+hist_data.index = [f"[{int(interval.left)}, {int(interval.right)}]" for interval in hist_data.index]
 # Calculate the count for 'Statut_IED' in each distance category
-statut_ied_counts = df[df['Statut_IED'] == 'Oui']['Distance'].value_counts(bins=distance_bins, sort=False).sort_index()
+statut_ied_counts = df[df['Statut_IED'] == 'Oui']['Distance'].value_counts(bins=distance_bins, sort=False)
+statut_ied_counts.index= [f"[{int(interval.left)}, {int(interval.right)}]" for interval in statut_ied_counts.index]
+
 
 # Calculate the count for 'Seveso seuil haut' in each distance category
-statut_seveso_haut_counts = df[df['Statut_Sev'] == 'Seveso seuil haut']['Distance'].value_counts(bins=distance_bins, sort=False).sort_index()
-
+statut_seveso_haut_counts = df[df['Statut_Sev'] == 'Seveso seuil haut']['Distance'].value_counts(bins=distance_bins, sort=False)
+statut_seveso_haut_counts.index= [f"[{int(interval.left)}, {int(interval.right)}]" for interval in statut_seveso_haut_counts.index]
 # Calculate the count for 'Seveso seuil bas' in each distance category
-statut_seveso_bas_counts = df[df['Statut_Sev'] == 'Seveso seuil bas']['Distance'].value_counts(bins=distance_bins, sort=False).sort_index()
+statut_seveso_bas_counts = df[df['Statut_Sev'] == 'Seveso seuil bas']['Distance'].value_counts(bins=distance_bins, sort=False)
+statut_seveso_bas_counts.index= [f"[{int(interval.left)}, {int(interval.right)}]" for interval in statut_seveso_bas_counts.index]
+
 
 # Convert interval edges to strings
 hist_data.index = hist_data.index.astype(str)
 statut_ied_counts.index = statut_ied_counts.index.astype(str)
 statut_seveso_haut_counts.index = statut_seveso_haut_counts.index.astype(str)
+
 statut_seveso_bas_counts.index = statut_seveso_bas_counts.index.astype(str)
 
 
