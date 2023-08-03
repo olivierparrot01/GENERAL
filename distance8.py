@@ -53,7 +53,7 @@ distance_bins = np.append(distance_bins, df['Distance'].max())
 distance_bins = distance_bins.astype(int)
 # Create histogram for distances
 hist_data = df['Distance'].value_counts(bins=distance_bins, sort=False)
-
+hist_data.index = [f"[{int(interval.left)}, {int(interval.right)}]" for interval in hist_data.index]
 # Calculate the count for 'Statut_IED' in each distance category
 statut_ied_counts = df[df['Statut_IED'] == 'Oui']['Distance'].value_counts(bins=distance_bins, sort=False).sort_index()
 
