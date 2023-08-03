@@ -80,7 +80,7 @@ statut_seveso_bas_counts.index = statut_seveso_bas_counts.index.astype(str)
 st.markdown("<h2 style='font-size:18px;'>Nb ICPE de tout type par intervalle de distance en m (par rapport à GUN)</h2>", unsafe_allow_html=True)
 
 # Check if the user has selected the checkbox
-show_hist_data = st.checkbox("Afficher les données de l'histogramme")
+show_hist_data = st.checkbox("Afficher les données")
 
 if show_hist_data:
     st.table(hist_data)
