@@ -55,19 +55,23 @@ distance_bins = distance_bins.astype(int)
 hist_data = df['Distance'].value_counts(bins=distance_bins, sort=False)
 hist_data.index = [f"[{int(interval.left)}, {int(interval.right)}]" for interval in hist_data.index]
 # Calculate the count for 'Statut_IED' in each distance category
-statut_ied_counts = df[df['Statut_IED'] == 'Oui']['Distance'].value_counts(bins=distance_bins, sort=False).sort_index()
+statut_ied_counts = df[df['Statut_IED'] == 'Oui']['Distance'].value_counts(bins=distance_bins, sort=False)
+statut_ied_counts.index= [f"[{int(interval.left)}, {int(interval.right)}]" for interval in statut_ied_counts.index]
+
 
 # Calculate the count for 'Seveso seuil haut' in each distance category
-statut_seveso_haut_counts = df[df['Statut_Sev'] == 'Seveso seuil haut']['Distance'].value_counts(bins=distance_bins, sort=False).sort_index()
-
+statut_seveso_haut_counts = df[df['Statut_Sev'] == 'Seveso seuil haut']['Distance'].value_counts(bins=distance_bins, sort=False)
+statut_seveso_haut_counts.index= [f"[{int(interval.left)}, {int(interval.right)}]" for interval in statut_seveso_haut_counts.index]
 # Calculate the count for 'Seveso seuil bas' in each distance category
-statut_seveso_bas_counts = df[df['Statut_Sev'] == 'Seveso seuil bas']['Distance'].value_counts(bins=distance_bins, sort=False).sort_index()
+statut_seveso_bas_counts = df[df['Statut_Sev'] == 'Seveso seuil bas']['Distance'].value_counts(bins=distance_bins, sort=False)
+statut_seveso_bas_counts.index= [f"[{int(interval.left)}, {int(interval.right)}]" for interval in statut_seveso_bas_counts.index]
+
 
 # Convert interval edges to strings
 hist_data.index = hist_data.index.astype(str)
 statut_ied_counts.index = statut_ied_counts.index.astype(str)
 statut_seveso_haut_counts.index = statut_seveso_haut_counts.index.astype(str)
-statut_seveso_haut_counts.index= [f"[{int(interval.left)}, {int(interval.right)}]" for interval in statut_seveso_haut_counts.index]
+
 statut_seveso_bas_counts.index = statut_seveso_bas_counts.index.astype(str)
 statut_seveso_bas_counts.index= [f"[{int(interval.left)}, {int(interval.right)}]" for interval in statut_seveso_bas_counts.index]
 
