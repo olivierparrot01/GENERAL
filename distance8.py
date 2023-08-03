@@ -78,44 +78,30 @@ statut_seveso_bas_counts.index = statut_seveso_bas_counts.index.astype(str)
 
 # Show the table for distances
 st.markdown("<h2 style='font-size:18px;'>Nb ICPE de tout type par intervalle de distance en m (par rapport à GUN)</h2>", unsafe_allow_html=True)
+st.table(statut_code_aiot_counts)
+st.markdown(f"Codes AIOT correspondants : {', '.join(df[df['Code_AIOT'].notna()]['Code_AIOT'].unique())}", unsafe_allow_html=True)
+st.markdown(get_csv_download_link(df[df['Code_AIOT'].notna()], "le fichier de géocodage correspondant"), unsafe_allow_html=True)
 
-# Check if the user has selected the checkbox
-show_hist_data = st.checkbox("Afficher les données")
-
-if show_hist_data:
-    st.table(hist_data)
-    # Add download link for the filtered DataFrame
-    st.markdown(get_csv_download_link(filtered_df, "le fichier de géocodage correspondant"), unsafe_allow_html=True)
 
 # Show the table for 'Statut_IED' counts
 st.markdown("<h2 style='font-size:18px;'>Nb ICPE 'IED' par intervalle de distance en m (par rapport à GUN)</h2>", unsafe_allow_html=True)
-
-# Check if the user has selected the checkbox
-show_statut_ied_data = st.checkbox("Afficher les données 'Statut_IED'")
-
-if show_statut_ied_data:
-    st.table(statut_ied_counts)
-    st.markdown(get_csv_download_link(df[df['Statut_IED'] == 'Oui'], "le fichier de géocodage correspondant"), unsafe_allow_html=True)
+st.table(statut_ied_counts)
+st.markdown(f"Codes AIOT correspondants : {', '.join(df[df['Statut_IED'] == 'Oui']['Code_AIOT'].unique())}", unsafe_allow_html=True)
+st.markdown(get_csv_download_link(df[df['Statut_IED'] == 'Oui'], "le fichier de géocodage correspondant"), unsafe_allow_html=True)
 
 # Show the table for 'Seveso seuil haut' counts
 st.markdown("<h2 style='font-size:18px;'>Nb ICPE 'Seveso seuil haut' par intervalle de distance en m (par rapport à GUN)</h2>", unsafe_allow_html=True)
-
-# Check if the user has selected the checkbox
-show_seveso_haut_data = st.checkbox("Afficher les données 'Seveso seuil haut'")
-
-if show_seveso_haut_data:
-    st.table(statut_seveso_haut_counts)
-    st.markdown(get_csv_download_link(df[df['Statut_Sev'] == 'Seveso seuil haut'], "le fichier de géocodage correspondant"), unsafe_allow_html=True)
+st.table(statut_seveso_haut_counts)
+st.markdown(f"Codes AIOT correspondants : {', '.join(df[df['Statut_Sev'] == 'Seveso seuil haut']['Code_AIOT'].unique())}", unsafe_allow_html=True)
+st.markdown(get_csv_download_link(df[df['Statut_Sev'] == 'Seveso seuil haut'], "le fichier de géocodage correspondant"), unsafe_allow_html=True)
 
 # Show the table for 'Seveso seuil bas' counts
 st.markdown("<h2 style='font-size:18px;'>Nb ICPE 'Seveso seuil bas' par intervalle de distance en m (par rapport à GUN)</h2>", unsafe_allow_html=True)
+st.table(statut_seveso_bas_counts)
+st.markdown(f"Codes AIOT correspondants : {', '.join(df[df['Statut_Sev'] == 'Seveso seuil bas']['Code_AIOT'].unique())}", unsafe_allow_html=True)
+st.markdown(get_csv_download_link(df[df['Statut_Sev'] == 'Seveso seuil bas'], "le fichier de géocodage correspondant"), unsafe_allow_html=True)
 
-# Check if the user has selected the checkbox
-show_seveso_bas_data = st.checkbox("Afficher les données 'Seveso seuil bas'")
 
-if show_seveso_bas_data:
-    st.table(statut_seveso_bas_counts)
-    st.markdown(get_csv_download_link(df[df['Statut_Sev'] == 'Seveso seuil bas'], "le fichier de géocodage correspondant"), unsafe_allow_html=True)
 
 
 # Create a function to filter DataFrame based on selected interval
