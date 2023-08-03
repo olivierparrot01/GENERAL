@@ -20,16 +20,7 @@ def get_csv_download_link(df, filename):
     href = f'<a href="data:file/csv;base64,{b64}" download="{filename}.csv">Télécharger {filename} CSV File</a>'
     return href
 
-# Custom format function for the dropdown menu
-def format_interval_label(interval_index):
-    if interval_index == len(interval_indices) - 1:
-        return f"[{distance_bins[interval_index]}, max]"
-    left = distance_bins[interval_index]
-    right = distance_bins[interval_index + 1]
-    if left == 0:
-        return f"(0, {right}]"
-    return f"[{left}, {right}]"
-    
+
 # Create a multiselect to choose multiple criteria to filter the DataFrame
 st.markdown("<h2 style='font-size:22px;'>Filtrer le fichier de géocodage selon le type de réponse de l'API et le score</h2>", unsafe_allow_html=True)
 st.markdown("<center><h2 style='font-size:18px;'>(le filtre n'est pas obligatoire)</h2></center>", unsafe_allow_html=True)
