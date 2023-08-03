@@ -10,7 +10,7 @@ df = pd.read_csv('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/2g
 df = df[df['Distance'] >= 0]
 df = df[np.isfinite(df['Distance'])]
 
-# Convert 'Distance' column to integers
+# Convert 'Distance'  column to integers
 df['Distance'] = df['Distance'].astype(int)
 
 # Create a function to convert DataFrame to CSV and get the link  for download
