@@ -80,45 +80,41 @@ statut_seveso_bas_counts.index = statut_seveso_bas_counts.index.astype(str)
 # Show the table for distances
 # st.write("Nb ICPE tout type par intervalle de distance (par rapport à GUN)")
 
-
+st.markdown("<h2 style='font-size:18px;'>Nb ICPE de tout type par intervalle de distance en m (par rapport à GUN)</h2>", unsafe_allow_html=True)
 #selected_criteria = st.multiselect("", options=['result_typ', 'result_sco'])
 
-st.table(hist_data)
+# Show the table for distances
+#st.markdown("<h2 style='font-size:18px;'>Nb ICPE de tout type par intervalle de distance en m (par rapport à GUN)</h2>", unsafe_allow_html=True)
 
-st.markdown("<h2 style='font-size:18px;'>Nb ICPE 'tout type' par intervalle de distance en m (par rapport à GUN)</h2>", unsafe_allow_html=True)
+# Check if the user has selected the checkbox
+show_hist_data = st.checkbox("Afficher les données")
 
-if st.button(f"Afficher les données pour l'intervalle {selected_interval_left} à {selected_interval_right} (ICPE tout type)"):
-    filtered_df = filter_dataframe_by_interval(pd.Interval(selected_interval_left, selected_interval_right), 'Code_AIOT')
-    st.dataframe(filtered_df)
+if show_hist_data:
+    st.table(hist_data)
 
 
+
+#st.table(hist_data)
+# Add download link for the filtered DataFrame
+st.markdown(get_csv_download_link(filtered_df, f'le fichier de geocodage correspondant'), unsafe_allow_html=True)
+
+# Show the table for 'Statut_IED' counts
 st.markdown("<h2 style='font-size:18px;'>Nb ICPE 'IED' par intervalle de distance en m (par rapport à GUN)</h2>", unsafe_allow_html=True)
 
-
-if st.button(f"Afficher les données pour l'intervalle {selected_interval_left} à {selected_interval_right} (Statut_IED)"):
-    filtered_df_statut_ied = filter_dataframe_by_interval(pd.Interval(selected_interval_left, selected_interval_right), 'Statut_IED')
-    st.dataframe(filtered_df_statut_ied)
-
+#st.write("Nb ICPE 'IED' par intervalle de distance (par rapport à GUN)")
+st.table(statut_ied_counts)
+st.markdown(get_csv_download_link(df[df['Statut_IED'] == 'Oui'], 'le fichier de geocodage correspondant'), unsafe_allow_html=True)
 # Show the table for 'Seveso seuil haut' counts
-
-st.markdown("<h2 style='font-size:18px;'>Nb ICPE 'Seveso seuil haut' par intervalle de distance en m (par rapport à GUN)</h2>", unsafe_allow_html=True)
-
-if st.button(f"Afficher les données pour l'intervalle {selected_interval_left} à {selected_interval_right} (Seveso seuil haut)"):
-    filtered_df_statut_seveso_haut = filter_dataframe_by_interval(pd.Interval(selected_interval_left, selected_interval_right), 'Seveso seuil haut')
-    st.dataframe(filtered_df_statut_seveso_haut)
-
+st.markdown("<h2 style='font-size:18px;'>Nb ICPE 'Seveso seuil haut'  par intervalle de distance en m (par rapport à GUN)</h2>", unsafe_allow_html=True)
+#st.write("Nb ICPE 'Seveso seuil' haut par intervalle de distance (par rapport à GUN)")
+st.table(statut_seveso_haut_counts)
+st.markdown(get_csv_download_link(df[df['Statut_Sev'] == 'Seveso seuil haut'], 'le fichier de geocodage correspondant'), unsafe_allow_html=True)
 # Show the table for 'Seveso seuil bas' counts
+st.markdown("<h2 style='font-size:18px;'>Nb ICPE 'Seveso seuil bas'  par intervalle de distance en m (par rapport à GUN)</h2>", unsafe_allow_html=True)
 
-st.markdown("<h2 style='font-size:18px;'>Nb ICPE 'Seveso seuil bas' par intervalle de distance en m (par rapport à GUN)</h2>", unsafe_allow_html=True)
-
-if st.button(f"Afficher les données pour l'intervalle {selected_interval_left} à {selected_interval_right} (Seveso seuil bas)"):
-    filtered_df_statut_seveso_bas = filter_dataframe_by_interval(pd.Interval(selected_interval_left, selected_interval_right), 'Seveso seuil bas')
-    st.dataframe(filtered_df_statut_seveso_bas)
-
-
-
-
-
+#st.write("Nb ICPE 'Seveso seuil bas' par intervalle de distance (par rapport à GUN)")
+st.table(statut_seveso_bas_counts)
+st.markdown(get_csv_download_link(df[df['Statut_Sev'] == 'Seveso seuil bas'], 'le fichier de geocodage correspondant'), unsafe_allow_html=True)
 
 
 # Create a function to filter DataFrame based on selected interval
