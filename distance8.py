@@ -13,13 +13,12 @@ df = df[np.isfinite(df['Distance'])]
 # Convert 'Distance' column to integers
 df['Distance'] = df['Distance'].astype(int)
 
-# Create a function to convert DataFrame to CSV and get the  link for download
+# Create a function to convert DataFrame to CSV and get the link for download
 def get_csv_download_link(df, filename):
     csv = df.to_csv(index=False)
     b64 = base64.b64encode(csv.encode()).decode()
     href = f'<a href="data:file/csv;base64,{b64}" download="{filename}.csv">Télécharger {filename} CSV File</a>'
     return href
-
 
 # Custom format function for the dropdown menu
 def format_interval_label(interval_index):
@@ -30,13 +29,8 @@ def format_interval_label(interval_index):
     return f"[{left}, {right}]"
 
 # Create a multiselect to choose multiple criteria to filter the DataFrame
-#selected_criteria = st.multiselect("##Filtrer le fichier de geocodage:", options=['result_typ', 'result_sco'])
-
-# Create a multiselect to choose multiple criteria to filter the DataFrame
 st.markdown("<h2 style='font-size:22px;'>Filtrer le fichier de géocodage selon le type de réponse de l'API et le score</h2>", unsafe_allow_html=True)
-#st.markdown("<h2 style='font-size:18px;'>(le filtre n'est pas obligatoire)</h2>", unsafe_allow_html=True)
-st.markdown("<center><h2 style='font-size:18px;'>(le filtre n'est pas obligatoire)</h2><center>", unsafe_allow_html=True) 
-
+st.markdown("<center><h2 style='font-size:18px;'>(le filtre n'est pas obligatoire)</h2></center>", unsafe_allow_html=True)
 selected_criteria = st.multiselect("", options=['result_typ', 'result_sco'])
 
 # Apply the selected criteria to filter the DataFrame
@@ -50,16 +44,11 @@ for criterion in selected_criteria:
         selected_result_sco = st.slider("Le score est supérieur ou égal à :", min_value=df['result_sco'].min(), max_value=df['result_sco'].max(), step=0.01)
         filtered_df = filtered_df[filtered_df['result_sco'] >= selected_result_sco]
 
+df = filtered_df
 
-# Show the table for filtered DataFrame
-#st.write("Filtered DataFrame")
-#st.table(filtered_df)
+# Rest of your code...
 
-# Create a slider to select rows based on the 'result_sco' column
-#selected_result_sco = st.slider("Select Result Score:", min_value=df['result_sco'].min(), max_value=df['result_sco'].max(), step=0.01)
 
-# Filter the DataFrame based on the selected 'result_sco' value
-#df = df[df['result_sco'] >= selected_result_sco]
 
 df=filtered_df
 
