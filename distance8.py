@@ -47,10 +47,10 @@ df=filtered_df
 
 
 distance_bins = np.arange(0, 1100, 100)
-distance_bins = distance_bins.astype(int)
+
 # Add a final interval for [1000, max]
 distance_bins = np.append(distance_bins, df['Distance'].max())
-
+distance_bins = distance_bins.astype(int)
 # Create histogram for distances
 hist_data = df['Distance'].value_counts(bins=distance_bins, sort=False)
 
