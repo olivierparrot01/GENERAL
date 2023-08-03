@@ -80,12 +80,13 @@ statut_seveso_bas_counts.index = statut_seveso_bas_counts.index.astype(str)
 
 
 #codes_aiot = df[df['Code_AIOT'].notna()]['Code_AIOT'].astype(str).unique()
-#codes_aiot_str = ', '.join(codes_aiot)
+
 st.markdown("<h2 style='font-size:18px;'>Nb ICPE de tout type par intervalle de distance en m (par rapport à GUN)</h2>", unsafe_allow_html=True)
 st.table(hist_data)
 codes_aiot = df[df['Code_AIOT'].notna()]['Code_AIOT'].astype(str).unique()
-#st.markdown(f"Codes AIOT correspondants : {codes_aiot}", unsafe_allow_html=True)
-st.markdown(f"Codes AIOT correspondants : {', '.join(df[df['Code_AIOT'].notna()]['Code_AIOT'].unique())}", unsafe_allow_html=True)
+codes_aiot_str = ', '.join(codes_aiot)
+st.markdown(f"Codes AIOT correspondants : {codes_aiot_str}", unsafe_allow_html=True)
+#st.markdown(f"Codes AIOT correspondants : {', '.join(df[df['Code_AIOT'].notna()]['Code_AIOT'].unique())}", unsafe_allow_html=True)
 st.markdown(get_csv_download_link(df[df['Code_AIOT'].notna()], "le fichier de géocodage correspondant"), unsafe_allow_html=True)
 
 
