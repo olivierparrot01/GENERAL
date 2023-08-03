@@ -26,7 +26,7 @@ st.markdown("<h2 style='font-size:22px;'>Filtrer le fichier de géocodage selon 
 st.markdown("<center><h2 style='font-size:18px;'>(le filtre n'est pas obligatoire)</h2></center>", unsafe_allow_html=True)
 selected_criteria = st.multiselect("", options=['result_typ', 'result_sco'])
 
-# Apply the selected criteria to filter the DataFrame
+# Apply the selected criteria to filterthe DataFrame
 filtered_df = df.copy()
 for criterion in selected_criteria:
     if criterion == 'result_typ':
