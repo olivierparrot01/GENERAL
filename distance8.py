@@ -152,7 +152,7 @@ filtered_df_statut_seveso_haut = filter_dataframe_by_interval(pd.Interval(select
 with st.expander(f"Afficher les données pour l'intervalle {selected_interval_left} to {selected_interval_right} (ICPE tout type)"):
     # Afficher la table à l'intérieur de la section expansible
     st.dataframe(filtered_df_statut_seveso_bas)
-if st.button(f"Télécharger les données pour l'intervalle {selected_interval_left} to {selected_interval_right} (ICPE tout type)"):
+if st.button(if st.button(f"<span style='font-size:12px;'>Télécharger les données pour l'intervalle {selected_interval_left} to {selected_interval_right} (ICPE tout type)</span>", unsafe_allow_html=True):
     filtered_df = filter_dataframe_by_interval(pd.Interval(selected_interval_left, selected_interval_right), 'Code_AIOT')
     st.markdown(get_csv_download_link(filtered_df, f'ICPE tout type_interval_{selected_interval_left}_{selected_interval_right}'), unsafe_allow_html=True)
 
