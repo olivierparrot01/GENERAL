@@ -10,9 +10,10 @@ df = pd.read_csv('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/2g
 df = df[df['Distance'] >= 0]
 df = df[np.isfinite(df['Distance'])]
 
-# Convert 'Distance'  column to integers
+# Convert 'Distance' column to integers
 df['Distance'] = df['Distance'].astype(int)
 
+df['Code_AIOT']=df['Code_AIOT'].astype(str)
 # Create a function to convert DataFrame to CSV and get the link  for download
 def get_csv_download_link(df, filename):
     csv = df.to_csv(index=False)
@@ -76,39 +77,34 @@ statut_seveso_bas_counts.index = statut_seveso_bas_counts.index.astype(str)
 
 
 
+
 # Show the table for distances
-
-
-#codes_aiot = df[df['Code_AIOT'].notna()]['Code_AIOT'].astype(str).unique()
+# st.write("Nb ICPE tout type par intervalle de distance (par rapport à GUN)")
 
 st.markdown("<h2 style='font-size:18px;'>Nb ICPE de tout type par intervalle de distance en m (par rapport à GUN)</h2>", unsafe_allow_html=True)
-st.table(hist_data)
-codes_aiot = df[df['Code_AIOT'].notna()]['Code_AIOT'].astype(str).unique()
-codes_aiot_str = ', '.join(codes_aiot)
-st.markdown(f"Codes AIOT correspondants : {codes_aiot_str}", unsafe_allow_html=True)
-#st.markdown(f"Codes AIOT correspondants : {', '.join(df[df['Code_AIOT'].notna()]['Code_AIOT'].unique())}", unsafe_allow_html=True)
-st.markdown(get_csv_download_link(df[df['Code_AIOT'].notna()], "le fichier de géocodage correspondant"), unsafe_allow_html=True)
+#selected_criteria = st.multiselect("", options=['result_typ', 'result_sco'])
 
+st.table(hist_data)
+# Add download link for the filtered DataFrame
+st.markdown(get_csv_download_link(filtered_df, f'le fichier de geocodage correspondant'), unsafe_allow_html=True)
 
 # Show the table for 'Statut_IED' counts
 st.markdown("<h2 style='font-size:18px;'>Nb ICPE 'IED' par intervalle de distance en m (par rapport à GUN)</h2>", unsafe_allow_html=True)
+
+#st.write("Nb ICPE 'IED' par intervalle de distance (par rapport à GUN)")
 st.table(statut_ied_counts)
-st.markdown(f"Codes AIOT correspondants : {', '.join(df[df['Statut_IED'] == 'Oui']['Code_AIOT'].unique())}", unsafe_allow_html=True)
-st.markdown(get_csv_download_link(df[df['Statut_IED'] == 'Oui'], "le fichier de géocodage correspondant"), unsafe_allow_html=True)
-
+st.markdown(get_csv_download_link(df[df['Statut_IED'] == 'Oui'], 'le fichier de geocodage correspondant'), unsafe_allow_html=True)
 # Show the table for 'Seveso seuil haut' counts
-st.markdown("<h2 style='font-size:18px;'>Nb ICPE 'Seveso seuil haut' par intervalle de distance en m (par rapport à GUN)</h2>", unsafe_allow_html=True)
+st.markdown("<h2 style='font-size:18px;'>Nb ICPE 'Seveso seuil haut'  par intervalle de distance en m (par rapport à GUN)</h2>", unsafe_allow_html=True)
+#st.write("Nb ICPE 'Seveso seuil' haut par intervalle de distance (par rapport à GUN)")
 st.table(statut_seveso_haut_counts)
-st.markdown(f"Codes AIOT correspondants : {', '.join(df[df['Statut_Sev'] == 'Seveso seuil haut']['Code_AIOT'].unique())}", unsafe_allow_html=True)
-st.markdown(get_csv_download_link(df[df['Statut_Sev'] == 'Seveso seuil haut'], "le fichier de géocodage correspondant"), unsafe_allow_html=True)
-
+st.markdown(get_csv_download_link(df[df['Statut_Sev'] == 'Seveso seuil haut'], 'le fichier de geocodage correspondant'), unsafe_allow_html=True)
 # Show the table for 'Seveso seuil bas' counts
-st.markdown("<h2 style='font-size:18px;'>Nb ICPE 'Seveso seuil bas' par intervalle de distance en m (par rapport à GUN)</h2>", unsafe_allow_html=True)
+st.markdown("<h2 style='font-size:18px;'>Nb ICPE 'Seveso seuil bas'  par intervalle de distance en m (par rapport à GUN)</h2>", unsafe_allow_html=True)
+
+#st.write("Nb ICPE 'Seveso seuil bas' par intervalle de distance (par rapport à GUN)")
 st.table(statut_seveso_bas_counts)
-st.markdown(f"Codes AIOT correspondants : {', '.join(df[df['Statut_Sev'] == 'Seveso seuil bas']['Code_AIOT'].unique())}", unsafe_allow_html=True)
-st.markdown(get_csv_download_link(df[df['Statut_Sev'] == 'Seveso seuil bas'], "le fichier de géocodage correspondant"), unsafe_allow_html=True)
-
-
+st.markdown(get_csv_download_link(df[df['Statut_Sev'] == 'Seveso seuil bas'], 'le fichier de geocodage correspondant'), unsafe_allow_html=True)
 
 
 # Create a function to filter DataFrame based on selected interval
@@ -136,7 +132,7 @@ interval_indices = list(range(len(distance_bins) - 1))
 dropdown_labels = [format_interval_label(interval_index) for interval_index in interval_indices]
 
 # Add a dropdown menu to select an interval
-st.markdown("<h2 style='font-size:18px;'>Télécharger les données pour un intervalle particulier :</h2>", unsafe_allow_html=True)
+st.markdown("<h2 style='font-size:18px;'>Afficher ou télécharger les données pour un intervalle particulier :</h2>", unsafe_allow_html=True)
 selected_interval_index = st.selectbox("", options=interval_indices, format_func=format_interval_label)
 
 
