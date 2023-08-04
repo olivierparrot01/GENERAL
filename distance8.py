@@ -79,7 +79,7 @@ st.markdown("<h2 style='font-size:18px;'>Nb ICPE tout type par intervalle de dis
 with st.expander("Afficher/Masquer la table"):
     # Afficher la table à l'intérieur de la section expansible
     st.table(hist_data)
-
+st.markdown(get_csv_download_link(filtered_df, f'le fichier de geocodage correspondant'), unsafe_allow_html=True)
 
 
 # Utiliser le widget expander pour créer une section expansible
