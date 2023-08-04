@@ -75,16 +75,15 @@ statut_seveso_haut_counts.index = statut_seveso_haut_counts.index.astype(str)
 
 statut_seveso_bas_counts.index = statut_seveso_bas_counts.index.astype(str)
 
-
+st.markdown("<h2 style='font-size:18px;'>Nb ICPE de tout type par intervalle de distance en m (par rapport à GUN)</h2>", unsafe_allow_html=True) 
 # Créer une variable pour suivre l'état d'affichage des données
-show_data = st.button("Afficher/Masquer les données")
-
+show_data = st.button("Afficherles données")
+show_data1 = st.button("Masquer les données")
 # Afficher les données si l'état d'affichage est True
-if show_data:
-    st.markdown("<h2 style='font-size:18px;'>Nb ICPE de tout type par intervalle de distance en m (par rapport à GUN)</h2>", unsafe_allow_html=True)   
+if show_data:      
     st.table(hist_data)
-    st.markdown("<style>div.stButton > button:first-child { display: none; }</style>", unsafe_allow_html=True)
-    st.button("Afficher/Masquer les données")
+ if show_data1:      
+    st.table()   
 
 # Show the table for 'Statut_IED' counts
 st.markdown("<h2 style='font-size:18px;'>Nb ICPE 'IED' par intervalle de distance en m (par rapport à GUN)</h2>", unsafe_allow_html=True)
