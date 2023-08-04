@@ -155,7 +155,7 @@ with st.expander(f"Afficher les données pour l'intervalle {selected_interval_le
 
 st.subheader('Map of icpe for selected commune')
 
-fig1 = px.scatter_mapbox(filtered_data, lat="latitude", lon="longitude", hover_data=["Nom_usuel", "CODE_AIOT"], size='nb_points', zoom=10)
+fig1 = px.scatter_mapbox(filtered_df, lat="latitude", lon="longitude", hover_data=["Nom_usuel", "CODE_AIOT"], size='nb_points', zoom=10)
 
 fig1.update_traces(marker=dict(color='red'))
 
