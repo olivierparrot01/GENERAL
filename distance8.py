@@ -91,20 +91,23 @@ st.markdown(get_csv_download_link(df[df['Statut_IED'] == 'Oui'], 'le fichier de 
 
 
 
-#st.write("Nb ICPE 'IED' par intervalle de distance (par rapport à GUN)")
-st.table(statut_ied_counts)
-st.markdown(get_csv_download_link(df[df['Statut_IED'] == 'Oui'], 'le fichier de geocodage correspondant'), unsafe_allow_html=True)
-# Show the table for 'Seveso seuil haut' counts
+# Utiliser le widget expander pour créer une section expansible
 st.markdown("<h2 style='font-size:18px;'>Nb ICPE 'Seveso seuil haut'  par intervalle de distance en m (par rapport à GUN)</h2>", unsafe_allow_html=True)
-#st.write("Nb ICPE 'Seveso seuil' haut par intervalle de distance (par rapport à GUN)")
-st.table(statut_seveso_haut_counts)
+with st.expander("Afficher/Masquer la table"):
+    # Afficher la table à l'intérieur de la section expansible
+    st.table(statut_seveso_haut_counts)
 st.markdown(get_csv_download_link(df[df['Statut_Sev'] == 'Seveso seuil haut'], 'le fichier de geocodage correspondant'), unsafe_allow_html=True)
-# Show the table for 'Seveso seuil bas' counts
-st.markdown("<h2 style='font-size:18px;'>Nb ICPE 'Seveso seuil bas'  par intervalle de distance en m (par rapport à GUN)</h2>", unsafe_allow_html=True)
 
-#st.write("Nb ICPE 'Seveso seuil bas' par intervalle de distance (par rapport à GUN)")
-st.table(statut_seveso_bas_counts)
+
+
+
+# Utiliser le widget expander pour créer une section expansible
+st.markdown("<h2 style='font-size:18px;'>Nb ICPE 'Seveso seuil bas'  par intervalle de distance en m (par rapport à GUN)</h2>", unsafe_allow_html=True)
+with st.expander("Afficher/Masquer la table"):
+    # Afficher la table à l'intérieur de la section expansible
+    st.table(statut_seveso_bas_counts)
 st.markdown(get_csv_download_link(df[df['Statut_Sev'] == 'Seveso seuil bas'], 'le fichier de geocodage correspondant'), unsafe_allow_html=True)
+markdown(get_csv_download_link(df[df['Statut_Sev'] == 'Seveso seuil bas'], 'le fichier de geocodage correspondant'), unsafe_allow_html=True)
 
 
 # Create a function to filter DataFrame based on selected interval
