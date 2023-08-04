@@ -75,7 +75,7 @@ statut_seveso_haut_counts.index = statut_seveso_haut_counts.index.astype(str)
 
 statut_seveso_bas_counts.index = statut_seveso_bas_counts.index.astype(str)
 
-show_data = st.button("Afficher les données")
+
 
 show_data = False
 
