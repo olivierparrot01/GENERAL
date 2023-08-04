@@ -107,7 +107,7 @@ with st.expander("Afficher/Masquer la table"):
     # Afficher la table à l'intérieur de la section expansible
     st.table(statut_seveso_bas_counts)
 st.markdown(get_csv_download_link(df[df['Statut_Sev'] == 'Seveso seuil bas'], 'le fichier de geocodage correspondant'), unsafe_allow_html=True)
-markdown(get_csv_download_link(df[df['Statut_Sev'] == 'Seveso seuil bas'], 'le fichier de geocodage correspondant'), unsafe_allow_html=True)
+
 
 
 # Create a function to filter DataFrame based on selected interval
