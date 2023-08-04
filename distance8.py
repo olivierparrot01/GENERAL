@@ -146,7 +146,7 @@ filtered_df_statut_ied = filter_dataframe_by_interval(pd.Interval(selected_inter
     #st.dataframe(filtered_df_statut_ied)
 with st.expander(f"Afficher les données pour l'intervalle {selected_interval_left} à {selected_interval_right} (Statut_IED)"):
     # Afficher la table à l'intérieur de la section expansible
-    st.table(filtered_df_statut_ied)
+    st.dataframe(filtered_df_statut_ied)
 
 
 
