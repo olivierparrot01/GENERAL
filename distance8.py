@@ -75,9 +75,19 @@ statut_seveso_haut_counts.index = statut_seveso_haut_counts.index.astype(str)
 statut_seveso_bas_counts.index = statut_seveso_bas_counts.index.astype(str)
 
 # Utiliser le widget expander pour créer une section expansible
+st.markdown("<h2 style='font-size:18px;'>Nb ICPE tout type par intervalle de distance (par rapport à GUN)</h2>", unsafe_allow_html=True)
 with st.expander("Afficher/Masquer la table"):
     # Afficher la table à l'intérieur de la section expansible
     st.table(hist_data)
+
+
+
+# Utiliser le widget expander pour créer une section expansible
+st.markdown("<h2 style='font-size:18px;'>Nb ICPE 'IED' par intervalle de distance (par rapport à GUN)</h2>", unsafe_allow_html=True)
+with st.expander("Afficher/Masquer la table"):
+    # Afficher la table à l'intérieur de la section expansible
+    st.table(statut_ied_counts)
+st.markdown(get_csv_download_link(df[df['Statut_IED'] == 'Oui'], 'le fichier de geocodage correspondant'), unsafe_allow_html=True)
 
 
 
