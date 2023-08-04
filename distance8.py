@@ -143,38 +143,26 @@ selected_interval_left = distance_bins[selected_interval_index]
 selected_interval_right = distance_bins[selected_interval_index + 1]
 
 filtered_df_statut_ied = filter_dataframe_by_interval(pd.Interval(selected_interval_left, selected_interval_right), 'Statut_IED')
-    #st.dataframe(filtered_df_statut_ied)
+    #st.dataframe(filtered_df )
+
+with st.expander(ff"Télécharger les données pour l'intervalle {selected_interval_left} to {selected_interval_right} (ICPE tout type)):
+    # Afficher la table à l'intérieur de la section expansible
+    st.dataframe(filtered_df_statut_seveso_bas)
+
+
 with st.expander(f"Afficher les données pour l'intervalle {selected_interval_left} à {selected_interval_right} (Statut_IED)"):
     # Afficher la table à l'intérieur de la section expansible
     st.dataframe(filtered_df_statut_ied)
 
 
-
-if st.button(f"Afficher les données pour l'intervalle {selected_interval_left} à {selected_interval_right} (Seveso seuil haut)"):
-    filtered_df_statut_seveso_haut = filter_dataframe_by_interval(pd.Interval(selected_interval_left, selected_interval_right), 'Seveso seuil haut')
+with st.expander(f"Afficher les données pour l'intervalle {selected_interval_left} à {selected_interval_right} (Seveso seuil haut)"):
+    # Afficher la table à l'intérieur de la section expansible
     st.dataframe(filtered_df_statut_seveso_haut)
 
-if st.button(f"Afficher les données pour l'intervalle {selected_interval_left} à {selected_interval_right} (Seveso seuil bas)"):
-    filtered_df_statut_seveso_bas = filter_dataframe_by_interval(pd.Interval(selected_interval_left, selected_interval_right), 'Seveso seuil bas')
+with st.expander(f"Afficher les données pour l'intervalle {selected_interval_left} à {selected_interval_right} (Seveso seuil bas)"):
+    # Afficher la table à l'intérieur de la section expansible
     st.dataframe(filtered_df_statut_seveso_bas)
 
-if st.button(f"Afficher les données pour l'intervalle {selected_interval_left} à {selected_interval_right} (ICPE tout type)"):
-    filtered_df = filter_dataframe_by_interval(pd.Interval(selected_interval_left, selected_interval_right), 'Code_AIOT')
-    st.dataframe(filtered_df)
 
 
-if st.button(f"Télécharger les données pour l'intervalle {selected_interval_left} to {selected_interval_right} (Statut_IED)"):
-    filtered_df_statut_ied = filter_dataframe_by_interval(pd.Interval(selected_interval_left, selected_interval_right), 'Statut_IED')
-    st.markdown(get_csv_download_link(filtered_df_statut_ied, f'df_statut_ied_interval_{selected_interval_left}_{selected_interval_right}'), unsafe_allow_html=True)
 
-if st.button(f"Télécharger les données pour l'intervalle {selected_interval_left} to {selected_interval_right} (Seveso seuil haut)"):
-    filtered_df_statut_seveso_haut = filter_dataframe_by_interval(pd.Interval(selected_interval_left, selected_interval_right), 'Seveso seuil haut')
-    st.markdown(get_csv_download_link(filtered_df_statut_seveso_haut, f'df_statut_seveso_haut_interval_{selected_interval_left}_{selected_interval_right}'), unsafe_allow_html=True)
-
-if st.button(f"Télécharger les données pour l'intervalle {selected_interval_left} to {selected_interval_right} (Seveso seuil bas)"):
-    filtered_df_statut_seveso_bas = filter_dataframe_by_interval(pd.Interval(selected_interval_left, selected_interval_right), 'Seveso seuil bas')
-    st.markdown(get_csv_download_link(filtered_df_statut_seveso_bas, f'df_statut_seveso_haut_interval_{selected_interval_left}_{selected_interval_right}'), unsafe_allow_html=True)
-
-if st.button(f"Télécharger les données pour l'intervalle {selected_interval_left} to {selected_interval_right} (ICPE tout type)"):
-    filtered_df = filter_dataframe_by_interval(pd.Interval(selected_interval_left, selected_interval_right), 'Code_AIOT')
-    st.markdown(get_csv_download_link(filtered_df, f'ICPE tout type_interval_{selected_interval_left}_{selected_interval_right}'), unsafe_allow_html=True)
