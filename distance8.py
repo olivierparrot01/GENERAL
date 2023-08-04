@@ -72,9 +72,9 @@ statut_seveso_bas_counts.index= [f"[{int(interval.left)}, {int(interval.right)}]
 hist_data.index = hist_data.index.astype(str)
 statut_ied_counts.index = statut_ied_counts.index.astype(str)
 statut_seveso_haut_counts.index = statut_seveso_haut_counts.index.astype(str)
-
 statut_seveso_bas_counts.index = statut_seveso_bas_counts.index.astype(str)
 
+serie_vide = pd.Series()
 st.markdown("<h2 style='font-size:18px;'>Nb ICPE de tout type par intervalle de distance en m (par rapport à GUN)</h2>", unsafe_allow_html=True) 
 # Créer une variable pour suivre l'état d'affichage des données
 show_data = st.button("Afficherles données")
@@ -83,7 +83,7 @@ show_data1 = st.button("Masquer les données")
 if show_data:      
     st.table(hist_data)
  if show_data1:      
-    st.table()   
+    st.table(serie_vide)   
 
 # Show the table for 'Statut_IED' counts
 st.markdown("<h2 style='font-size:18px;'>Nb ICPE 'IED' par intervalle de distance en m (par rapport à GUN)</h2>", unsafe_allow_html=True)
