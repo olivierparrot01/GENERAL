@@ -142,9 +142,9 @@ selected_interval_index = st.selectbox("", options=interval_indices, format_func
 selected_interval_left = distance_bins[selected_interval_index]
 selected_interval_right = distance_bins[selected_interval_index + 1]
 
-filtered_df_statut_ied = filter_dataframe_by_interval(pd.Interval(selected_interval_left, selected_interval_right), 'Statut_IED')
-    #st.dataframe(filtered_df )
-
+filtered_df_statut_ied = filter_dataframe_by_interval(pd.Interval(selected_interval_left, selected_interval_right), 'Statut_IED')  
+filtered_df_statut_seveso_bas = filter_dataframe_by_interval(pd.Interval(selected_interval_left, selected_interval_right), 'Seveso seuil bas')
+filtered_df_statut_seveso_haut = filter_dataframe_by_interval(pd.Interval(selected_interval_left, selected_interval_right), 'Seveso seuil haut')
 with st.expander(f"Télécharger les données pour l'intervalle {selected_interval_left} to {selected_interval_right} (ICPE tout type)"):
     # Afficher la table à l'intérieur de la section expansible
     st.dataframe(filtered_df_statut_seveso_bas)
