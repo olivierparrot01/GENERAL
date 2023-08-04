@@ -77,19 +77,17 @@ statut_seveso_bas_counts.index = statut_seveso_bas_counts.index.astype(str)
 
 show_data = st.button("Afficher les données")
 
-# Créer une variable pour suivre l'état d'affichage des données
 show_data = False
 
-# Créer un bouton pour basculer l'état d'affichage
+# Créer un bouton qui alterne entre "Afficher" et "Masquer" en fonction de l'état
 if st.button("Afficher/Masquer les données"):
     show_data = not show_data
 
 # Afficher les données si l'état d'affichage est True
 if show_data:
     st.markdown("<h2 style='font-size:18px;'>Nb ICPE de tout type par intervalle de distance en m (par rapport à GUN)</h2>", unsafe_allow_html=True)
-   
+    hist_data = ...  # Obtenez vos données ici
     st.table(hist_data)
-
 
 
 # Show the table for 'Statut_IED' counts
