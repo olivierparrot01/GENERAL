@@ -80,10 +80,11 @@ show_data = st.button("Afficher les données")
 # Si le bouton radio est cliqué
 if show_data:
     # Afficher les données
-    st.markdown("<h2 style='font-size:18px;'>Nb ICPE de tout type par intervalle de distance en m (par rapport à GUN)</h2>", unsafe_allow_html=True)
-    
+    st.markdown("<h2 style='font-size:18px;'>Nb ICPE de tout type par intervalle de distance en m (par rapport à GUN)</h2>", unsafe_allow_html=True)    
     st.table(hist_data)
-
+else:
+    # Masquer les données
+    st.write("Cliquez sur le bouton pour afficher les données.")
 
 
 
