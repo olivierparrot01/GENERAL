@@ -149,7 +149,7 @@ filtered_df_statut_seveso_haut = filter_dataframe_by_interval(pd.Interval(select
 st.write("""
 <style>
     .expander-content {
-        font-size: 12px; /* Taille du texte */
+        font-size: 16px; /* Taille du texte */
     }
 </style>
 """, unsafe_allow_html=True)
