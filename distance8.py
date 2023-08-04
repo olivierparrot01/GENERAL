@@ -142,12 +142,11 @@ selected_interval_index = st.selectbox("", options=interval_indices, format_func
 selected_interval_left = distance_bins[selected_interval_index]
 selected_interval_right = distance_bins[selected_interval_index + 1]
 
-if st.button(f"Afficher les données pour l'intervalle {selected_interval_left} à {selected_interval_right} (Statut_IED)"):
-    filtered_df_statut_ied = filter_dataframe_by_interval(pd.Interval(selected_interval_left, selected_interval_right), 'Statut_IED')
+filtered_df_statut_ied = filter_dataframe_by_interval(pd.Interval(selected_interval_left, selected_interval_right), 'Statut_IED')
     #st.dataframe(filtered_df_statut_ied)
-    with st.expander("Afficher/Masquer la table"):
-        # Afficher la table à l'intérieur de la section expansible
-        st.table(filtered_df_statut_ied)
+with st.expander("Afficher/Masquer la table"):
+    # Afficher la table à l'intérieur de la section expansible
+    st.table(filtered_df_statut_ied)
 
 
 
