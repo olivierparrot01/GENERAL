@@ -154,7 +154,9 @@ with st.expander(f"Afficher les données pour l'intervalle {selected_interval_le
     
 
 st.subheader('Map of icpe for selected commune')
+center_lat = 43.7102  # Approximate latitude center of PACA region
 
+center_lon = 6.2570  # Approximate longitude center of PACA region
 fig1 = px.scatter_mapbox(filtered_df, lat="latitude", lon="longitude", hover_data=["Nom_usuel", "Code_AIOT"], size='nb_points', zoom=10)
 
 fig1.update_traces(marker=dict(color='red'))
