@@ -82,7 +82,7 @@ show_data1 = st.button("Masquer les données")
 # Afficher les données si l'état d'affichage est True
 if show_data:      
     st.table(hist_data)
- if show_data1:      
+if show_data1:      
     st.table(serie_vide)   
 
 # Show the table for 'Statut_IED' counts
