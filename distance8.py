@@ -5,7 +5,7 @@ import base64
 
 # Load data from CSV
 df = pd.read_csv('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/2geocodage.csv')
-
+df1 = pd.read_csv('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/1gun.csv')
 # Filter out negative and non-finite values from the 'Distance' column
 df = df[df['Distance'] >= 0]
 df = df[np.isfinite(df['Distance'])]
@@ -149,9 +149,22 @@ filtered_df_statut_seveso_haut = filter_dataframe_by_interval(pd.Interval(select
 
 with st.expander(f"Afficher les données pour l'intervalle {selected_interval_left} to {selected_interval_right} (ICPE tout type)"):
     # Afficher la table à l'intérieur de la section expansible
-    st.dataframe(filtered_df_statut_seveso_bas)
+    st.dataframe(filtered_df)
     
 
+st.subheader('Map of icpe for selected commune')
+
+fig1 = px.scatter_mapbox(filtered_data, lat="latitude", lon="longitude", hover_data=["nom_usuel", "code_aiot"], size='nb_points', zoom=10)
+
+fig1.update_traces(marker=dict(color='red'))
+
+fig1.update_layout(mapbox_style="open-street-map")
+
+fig1.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
+
+fig1.update_layout(mapbox_center={"lat": center_lat, "lon": center_lon})
+
+st.plotly_chart(fig1)
 with st.expander(f"Afficher les données pour l'intervalle {selected_interval_left} à {selected_interval_right} (Statut_IED)"):
     # Afficher la table à l'intérieur de la section expansible
     st.dataframe(filtered_df_statut_ied)
