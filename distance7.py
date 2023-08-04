@@ -132,7 +132,7 @@ interval_indices = list(range(len(distance_bins) - 1))
 dropdown_labels = [format_interval_label(interval_index) for interval_index in interval_indices]
 
 # Add a dropdown menu to select an interval
-st.markdown("<h2 style='font-size:18px;'>Télécharger les données pour un intervalle particulier :</h2>", unsafe_allow_html=True)
+st.markdown("<h2 style='font-size:18px;'>Afficher ou télécharger les données pour un intervalle particulier :</h2>", unsafe_allow_html=True)
 selected_interval_index = st.selectbox("", options=interval_indices, format_func=format_interval_label)
 
 
