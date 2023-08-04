@@ -86,7 +86,7 @@ if st.button("Afficher/Masquer la table"):
 # Afficher la table si l'état d'affichage est True
 if show_table:
    
-    st.table(table_data)
+    st.table(hist_data)
 else:
     # Afficher une table vide pour masquer la table précédemment affichée
     st.table([])
