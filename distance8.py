@@ -146,8 +146,8 @@ if st.button(f"Afficher les données pour l'intervalle {selected_interval_left} 
     filtered_df_statut_ied = filter_dataframe_by_interval(pd.Interval(selected_interval_left, selected_interval_right), 'Statut_IED')
     st.dataframe(filtered_df_statut_ied)
     with st.expander("Afficher/Masquer la table"):
-    # Afficher la table à l'intérieur de la section expansible
-    st.table(statut_ied_counts)
+        # Afficher la table à l'intérieur de la section expansible
+        st.table(statut_ied_counts)
 
 
 
