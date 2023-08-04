@@ -77,16 +77,19 @@ statut_seveso_bas_counts.index = statut_seveso_bas_counts.index.astype(str)
 # Créer une variable pour suivre l'état d'affichage de la table
 show_table = False
 
+show_table = False
+
 # Bouton pour afficher/masquer la table
 if st.button("Afficher/Masquer la table"):
     show_table = not show_table  # Inverser l'état d'affichage
 
 # Afficher la table si l'état d'affichage est True
 if show_table:
-    # Obtenez vos données ici et stockez-les dans la variable "table_data"
    
-    st.table(hist_data)
-
+    st.table(table_data)
+else:
+    # Afficher une table vide pour masquer la table précédemment affichée
+    st.table([])
 # Show the table for 'Statut_IED' counts
 st.markdown("<h2 style='font-size:18px;'>Nb ICPE 'IED' par intervalle de distance en m (par rapport à GUN)</h2>", unsafe_allow_html=True)
 
