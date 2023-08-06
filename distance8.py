@@ -181,9 +181,6 @@ if st.button(f"Télécharger les données pour l'intervalle {selected_interval_l
 st.subheader('ICPE tout type pour l\'intervalle choisi')
 
 
-
-st.subheader('ICPE tout type pour l\'intervalle choisi')
-
 # Paramètres de la carte
 center_lat = 43.7102  # Latitude approximative du centre de la région PACA
 center_lon = 6.2570   # Longitude approximative du centre de la région PACA
