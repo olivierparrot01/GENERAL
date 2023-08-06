@@ -144,7 +144,10 @@ selected_interval_left = distance_bins[selected_interval_index]
 selected_interval_right = distance_bins[selected_interval_index + 1]
 
 filtered_df = filter_dataframe_by_interval(pd.Interval(selected_interval_left, selected_interval_right), 'Code_AIOT')
-filtered_df1 = filter_dataframe_by_interval(pd.Interval(selected_interval_left, selected_interval_right), 'Code_AIOT')
+#Sélectionner les lignes de df1 avec des Code_AIOT présents dans filtered_df
+filtered_df1 = df1[df1['Code_AIOT'].isin(filtered_df['Code_AIOT'])]
+print(filtered_df1)
+#filtered_df1 = filter_dataframe_by_interval(pd.Interval(selected_interval_left, selected_interval_right), 'Code_AIOT')
 filtered_df_statut_ied = filter_dataframe_by_interval(pd.Interval(selected_interval_left, selected_interval_right), 'Statut_IED')  
 filtered_df_statut_seveso_bas = filter_dataframe_by_interval(pd.Interval(selected_interval_left, selected_interval_right), 'Seveso seuil bas')
 filtered_df_statut_seveso_haut = filter_dataframe_by_interval(pd.Interval(selected_interval_left, selected_interval_right), 'Seveso seuil haut')
@@ -193,7 +196,7 @@ fig1.update_layout(margin={"r": 0, "t": 0, "l": 0, "b": 0})
 fig1.update_layout(mapbox_center={"lat": center_lat, "lon": center_lon})
 
 # Sélectionner les lignes de df1 avec des Code_AIOT présents dans filtered_df
-filtered_df1 = df1[df1['Code_AIOT'].isin(filtered_df['Code_AIOT'])]
+#filtered_df1 = df1[df1['Code_AIOT'].isin(filtered_df['Code_AIOT'])]
 
 # Créer la deuxième carte pour filtered_df1 en bleu
 fig2 = px.scatter_mapbox(filtered_df1, lat="latitude", lon="longitude", hover_data=["Nom_usuel", "Code_AIOT"], size='nb_points', zoom=10)
