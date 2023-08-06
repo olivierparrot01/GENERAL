@@ -185,7 +185,7 @@ center_lat = 43.7102  # Latitude approximative du centre de la région PACA
 center_lon = 6.2570   # Longitude approximative du centre de la région PACA
 
 # Créer une seule carte avec filtered_df en rouge et filtered_df1 en bleu
-fig = px.scatter_mapbox(filtered_df, lat="latitude", lon="longitude", hover_data=["Nom_usuel", "Code_AIOT"], size='nb_points',zoom=30,color_discrete_sequence=['red'])
+fig = px.scatter_mapbox(filtered_df, lat="latitude", lon="longitude", hover_data=["Nom_usuel", "Code_AIOT"], size='nb_points',color_discrete_sequence=['red'])
 fig.add_trace(px.scatter_mapbox(filtered_df1, lat="latitude", lon="longitude", hover_data=["Nom_usuel", "Code_AIOT"], size='nb_points', color_discrete_sequence=['blue']).data[0])
 
 fig.update_layout(mapbox_style="open-street-map")
