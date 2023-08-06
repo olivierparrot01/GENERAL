@@ -178,7 +178,7 @@ if st.button(f"Télécharger les données pour l'intervalle {selected_interval_l
     filtered_df = filter_dataframe_by_interval(pd.Interval(selected_interval_left, selected_interval_right), 'Code_AIOT')
     st.markdown(get_csv_download_link(filtered_df, f'ICPE tout type_interval_{selected_interval_left}_{selected_interval_right}'), unsafe_allow_html=True)
 
-st.subheader('ICPE tout type pour l'intervalle choisi')
+#st.subheader('ICPE tout type pour l'intervalle choisi')
 
 
 # Paramètres de la carte
