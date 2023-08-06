@@ -184,48 +184,40 @@ center_lon = filtered_df['longitude'].mean()
 
 # Créer une seule carte avec filtered_df en rouge et filtered_d
                                                                                                                                                                              
-                                                                                                                                            
-
-                                
-
-
-
-                                
-                                                                                                                                                                              
-                                                                                                                                                                              
-                                                                                                                                                                
-
-# Mettre à jour le centre de la carte
-
-
-
-
-
-# Afficher la carte dans Streamlit
-
-
-
-
-#st.subheader('ICPE tout type pour l'intervalle choisi')
-
-
-
-
-
-
-
-
-
-
-
-
-# Créer une seule carte avec filtered_df en rouge et filtered_df1 en bleu
-fig = px.scatter_mapbox(filtered_df, lat="latitude", lon="longitude", hover_data=["Nom_usuel", "Code_AIOT"], size='nb_points',size_max=15, zoom=10, color_discrete_sequence=['red'])
-fig.add_trace(px.scatter_mapbox(filtered_df1, lat="latitude", lon="longitude", hover_data=["Nom_usuel", "Code_AIOT"], size='nb_points', size_max=10,color_discrete_sequence=['blue']).data[0])
+     # Créer une seule carte avec filtered_df en rouge et filtered_df1 en bleu
+fig = px.scatter_mapbox(lat="latitude", lon="longitude", hover_data=["Nom_usuel", "Code_AIOT"], size='nb_points', size_max=15, zoom=10)
+scatter_red = fig.add_trace(px.scatter_mapbox(filtered_df, lat="latitude", lon="longitude", hover_data=["Nom_usuel", "Code_AIOT"], size='nb_points', size_max=15, color_discrete_sequence=['red']).data[0])
+scatter_blue = fig.add_trace(px.scatter_mapbox(filtered_df1, lat="latitude", lon="longitude", hover_data=["Nom_usuel", "Code_AIOT"], size='nb_points', size_max=10, color_discrete_sequence=['blue']).data[0])
 
 fig.update_layout(mapbox_style="open-street-map")
 fig.update_layout(margin={"r": 0, "t": 0, "l": 0, "b": 0})
 fig.update_layout(mapbox_center={"lat": center_lat, "lon": center_lon})
 
-# Afficher la carte dans Streamlit
+# Ajouter des cases à cocher pour afficher ou masquer les couches
+show_red_layer = st.checkbox("Afficher la couche rouge", value=True)
+show_blue_layer = st.checkbox("Afficher la couche bleue", value=True)
+
+# Mettre à jour la visibilité des couches en fonction des cases à cocher
+if show_red_layer:
+    fig.update_traces(patch=scatter_red, selector=True)
+if show_blue_layer:
+    fig.update_traces(patch=scatter_blue, selector=True)
+
+# Afficher la carte mise à jour dans Streamlit
 st.plotly_chart(fig)
+                                                                                                                                       
+
+                                
+
+
+
+                                
+                                                                                                                                                                              
+                                                                                                                                                        
+
+
+
+
+
+
+
