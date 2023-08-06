@@ -15,6 +15,7 @@ df = df[np.isfinite(df['Distance'])]
 df['Distance'] = df['Distance'].astype(int)
 
 df['Code_AIOT']=df['Code_AIOT'].astype(str)
+df1['Code_AIOT']=df1['Code_AIOT'].astype(str)
 # Create a function to convert DataFrame to CSV and get the link  for download
 def get_csv_download_link(df, filename):
     csv = df.to_csv(index=False)
