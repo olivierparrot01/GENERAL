@@ -177,11 +177,6 @@ with st.expander(f"Afficher les données pour l'intervalle {selected_interval_le
 if st.button(f"Télécharger les données pour l'intervalle {selected_interval_left} to {selected_interval_right} (ICPE tout type)"):
     filtered_df = filter_dataframe_by_interval(pd.Interval(selected_interval_left, selected_interval_right), 'Code_AIOT')
     st.markdown(get_csv_download_link(filtered_df, f'ICPE tout type_interval_{selected_interval_left}_{selected_interval_right}'), unsafe_allow_html=True)
- 
-
-st.subheader('ICPE tout type pour l\'intervalle choisi')
-
-   
 
 st.subheader('ICPE tout type pour l\'intervalle choisi')
 
@@ -189,24 +184,15 @@ st.subheader('ICPE tout type pour l\'intervalle choisi')
 center_lat = 43.7102  # Latitude approximative du centre de la région PACA
 center_lon = 6.2570   # Longitude approximative du centre de la région PACA
 
-# Créer la première carte pour filtered_df en rouge
-fig1 = px.scatter_mapbox(filtered_df, lat="latitude", lon="longitude", hover_data=["Nom_usuel", "Code_AIOT"], size='nb_points', zoom=10)
-fig1.update_traces(marker=dict(color='red'))
-fig1.update_layout(mapbox_style="open-street-map")
-fig1.update_layout(margin={"r": 0, "t": 0, "l": 0, "b": 0})
-fig1.update_layout(mapbox_center={"lat": center_lat, "lon": center_lon})
+# Créer une seule carte avec filtered_df en rouge et filtered_df1 en bleu
+fig = px.scatter_mapbox(filtered_df, lat="latitude", lon="longitude", hover_data=["Nom_usuel", "Code_AIOT"], size='nb_points', zoom=10)
+fig.update_traces(marker=dict(color='red'))
+fig.add_trace(px.scatter_mapbox(filtered_df1, lat="latitude", lon="longitude", hover_data=["Nom_usuel", "Code_AIOT"], size='nb_points').data[0])
+fig.update_traces(marker=dict(color='blue'))
 
-# Sélectionner les lignes de df1 avec des Code_AIOT présents dans filtered_df
-#filtered_df1 = df1[df1['Code_AIOT'].isin(filtered_df['Code_AIOT'])]
+fig.update_layout(mapbox_style="open-street-map")
+fig.update_layout(margin={"r": 0, "t": 0, "l": 0, "b": 0})
+fig.update_layout(mapbox_center={"lat": center_lat, "lon": center_lon})
 
-# Créer la deuxième carte pour filtered_df1 en bleu
-fig2 = px.scatter_mapbox(filtered_df1, lat="latitude", lon="longitude", hover_data=["Nom_usuel", "Code_AIOT"], size='nb_points', zoom=10)
-fig2.update_traces(marker=dict(color='blue'))
-fig2.update_layout(mapbox_style="open-street-map")
-fig2.update_layout(margin={"r": 0, "t": 0, "l": 0, "b": 0})
-fig2.update_layout(mapbox_center={"lat": center_lat, "lon": center_lon})
-
-# Afficher les deux cartes dans Streamlit
-st.plotly_chart(fig1)
-st.plotly_chart(fig2)
-
+# Afficher la carte dans Streamlit
+st.plotly_chart(fig)
