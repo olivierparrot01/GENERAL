@@ -178,12 +178,46 @@ if st.button(f"Télécharger les données pour l'intervalle {selected_interval_l
     filtered_df = filter_dataframe_by_interval(pd.Interval(selected_interval_left, selected_interval_right), 'Code_AIOT')
     st.markdown(get_csv_download_link(filtered_df, f'ICPE tout type_interval_{selected_interval_left}_{selected_interval_right}'), unsafe_allow_html=True)
 
+# Calculer les coordonnées moyennes des latitudes et longitudes de filtered_df
+center_lat = filtered_df['latitude'].mean()
+center_lon = filtered_df['longitude'].mean()
+
+# Créer une seule carte avec filtered_df en rouge et filtered_d
+                                                                                                                                                                             
+                                                                                                                                            
+
+                                
+
+
+
+                                
+                                                                                                                                                                              
+                                                                                                                                                                              
+                                                                                                                                                                
+
+# Mettre à jour le centre de la carte
+
+
+
+
+
+# Afficher la carte dans Streamlit
+
+
+
+
 #st.subheader('ICPE tout type pour l'intervalle choisi')
 
 
-# Paramètres de la carte
-center_lat = 43.7102  # Latitude approximative du centre de la région PACA
-center_lon = 6.2570   # Longitude approximative du centre de la région PACA
+
+
+
+
+
+
+
+
+
 
 # Créer une seule carte avec filtered_df en rouge et filtered_df1 en bleu
 fig = px.scatter_mapbox(filtered_df, lat="latitude", lon="longitude", hover_data=["Nom_usuel", "Code_AIOT"], size='nb_points',size_max=10, zoom=10, color_discrete_sequence=['red'])
