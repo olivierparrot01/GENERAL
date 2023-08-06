@@ -1,4 +1,4 @@
-import streamlit as st
+important streamlit as st
 import pandas as pd
 import numpy as np
 import base64
@@ -153,21 +153,7 @@ with st.expander(f"Afficher les données pour l'intervalle {selected_interval_le
     st.dataframe(filtered_df)
     
 
-st.subheader('Map of icpe for selected commune')
-center_lat = 43.7102  # Approximate latitude center of PACA region
 
-center_lon = 6.2570  # Approximate longitude center of PACA region
-fig1 = px.scatter_mapbox(filtered_df, lat="latitude", lon="longitude", hover_data=["Nom_usuel", "Code_AIOT"], size='nb_points', zoom=10)
-
-fig1.update_traces(marker=dict(color='red'))
-
-fig1.update_layout(mapbox_style="open-street-map")
-
-fig1.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
-
-fig1.update_layout(mapbox_center={"lat": center_lat, "lon": center_lon})
-
-st.plotly_chart(fig1)
 with st.expander(f"Afficher les données pour l'intervalle {selected_interval_left} à {selected_interval_right} (Statut_IED)"):
     # Afficher la table à l'intérieur de la section expansible
     st.dataframe(filtered_df_statut_ied)
@@ -186,4 +172,18 @@ if st.button(f"Télécharger les données pour l'intervalle {selected_interval_l
     filtered_df = filter_dataframe_by_interval(pd.Interval(selected_interval_left, selected_interval_right), 'Code_AIOT')
     st.markdown(get_csv_download_link(filtered_df, f'ICPE tout type_interval_{selected_interval_left}_{selected_interval_right}'), unsafe_allow_html=True)
     
+st.subheader('Map of icpe for selected commune')
+center_lat = 43.7102  # Approximate latitude center of PACA region
 
+center_lon = 6.2570  # Approximate longitude center of PACA region
+fig1 = px.scatter_mapbox(filtered_df, lat="latitude", lon="longitude", hover_data=["Nom_usuel", "Code_AIOT"], size='nb_points', zoom=10)
+
+fig1.update_traces(marker=dict(color='red'))
+
+fig1.update_layout(mapbox_style="open-street-map")
+
+fig1.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
+
+fig1.update_layout(mapbox_center={"lat": center_lat, "lon": center_lon})
+
+st.plotly_chart(fig1)
