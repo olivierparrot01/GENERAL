@@ -1,4 +1,4 @@
-import streamlit as st
+important streamlit as st
 import pandas as pd
 import numpy as np
 import base64
@@ -180,15 +180,19 @@ if st.button(f"Télécharger les données pour l'intervalle {selected_interval_l
 
 st.subheader('ICPE tout type pour l\'intervalle choisi')
 
+
+
+st.subheader('ICPE tout type pour l\'intervalle choisi')
+
 # Paramètres de la carte
 center_lat = 43.7102  # Latitude approximative du centre de la région PACA
 center_lon = 6.2570   # Longitude approximative du centre de la région PACA
 
 # Créer une seule carte avec filtered_df en rouge et filtered_df1 en bleu
 fig = px.scatter_mapbox(filtered_df, lat="latitude", lon="longitude", hover_data=["Nom_usuel", "Code_AIOT"], size='nb_points', zoom=10)
-fig.update_traces(marker=dict(color='red'))
+fig.update_traces(marker=dict(color='red', opacity=0.7))  # Opacité pour les points rouges
 fig.add_trace(px.scatter_mapbox(filtered_df1, lat="latitude", lon="longitude", hover_data=["Nom_usuel", "Code_AIOT"], size='nb_points').data[0])
-fig.update_traces(marker=dict(color='blue'))
+fig.update_traces(marker=dict(color='blue', opacity=0.7))  # Opacité pour les points bleus
 
 fig.update_layout(mapbox_style="open-street-map")
 fig.update_layout(margin={"r": 0, "t": 0, "l": 0, "b": 0})
