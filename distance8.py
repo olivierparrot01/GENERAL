@@ -239,19 +239,17 @@ fig.update_layout(mapbox_center={"lat": center_lat, "lon": center_lon})
 st.plotly_chart(fig)
 
 # Récupérer les données du clic sur la carte
-click_data = st.plotly_chart(fig, use_container_width=True, config={'scrollZoom': False})
+click_data = st.plotly_chart(fig, use_container_width=True, config={'scrollZoom': False}, sharing='streamlit', when='always')
 
 # Gérer l'affichage de la liste de Code_AIOT lorsque clic sur un point
-if click_data:
-    if 'points' in click_data:
-        clicked_point = click_data['points'][0]
-        code_aiot_list = list(df[df['latitude'] == clicked_point['lat']][df['longitude'] == clicked_point['lon']]['Code_AIOT'])
-        
-        st.markdown(f"**Liste des Code_AIOT associés au point cliqué :**")
+if click_data is not None:
+    clicked_point = click_data["props"]["figure"]["data"][0]["hovertemplate"]
+    code_aiot_list = df[df["latitude"].eq(clicked_point["lat"]) & df["longitude"].eq(clicked_point["lon"])]["Code_AIOT"].tolist()
+
+    if len(code_aiot_list) > 0:
+        st.markdown("**Liste des Code_AIOT associés au point cliqué :**")
         for code_aiot in code_aiot_list:
             st.write(code_aiot)
-
-                               
 
 
 
