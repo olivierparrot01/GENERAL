@@ -191,7 +191,7 @@ if st.button(f"Télécharger les données pour l'intervalle {selected_interval_l
 center_lat = filtered_df['latitude'].mean()
 center_lon = filtered_df['longitude'].mean()
 
-# Créer une seule carte avec filtered_df en rouge et filtered_df1 en bleu
+# Créer une seule carte avec filtered_df en rouge et filtered_df1 en bleu 
 st.markdown("<h2 style='font-size:22px;'> gun en bleu et geocodage en rouge pour l'intervalle choisi</h2>", unsafe_allow_html=True)
 
 fig = px.scatter_mapbox(filtered_df, lat="latitude", lon="longitude", hover_data=["Nom_usuel", "Adresse_si","Code_AIOT"], size='nb_points', size_max=20, zoom=10, color_discrete_sequence=['red'])
