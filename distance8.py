@@ -214,14 +214,14 @@ seuil_nb_points = 1
 # Utiliser applymask pour filtrer les données en fonction de la colonne "nb_points"
 filtered_dg2 = dg[dg['nb_points'].apply(lambda x: x > seuil_nb_points)]
 filtered_df2 = df[df['nb_points'].apply(lambda x: x > seuil_nb_points)]
-
+filtered_df2["Nom_usuel"] = filtered_df2["Nom_usuel"].astype(str)
 # Créer une nouvelle colonne dans le DataFrame dg pour concaténer les valeurs Code_AIOT
 filtered_dg2["Code_AIOT_liste"] = filtered_dg2.groupby(["latitude", "longitude"])["Code_AIOT"].transform(lambda x: ", ".join(x))
 filtered_dg2["Nom_usuel_liste"] = filtered_dg2.groupby(["latitude", "longitude"])["Nom_usuel"].transform(lambda x: ", ".join(x))
 
 filtered_df2["Code_AIOT_liste"] = filtered_df2.groupby(["latitude", "longitude"])["Code_AIOT"].transform(lambda x: ", ".join(x))
 filtered_df2["Nom_usuel_liste"] = filtered_df2.groupby(["latitude", "longitude"])["Nom_usuel"].transform(lambda x: ", ".join(x))
-filtered_df2["Nom_usuel"] = filtered_df2["Nom_usuel"].astype(str)
+
 # Calculer les coordonnées moyennes des latitudes et longitudes de filtered_dg2
 center_lat = filtered_dg2['latitude'].mean()
 center_lon = filtered_dg2['longitude'].mean()
