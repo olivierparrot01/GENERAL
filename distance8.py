@@ -239,13 +239,13 @@ fig.update_layout(margin={"r": 0, "t": 0, "l": 0, "b": 0})
 fig.update_layout(mapbox_center={"lat": center_lat, "lon": center_lon})
 
 
-with st.expander(f"Afficher les données pour Gun"):
+with st.expander(f"Afficher les données Gun"):
     # Afficher la table à l'intérieur de la section expansible
     st.dataframe(filtered_df2)
 
-with st.expander(f"Afficher les données pour Geocodage"):
+with st.expander(f"Afficher les données Geocodage"):
     # Afficher la table à l'intérieur de la section expansible
-    st.dataframe(filtered_df2)
+    st.dataframe(filtered_dg2)
 
 
 
