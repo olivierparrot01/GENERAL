@@ -216,6 +216,11 @@ filtered_dg2 = dg[dg['nb_points'].apply(lambda x: x > seuil_nb_points)]
 filtered_df2 = df[df['nb_points'].apply(lambda x: x > seuil_nb_points)]
 
 # Créer une nouvelle colonne dans le DataFrame dg pour concaténer les valeurs Code_AIOT
+
+# Convertir les valeurs de la colonne "Nom_usuel" en str
+filtered_df2["Nom_usuel"] = filtered_df2["Nom_usuel"].astype(str)
+
+
 filtered_dg2["Code_AIOT_liste"] = filtered_dg2.groupby(["latitude", "longitude"])["Code_AIOT"].transform(lambda x: ", ".join(x))
 filtered_dg2["Nom_usuel_liste"] = filtered_dg2.groupby(["latitude", "longitude"])["Nom_usuel"].transform(lambda x: ", ".join(x))
 
