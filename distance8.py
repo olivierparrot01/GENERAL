@@ -190,15 +190,18 @@ fig.add_trace(px.scatter_mapbox(filtered_df1, lat="latitude", lon="longitude", h
 fig.update_layout(mapbox_style="open-street-map")
 fig.update_layout(margin={"r": 0, "t": 0, "l": 0, "b": 0})
 fig.update_layout(mapbox_center={"lat": center_lat, "lon": center_lon})
-scale_layer = {
-    "below": 'traces',
-    "sourcetype": "raster",
-    "source": ["https://raw.githubusercontent.com/plotly/datasets/master/alpha_shape_5.geojson"],
-    "type": "fill",
-    "color": "rgba(0,0,0,0)",  # Couleur transparente
+# Ajouter une annotation pour simuler l'échelle
+scale_annotation = {
+    "x": center_lon,
+    "y": center_lat,
+    "showarrow": False,
+    "text": "Échelle (km)",
+    "xanchor": "center",
+    "yanchor": "middle",
+    "font": {"size": 12, "color": "black"},
 }
 
-fig.update_layout(mapbox_layers=[scale_layer])
+fig.add_annotation(scale_annotation)
 
 
 # Afficher la carte mise à jour dans Streamlit
