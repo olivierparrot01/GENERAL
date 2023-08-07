@@ -210,7 +210,7 @@ st.plotly_chart(fig)
 
 
 
-
+st.markdown("<h2 style='font-size:22px;'> gun en bleu et geocodage en rouge pour nb_points >= 2</h2>", unsafe_allow_html=True)
 
 
 
