@@ -194,7 +194,7 @@ center_lon = filtered_df['longitude'].mean()
 st.markdown("<h2 style='font-size:22px;'> gun en bleu et geocodage en rouge pour l'intervalle chosi</h2>", unsafe_allow_html=True)
 
 fig = px.scatter_mapbox(filtered_df, lat="latitude", lon="longitude", hover_data=["Nom_usuel", "Adresse_si","Code_AIOT"], size='nb_points', size_max=20, zoom=10, color_discrete_sequence=['red'])
-fig.add_trace(px.scatter_mapbox(filtered_df1, lat="latitude", lon="longitude", hover_data=["Nom_usuel","Adresse1","Adresse2", "Adresse3","Code_AIOT"], size='nb_points', size_max=10, color_discrete_sequence=['blue']).data[0])
+fig.add_trace(px.scatter_mapbox(filtered_df1, lat="latitude", lon="longitude", hover_data=["Nom_usuel","Adresse 1","Adresse 2", "Adresse 3","Code_AIOT"], size='nb_points', size_max=10, color_discrete_sequence=['blue']).data[0])
 fig.update_layout(mapbox_style="open-street-map")
 fig.update_layout(margin={"r": 0, "t": 0, "l": 0, "b": 0})
 fig.update_layout(mapbox_center={"lat": center_lat, "lon": center_lon})
