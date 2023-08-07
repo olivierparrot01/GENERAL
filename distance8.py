@@ -239,12 +239,12 @@ if click_data is not None and click_data.event_type == "plotly_click":
     lat = clicked_point["lat"]
     lon = clicked_point["lon"]
     code_aiot_list = dg[(dg["latitude"] == lat) & (dg["longitude"] == lon)]["Code_AIOT"].tolist()
-   
+    st.write( code_aiot_list)
     if len(code_aiot_list) > 0:
         st.markdown("**Liste des Code_AIOT associés au point cliqué :**")
         for code_aiot in code_aiot_list:
             st.write(code_aiot)
-st.write( code_aiot_list)
+
                                                                                                                                                                               
                                                                                                                                                         
 
