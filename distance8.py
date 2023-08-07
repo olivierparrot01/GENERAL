@@ -222,7 +222,7 @@ center_lat = filtered_dg2['latitude'].mean()
 center_lon = filtered_dg2['longitude'].mean()
 
 # Créer une seule carte avec filtered_df en rouge et filtered_df1 en bleu 
-st.markdown("<h2 style='font-size:22px;'> gun en bleu et geocodage en rouge pour 'nb_points'>=2</h2>", unsafe_allow_html=True)
+st.markdown("<h2 style='font-size:22px;'> gun en bleu et geocodage en rouge pour nb_points>=2</h2>", unsafe_allow_html=True)
 
 # Créer une seule carte avec filtered_df en rouge et filtered_df1 en bleu
 fig = px.scatter_mapbox(filtered_dg2, lat="latitude", lon="longitude", hover_data=["Nom_usuel", "Code_AIOT", "Adresse_si", "nb_points"], size='nb_points', size_max=15, zoom=8, color_discrete_sequence=['red'])
