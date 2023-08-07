@@ -212,7 +212,7 @@ scale_annotation = {
 
 fig.add_annotation(scale_annotation)
 # Augmenter la taille des points rouges
-fig.update_traces(marker=dict(size=15), selector=dict(marker=dict(color='red')))
+fig.update_traces(marker=dict(size=50), selector=dict(marker=dict(color='red')))
 
 # Afficher la carte mise à jour dans Streamlit
 st.plotly_chart(fig)
