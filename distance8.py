@@ -191,7 +191,7 @@ if st.button(f"Télécharger les données pour l'intervalle {selected_interval_l
 center_lat = filtered_df['latitude'].mean()
 center_lon = filtered_df['longitude'].mean()
 
-# Créer une seule carte avec filtered_df en rouge et filtered_df1 en bleu 
+# Créer une seule carte avec  filtered_df en rouge et filtered_df1 en bleu 
 st.markdown("<h2 style='font-size:22px;'> gun en bleu et geocodage en rouge pour l'intervalle choisi</h2>", unsafe_allow_html=True)
 
 fig = px.scatter_mapbox(filtered_df, lat="latitude", lon="longitude", hover_data=["Nom_usuel", "Adresse_si","Code_AIOT"], size='nb_points', size_max=20, zoom=10, color_discrete_sequence=['red'])
@@ -199,22 +199,8 @@ fig.add_trace(px.scatter_mapbox(filtered_df1, lat="latitude", lon="longitude", h
 fig.update_layout(mapbox_style="open-street-map")
 fig.update_layout(margin={"r": 0, "t": 0, "l": 0, "b": 0})
 fig.update_layout(mapbox_center={"lat": center_lat, "lon": center_lon})
-# Ajouter une annotation pour simuler l'échelle
-scale_annotation = {
-    "x": center_lon,
-    "y": center_lat,
-    "showarrow": False,
-    "text": "Échelle (km)",
-    "xanchor": "center",
-    "yanchor": "middle",
-    "font": {"size": 12, "color": "black"},
-}
 
-fig.add_annotation(scale_annotation)
-# Augmenter la taille des points rouges
-fig.update_traces(marker=dict(size=50), selector=dict(marker=dict(color='red')))
 
-# Afficher la carte mise à jour dans Streamlit
 st.plotly_chart(fig)
                                                                                                                                        
 
