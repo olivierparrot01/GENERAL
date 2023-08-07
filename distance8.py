@@ -216,24 +216,17 @@ filtered_dg2 = dg[dg['nb_points'].apply(lambda x: x > seuil_nb_points)]
 filtered_df2 = df[df['nb_points'].apply(lambda x: x > seuil_nb_points)]
 
 # Créer une nouvelle colonne dans le DataFrame dg pour concaténer les valeurs Code_AIOT
-
-# Convertir les valeurs de la colonne "Nom_usuel" en str
-filtered_df2["Nom_usuel"] = filtered_df2["Nom_usuel"].astype(str)
-
-
 filtered_dg2["Code_AIOT_liste"] = filtered_dg2.groupby(["latitude", "longitude"])["Code_AIOT"].transform(lambda x: ", ".join(x))
 filtered_dg2["Nom_usuel_liste"] = filtered_dg2.groupby(["latitude", "longitude"])["Nom_usuel"].transform(lambda x: ", ".join(x))
 
 filtered_df2["Code_AIOT_liste"] = filtered_df2.groupby(["latitude", "longitude"])["Code_AIOT"].transform(lambda x: ", ".join(x))
 filtered_df2["Nom_usuel_liste"] = filtered_df2.groupby(["latitude", "longitude"])["Nom_usuel"].transform(lambda x: ", ".join(x))
-# Calculer les coordonnées moyennes des latitudes et longitudes de filtered_df
+
+# Calculer les coordonnées moyennes des latitudes et longitudes de filtered_dg2
 center_lat = filtered_dg2['latitude'].mean()
 center_lon = filtered_dg2['longitude'].mean()
-# Créer une seule carte avec filtered_df en rouge et filtered_df1 en bleu 
-st.markdown("<h2 style='font-size:22px;'> gun en bleu et geocodage en rouge pour nb_points >= 2</h2>", unsafe_allow_html=True)
 
-
-# Créer la carte avec des points rouges
+# Créer la carte avec des points rouges (dg) et bleus (df)
 fig = px.scatter_mapbox(filtered_dg2, lat="latitude", lon="longitude", hover_data=["Nom_usuel_liste", "Code_AIOT_liste", "Adresse_si", "nb_points"], size='nb_points', size_max=15, zoom=8, color_discrete_sequence=['red'])
 fig.add_trace(px.scatter_mapbox(filtered_df2, lat="latitude", lon="longitude", hover_data=["Nom_usuel_liste", "Code_AIOT_liste", "Adresse_concat", "nb_points"], size='nb_points', size_max=10, color_discrete_sequence=['blue']).data[0])
 
@@ -243,6 +236,32 @@ fig.update_layout(mapbox_center={"lat": center_lat, "lon": center_lon})
 
 # Afficher la carte dans Streamlit 
 st.plotly_chart(fig)
+
+# Afficher les éléments concaténés en groupes de 5 éléments par ligne
+def display_grouped_elements(elements):
+    for i in range(0, len(elements), 5):
+        st.write(", ".join(elements[i:i+5]))
+
+# Afficher les éléments concaténés pour dg
+if not filtered_dg2.empty:
+    st.markdown("**Liste des Code_AIOT associés pour dg :**")
+    for code_aiot_list in filtered_dg2["Code_AIOT_liste"].drop_duplicates():
+        display_grouped_elements(code_aiot_list.split(", "))
+        
+    st.markdown("**Liste des Nom_usuel associés pour dg :**")
+    for nom_usuel_list in filtered_dg2["Nom_usuel_liste"].drop_duplicates():
+        display_grouped_elements(nom_usuel_list.split(", "))
+
+# Afficher les éléments concaténés pour df
+if not filtered_df2.empty:
+    st.markdown("**Liste des Code_AIOT associés pour df :**")
+    for code_aiot_list in filtered_df2["Code_AIOT_liste"].drop_duplicates():
+        display_grouped_elements(code_aiot_list.split(", "))
+        
+    st.markdown("**Liste des Nom_usuel associés pour df :**")
+    for nom_usuel_list in filtered_df2["Nom_usuel_liste"].drop_duplicates():
+        display_grouped_elements(nom_usuel_list.split(", "))
+
 
 
                                                                                                                                                                               
