@@ -58,6 +58,9 @@ distance_bins_2 = np.arange(1000, max_distance + 1000, 1000)
 # Combinez les deux listes d'intervalles de distance
 distance_bins = np.concatenate((distance_bins_1, distance_bins_2))
 
+# Supprimer les doublons des bords des intervalles de distance
+distance_bins = np.unique(distance_bins)
+
 # Créer l'histogramme pour les nouvelles intervalles de distance
 hist_data = df['Distance'].value_counts(bins=distance_bins, sort=False)
 hist_data.index = [f"[{int(interval.left)}, {int(interval.right)}]" for interval in hist_data.index]
