@@ -215,6 +215,12 @@ seuil_nb_points = 1
 filtered_dg2 = dg[dg['nb_points'].apply(lambda x: x > seuil_nb_points)]
 filtered_df2 = df[df['nb_points'].apply(lambda x: x > seuil_nb_points)]
 
+# Créer une nouvelle colonne dans le DataFrame dg pour concaténer les valeurs Code_AIOT
+filtered_dg2["Code_AIOT_liste"] = filtered_dg2.groupby(["latitude", "longitude"])["Code_AIOT"].transform(lambda x: ", ".join(x))
+filtered_dg2["Nom_usuel_liste"] = filtered_dg2.groupby(["latitude", "longitude"])["Nom_usuel"].transform(lambda x: ", ".join(x))
+
+filtered_df2["Code_AIOT_liste"] = filtered_df2.groupby(["latitude", "longitude"])["Code_AIOT"].transform(lambda x: ", ".join(x))
+filtered_df2["Nom_usuel_liste"] = filtered_df2.groupby(["latitude", "longitude"])["Nom_usuel"].transform(lambda x: ", ".join(x))
 # Calculer les coordonnées moyennes des latitudes et longitudes de filtered_df
 center_lat = filtered_dg2['latitude'].mean()
 center_lon = filtered_dg2['longitude'].mean()
@@ -223,27 +229,16 @@ st.markdown("<h2 style='font-size:22px;'> gun en bleu et geocodage en rouge pour
 
 
 # Créer la carte avec des points rouges
-fig = px.scatter_mapbox(filtered_dg2, lat="latitude", lon="longitude", hover_data=["Nom_usuel", "Code_AIOT", "Adresse_si", "nb_points"], size='nb_points', size_max=15, zoom=8, color_discrete_sequence=['red'])
-fig.add_trace(px.scatter_mapbox(filtered_df2, lat="latitude", lon="longitude", hover_data=["Nom_usuel", "Code_AIOT", "Adresse_concat", "nb_points"], size='nb_points', size_max=10, color_discrete_sequence=['blue']).data[0])
+fig = px.scatter_mapbox(filtered_dg2, lat="latitude", lon="longitude", hover_data=["Nom_usuel_liste", "Code_AIOT_liste", "Adresse_si", "nb_points"], size='nb_points', size_max=15, zoom=8, color_discrete_sequence=['red'])
+fig.add_trace(px.scatter_mapbox(filtered_df2, lat="latitude", lon="longitude", hover_data=["Nom_usuel_liste", "Code_AIOT_liste", "Adresse_concat", "nb_points"], size='nb_points', size_max=10, color_discrete_sequence=['blue']).data[0])
 
 fig.update_layout(mapbox_style="open-street-map")
 fig.update_layout(margin={"r": 0, "t": 0, "l": 0, "b": 0})
 fig.update_layout(mapbox_center={"lat": center_lat, "lon": center_lon})
 
-# Afficher la carte dans Streamlit et obtenir les données de clic
-click_data = st.plotly_chart(fig)
+# Afficher la carte dans Streamlit 
+st.plotly_chart(fig)
 
-# Gérer l'affichage de la liste de Code_AIOT lorsque clic sur un point
-if click_data is not None and click_data.event_type == "plotly_click":
-    clicked_point = click_data.event_data["points"][0]
-    lat = clicked_point["lat"]
-    lon = clicked_point["lon"]
-    code_aiot_list = dg[(dg["latitude"] == lat) & (dg["longitude"] == lon)]["Code_AIOT"].tolist()
-    st.write( code_aiot_list)
-    if len(code_aiot_list) > 0:
-        st.markdown("**Liste des Code_AIOT associés au point cliqué :**")
-        for code_aiot in code_aiot_list:
-            st.write(code_aiot)
 
                                                                                                                                                                               
                                                                                                                                                         
