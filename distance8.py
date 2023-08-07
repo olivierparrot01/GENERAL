@@ -212,7 +212,6 @@ st.plotly_chart(fig)
 st.markdown("<h2 style='font-size:22px;'> Gun en bleu et geocodage en rouge pour nb_points >= 2</h2>", unsafe_allow_html=True)
 
 
-
 # Seuil pour filtrer les valeurs de nb_points
 seuil_nb_points = 1
 
@@ -238,6 +237,17 @@ fig.add_trace(px.scatter_mapbox(filtered_df2, lat="latitude", lon="longitude", h
 fig.update_layout(mapbox_style="open-street-map")
 fig.update_layout(margin={"r": 0, "t": 0, "l": 0, "b": 0})
 fig.update_layout(mapbox_center={"lat": center_lat, "lon": center_lon})
+
+
+with st.expander(f"Afficher les données pour Gun"):
+    # Afficher la table à l'intérieur de la section expansible
+    st.dataframe(filtered_df2)
+
+with st.expander(f"Afficher les données pour Geocodage"):
+    # Afficher la table à l'intérieur de la section expansible
+    st.dataframe(filtered_df2)
+
+
 
 # Afficher la carte dans Streamlit 
 st.plotly_chart(fig)
