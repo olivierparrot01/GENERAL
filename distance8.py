@@ -193,8 +193,7 @@ center_lat = filtered_dg1['latitude'].mean()
 center_lon = filtered_dg1['longitude'].mean()
 
 # Créer une seule carte avec filtered_df0 en rouge et filtered_df1 en bleu 
-st.markdown("<h2 style='font-size:22px;'> gun en bleu et geocodage en rouge pour l'intervalle {selected_interval_left} to {selected_interval_right} (ICPE tout type)</h2>", unsafe_allow_html=True)
-
+st.markdown(f"<h2 style='font-size:22px;'> gun en bleu et geocodage en rouge pour l'intervalle {selected_interval_left} to {selected_interval_right} (ICPE tout type)</h2>", unsafe_allow_html=True)
 
 # Créer une seule carte avec filtered_df0 en rouge et filtered_df1 en bleu
 fig = px.scatter_mapbox(filtered_dg1, lat="latitude", lon="longitude", hover_data=["Nom_usuel", "Code_AIOT", "Adresse_si","nb_points"], size_max=20, zoom=8, color_discrete_sequence=['red'])
