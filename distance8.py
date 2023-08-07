@@ -203,7 +203,6 @@ scale_annotation = {
 
 fig.add_annotation(scale_annotation)
 
-
 # Afficher la carte mise à jour dans Streamlit
 st.plotly_chart(fig)
                                                                                                                                        
