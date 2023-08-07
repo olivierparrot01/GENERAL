@@ -238,6 +238,25 @@ st.plotly_chart(fig)
 
 
 
+
+
+# Calculer les coordonnées moyennes des latitudes et longitudes de filtered_df
+center_lat = filtered_df['latitude'].mean()
+center_lon = filtered_df['longitude'].mean()
+
+# Créer la carte avec des points rouges
+fig = px.scatter_mapbox(filtered_dg2, lat="latitude", lon="longitude", hover_data=["Nom_usuel", "Code_AIOT", "Adresse_si", "nb_points"], size='nb_points', size_max=15, zoom=8, color_discrete_sequence=['red'], custom_data=["Adresse_si", "nb_points"])
+
+# Configurer le texte à afficher lors du survol d'un point
+fig.update_traces(hovertemplate="<b>Nom usuel</b>: %{customdata[0]}<br><b>Code AIOT</b>: %{customdata[1]}<br><b>Adresse</b>: %{hovertext}<br><b>Nombre de points</b>: %{customdata[2]}")
+
+fig.update_layout(mapbox_style="open-street-map")
+fig.update_layout(margin={"r": 0, "t": 0, "l": 0, "b": 0})
+fig.update_layout(mapbox_center={"lat": center_lat, "lon": center_lon})
+
+# Afficher la carte dans Streamlit
+st.plotly_chart(fig)
+
                                 
                                                                                                                                                                               
                                                                                                                                                         
