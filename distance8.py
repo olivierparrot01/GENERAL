@@ -190,6 +190,7 @@ fig.add_trace(px.scatter_mapbox(filtered_df1, lat="latitude", lon="longitude", h
 fig.update_layout(mapbox_style="open-street-map")
 fig.update_layout(margin={"r": 0, "t": 0, "l": 0, "b": 0})
 fig.update_layout(mapbox_center={"lat": center_lat, "lon": center_lon})
+fig.update_layout(mapbox_scale='bar')
 
 
 # Afficher la carte mise à jour dans Streamlit
