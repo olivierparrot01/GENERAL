@@ -8,7 +8,7 @@ import plotly.express as px
 dg = pd.read_csv('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/2geocodage.csv')
 df = pd.read_csv('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/0208_gun.csv')
 # Filter out negative and non-finite values from the 'Distance' column
-dg = df[df['Distance'] >= 0]
+dg = dg[dg['Distance'] >= 0]
 dg = df[np.isfinite(df['Distance'])]
 
 # Convert 'Distance' column to integers
