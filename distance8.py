@@ -4,7 +4,7 @@ import numpy as np
 import base64
 import plotly.express as px
 
-# Load data from CSV
+# Load data from  CSV
 df = pd.read_csv('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/2geocodage.csv')
 df1 = pd.read_csv('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/0208_gun.csv')
 # Filter out negative and non-finite values from the 'Distance' column
