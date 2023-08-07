@@ -9,7 +9,7 @@ dg = pd.read_csv('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/2g
 df = pd.read_csv('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/0208_gun.csv')
 # Filter out negative and non-finite values from the 'Distance' column
 dg = dg[dg['Distance'] >= 0]
-dg = df[np.isfinite(df['Distance'])]
+dg = dg[np.isfinite(dg['Distance'])]
 
 # Convert 'Distance' column to integers
 dg['Distance'] = dg['Distance'].astype(int)
