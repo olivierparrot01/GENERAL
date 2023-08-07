@@ -208,13 +208,19 @@ fig.update_layout(mapbox_center={"lat": center_lat, "lon": center_lon})
 st.plotly_chart(fig)
                                                                                                                                        
 
+
+
+
+
+
+
 # Seuil pour filtrer les valeurs de nb_points
 seuil_nb_points = 1
 
 # Utiliser applymask pour filtrer les données en fonction de la colonne "nb_points"
 filtered_dg2 = dg[dg['nb_points'].apply(lambda x: x > seuil_nb_points)]
 filtered_df2 = df[df['nb_points'].apply(lambda x: x > seuil_nb_points)]
-filtered_df2["Nom_usuel"] = filtered_df2["Nom_usuel"].astype(str)
+
 # Créer une nouvelle colonne dans le DataFrame dg pour concaténer les valeurs Code_AIOT
 filtered_dg2["Code_AIOT_liste"] = filtered_dg2.groupby(["latitude", "longitude"])["Code_AIOT"].transform(lambda x: ", ".join(x))
 filtered_dg2["Nom_usuel_liste"] = filtered_dg2.groupby(["latitude", "longitude"])["Nom_usuel"].transform(lambda x: ", ".join(x))
@@ -226,20 +232,28 @@ filtered_df2["Nom_usuel_liste"] = filtered_df2.groupby(["latitude", "longitude"]
 center_lat = filtered_dg2['latitude'].mean()
 center_lon = filtered_dg2['longitude'].mean()
 
-# Créer la carte avec des points rouges (dg) et bleus (df)
-fig = px.scatter_mapbox(filtered_dg2, lat="latitude", lon="longitude", hover_data=["Nom_usuel_liste", "Code_AIOT_liste", "Adresse_si", "nb_points"], size='nb_points', size_max=15, zoom=8, color_discrete_sequence=['red'])
-fig.add_trace(px.scatter_mapbox(filtered_df2, lat="latitude", lon="longitude", hover_data=["Nom_usuel_liste", "Code_AIOT_liste", "Adresse_concat", "nb_points"], size='nb_points', size_max=10, color_discrete_sequence=['blue']).data[0])
-
+# Créer la carte avec des points rouges (dg)
+fig = px.scatter_mapbox(filtered_dg2, lat="latitude", lon="longitude", hover_data=["nb_points"], size='nb_points', size_max=15, zoom=8, color_discrete_sequence=['red'])
 fig.update_layout(mapbox_style="open-street-map")
 fig.update_layout(margin={"r": 0, "t": 0, "l": 0, "b": 0})
 fig.update_layout(mapbox_center={"lat": center_lat, "lon": center_lon})
 
+# Diviser les points en sous-groupes de 5 éléments maximum
+subgroups = [filtered_df2.iloc[i:i+5] for i in range(0, len(filtered_df2), 5)]
+
+# Ajouter chaque sous-groupe de points à la carte (bleue)
+for subgroup in subgroups:
+    subgroup_fig = px.scatter_mapbox(subgroup, lat="latitude", lon="longitude", hover_data=["Adresse_concat", "nb_points"], size='nb_points', size_max=10, color_discrete_sequence=['blue'])
+    subgroup_fig.update_traces(
+        customdata=subgroup[["Nom_usuel_liste", "Code_AIOT_liste"]].apply(
+            lambda row: "<br>".join(f"Nom: {n}, Code: {c}" for n, c in zip(row["Nom_usuel_liste"].split(", "), row["Code_AIOT_liste"].split(", "))),
+            axis=1
+        )
+    )
+    fig.add_trace(subgroup_fig.data[0])
+
 # Afficher la carte dans Streamlit 
 st.plotly_chart(fig)
-
-
-
-
                                                                                                                                                                               
                                                                                                                                                         
 
