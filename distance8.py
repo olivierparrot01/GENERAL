@@ -49,32 +49,32 @@ df = filtered_df
 df=filtered_df
 
 
-distance_bins = np.arange(0, 1100, 100)
 
-# Add a final interval for [1000, max]
-distance_bins = np.append(distance_bins, df['Distance'].max())
-distance_bins = distance_bins.astype(int)
-# Create histogram for distances
+# Créer des intervalles de distance de 1000 en 1000 jusqu'à la fin à partir de 1000
+distance_bins = np.arange(1000, df['Distance'].max() + 1000, 1000)
+
+# Créer l'histogramme pour les nouvelles intervalles de distance
 hist_data = df['Distance'].value_counts(bins=distance_bins, sort=False)
 hist_data.index = [f"[{int(interval.left)}, {int(interval.right)}]" for interval in hist_data.index]
-# Calculate the count for 'Statut_IED' in each distance category
+
+# Calculer le nombre pour chaque catégorie de distance pour 'Statut_IED'
 statut_ied_counts = df[df['Statut_IED'] == 'Oui']['Distance'].value_counts(bins=distance_bins, sort=False)
-statut_ied_counts.index= [f"[{int(interval.left)}, {int(interval.right)}]" for interval in statut_ied_counts.index]
+statut_ied_counts.index = [f"[{int(interval.left)}, {int(interval.right)}]" for interval in statut_ied_counts.index]
 
-
-# Calculate the count for 'Seveso seuil haut' in each distance category
+# Calculer le nombre pour chaque catégorie de distance pour 'Seveso seuil haut'
 statut_seveso_haut_counts = df[df['Statut_Sev'] == 'Seveso seuil haut']['Distance'].value_counts(bins=distance_bins, sort=False)
-statut_seveso_haut_counts.index= [f"[{int(interval.left)}, {int(interval.right)}]" for interval in statut_seveso_haut_counts.index]
-# Calculate the count for 'Seveso seuil bas' in each distance category
+statut_seveso_haut_counts.index = [f"[{int(interval.left)}, {int(interval.right)}]" for interval in statut_seveso_haut_counts.index]
+
+# Calculer le nombre pour chaque catégorie de distance pour 'Seveso seuil bas'
 statut_seveso_bas_counts = df[df['Statut_Sev'] == 'Seveso seuil bas']['Distance'].value_counts(bins=distance_bins, sort=False)
-statut_seveso_bas_counts.index= [f"[{int(interval.left)}, {int(interval.right)}]" for interval in statut_seveso_bas_counts.index]
+statut_seveso_bas_counts.index = [f"[{int(interval.left)}, {int(interval.right)}]" for interval in statut_seveso_bas_counts.index]
 
-
-# Convert interval edges to strings
+# Convertir les bords des intervalles en chaînes
 hist_data.index = hist_data.index.astype(str)
 statut_ied_counts.index = statut_ied_counts.index.astype(str)
 statut_seveso_haut_counts.index = statut_seveso_haut_counts.index.astype(str)
 statut_seveso_bas_counts.index = statut_seveso_bas_counts.index.astype(str)
+
 
 # Utiliser le widget expander pour créer une section expansible
 st.markdown("<h2 style='font-size:18px;'>Nb ICPE tout type par intervalle de distance (par rapport à GUN)</h2>", unsafe_allow_html=True)
