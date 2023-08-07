@@ -244,7 +244,7 @@ if click_data is not None and click_data.event_type == "plotly_click":
         st.markdown("**Liste des Code_AIOT associés au point cliqué :**")
         for code_aiot in code_aiot_list:
             st.write(code_aiot)
- st.write( code_aiot_list)
+st.write( code_aiot_list)
                                                                                                                                                                               
                                                                                                                                                         
 
