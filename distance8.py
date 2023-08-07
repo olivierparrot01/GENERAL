@@ -208,8 +208,6 @@ fig.update_layout(mapbox_center={"lat": center_lat, "lon": center_lon})
 st.plotly_chart(fig)
                                                                                                                                        
 
-
-
 # Seuil pour filtrer les valeurs de nb_points
 seuil_nb_points = 1
 
@@ -220,13 +218,8 @@ filtered_df2 = df[df['nb_points'].apply(lambda x: x > seuil_nb_points)]
 # Calculer les coordonnées moyennes des latitudes et longitudes de filtered_df
 center_lat = filtered_dg2['latitude'].mean()
 center_lon = filtered_dg2['longitude'].mean()
-
-
-
-
 # Créer une seule carte avec filtered_df en rouge et filtered_df1 en bleu 
 st.markdown("<h2 style='font-size:22px;'> gun en bleu et geocodage en rouge pour nb_points >= 2</h2>", unsafe_allow_html=True)
-
 
 
 # Créer la carte avec des points rouges
@@ -237,25 +230,21 @@ fig.update_layout(mapbox_style="open-street-map")
 fig.update_layout(margin={"r": 0, "t": 0, "l": 0, "b": 0})
 fig.update_layout(mapbox_center={"lat": center_lat, "lon": center_lon})
 
-# Afficher la carte dans Streamlit
+# Afficher la carte dans Streamlit et obtenir les données de clic
 click_data = st.plotly_chart(fig)
 
 # Gérer l'affichage de la liste de Code_AIOT lorsque clic sur un point
-if click_data is not None and "points" in click_data:
-    clicked_point = click_data["points"][0]
+if click_data is not None and click_data.event_type == "plotly_click":
+    clicked_point = click_data.event_data["points"][0]
     lat = clicked_point["lat"]
     lon = clicked_point["lon"]
-    code_aiot_list = df[(df["latitude"] == lat) & (df["longitude"] == lon)]["Code_AIOT"].tolist()
+    code_aiot_list = dg[(dg["latitude"] == lat) & (dg["longitude"] == lon)]["Code_AIOT"].tolist()
 
     if len(code_aiot_list) > 0:
         st.markdown("**Liste des Code_AIOT associés au point cliqué :**")
         for code_aiot in code_aiot_list:
             st.write(code_aiot)
 
-
-
-
-     
                                                                                                                                                                               
                                                                                                                                                         
 
