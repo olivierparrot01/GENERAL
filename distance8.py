@@ -227,6 +227,8 @@ center_lon = filtered_dg2['longitude'].mean()
 # Créer une seule carte avec filtered_df en rouge et filtered_df1 en bleu 
 st.markdown("<h2 style='font-size:22px;'> gun en bleu et geocodage en rouge pour nb_points >= 2</h2>", unsafe_allow_html=True)
 
+
+
 # Créer la carte avec des points rouges
 fig = px.scatter_mapbox(filtered_dg2, lat="latitude", lon="longitude", hover_data=["Nom_usuel", "Code_AIOT", "Adresse_si", "nb_points"], size='nb_points', size_max=15, zoom=8, color_discrete_sequence=['red'])
 fig.add_trace(px.scatter_mapbox(filtered_df2, lat="latitude", lon="longitude", hover_data=["Nom_usuel", "Code_AIOT", "Adresse_concat", "nb_points"], size='nb_points', size_max=10, color_discrete_sequence=['blue']).data[0])
@@ -236,15 +238,14 @@ fig.update_layout(margin={"r": 0, "t": 0, "l": 0, "b": 0})
 fig.update_layout(mapbox_center={"lat": center_lat, "lon": center_lon})
 
 # Afficher la carte dans Streamlit
-st.plotly_chart(fig)
-
-# Récupérer les données du clic sur la carte
-click_data = st.plotly_chart(fig, use_container_width=True, config={'scrollZoom': False}, sharing='streamlit', when='always')
+click_data = st.plotly_chart(fig)
 
 # Gérer l'affichage de la liste de Code_AIOT lorsque clic sur un point
-if click_data is not None:
-    clicked_point = click_data["props"]["figure"]["data"][0]["hovertemplate"]
-    code_aiot_list = df[df["latitude"].eq(clicked_point["lat"]) & df["longitude"].eq(clicked_point["lon"])]["Code_AIOT"].tolist()
+if click_data is not None and "points" in click_data:
+    clicked_point = click_data["points"][0]
+    lat = clicked_point["lat"]
+    lon = clicked_point["lon"]
+    code_aiot_list = df[(df["latitude"] == lat) & (df["longitude"] == lon)]["Code_AIOT"].tolist()
 
     if len(code_aiot_list) > 0:
         st.markdown("**Liste des Code_AIOT associés au point cliqué :**")
