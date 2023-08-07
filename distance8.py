@@ -192,7 +192,7 @@ filtered_df = df[df['Code_AIOT'].isin(filtered_dg1['Code_AIOT'])]
 center_lat = filtered_dg1['latitude'].mean()
 center_lon = filtered_dg1['longitude'].mean()
 
-# Créer une seule carte avec  filtered_df0 en rouge et filtered_df1 en bleu 
+# Créer une seule carte avec filtered_df0 en rouge et filtered_df1 en bleu 
 st.markdown("<h2 style='font-size:22px;'> gun en bleu et geocodage en rouge pour l'intervalle choisi</h2>", unsafe_allow_html=True)
 
 
