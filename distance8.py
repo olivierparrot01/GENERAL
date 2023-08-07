@@ -197,8 +197,8 @@ st.markdown("<h2 style='font-size:22px;'> gun en bleu et geocodage en rouge pour
 #fig = px.scatter_mapbox(filtered_df, lat="latitude", lon="longitude", hover_data=["Nom_usuel", "Adresse_si","Code_AIOT"], size='nb_points', size_max=20, zoom=10, color_discrete_sequence=['red'])
 #fig.add_trace(px.scatter_mapbox(filtered_df1, lat="latitude", lon="longitude", hover_data=["Nom_usuel","Adresse_concat","Code_AIOT"], size='nb_points', size_max=10, color_discrete_sequence=['blue']).data[0])
 # Créer une seule carte avec filtered_df en rouge et filtered_df1 en bleu
-fig = px.scatter_mapbox(filtered_df, lat="latitude", lon="longitude", hover_data=["Nom_usuel", "Code_AIOT"], size_max=10, zoom=8, color_discrete_sequence=['red'])
-fig.add_trace(px.scatter_mapbox(filtered_df1, lat="latitude", lon="longitude", hover_data=["Nom_usuel", "Code_AIOT"], size_max=10, color_discrete_sequence=['blue']).data[0])
+fig = px.scatter_mapbox(filtered_df, lat="latitude", lon="longitude", hover_data=["Nom_usuel", "Code_AIOT","nb_points"], size_max=10, zoom=8, color_discrete_sequence=['red'])
+fig.add_trace(px.scatter_mapbox(filtered_df1, lat="latitude", lon="longitude", hover_data=["Nom_usuel", "Code_AIOT","nb_points"], size_max=10, color_discrete_sequence=['blue']).data[0])
 
 
 
