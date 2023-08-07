@@ -214,7 +214,7 @@ st.plotly_chart(fig)
 seuil_nb_points = 1
 
 # Utiliser applymask pour filtrer les données en fonction de la colonne "nb_points"
-filtered_dg2 = df[df['nb_points'].apply(lambda x: x > seuil_nb_points)]
+filtered_dg2 = dg[dg['nb_points'].apply(lambda x: x > seuil_nb_points)]
 filtered_df2 = df[df['nb_points'].apply(lambda x: x > seuil_nb_points)]
 
 # Calculer les coordonnées moyennes des latitudes et longitudes de filtered_df
