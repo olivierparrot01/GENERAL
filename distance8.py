@@ -51,7 +51,7 @@ dg=filtered_dg
 distance_bins_1 = np.arange(0, 1100, 100)
 
 # Créer des intervalles de distance à partir de 1000 de 1000 en 1000 jusqu'au maximum
-max_distance = df['Distance'].max()
+max_distance = dg['Distance'].max()
 distance_bins_2 = np.arange(1000, max_distance + 1000, 1000)
 
 # Combinez les deux listes d'intervalles de distance
