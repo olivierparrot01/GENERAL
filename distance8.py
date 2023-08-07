@@ -237,30 +237,6 @@ fig.update_layout(mapbox_center={"lat": center_lat, "lon": center_lon})
 # Afficher la carte dans Streamlit 
 st.plotly_chart(fig)
 
-# Afficher les éléments concaténés en groupes de 5 éléments par ligne
-def display_grouped_elements(elements):
-    for i in range(0, len(elements), 5):
-        st.write(", ".join(elements[i:i+5]))
-
-# Afficher les éléments concaténés pour dg
-if not filtered_dg2.empty:
-    st.markdown("**Liste des Code_AIOT associés pour dg :**")
-    for code_aiot_list in filtered_dg2["Code_AIOT_liste"].drop_duplicates():
-        display_grouped_elements(code_aiot_list.split(", "))
-        
-    st.markdown("**Liste des Nom_usuel associés pour dg :**")
-    for nom_usuel_list in filtered_dg2["Nom_usuel_liste"].drop_duplicates():
-        display_grouped_elements(nom_usuel_list.split(", "))
-
-# Afficher les éléments concaténés pour df
-if not filtered_df2.empty:
-    st.markdown("**Liste des Code_AIOT associés pour df :**")
-    for code_aiot_list in filtered_df2["Code_AIOT_liste"].drop_duplicates():
-        display_grouped_elements(code_aiot_list.split(", "))
-        
-    st.markdown("**Liste des Nom_usuel associés pour df :**")
-    for nom_usuel_list in filtered_df2["Nom_usuel_liste"].drop_duplicates():
-        display_grouped_elements(nom_usuel_list.split(", "))
 
 
 
