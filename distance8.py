@@ -49,9 +49,16 @@ df = filtered_df
 df=filtered_df
 
 
+# ...
 
-# Créer des intervalles de distance de 1000 en 1000 jusqu'à la fin à partir de 1000
-distance_bins = np.arange(1000, df['Distance'].max() + 1000, 1000)
+# Créer des intervalles de distance jusqu'à 1000 de 100 en 100
+distance_bins_1 = np.arange(0, 1100, 100)
+
+# Ajouter des intervalles de distance à partir de 1000 de 1000 en 1000 jusqu'au maximum
+distance_bins_2 = np.arange(1000, df['Distance'].max() + 1000, 1000)
+
+# Combinez les deux listes d'intervalles de distance
+distance_bins = np.concatenate((distance_bins_1, distance_bins_2))
 
 # Créer l'histogramme pour les nouvelles intervalles de distance
 hist_data = df['Distance'].value_counts(bins=distance_bins, sort=False)
@@ -74,6 +81,9 @@ hist_data.index = hist_data.index.astype(str)
 statut_ied_counts.index = statut_ied_counts.index.astype(str)
 statut_seveso_haut_counts.index = statut_seveso_haut_counts.index.astype(str)
 statut_seveso_bas_counts.index = statut_seveso_bas_counts.index.astype(str)
+
+# (La suite de votre code)
+
 
 
 # Utiliser le widget expander pour créer une section expansible
