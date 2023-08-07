@@ -210,7 +210,7 @@ st.plotly_chart(fig)
 
 # Seuil pour filtrer les valeurs de nb_points
 seuil_nb_points = 1
-
+filtered_df2["Nom_usuel"] = filtered_df2["Nom_usuel"].astype(str)
 # Utiliser applymask pour filtrer les données en fonction de la colonne "nb_points"
 filtered_dg2 = dg[dg['nb_points'].apply(lambda x: x > seuil_nb_points)]
 filtered_df2 = df[df['nb_points'].apply(lambda x: x > seuil_nb_points)]
