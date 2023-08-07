@@ -161,7 +161,7 @@ filtered_dg_statut_seveso_bas = filter_dataframe_by_interval(pd.Interval(selecte
 filtered_dg_statut_seveso_haut = filter_dataframe_by_interval(pd.Interval(selected_interval_left, selected_interval_right), 'Seveso seuil haut')
 
 
-with st.expander(f"Afficher les données pour l'intervalle {selected_interval_left} to {selected_interval_right} (ICPE tout type)"):
+with st.expander(f"Afficher les données pour l'intervalle {selected_interval_left} à {selected_interval_right} (ICPE tout type)"):
     # Afficher la table à l'intérieur de la section expansible
     st.dataframe(filtered_dg1)
     
@@ -181,7 +181,7 @@ with st.expander(f"Afficher les données pour l'intervalle {selected_interval_le
     st.dataframe(filtered_dg_statut_seveso_bas)
 
 
-if st.button(f"Télécharger les données pour l'intervalle {selected_interval_left} to {selected_interval_right} (ICPE tout type)"):
+if st.button(f"Télécharger les données pour l'intervalle {selected_interval_left} à {selected_interval_right} (ICPE tout type)"):
     #filtered_df0 = filter_dataframe_by_interval(pd.Interval(selected_interval_left, selected_interval_right), 'Code_AIOT')
     st.markdown(get_csv_download_link(filtered_dg1, f'ICPE tout type_interval_{selected_interval_left}_{selected_interval_right}'), unsafe_allow_html=True)
 
@@ -193,7 +193,7 @@ center_lat = filtered_dg1['latitude'].mean()
 center_lon = filtered_dg1['longitude'].mean()
 
 # Créer une seule carte avec filtered_df0 en rouge et filtered_df1 en bleu 
-st.markdown(f"<h2 style='font-size:22px;'> gun en bleu et geocodage en rouge pour l'intervalle {selected_interval_left} to {selected_interval_right} (ICPE tout type)</h2>", unsafe_allow_html=True)
+st.markdown(f"<h2 style='font-size:22px;'> Gun en bleu et geocodage en rouge pour l'intervalle {selected_interval_left} to {selected_interval_right} (ICPE tout type)</h2>", unsafe_allow_html=True)
 
 # Créer une seule carte avec filtered_df0 en rouge et filtered_df1 en bleu
 fig = px.scatter_mapbox(filtered_dg1, lat="latitude", lon="longitude", hover_data=["Nom_usuel", "Code_AIOT", "Adresse_si","nb_points"], size_max=20, zoom=8, color_discrete_sequence=['red'])
@@ -209,7 +209,7 @@ st.plotly_chart(fig)
 
 
 
-st.markdown("<h2 style='font-size:22px;'> gun en bleu et geocodage en rouge pour nb_points >= 2</h2>", unsafe_allow_html=True)
+st.markdown("<h2 style='font-size:22px;'> Gun en bleu et geocodage en rouge pour nb_points >= 2</h2>", unsafe_allow_html=True)
 
 
 
