@@ -247,32 +247,38 @@ center_lon = filtered_dg2['longitude'].mean()
 fig = px.scatter_mapbox(filtered_dg2, lat="latitude", lon="longitude", hover_data=["Nom_usuel_liste", "Code_AIOT_liste", "Adresse_si", "nb_points"], size='nb_points', size_max=10, zoom=8, color_discrete_sequence=['red'])
 fig.add_trace(px.scatter_mapbox(filtered_df2, lat="latitude", lon="longitude", hover_data=["Nom_usuel_liste", "Code_AIOT_liste", "Adresse_concat", "nb_points"], size='nb_points', size_max=10, color_discrete_sequence=['blue']).data[0])
 
-# Mettre à jour la mise en page pour afficher l'échelle (légende)
+# Définir la fonction de calcul de distance
+def calculate_distance(lat1, lon1, lat2, lon2):
+    return geodesic((lat1, lon1), (lat2, lon2)).kilometers
+
+# Mettre à jour la mise en page de la carte avec hovertemplate
+fig.update_traces(hovertemplate='%{customdata[0]}<br>%{customdata[1]}<br>%{customdata[2]}<br>Distance : %{customdata[3]:.2f} km')
+
+# Ajouter les données de distance personnalisées
+for index, row in filtered_dg2.iterrows():
+    fig.add_trace(go.Scattermapbox(
+        lat=[row['latitude']],
+        lon=[row['longitude']],
+        customdata=[row['Nom_usuel_liste'], row['Code_AIOT_liste'], row['Adresse_si'], 0],  # Distance initialisée à 0
+        mode='markers',
+        marker=dict(size=10, color='red'),
+        hoverinfo='skip'  # Pour éviter l'affichage double des informations au survol
+    ))
+
+for index, row in filtered_df2.iterrows():
+    fig.add_trace(go.Scattermapbox(
+        lat=[row['latitude']],
+        lon=[row['longitude']],
+        customdata=[row['Nom_usuel_liste'], row['Code_AIOT_liste'], row['Adresse_concat'], 0],  # Distance initialisée à 0
+        mode='markers',
+        marker=dict(size=10, color='blue'),
+        hoverinfo='skip'  # Pour éviter l'affichage double des informations au survol
+    ))
+
+# Mettre à jour la mise en page de la carte
 fig.update_layout(mapbox_style="open-street-map")
 fig.update_layout(margin={"r": 0, "t": 0, "l": 0, "b": 0})
 fig.update_layout(mapbox_center={"lat": center_lat, "lon": center_lon})
-fig.update_layout(showlegend=True)  # Ajouter cette ligne pour montrer la légende
-# Ajouter une échelle (barre d'échelle) à la carte
-fig.update_layout(mapbox={"scalebar": {"location": "bottom-left"}})
-
-# Utiliser le widget expander pour créer une section expansible
-with st.expander(f"Afficher les données Gun"):
-    # Afficher la table à l'intérieur de la section expansible
-    st.dataframe(filtered_df2)
-
-with st.expander(f"Afficher les données Geocodage"):
-    # Afficher la table à l'intérieur de la section expansible
-    st.dataframe(filtered_dg2)
 
 # Afficher la carte dans Streamlit 
 st.plotly_chart(fig)
-
-# Convertir la figure Plotly en image
-image_bytes = fig.to_image(format="png")
-
-# Encodez l'image en base64
-image_base64 = base64.b64encode(image_bytes).decode("utf-8")
-
-# Afficher l'image avec la barre d'échelle dans Streamlit
-st.image(image_base64, use_container_width=True)
-
