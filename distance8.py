@@ -154,19 +154,31 @@ dropdown_labels = [format_interval_label(interval_index) for interval_index in i
 dropdown_labels.insert(0, "[0, max_distance]")
 
 
+def filter_dataframe_by_interval(interval, statut):
+    if interval.left == 0 and interval.right == max_distance:
+        return dg  # Return the entire DataFrame if the interval is [0 max]
+    if statut == 'Statut_IED':
+        return dg[dg['Distance'].between(interval.left, interval.right) & (dg['Statut_IED'] == 'Oui')]
+    elif statut == 'Seveso seuil haut':
+        return dg[dg['Distance'].between(interval.left, interval.right) & (dg['Statut_Sev'] == 'Seveso seuil haut')]
+    elif statut == 'Seveso seuil bas':
+        return dg[dg['Distance'].between(interval.left, interval.right) & (dg['Statut_Sev'] == 'Seveso seuil bas')]
+    if statut == 'Code_AIOT':
+        return dg[dg['Distance'].between(interval.left, interval.right) & (dg['Code_AIOT'].notna())]
+
 # Add a dropdown menu to select an interval
 st.markdown("<h2 style='font-size:18px;'>Afficher ou télécharger les données pour un intervalle particulier :</h2>", unsafe_allow_html=True)
 selected_interval_index = st.selectbox("", options=interval_indices, format_func=format_interval_label)
 
+if selected_interval_index == 0:
+    filtered_dg1 = dg  # If "[0 max]" is selected, use the entire DataFrame
+else:
+    selected_interval_left = distance_bins[selected_interval_index]
+    selected_interval_right = distance_bins[selected_interval_index + 1]
+    filtered_dg1 = filter_dataframe_by_interval(pd.Interval(selected_interval_left, selected_interval_right), 'Code_AIOT')
 
-selected_interval_left = distance_bins[selected_interval_index]
-selected_interval_right = distance_bins[selected_interval_index + 1]
 
-filtered_dg1 = filter_dataframe_by_interval(pd.Interval(selected_interval_left, selected_interval_right), 'Code_AIOT')
-#Sélectionner les lignes de df1 avec des Code_AIOT présents dans filtered_df
 
-#st.write('olivier',filtered_df1)
-#filtered_df1 = filter_dataframe_by_interval(pd.Interval(selected_interval_left, selected_interval_right), 'Code_AIOT')
 filtered_dg_statut_ied = filter_dataframe_by_interval(pd.Interval(selected_interval_left, selected_interval_right), 'Statut_IED')  
 filtered_dg_statut_seveso_bas = filter_dataframe_by_interval(pd.Interval(selected_interval_left, selected_interval_right), 'Seveso seuil bas')
 filtered_dg_statut_seveso_haut = filter_dataframe_by_interval(pd.Interval(selected_interval_left, selected_interval_right), 'Seveso seuil haut')
