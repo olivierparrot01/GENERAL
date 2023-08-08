@@ -53,7 +53,7 @@ distance_bins_1 = np.arange(0, 1100, 100)
 
 # Créer des intervalles de distance à partir de 1000 de 1000 en 1000 jusqu'au maximum
 max_distance = dg['Distance'].max()
-distance_bins_2 = np.arange(1000, max_distance + 1000, 1000)
+distance_bins_2 = np.arange(1000, max_distance , 1000)
 
 # Combinez les deux listes d'intervalles de  distance
 distance_bins = np.concatenate((distance_bins_1, distance_bins_2))
@@ -123,16 +123,6 @@ st.markdown(get_csv_download_link(dg[dg['Statut_Sev'] == 'Seveso seuil bas'], 'l
 
 
 
-# Create a function to filter DataFrame based on selected interval
-def filter_dataframe_by_interval(interval, statut):
-    if statut == 'Statut_IED':
-        return dg[dg['Distance'].between(interval.left, interval.right) & (dg['Statut_IED'] == 'Oui')]
-    elif statut == 'Seveso seuil haut':
-        return dg[dg['Distance'].between(interval.left, interval.right) & (dg['Statut_Sev'] == 'Seveso seuil haut')]
-    elif statut == 'Seveso seuil bas':
-        return dg[dg['Distance'].between(interval.left, interval.right) & (dg['Statut_Sev'] == 'Seveso seuil bas')]
-    if statut == 'Code_AIOT':
-        return dg[dg['Distance'].between(interval.left, interval.right) & (dg['Code_AIOT'].notna())]
 
 # Custom format function for the dropdown menu
 def format_interval_label(interval_index):
@@ -151,7 +141,7 @@ interval_indices = list(range(len(distance_bins) - 1))
 dropdown_labels = [format_interval_label(interval_index) for interval_index in interval_indices]
 
 # Add the [0, max_distance] interval label at the beginning of the list
-dropdown_labels.insert(0, "[0, max_distance]")
+# dropdown_labels.insert(0, "[0, max_distance]")
 
 
 def filter_dataframe_by_interval(interval, statut):
