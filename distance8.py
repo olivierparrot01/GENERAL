@@ -28,7 +28,8 @@ def get_csv_download_link(df, filename):
 
 # Create a multiselect to choose multiple criteria to filter the DataFrame
 st.markdown("<h2 style='font-size:22px;'>Filtrer le fichier de géocodage par type de réponse de l'API et score</h2>", unsafe_allow_html=True)
-st.markdown("<center><h2 style='font-size:18px;'>le filtre n'est pas obligatoire</h2></center>", unsafe_allow_html=True)
+st.markdown("<center><h2 style='font-size:18px;'>Le filtre n'est pas obligatoire<br></h2></center>", unsafe_allow_html=True)
+st.markdown("<center><h2 style='font-size:18px;'>Il s'applique tout le long</h2></center>", unsafe_allow_html=True)
 selected_criteria = st.multiselect("", options=['result_typ', 'result_sco'])
 
 # Apply the selected criteria to filterthe DataFrame
