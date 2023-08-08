@@ -58,6 +58,9 @@ distance_bins_2 = np.arange(1000, max_distance + 1000, 1000)
 # Combinez les deux listes d'intervalles de distance
 distance_bins = np.concatenate((distance_bins_1, distance_bins_2))
 
+# Ajouter l'intervalle global [0, max_distance]
+distance_bins = np.append(distance_bins, [0, max_distance])
+
 # Supprimer les doublons des bords des intervalles de distance
 distance_bins = np.unique(distance_bins)
 
