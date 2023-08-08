@@ -3,6 +3,8 @@ import pandas as pd
 import numpy as np
 import base64
 import plotly.express as px
+import plotly.io as pio
+
 
 # Load data from  CSV
 dg = pd.read_csv('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/2geocodage.csv')
@@ -265,6 +267,12 @@ with st.expander(f"Afficher les données Geocodage"):
 # Afficher la carte dans Streamlit 
 st.plotly_chart(fig)
 
+# Utiliser la bibliothèque mapboxgl pour générer la barre d'échelle
+mapboxgl_html = pio.to_html(fig, include_plotlyjs=False, full_html=False)
+scalebar_html = '<div style="position:absolute; bottom:40px; left:20px;"><img src="https://api.mapbox.com/styles/v1/mapbox/navigation-guidance-day-v4/static/scalebar.png?access_token=YOUR_MAPBOX_ACCESS_TOKEN" alt="scalebar"></div>'
+map_with_scalebar = mapboxgl_html + scalebar_html
 
+# Afficher la carte avec la barre d'échelle dans Streamlit
+st.write(map_with_scalebar, unsafe_allow_html=True)
 
 
