@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 import base64
 import plotly.express as px
-from geopy.distance import geodesic
+
 
 # Load data from  CSV
 dg = pd.read_csv('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/2geocodage.csv')
