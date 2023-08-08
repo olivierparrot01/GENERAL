@@ -55,7 +55,7 @@ distance_bins_1 = np.arange(0, 1100, 100)
 max_distance = dg['Distance'].max()
 distance_bins_2 = np.arange(1000, max_distance + 1000, 1000)
 
-# Combinez les deux listes d'intervalles de distance
+# Combinez les deux listes d'intervalles de  distance
 distance_bins = np.concatenate((distance_bins_1, distance_bins_2))
 
 # Ajouter l'intervalle global [0, max_distance]
