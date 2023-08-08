@@ -179,18 +179,16 @@ st.markdown("<h2 style='font-size:18px;'>Afficher ou télécharger les données 
 selected_interval_index = st.selectbox("", options=interval_indices, format_func=format_interval_label)
 
 if selected_interval_index == 0:
-    filtered_dg1 = dg  # If "[0 max]" is selected, use the entire DataFrame
+    selected_interval_left = 0
+    selected_interval_right = max_distance
 else:
     selected_interval_left = distance_bins[selected_interval_index]
     selected_interval_right = distance_bins[selected_interval_index + 1]
-    filtered_dg1 = filter_dataframe_by_interval(pd.Interval(selected_interval_left, selected_interval_right), 'Code_AIOT')
 
-
-
+filtered_dg1 = filter_dataframe_by_interval(pd.Interval(selected_interval_left, selected_interval_right), 'Code_AIOT')
 filtered_dg_statut_ied = filter_dataframe_by_interval(pd.Interval(selected_interval_left, selected_interval_right), 'Statut_IED')  
 filtered_dg_statut_seveso_bas = filter_dataframe_by_interval(pd.Interval(selected_interval_left, selected_interval_right), 'Seveso seuil bas')
 filtered_dg_statut_seveso_haut = filter_dataframe_by_interval(pd.Interval(selected_interval_left, selected_interval_right), 'Seveso seuil haut')
-
 
 with st.expander(f"Afficher les données pour l'intervalle {selected_interval_left} à {selected_interval_right} (ICPE tout type)"):
     # Afficher la table à l'intérieur de la section expansible
