@@ -245,12 +245,11 @@ center_lon = filtered_dg2['longitude'].mean()
 fig = px.scatter_mapbox(filtered_dg2, lat="latitude", lon="longitude", hover_data=["Nom_usuel_liste", "Code_AIOT_liste", "Adresse_si", "nb_points"], size='nb_points', size_max=10, zoom=8, color_discrete_sequence=['red'])
 fig.add_trace(px.scatter_mapbox(filtered_df2, lat="latitude", lon="longitude", hover_data=["Nom_usuel_liste", "Code_AIOT_liste", "Adresse_concat", "nb_points"], size='nb_points', size_max=10, color_discrete_sequence=['blue']).data[0])
 
-# Ajouter une échelle (légende) à chaque trace
-fig.update_traces(showlegend=True)
-
+# Mettre à jour la mise en page pour afficher l'échelle (légende)
 fig.update_layout(mapbox_style="open-street-map")
 fig.update_layout(margin={"r": 0, "t": 0, "l": 0, "b": 0})
 fig.update_layout(mapbox_center={"lat": center_lat, "lon": center_lon})
+fig.update_layout(showlegend=True)  # Ajouter cette ligne pour montrer la légende
 
 # Utiliser le widget expander pour créer une section expansible
 with st.expander(f"Afficher les données Gun"):
@@ -263,8 +262,6 @@ with st.expander(f"Afficher les données Geocodage"):
 
 # Afficher la carte dans Streamlit 
 st.plotly_chart(fig)
-
-
 
 
 
