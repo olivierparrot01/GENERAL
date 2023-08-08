@@ -137,10 +137,11 @@ def filter_dataframe_by_interval(interval, statut):
 # Custom format function for the dropdown menu
 def format_interval_label(interval_index):
     if interval_index == len(interval_indices) - 1:
-        return f"[{distance_bins[interval_index]}, max]"
+        return f"[{distance_bins[interval_index]}, {distance_bins[interval_index + 1]}]"
     left = distance_bins[interval_index]
     right = distance_bins[interval_index + 1]
     return f"[{left}, {right}]"
+
     
 
 # Create a list of formatted interval labels for the dropdown menu
