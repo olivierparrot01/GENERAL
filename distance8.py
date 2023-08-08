@@ -250,6 +250,8 @@ fig.update_layout(mapbox_style="open-street-map")
 fig.update_layout(margin={"r": 0, "t": 0, "l": 0, "b": 0})
 fig.update_layout(mapbox_center={"lat": center_lat, "lon": center_lon})
 fig.update_layout(showlegend=True)  # Ajouter cette ligne pour montrer la légende
+# Ajouter une échelle (barre d'échelle) à la carte
+fig.update_layout(mapbox={"scalebar": {"location": "bottom-left"}})
 
 # Utiliser le widget expander pour créer une section expansible
 with st.expander(f"Afficher les données Gun"):
