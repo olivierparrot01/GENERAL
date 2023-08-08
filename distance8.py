@@ -231,15 +231,28 @@ filtered_df2["Nom_usuel_liste"] = filtered_df2.groupby(["latitude", "longitude"]
 center_lat = filtered_dg2['latitude'].mean()
 center_lon = filtered_dg2['longitude'].mean()
 
+import streamlit as st
+import pandas as pd
+import plotly.express as px
+
+# Supposons que filtered_dg2 et filtered_df2 soient vos DataFrames avec les données
+
+# Calculer les coordonnées moyennes des latitudes et longitudes de filtered_dg2
+center_lat = filtered_dg2['latitude'].mean()
+center_lon = filtered_dg2['longitude'].mean()
+
 # Créer la carte avec des points rouges (dg) et bleus (df)
 fig = px.scatter_mapbox(filtered_dg2, lat="latitude", lon="longitude", hover_data=["Nom_usuel_liste", "Code_AIOT_liste", "Adresse_si", "nb_points"], size='nb_points', size_max=10, zoom=8, color_discrete_sequence=['red'])
 fig.add_trace(px.scatter_mapbox(filtered_df2, lat="latitude", lon="longitude", hover_data=["Nom_usuel_liste", "Code_AIOT_liste", "Adresse_concat", "nb_points"], size='nb_points', size_max=10, color_discrete_sequence=['blue']).data[0])
+
+# Ajouter une échelle (légende) à chaque trace
+fig.update_traces(showlegend=True)
 
 fig.update_layout(mapbox_style="open-street-map")
 fig.update_layout(margin={"r": 0, "t": 0, "l": 0, "b": 0})
 fig.update_layout(mapbox_center={"lat": center_lat, "lon": center_lon})
 
-
+# Utiliser le widget expander pour créer une section expansible
 with st.expander(f"Afficher les données Gun"):
     # Afficher la table à l'intérieur de la section expansible
     st.dataframe(filtered_df2)
@@ -247,8 +260,6 @@ with st.expander(f"Afficher les données Gun"):
 with st.expander(f"Afficher les données Geocodage"):
     # Afficher la table à l'intérieur de la section expansible
     st.dataframe(filtered_dg2)
-
-
 
 # Afficher la carte dans Streamlit 
 st.plotly_chart(fig)
