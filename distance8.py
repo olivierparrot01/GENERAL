@@ -155,16 +155,24 @@ dropdown_labels.insert(0, "[0, max_distance]")
 
 
 def filter_dataframe_by_interval(interval, statut):
+    column_mapping = {
+        'Statut_IED': 'Statut_IED',
+        'Seveso seuil haut': 'Statut_Sev',
+        'Seveso seuil bas': 'Statut_Sev',
+        'Code_AIOT': 'Code_AIOT'
+    }
+    
     if interval.left == 0 and interval.right == max_distance:
         return dg  # Return the entire DataFrame if the interval is [0 max]
-    if statut == 'Statut_IED':
-        return dg[dg['Distance'].between(interval.left, interval.right) & (dg['Statut_IED'] == 'Oui')]
-    elif statut == 'Seveso seuil haut':
-        return dg[dg['Distance'].between(interval.left, interval.right) & (dg['Statut_Sev'] == 'Seveso seuil haut')]
-    elif statut == 'Seveso seuil bas':
-        return dg[dg['Distance'].between(interval.left, interval.right) & (dg['Statut_Sev'] == 'Seveso seuil bas')]
-    if statut == 'Code_AIOT':
-        return dg[dg['Distance'].between(interval.left, interval.right) & (dg['Code_AIOT'].notna())]
+    
+    selected_column = column_mapping.get(statut)
+    if selected_column:
+        if statut == 'Code_AIOT':
+            return dg[dg['Distance'].between(interval.left, interval.right) & dg[selected_column].notna()]
+        else:
+            return dg[dg['Distance'].between(interval.left, interval.right) & (dg[selected_column] == statut)]
+    else:
+        return pd.DataFrame()  # Return an empty DataFrame if the statut is not recognized
 
 # Add a dropdown menu to select an interval
 st.markdown("<h2 style='font-size:18px;'>Afficher ou télécharger les données pour un intervalle particulier :</h2>", unsafe_allow_html=True)
