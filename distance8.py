@@ -306,7 +306,7 @@ import folium
 
 # Create a function to generate HTML for a Folium map with a numeric scale bar
 def create_folium_map_with_scale_bar(center_lat, center_lon, data_dg, data_df):
-    m = folium.Map(location=[center_lat, center_lon], zoom_start=8)
+    m = folium.Map(location=[center_lat, center_lon], zoom_start=8, control_scale=True)
 
     folium.TileLayer('openstreetmap').add_to(m)
 
