@@ -226,7 +226,7 @@ center_lat = filtered_dg1['latitude'].mean()
 center_lon = filtered_dg1['longitude'].mean()
 
 # Créer une seule carte avec filtered_dg en rouge et filtered_df en bleu 
-st.markdown(f"<h2 style='font-size:22px;'> Gun en bleu et Geocodage en rouge pour l'intervalle [{selected_interval_left} {selected_interval_right}] (ICPE tout type)</h2>", unsafe_allow_html=True)
+st.markdown(f"<h2 style='font-size:22px;'>  {len (filtered_dg1)} points Gun en bleu et  {len (filtered_df)} points Geocodage en rouge pour l'intervalle [{selected_interval_left} {selected_interval_right}] (ICPE tout type)</h2>", unsafe_allow_html=True)
 
 
 fig = px.scatter_mapbox(filtered_dg1, lat="latitude", lon="longitude", hover_data=["Nom_usuel_liste", "Code_AIOT_liste", "result_lab","nb_points"], size='nb_points', size_max=15,  zoom=8,color_discrete_sequence=['red'])
@@ -251,8 +251,6 @@ st.plotly_chart(fig)
 
 
 
-st.markdown("<h2 style='font-size:22px;'> Gun en bleu et Geocodage en rouge pour nb_points >= 2</h2>", unsafe_allow_html=True)
-
 
 # Seuil pour filtrer les valeurs de nb_points
 seuil_nb_points = 1
@@ -272,6 +270,7 @@ filtered_df2["Nom_usuel"] = filtered_df2["Nom_usuel"].astype(str)
 center_lat = filtered_dg2['latitude'].mean()
 center_lon = filtered_dg2['longitude'].mean()
 
+st.markdown(f"<h2 style='font-size:22px;'> {len (filtered_df2)} points Gun en bleu et {len (filtered_dg2)} points Geocodage en rouge pour nb_points >= 2 sur [0 max]</h2>", unsafe_allow_html=True)
 # Créer la carte avec des points rouges (dg) et bleus (df)
 fig = px.scatter_mapbox(filtered_dg2, lat="latitude", lon="longitude", hover_data=["Nom_usuel_liste", "Code_AIOT_liste", "result_lab", "nb_points"], size='nb_points', size_max=10, zoom=8, color_discrete_sequence=['red'])
 fig.add_trace(px.scatter_mapbox(filtered_df2, lat="latitude", lon="longitude", hover_data=["Nom_usuel_liste", "Code_AIOT_liste", "Adresse_concat", "nb_points"], size='nb_points', size_max=10, color_discrete_sequence=['blue']).data[0])
@@ -363,7 +362,7 @@ def create_folium_map_with_scale_bar(center_lat, center_lon, data_dg, data_df):
 center_lat = filtered_dg1['latitude'].mean()
 center_lon = filtered_dg1['longitude'].mean()
 
-st.markdown(f"<h2 style='font-size:22px;'>'{len (not_in_dg)} points Gun non geocodables en bleu, Geocodage en rouge</h2>", unsafe_allow_html=True)
+st.markdown(f"<h2 style='font-size:22px;'>'{len (not_in_dg)} points Gun non geocodables en bleu, {len (dg)} points geocodage en rouge</h2>", unsafe_allow_html=True)
 
 folium_map_html = create_folium_map_with_scale_bar(center_lat, center_lon, dg, not_in_dg)
 st.components.v1.html(folium_map_html, height=600)
