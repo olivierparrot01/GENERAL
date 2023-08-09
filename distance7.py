@@ -121,7 +121,7 @@ st.markdown(get_csv_download_link(dg[dg['Statut_Sev'] == 'Seveso seuil bas'], 'l
 
 
 # Create a function to filter DataFrame based on selected interval
-@st.cache
+@st.cache_data
 def filter_dataframe_by_interval(interval, statut):
     if statut == 'Statut_IED':
         return dg[dg['Distance'].between(interval.left, interval.right) & (dg['Statut_IED'] == 'Oui')]
