@@ -324,8 +324,8 @@ def create_folium_map_with_scale_bar(center_lat, center_lon, data_dg, data_df):
     return m.get_root().render()
 
 # Example usage
-center_lat = not_in_dg)['latitude'].mean()
-center_lon = not_in_dg)['longitude'].mean()
+center_lat = not_in_dg['latitude'].mean()
+center_lon = not_in_dg['longitude'].mean()
 
 
 
