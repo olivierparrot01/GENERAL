@@ -17,6 +17,12 @@ dg['Distance'] = dg['Distance'].astype(int)
 dg['Code_AIOT']=dg['Code_AIOT'].astype(str)
 df['Code_AIOT']=df['Code_AIOT'].astype(str)
 df['Adresse_concat'] = df['Adresse 1'].str.cat([df['Adresse 2'], df['Adresse 3']], sep=' ', na_rep='')
+df["Code_AIOT_liste"] = df.groupby(["latitude", "longitude"])["Code_AIOT"].transform(lambda x: ", ".join(x))
+dg["Code_AIOT_liste"] = dg.groupby(["latitude", "longitude"])["Code_AIOT"].transform(lambda x: ", ".join(x))
+df["Nom_usuel_liste"] = df.groupby(["latitude", "longitude"])["Nom_usuel"].transform(lambda x: ", ".join(x))
+dg["Nom_usuel_liste"] = dg.groupby(["latitude", "longitude"])["Nom_usuel"].transform(lambda x: ", ".join(x))
+
+
 
 not_in_dg = df[~df['Code_AIOT'].isin(dg['Code_AIOT'])]
 
