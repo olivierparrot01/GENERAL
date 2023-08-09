@@ -342,24 +342,32 @@ st.components.v1.html(folium_map_html, height=600)
 
 with st.expander(f"Afficher les {len(not_in_dg)} données"):
     # Afficher la table à l'intérieur de la section expansible
-    selected_index = st.dataframe(not_in_dg)
+    selected_index = st.number_input("Sélectionnez l'index de la ligne", min_value=0, max_value=len(not_in_dg)-1, step=1, value=0, key="selected_index")
 
-# Récupérer les informations de latitude et longitude de la ligne sélectionnée
-selected_row = not_in_dg.iloc[selected_index]
+# Vérifier que l'index sélectionné est valide
+if selected_index >= 0 and selected_index < len(not_in_dg):
+    selected_row = not_in_dg.iloc[selected_index]
 
-# Créer la carte avec le point sélectionné mis en évidence
-folium_map_html = create_folium_map_with_scale_bar(center_lat, center_lon, None, not_in_dg)
+    # Créer la carte avec le point sélectionné mis en évidence
+    folium_map_html = create_folium_map_with_scale_bar(center_lat, center_lon, None, not_in_dg)
 
-# Ajouter le marqueur du point sélectionné sur la carte
-if not selected_row.empty:
-    folium.Marker(
-        location=[selected_row['latitude'], selected_row['longitude']],
-        icon=folium.Icon(color='green', icon='info-sign'),
-        popup=f"Point sélectionné: {selected_row['Nom_usuel']} Code_AIOT(S): {selected_row['Code_AIOT_liste']} adresse_Gun: {selected_row['Adresse_concat']}"
-    ).add_to(folium_map_html)
+    # Ajouter le marqueur du point sélectionné sur la carte
+    if not selected_row.empty:
+        folium.Marker(
+            location=[selected_row['latitude'], selected_row['longitude']],
+            icon=folium.Icon(color='green', icon='info-sign'),
+            popup=f"Point sélectionné: {selected_row['Nom_usuel']} Code_AIOT(S): {selected_row['Code_AIOT_liste']} adresse_Gun: {selected_row['Adresse_concat']}"
+        ).add_to(folium_map_html)
 
-# Afficher la carte dans Streamlit
-st.components.v1.html(folium_map_html, height=600)
+    # Afficher la carte dans Streamlit
+    st.components.v1.html(folium_map_html, height=600)
+else:
+    st.warning("Index sélectionné invalide.")
+Ce code utilise st.number_input pour permettre à l'utilisateur de sélectionner l'index de la ligne à partir d'une entrée numérique, puis vérifie si l'index est valide avant d'accéder à la ligne correspondante dans le DataFrame not_in_dg.
+
+
+
+
 
 
 
