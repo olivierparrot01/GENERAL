@@ -284,10 +284,6 @@ with st.expander(f"Afficher les données Geocodage"):
 st.plotly_chart(fig)
 
 
-import streamlit as st
-import pandas as pd
-import numpy as np
-import base64
 import folium
 
 # Load data and perform necessary operations
