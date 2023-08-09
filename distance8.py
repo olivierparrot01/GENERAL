@@ -284,7 +284,9 @@ with st.expander(f"Afficher les données Geocodage"):
 st.plotly_chart(fig)
 
 
+
 import folium
+from streamlit_folium import folium_static
 
 # Load data and perform necessary operations
 
@@ -299,8 +301,9 @@ def create_folium_map_with_scale_bar(center_lat, center_lon, data):
     scale_distance_lat = scale_distance_km / 110.574  # Approximate degrees per kilometer
     scale_distance_lon = scale_distance_km / (111.32 * np.cos(center_lat * np.pi / 180))  # Approximate degrees per kilometer
 
-    # Add a scale bar as a custom control
-    folium.plugins.ScaleControl(position='bottomleft', imperial=False, maxWidth=200).add_to(m)
+    # Add a scale bar as a custom control using MiniMap
+    minimap = folium.plugins.MiniMap()
+    minimap.add_to(m)
 
     return m
 
