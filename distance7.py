@@ -364,7 +364,6 @@ if selected_index >= 0 and selected_index < len(not_in_dg):
     st.components.v1.html(folium_map_html, height=600)
 else:
     st.warning("Index sélectionné invalide.")
-Notez que j'ai encapsulé le texte du popup dans folium.Popup pour éviter les problèmes avec le rendu HTML.
 
 
 
