@@ -325,7 +325,7 @@ def create_folium_map_with_scale_bar(center_lat, center_lon, data_dg, data_df):
     
     # Add circular data points from filtered_dg with labels and Code_AIOT values
     for index, row in data_dg.iterrows():
-        label = f"{row['Nom_usuel']}  Code_AIOT(s) : {row['Code_AIOT_liste']}adresse_API :  {row['result_lab']}"
+        label = f"{row['Nom_usuel']} Code_AIOT(S) : {row['Code_AIOT_liste']} adresse_API :  {row['result_lab']}"
         folium.CircleMarker(
             location=[row['latitude'], row['longitude']],
             radius=5,  # Adjust the radius as needed
@@ -339,7 +339,7 @@ def create_folium_map_with_scale_bar(center_lat, center_lon, data_dg, data_df):
 
     # Add circular data points from filtered_df with labels and Code_AIOT values
     for index, row in data_df.iterrows():
-        label = f"{row['Nom_usuel']} Code_AIOT(s) : {row['Code_AIOT_liste']} adresse_Gun : {row['Adresse_concat']}"
+        label = f"{row['Nom_usuel']} Code_AIOT(S) : {row['Code_AIOT_liste']} adresse_Gun : {row['Adresse_concat']}"
         folium.CircleMarker(
             location=[row['latitude'], row['longitude']],
             radius=5,  # Adjust the radius as needed
