@@ -4,6 +4,7 @@ import numpy as np
 import base64
 import plotly.express as px
 import plotly.graph_objects as go
+import folium
 
 
 
