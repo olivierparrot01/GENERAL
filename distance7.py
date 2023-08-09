@@ -363,16 +363,6 @@ if selected_index >= 0 and selected_index < len(not_in_dg):
     st.components.v1.html(folium_map_html, height=600)
 else:
     st.warning("Index sélectionné invalide.")
-Ce code utilise st.number_input pour permettre à l'utilisateur de sélectionner l'index de la ligne à partir d'une entrée numérique, puis vérifie si l'index est valide avant d'accéder à la ligne correspondante dans le DataFrame not_in_dg.
-
-
-
-
-
-
-
-
-
 
 
 
