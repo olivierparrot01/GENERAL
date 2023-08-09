@@ -314,20 +314,12 @@ def create_folium_map_with_scale_bar(center_lat, center_lon, data_dg, data_df):
     folium.Element(scale_bar_html).add_to(m)
     
     # Add circular data points from filtered_dg with labels and Code_AIOT values
-    for index, row in data_dg.iterrows():
-        label = f"{row['Nom_usuel']} ({row['Code_AIOT']})"
-        folium.CircleMarker(
-            location=[row['latitude'], row['longitude']],
-            radius=5,  # Adjust the radius as needed
-            color='red',
-            fill=True,
-            fill_color='red',
-            fill_opacity=0.6,
-            popup=label  # Label text
-        ).add_to(m)
+    
+    
+    
 
     # Add circular data points from filtered_df with labels and Code_AIOT values
-    for index, row in data_df.iterrows():
+    for index, row in data_filtered_dg1.iterrows():
         label = f"{row['Nom_usuel']} ({row['Code_AIOT']})"
         folium.CircleMarker(
             location=[row['latitude'], row['longitude']],
