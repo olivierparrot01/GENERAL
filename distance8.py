@@ -364,7 +364,7 @@ center_lon = filtered_dg1['longitude'].mean()
 
 st.markdown(f"<h2 style='font-size:22px;'>{len (not_in_dg)} points Gun non géocodés en bleu et points Geocodage en rouge</h2>", unsafe_allow_html=True)
 
-folium_map_html = create_folium_map_with_scale_bar(center_lat, center_lon, dg, not_in_dg)
+folium_map_html = create_folium_map_with_scale_bar(center_lat, center_lon, None, not_in_dg)
 st.components.v1.html(folium_map_html, height=600)
 
 
