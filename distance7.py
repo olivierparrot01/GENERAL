@@ -338,31 +338,54 @@ folium_map_html = create_folium_map_with_scale_bar(center_lat, center_lon, None,
 st.components.v1.html(folium_map_html, height=600)
 
 
-import folium
+
+
+
 import streamlit as st
+import pandas as pd
+import folium
 from streamlit_folium import folium_static
 
-# ... (définition de la fonction create_folium_map_with_scale_bar et de la carte)
+# Chargement des données not_in_dg (suppose que vous avez les données déjà chargées)
 
-# Example usage
+# Création de la carte centrée sur la moyenne des latitudes et longitudes
 center_lat = not_in_dg['latitude'].mean()
 center_lon = not_in_dg['longitude'].mean()
 
-st.markdown(f"<h2 style='font-size:18px;'>{len(not_in_dg)} points Gun non géocodés</h2>", unsafe_allow_html=True)
+# Affichage d'un titre
+st.markdown(f"<h2 style='font-size:18px;'>{len(not_in_dg)} points Gun non géocodés (cliquer sur les points de la carte)</h2>", unsafe_allow_html=True)
 
-with st.expander(f"Afficher les {len(not_in_dg)} données"):
-    # Afficher la table à l'intérieur de la section expansible
-    selected_index = st.number_input("Sélectionnez l'index de la ligne", min_value=0, max_value=len(not_in_dg)-1, step=1, value=0, key="selected_index")
+# Affichage de la carte
+m = folium.Map(location=[center_lat, center_lon], zoom_start=8, control_scale=True)
 
-# Vérifier que l'index sélectionné est valide
-if selected_index >= 0 and selected_index < len(not_in_dg):
-    selected_row = not_in_dg.iloc[selected_index]
+# Ajout des points sur la carte avec des marqueurs
+for index, row in not_in_dg.iterrows():
+    label = f"{row['Nom_usuel']} Code_AIOT(S): {row['Code_AIOT_liste']} adresse_Gun: {row['Adresse_concat']}"
+    folium.CircleMarker(
+        location=[row['latitude'], row['longitude']],
+        radius=5,
+        color='blue',
+        fill=True,
+        fill_color='blue',
+        fill_opacity=0.6,
+        popup=label,
+        tooltip=label
+    ).add_to(m)
 
-    # Créer la carte avec le point sélectionné mis en évidence
-    folium_map = create_folium_map_with_scale_bar(center_lat, center_lon, None, not_in_dg)
+# Afficher la carte dans Streamlit en utilisant folium_static
+folium_static(m)
 
-    # Ajouter le marqueur du point sélectionné directement à la carte
-    popup_text = f"Point sélectionné: {selected_row['Nom_usuel']} Code_AIOT(S): {selected_row['Code_AIOT_liste']} adresse_Gun: {selected_row['Adresse_concat']}"
+# Afficher les détails du point sélectionné
+st.write("Sélectionnez une ligne dans le tableau ci-dessous pour mettre en surbrillance le point correspondant sur la carte :")
+
+# Afficher le DataFrame not_in_dg dans Streamlit
+selected_index = st.table(not_in_dg)
+
+# Vérifier si une ligne est sélectionnée dans le tableau
+if selected_index is not None:
+    selected_row = not_in_dg.iloc[selected_index[0]]
+    
+    # Mettre en surbrillance le point correspondant sur la carte
     folium.CircleMarker(
         location=[selected_row['latitude'], selected_row['longitude']],
         radius=10,
@@ -370,10 +393,6 @@ if selected_index >= 0 and selected_index < len(not_in_dg):
         fill=True,
         fill_color='green',
         fill_opacity=0.6,
-        popup=popup_text
-    ).add_to(folium_map)
-
-    # Afficher la carte dans Streamlit en utilisant folium_static
-    folium_static(folium_map)
-else:
-    st.warning("Index sélectionné invalide.")
+        popup=f"Point sélectionné: {selected_row['Nom_usuel']} Code_AIOT(S): {selected_row['Code_AIOT_liste']} adresse_Gun: {selected_row['Adresse_concat']}"
+    ).add_to(m)
+    folium_static(m)
