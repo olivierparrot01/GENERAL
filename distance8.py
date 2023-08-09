@@ -226,7 +226,7 @@ center_lat = filtered_dg1['latitude'].mean()
 center_lon = filtered_dg1['longitude'].mean()
 
 # Créer une seule carte avec filtered_dg en rouge et filtered_df en bleu 
-st.markdown(f"<h2 style='font-size:22px;'>  {len (filtered_dg1)} points, Gun en bleu et Geocodage en rouge pour l'intervalle [{selected_interval_left} {selected_interval_right}] (ICPE tout type)</h2>", unsafe_allow_html=True)
+st.markdown(f"<h2 style='font-size:18px;'>  {len (filtered_dg1)} points, Gun en bleu et Geocodage en rouge pour l'intervalle [{selected_interval_left} {selected_interval_right}] (ICPE tout type)</h2>", unsafe_allow_html=True)
 
 
 fig = px.scatter_mapbox(filtered_dg1, lat="latitude", lon="longitude", hover_data=["Nom_usuel_liste", "Code_AIOT_liste", "result_lab","nb_points"], size='nb_points', size_max=15,  zoom=8,color_discrete_sequence=['red'])
@@ -270,7 +270,7 @@ filtered_df2["Nom_usuel"] = filtered_df2["Nom_usuel"].astype(str)
 center_lat = filtered_dg2['latitude'].mean()
 center_lon = filtered_dg2['longitude'].mean()
 
-st.markdown(f"<h2 style='font-size:22px;'> {len (filtered_df2)} points Gun en bleu et {len (filtered_dg2)} points Geocodage en rouge pour nb_points >= 2 sur [0 max]</h2>", unsafe_allow_html=True)
+st.markdown(f"<h2 style='font-size:18px;'> {len (filtered_df2)} points Gun en bleu et {len (filtered_dg2)} points Geocodage en rouge pour nb_points >= 2 sur [0 max]</h2>", unsafe_allow_html=True)
 # Créer la carte avec des points rouges (dg) et bleus (df)
 fig = px.scatter_mapbox(filtered_dg2, lat="latitude", lon="longitude", hover_data=["Nom_usuel_liste", "Code_AIOT_liste", "result_lab", "nb_points"], size='nb_points', size_max=10, zoom=8, color_discrete_sequence=['red'])
 fig.add_trace(px.scatter_mapbox(filtered_df2, lat="latitude", lon="longitude", hover_data=["Nom_usuel_liste", "Code_AIOT_liste", "Adresse_concat", "nb_points"], size='nb_points', size_max=10, color_discrete_sequence=['blue']).data[0])
@@ -362,7 +362,10 @@ center_lon = filtered_dg1['longitude'].mean()
 
 
 
-st.markdown(f"<h2 style='font-size:22px;'>{len(not_in_dg)} points Gun non géocodés en bleu et points Geocodage en rouge</h2>", unsafe_allow_html=True)
+st.markdown(f"<h2 style='font-size:18px;'>Points Gun non géocodés</h2>", unsafe_allow_html=True)
 
+with st.expander(f"Afficher les {len(not_in_dg)} données"):
+    # Afficher la table à l'intérieur de la section expansible
+    st.dataframe( not_in_dg)
 folium_map_html = create_folium_map_with_scale_bar(center_lat, center_lon, None, not_in_dg)
 st.components.v1.html(folium_map_html, height=600)
