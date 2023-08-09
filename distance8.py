@@ -360,7 +360,7 @@ def create_folium_map_with_scale_bar(center_lat, center_lon, data_dg, data_df):
 center_lat = filtered_dg1['latitude'].mean()
 center_lon = filtered_dg1['longitude'].mean()
 
-not_in_dg = df[~df['Code_AIOT'].isin(dg['Code_AIOT'])]['Code_AIOT']
+
 
 st.markdown(f"<h2 style='font-size:22px;'>{len(not_in_dg)} points Gun non géocodés en bleu et points Geocodage en rouge</h2>", unsafe_allow_html=True)
 
