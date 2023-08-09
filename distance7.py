@@ -336,3 +336,48 @@ with st.expander(f"Afficher les {len(not_in_dg)} données"):
     st.dataframe( not_in_dg)
 folium_map_html = create_folium_map_with_scale_bar(center_lat, center_lon, None, not_in_dg)
 st.components.v1.html(folium_map_html, height=600)
+
+
+
+import folium
+import streamlit as st
+
+# ... (définition de la fonction create_folium_map_with_scale_bar et de la carte)
+
+# Example usage
+center_lat = not_in_dg['latitude'].mean()
+center_lon = not_in_dg['longitude'].mean()
+
+st.markdown(f"<h2 style='font-size:18px;'>{len(not_in_dg)} points Gun non géocodés</h2>", unsafe_allow_html=True)
+
+with st.expander(f"Afficher les {len(not_in_dg)} données"):
+    # Afficher la table à l'intérieur de la section expansible
+    selected_index = st.dataframe(not_in_dg)
+
+# Récupérer les informations de latitude et longitude de la ligne sélectionnée
+selected_row = not_in_dg.iloc[selected_index]
+
+# Créer la carte avec le point sélectionné mis en évidence
+folium_map_html = create_folium_map_with_scale_bar(center_lat, center_lon, None, not_in_dg)
+
+# Ajouter le marqueur du point sélectionné sur la carte
+if not selected_row.empty:
+    folium.Marker(
+        location=[selected_row['latitude'], selected_row['longitude']],
+        icon=folium.Icon(color='green', icon='info-sign'),
+        popup=f"Point sélectionné: {selected_row['Nom_usuel']} Code_AIOT(S): {selected_row['Code_AIOT_liste']} adresse_Gun: {selected_row['Adresse_concat']}"
+    ).add_to(folium_map_html)
+
+# Afficher la carte dans Streamlit
+st.components.v1.html(folium_map_html, height=600)
+
+
+
+
+
+
+
+
+
+
+
