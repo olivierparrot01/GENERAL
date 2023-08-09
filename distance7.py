@@ -394,4 +394,8 @@ if selected_row is not None:
         fill=True,
         fill_color='green',
         fill_opacity=0.6,
-        popup=f"Point sélectionné: {selected_data['Nom_usuel']} Code_AIOT(S): {selected_data['Code_AIOT_liste']} adresse_Gun: {selected_data['Adresse
+        popup=f"Point sélectionné: {selected_data['Nom_usuel']} Code_AIOT(S): {selected_data['Code_AIOT_liste']} adresse_Gun: {selected_data['Adresse_concat']}"
+    ).add_to(m)
+    
+    # Afficher la carte mise à jour dans Streamlit en utilisant folium_static
+    folium_static(m)
