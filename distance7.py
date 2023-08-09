@@ -201,11 +201,6 @@ st.markdown(f"<h2 style='font-size:22px;'> Gun en bleu et Geocodage en rouge pou
 fig = px.scatter_mapbox(filtered_dg1, lat="latitude", lon="longitude", hover_data=["Nom_usuel", "Code_AIOT", "Adresse_si","nb_points"], size='nb_points', size_max=15,  zoom=8,color_discrete_sequence=['red'])
 fig.add_trace(px.scatter_mapbox(filtered_df, lat="latitude", lon="longitude", hover_data=["Nom_usuel", "Code_AIOT","Adresse_concat","nb_points"], size='nb_points', size_max=10,  zoom=8, color_discrete_sequence=['blue']).data[0])
 
-# Add a scattermapbox trace for the scale bar
-scale_bar_trace = px.scatter_mapbox(lat=[center_lat], lon=[center_lon], text=["Scale Bar"], hoverinfo="text", mode="text").data[0]
-scale_bar_trace.update(textfont=dict(color="black", size=12))
-fig.add_trace(scale_bar_trace)
-
 
 
 fig.update_layout(mapbox_style="open-street-map")
