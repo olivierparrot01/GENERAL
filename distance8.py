@@ -288,8 +288,7 @@ st.plotly_chart(fig)
 
 
 
-import streamlit as st
-import pandas as pd
+
 import folium
 
 # Create a function to generate HTML for a Folium map with a numeric scale bar
@@ -314,15 +313,23 @@ def create_folium_map_with_scale_bar(center_lat, center_lon, data):
     # Add the custom scale bar HTML to the map
     folium.Element(scale_bar_html).add_to(m)
     
-    # Add red data points to the map
+    # Add circular data points to the map
     for index, row in data.iterrows():
-        folium.Marker([row['latitude'], row['longitude']], icon=folium.Icon(color='red')).add_to(m)
+        folium.CircleMarker(
+            location=[row['latitude'], row['longitude']],
+            radius=5,  # Adjust the radius as needed
+            color='red',
+            fill=True,
+            fill_color='red',
+            fill_opacity=0.6
+        ).add_to(m)
 
     return m.get_root().render()
 
 # Example usage
-center_lat = 48.8566
-center_lon = 2.3522
+center_lat = dg['latitude'].mean()
+center_lon = dg['longitude'].mean()
+
 filtered_dg1 = None  # Replace with your data (filtered DataFrame)
-folium_map_html = create_folium_map_with_scale_bar(center_lat, center_lon, dg)
+folium_map_html = create_folium_map_with_scale_bar(center_lat, center_lon, filtered_dg1)
 st.components.v1.html(folium_map_html, height=600)
