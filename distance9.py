@@ -18,6 +18,9 @@ dg['Code_AIOT']=dg['Code_AIOT'].astype(str)
 df['Code_AIOT']=df['Code_AIOT'].astype(str)
 df['Adresse_concat'] = df['Adresse 1'].str.cat([df['Adresse 2'], df['Adresse 3']], sep=' ', na_rep='')
 
+not_in_dg = df[~df['Code_AIOT'].isin(dg['Code_AIOT'])]
+
+
 # Create a function to convert DataFrame to CSV and get the link  for download
 def get_csv_download_link(df, filename):
     csv = df.to_csv(index=False)
@@ -195,7 +198,7 @@ center_lat = filtered_dg1['latitude'].mean()
 center_lon = filtered_dg1['longitude'].mean()
 
 # Créer une seule carte avec filtered_dg en rouge et filtered_df en bleu 
-st.markdown(f"<h2 style='font-size:22px;'> Gun en bleu et Geocodage en rouge pour l'intervalle [{selected_interval_left} {selected_interval_right}] (ICPE tout type)</h2>", unsafe_allow_html=True)
+st.markdown(f"<h2 style='font-size:18px;'> Gun en bleu et Geocodage en rouge pour l'intervalle [{selected_interval_left} {selected_interval_right}] (ICPE tout type)</h2>", unsafe_allow_html=True)
 
 
 fig = px.scatter_mapbox(filtered_dg1, lat="latitude", lon="longitude", hover_data=["Nom_usuel", "Code_AIOT", "Adresse_si","nb_points"], size='nb_points', size_max=15,  zoom=8,color_discrete_sequence=['red'])
@@ -213,7 +216,7 @@ st.plotly_chart(fig)
 
 
 
-st.markdown("<h2 style='font-size:22px;'> Gun en bleu et geocodage en rouge pour nb_points >= 2</h2>", unsafe_allow_html=True)
+st.markdown("<h2 style='font-size:18px;'> Gun en bleu et geocodage en rouge pour nb_points >= 2</h2>", unsafe_allow_html=True)
 
 
 # Seuil pour filtrer les valeurs de nb_points
@@ -255,3 +258,70 @@ with st.expander(f"Afficher les données Geocodage"):
 
 # Afficher la carte dans Streamlit 
 st.plotly_chart(fig)
+
+
+import folium
+
+def create_folium_map_with_scale_bar(center_lat, center_lon, data_dg, data_df):
+    m = folium.Map(location=[center_lat, center_lon], zoom_start=8, control_scale=True)
+    folium.TileLayer('openstreetmap').add_to(m)
+
+    # Calculate distances for the scale bar (in kilometers)
+    scale_distance_km = 10
+
+    # Add a scale bar to the map
+    scale_bar_html = f'''
+        <div class="leaflet-bottom leaflet-right">
+            <div class="leaflet-control-scale leaflet-control">
+                <div class="leaflet-control-scale-line" style="width: {scale_distance_km * 100}px;"></div>
+                <div class="leaflet-control-scale-text" style="white-space: nowrap;">{scale_distance_km} km</div>
+            </div>
+        </div>
+    '''
+    folium.Element(scale_bar_html).add_to(m)
+
+    # Iterate through data_dg if it's not None
+    if data_dg is not None:
+        for index, row in data_dg.iterrows():
+            label = f"{row['Nom_usuel']} Code_AIOT(S): {row['Code_AIOT_liste']} adresse_API: {row['result_lab']}"
+            folium.CircleMarker(
+                location=[row['latitude'], row['longitude']],
+                radius=5,
+                color='red',
+                fill=True,
+                fill_color='red',
+                fill_opacity=0.6,
+                popup=label,
+                tooltip=label
+            ).add_to(m)
+
+    # Iterate through data_df if it's not None
+    if data_df is not None:
+        for index, row in data_df.iterrows():
+            label = f"{row['Nom_usuel']} Code_AIOT(S): {row['Code_AIOT_liste']} adresse_Gun: {row['Adresse_concat']}"
+            folium.CircleMarker(
+                location=[row['latitude'], row['longitude']],
+                radius=5,
+                color='blue',
+                fill=True,
+                fill_color='blue',
+                fill_opacity=0.6,
+                popup=label,
+                tooltip=label
+            ).add_to(m)
+
+    return m.get_root().render()
+
+# Example usage
+center_lat = filtered_dg1['latitude'].mean()
+center_lon = filtered_dg1['longitude'].mean()
+
+
+
+st.markdown(f"<h2 style='font-size:18px;'>Points Gun non géocodés</h2>", unsafe_allow_html=True)
+
+with st.expander(f"Afficher les {len(not_in_dg)} données"):
+    # Afficher la table à l'intérieur de la section expansible
+    st.dataframe( not_in_dg)
+folium_map_html = create_folium_map_with_scale_bar(center_lat, center_lon, None, not_in_dg)
+st.components.v1.html(folium_map_html, height=600)
