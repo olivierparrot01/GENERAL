@@ -30,6 +30,9 @@ df["Nom_usuel_liste"] = df.groupby(["latitude", "longitude"])["Nom_usuel"].trans
 dg["Nom_usuel_liste"] = dg.groupby(["latitude", "longitude"])["Nom_usuel"].transform(lambda x: ", ".join(x))
 
 
+not_in_dg = df[~df['Code AIOT'].isin(dg['Code AIOT'])]['Code AIOT']
+
+
 # Create a function to convert DataFrame to CSV and get the link  for download
 def get_csv_download_link(df, filename):
     csv = df.to_csv(index=False)
@@ -359,6 +362,8 @@ def create_folium_map_with_scale_bar(center_lat, center_lon, data_dg, data_df):
 # Example usage
 center_lat = filtered_dg1['latitude'].mean()
 center_lon = filtered_dg1['longitude'].mean()
+
+st.markdown("<h2 style='font-size:22px;'> Données Gun non geocodables >= 2</h2>", unsafe_allow_html=True)
 
 folium_map_html = create_folium_map_with_scale_bar(center_lat, center_lon, filtered_dg1, filtered_df)
 st.components.v1.html(folium_map_html, height=600)
