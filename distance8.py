@@ -292,7 +292,7 @@ st.plotly_chart(fig)
 import folium
 
 # Create a function to generate HTML for a Folium map with a numeric scale bar
-def create_folium_map_with_scale_bar(center_lat, center_lon, data):
+def create_folium_map_with_scale_bar(center_lat, center_lon, data_dg, data_df):
     m = folium.Map(location=[center_lat, center_lon], zoom_start=8, control_scale=True)
 
     folium.TileLayer('openstreetmap').add_to(m)
@@ -313,23 +313,37 @@ def create_folium_map_with_scale_bar(center_lat, center_lon, data):
     # Add the custom scale bar HTML to the map
     folium.Element(scale_bar_html).add_to(m)
     
-    # Add circular data points to the map
-    for index, row in data.iterrows():
+    # Add circular data points from filtered_dg with labels and Code_AIOT values
+    for index, row in data_dg.iterrows():
+        label = f"{row['Nom_usuel']} ({row['Code_AIOT']})"
         folium.CircleMarker(
             location=[row['latitude'], row['longitude']],
             radius=5,  # Adjust the radius as needed
             color='red',
             fill=True,
             fill_color='red',
-            fill_opacity=0.6
+            fill_opacity=0.6,
+            popup=label  # Label text
+        ).add_to(m)
+
+    # Add circular data points from filtered_df with labels and Code_AIOT values
+    for index, row in data_df.iterrows():
+        label = f"{row['Nom_usuel']} ({row['Code_AIOT']})"
+        folium.CircleMarker(
+            location=[row['latitude'], row['longitude']],
+            radius=5,  # Adjust the radius as needed
+            color='blue',
+            fill=True,
+            fill_color='blue',
+            fill_opacity=0.6,
+            popup=label  # Label text
         ).add_to(m)
 
     return m.get_root().render()
 
-# Example usage
-center_lat = dg['latitude'].mean()
-center_lon = dg['longitude'].mean()
+# Calculer les coordonnées moyennes des latitudes et longitudes de filtered_df
+center_lat = filtered_dg1['latitude'].mean()
+center_lon = filtered_dg1['longitude'].mean()
 
-
-folium_map_html = create_folium_map_with_scale_bar(center_lat, center_lon,dg)
+folium_map_html = create_folium_map_with_scale_bar(center_lat, center_lon, filtered_dg1, filtered_df)
 st.components.v1.html(folium_map_html, height=600)
