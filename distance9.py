@@ -163,22 +163,22 @@ filtered_dg_statut_seveso_bas = filter_dataframe_by_interval(pd.Interval(selecte
 filtered_dg_statut_seveso_haut = filter_dataframe_by_interval(pd.Interval(selected_interval_left, selected_interval_right), 'Seveso seuil haut')
 
 
-with st.expander(f"Afficher les données pour l'intervalle {selected_interval_left} à {selected_interval_right} (ICPE tout type)"):
+with st.expander(f"Afficher les {len(filtered_dg1)} données pour l'intervalle {selected_interval_left} à {selected_interval_right} (ICPE tout type)"):
     # Afficher la table à l'intérieur de la section expansible
     st.dataframe(filtered_dg1)
     
 
 
-with st.expander(f"Afficher les données pour l'intervalle {selected_interval_left} à {selected_interval_right} (Statut_IED)"):
+with st.expander(f"Afficher les {len(filtered_dg_statut_ied)} données pour l'intervalle {selected_interval_left} à {selected_interval_right} (Statut_IED)"):
     # Afficher la table à l'intérieur de la section expansible
     st.dataframe(filtered_dg_statut_ied)
 
 
-with st.expander(f"Afficher les données pour l'intervalle {selected_interval_left} à {selected_interval_right} (Seveso seuil haut)"):
+with st.expander(f"Afficher les {len(filtered_dg_statut_seveso_haut)} données pour l'intervalle {selected_interval_left} à {selected_interval_right} (Seveso seuil haut)"):
     # Afficher la table à l'intérieur de la section expansible
     st.dataframe(filtered_dg_statut_seveso_haut)
 
-with st.expander(f"Afficher les données pour l'intervalle {selected_interval_left} à {selected_interval_right} (Seveso seuil bas)"):
+with st.expander(f"Afficher les {len(filtered_dg_statut_seveso_bas)} données pour l'intervalle {selected_interval_left} à {selected_interval_right} (Seveso seuil bas)"):
     # Afficher la table à l'intérieur de la section expansible
     st.dataframe(filtered_dg_statut_seveso_bas)
 
