@@ -350,25 +350,22 @@ if selected_index >= 0 and selected_index < len(not_in_dg):
     # Créer la carte avec le point sélectionné mis en évidence
     folium_map_html = create_folium_map_with_scale_bar(center_lat, center_lon, None, not_in_dg)
 
-    # Créer un nouvel élément de carte Folium pour ajouter le marqueur
-    highlight_map = folium.Map(location=[selected_row['latitude'], selected_row['longitude']], zoom_start=10)
-
-    # Ajouter le marqueur du point sélectionné sur le nouvel élément de carte
+    # Ajouter le marqueur du point sélectionné directement à la carte principale
     popup_text = f"Point sélectionné: {selected_row['Nom_usuel']} Code_AIOT(S): {selected_row['Code_AIOT_liste']} adresse_Gun: {selected_row['Adresse_concat']}"
-    folium.Marker(
+    folium.CircleMarker(
         location=[selected_row['latitude'], selected_row['longitude']],
-        icon=folium.Icon(color='green', icon='info-sign'),
-        popup=folium.Popup(popup_text)
-    ).add_to(highlight_map)
-
-    # Fusionner le nouvel élément de carte avec l'élément principal
-    folium_map_html.get_root().html += highlight_map.get_root().html
+        radius=10,
+        color='green',
+        fill=True,
+        fill_color='green',
+        fill_opacity=0.6,
+        popup=popup_text
+    ).add_to(folium_map_html)
 
     # Afficher la carte dans Streamlit
     st.components.v1.html(folium_map_html, height=600)
 else:
     st.warning("Index sélectionné invalide.")
-
 
 
 
