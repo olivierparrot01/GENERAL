@@ -353,16 +353,18 @@ if selected_index >= 0 and selected_index < len(not_in_dg):
 
     # Ajouter le marqueur du point sélectionné sur la carte
     if not selected_row.empty:
+        popup_text = f"Point sélectionné: {selected_row['Nom_usuel']} Code_AIOT(S): {selected_row['Code_AIOT_liste']} adresse_Gun: {selected_row['Adresse_concat']}"
         folium.Marker(
             location=[selected_row['latitude'], selected_row['longitude']],
             icon=folium.Icon(color='green', icon='info-sign'),
-            popup=f"Point sélectionné: {selected_row['Nom_usuel']} Code_AIOT(S): {selected_row['Code_AIOT_liste']} adresse_Gun: {selected_row['Adresse_concat']}"
+            popup=folium.Popup(popup_text)
         ).add_to(folium_map_html)
 
     # Afficher la carte dans Streamlit
     st.components.v1.html(folium_map_html, height=600)
 else:
     st.warning("Index sélectionné invalide.")
+Notez que j'ai encapsulé le texte du popup dans folium.Popup pour éviter les problèmes avec le rendu HTML.
 
 
 
