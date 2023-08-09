@@ -224,14 +224,13 @@ st.plotly_chart(fig)
 
 
 
-st.markdown("<h2 style='font-size:18px;'> Gun en bleu et geocodage en rouge pour nb_points >= 2</h2>", unsafe_allow_html=True)
 
 
 # Seuil pour filtrer les valeurs de nb_points
 seuil_nb_points = 1
 
 # Utiliser applymask pour filtrer les données en fonction de la colonne "nb_points"
-filtered_dg2 = dg[dg['nb_points'].apply(lambda x: x > seuil_nb_points)]
+filtered_dg2 = dg[dg['nb_points'].apply(lambda x: x > 0)]
 filtered_df2 = df[df['nb_points'].apply(lambda x: x > seuil_nb_points)]
 filtered_df2["Nom_usuel"] = filtered_df2["Nom_usuel"].astype(str)
 # Créer une nouvelle colonne dans le DataFrame dg pour concaténer les valeurs Code_AIOT
@@ -240,6 +239,10 @@ filtered_dg2["Nom_usuel_liste"] = filtered_dg2.groupby(["latitude", "longitude"]
 
 filtered_df2["Code_AIOT_liste"] = filtered_df2.groupby(["latitude", "longitude"])["Code_AIOT"].transform(lambda x: ", ".join(x))
 filtered_df2["Nom_usuel_liste"] = filtered_df2.groupby(["latitude", "longitude"])["Nom_usuel"].transform(lambda x: ", ".join(x))
+
+
+
+st.markdown("<h2 style='font-size:18px;'> {filtered_df2 } points Gun en bleu et Geocodage en rouge pour nb_points Gun >= 2</h2>", unsafe_allow_html=True)
 
 # Calculer les coordonnées moyennes des latitudes et longitudes de filtered_dg2
 center_lat = filtered_dg2['latitude'].mean()
@@ -326,7 +329,7 @@ center_lon = filtered_dg1['longitude'].mean()
 
 
 
-st.markdown(f"<h2 style='font-size:18px;'>Points Gun non géocodés</h2>", unsafe_allow_html=True)
+st.markdown(f"<h2 style='font-size:18px;'>{not_in_dg} points Gun non géocodés</h2>", unsafe_allow_html=True)
 
 with st.expander(f"Afficher les {len(not_in_dg)} données"):
     # Afficher la table à l'intérieur de la section expansible
