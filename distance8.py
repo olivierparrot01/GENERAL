@@ -306,19 +306,19 @@ import folium
 
 # Create a function to generate HTML for a Folium map with a numeric scale bar
 def create_folium_map_with_scale_bar(center_lat, center_lon, data_dg, data_df):
-    m = folium.Map(location=[center_lat, center_lon], zoom_start=8, control_scale=True)
+    m = folium.Map(location=[center_lat, center_lon], zoom_start=8)
 
     folium.TileLayer('openstreetmap').add_to(m)
 
     # Calculate distances for the scale bar (in kilometers)
-    scale_distance_m = 10000  # Change this to the desired scale distance in meters
+    scale_distance_km = 10  # Change this to the desired scale distance in kilometers
 
     # Add a scale bar to the HTML
     scale_bar_html = f'''
         <div class="leaflet-bottom leaflet-right">
             <div class="leaflet-control-scale leaflet-control">
-                <div class="leaflet-control-scale-line" style="width: {scale_distance_m * 2}px;"></div>
-                <div class="leaflet-control-scale-text" style="white-space: nowrap;">{scale_distance_m} m</div>
+                <div class="leaflet-control-scale-line" style="width: {scale_distance_km * 100}px;"></div>
+                <div class="leaflet-control-scale-text" style="white-space: nowrap;">{scale_distance_km} km</div>
             </div>
         </div>
     '''
@@ -328,7 +328,7 @@ def create_folium_map_with_scale_bar(center_lat, center_lon, data_dg, data_df):
     
     # Add circular data points from filtered_dg with labels and Code_AIOT values
     for index, row in data_dg.iterrows():
-        label = f"{row['Nom_usuel']} ({row['Code_AIOT']})"
+        label = f"{row['Nom_usuel']} Code_AIOT(S): {row['Code_AIOT_liste']} adresse_API: {row['result_lab']}"
         folium.CircleMarker(
             location=[row['latitude'], row['longitude']],
             radius=5,  # Adjust the radius as needed
@@ -336,12 +336,13 @@ def create_folium_map_with_scale_bar(center_lat, center_lon, data_dg, data_df):
             fill=True,
             fill_color='red',
             fill_opacity=0.6,
-            popup=label  # Label text
+            popup=label,  # Label text
+            tooltip=label  # Tooltip text
         ).add_to(m)
 
     # Add circular data points from filtered_df with labels and Code_AIOT values
     for index, row in data_df.iterrows():
-        label = f"{row['Nom_usuel']} ({row['Code_AIOT']})"
+        label = f"{row['Nom_usuel']} Code_AIOT(S): {row['Code_AIOT_liste']} adresse_Gun: {row['Adresse_concat']}"
         folium.CircleMarker(
             location=[row['latitude'], row['longitude']],
             radius=5,  # Adjust the radius as needed
@@ -349,7 +350,8 @@ def create_folium_map_with_scale_bar(center_lat, center_lon, data_dg, data_df):
             fill=True,
             fill_color='blue',
             fill_opacity=0.6,
-            popup=label  # Label text
+            popup=label,  # Label text
+            tooltip=label  # Tooltip text
         ).add_to(m)
 
     return m.get_root().render()
@@ -360,7 +362,6 @@ center_lon = filtered_dg1['longitude'].mean()
 
 folium_map_html = create_folium_map_with_scale_bar(center_lat, center_lon, filtered_dg1, filtered_df)
 st.components.v1.html(folium_map_html, height=600)
-
 
 
 
