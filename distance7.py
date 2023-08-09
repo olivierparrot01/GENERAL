@@ -341,16 +341,8 @@ st.components.v1.html(folium_map_html, height=600)
 
 
 
-import streamlit as st
-import pandas as pd
-import folium
-from streamlit_folium import folium_static
 
-# Chargement des données not_in_dg (suppose que vous avez les données déjà chargées)
 
-# Création de la carte centrée sur la moyenne des latitudes et longitudes
-center_lat = not_in_dg['latitude'].mean()
-center_lon = not_in_dg['longitude'].mean()
 
 # Affichage d'un titre
 st.markdown(f"<h2 style='font-size:18px;'>{len(not_in_dg)} points Gun non géocodés (cliquer sur les points de la carte)</h2>", unsafe_allow_html=True)
@@ -378,21 +370,30 @@ folium_static(m)
 # Afficher les détails du point sélectionné
 st.write("Sélectionnez une ligne dans le tableau ci-dessous pour mettre en surbrillance le point correspondant sur la carte :")
 
-# Afficher le DataFrame not_in_dg dans Streamlit
-selected_index = st.table(not_in_dg)
+# Afficher le DataFrame not_in_dg dans Streamlit avec l'option checkbox pour la sélection
+selected_indices = st.dataframe(not_in_dg, height=400, checkbox=True)
 
-# Vérifier si une ligne est sélectionnée dans le tableau
-if selected_index is not None:
-    selected_row = not_in_dg.iloc[selected_index[0]]
-    
-    # Mettre en surbrillance le point correspondant sur la carte
-    folium.CircleMarker(
-        location=[selected_row['latitude'], selected_row['longitude']],
-        radius=10,
-        color='green',
-        fill=True,
-        fill_color='green',
-        fill_opacity=0.6,
-        popup=f"Point sélectionné: {selected_row['Nom_usuel']} Code_AIOT(S): {selected_row['Code_AIOT_liste']} adresse_Gun: {selected_row['Adresse_concat']}"
-    ).add_to(m)
-    folium_static(m)
+# Vérifier si des lignes sont sélectionnées dans le tableau
+if selected_indices is not None and len(selected_indices) > 0:
+    for selected_index in selected_indices:
+        selected_row = not_in_dg.iloc[selected_index]
+        
+        # Mettre en surbrillance le point correspondant sur la carte
+        folium.CircleMarker(
+            location=[selected_row['latitude'], selected_row['longitude']],
+            radius=10,
+            color='green',
+            fill=True,
+            fill_color='green',
+            fill_opacity=0.6,
+            popup=f"Point sélectionné: {selected_row['Nom_usuel']} Code_AIOT(S): {selected_row['Code_AIOT_liste']} adresse_Gun: {selected_row['Adresse_concat']}"
+        ).add_to(m)
+
+# Afficher la carte mise à jour dans Streamlit en utilisant folium_static
+folium_static(m)
+Avec cette approche, les utilisateurs peuvent sélectionner des lignes dans le tableau en cochant les cases correspondantes, et les points correspondants seront mis en surbrillance sur la carte.
+
+
+
+
+
