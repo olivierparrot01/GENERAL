@@ -343,6 +343,7 @@ st.components.v1.html(folium_map_html, height=600)
 
 
 
+from streamlit_folium import folium_static
 
 # Affichage d'un titre
 st.markdown(f"<h2 style='font-size:18px;'>{len(not_in_dg)} points Gun non géocodés (cliquer sur les points de la carte)</h2>", unsafe_allow_html=True)
