@@ -146,7 +146,6 @@ dropdown_labels = [format_interval_label(interval_index) for interval_index in i
 # Add the [0, max_distance] interval label at the beginning of the list
 # dropdown_labels.insert(0, "[0, max_distance]")
 
-@st.cache
 def filter_dataframe_by_interval(interval, statut):
     column_mapping = {
         'Statut_IED': 'Statut_IED',
@@ -286,26 +285,23 @@ st.plotly_chart(fig)
 
 
 import folium
+
+
 # Create a function to generate HTML for a Folium map with a numeric scale bar
 def create_folium_map_with_scale_bar(center_lat, center_lon, data):
     m = folium.Map(location=[center_lat, center_lon], zoom_start=8, control_scale=True)
 
     folium.TileLayer('openstreetmap').add_to(m)
 
-    # Calculate distances for the scale bar
+    # Calculate distances for the scale bar (in kilometers)
     scale_distance_km = 10  # Change this to the desired scale distance in kilometers
-    scale_distance_lat = scale_distance_km / 110.574  # Approximate degrees per kilometer
-    scale_distance_lon = scale_distance_km / (111.32 * np.cos(center_lat * np.pi / 180))  # Approximate degrees per kilometer
 
     # Add a scale bar to the HTML
     scale_bar_html = f'''
         <div class="leaflet-bottom leaflet-right">
             <div class="leaflet-control-scale leaflet-control">
-                <div class="leaflet-control-scale-line" style="width: {scale_distance_lat}px; height: {scale_distance_lon}px;"></div>
-                <div class="leaflet-control-scale-line" style="width: {scale_distance_lat*2}px; height: {scale_distance_lon*2}px;"></div>
-                <div class="leaflet-control-scale-line" style="width: {scale_distance_lat*3}px; height: {scale_distance_lon*3}px;"></div>
-                <div class="leaflet-control-scale-line" style="width: {scale_distance_lat*4}px; height: {scale_distance_lon*4}px;"></div>
-                <div class="leaflet-control-scale-line" style="width: {scale_distance_lat*5}px; height: {scale_distance_lon*5}px;"></div>
+                <div class="leaflet-control-scale-line" style="width: {scale_distance_km * 100}px;"></div>
+                <div class="leaflet-control-scale-text" style="white-space: nowrap;">{scale_distance_km} km</div>
             </div>
         </div>
     '''
@@ -315,18 +311,9 @@ def create_folium_map_with_scale_bar(center_lat, center_lon, data):
 
     return m.get_root().render()
 
-# ...
-
-# Create the map using the custom function
-st.markdown(f"<h2 style='font-size:22px;'> Gun en bleu et Geocodage en rouge pour l'intervalle [{selected_interval_left} {selected_interval_right}] (ICPE tout type)</h2>", unsafe_allow_html=True)
+# Example usage
+center_lat = 48.8566
+center_lon = 2.3522
+filtered_dg1 = None  # Replace with your data
 folium_map_html = create_folium_map_with_scale_bar(center_lat, center_lon, filtered_dg1)
 st.components.v1.html(folium_map_html, height=600)
-
-# ...
-
-st.markdown("<h2 style='font-size:22px;'> Gun en bleu et geocodage en rouge pour nb_points >= 2</h2>", unsafe_allow_html=True)
-# ...
-
-# Create the map using the custom function
-folium_map2_html = create_folium_map_with_scale_bar(center_lat, center_lon, filtered_dg2)
-st.components.v1.html(folium_map2_html, height=600)
