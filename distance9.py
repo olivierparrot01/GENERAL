@@ -242,7 +242,7 @@ filtered_df2["Nom_usuel_liste"] = filtered_df2.groupby(["latitude", "longitude"]
 
 
 
-st.markdown("<h2 style='font-size:18px;'> {filtered_df2 } points Gun en bleu et Geocodage en rouge pour nb_points Gun >= 2</h2>", unsafe_allow_html=True)
+st.markdown(f"<h2 style='font-size:18px;'> {filtered_df2 } points Gun en bleu et Geocodage en rouge pour nb_points Gun >= 2</h2>", unsafe_allow_html=True)
 
 # Calculer les coordonnées moyennes des latitudes et longitudes de filtered_dg2
 center_lat = filtered_dg2['latitude'].mean()
@@ -324,8 +324,8 @@ def create_folium_map_with_scale_bar(center_lat, center_lon, data_dg, data_df):
     return m.get_root().render()
 
 # Example usage
-center_lat = filtered_dg1['latitude'].mean()
-center_lon = filtered_dg1['longitude'].mean()
+center_lat = not_in_dg)['latitude'].mean()
+center_lon = not_in_dg)['longitude'].mean()
 
 
 
