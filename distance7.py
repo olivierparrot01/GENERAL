@@ -339,16 +339,6 @@ st.components.v1.html(folium_map_html, height=600)
 
 
 
-import folium
-import streamlit as st
-
-# ... (définition de la fonction create_folium_map_with_scale_bar et de la carte)
-
-# Example usage
-center_lat = not_in_dg['latitude'].mean()
-center_lon = not_in_dg['longitude'].mean()
-
-st.markdown(f"<h2 style='font-size:18px;'>{len(not_in_dg)} points Gun non géocodés</h2>", unsafe_allow_html=True)
 
 with st.expander(f"Afficher les {len(not_in_dg)} données"):
     # Afficher la table à l'intérieur de la section expansible
