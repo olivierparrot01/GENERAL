@@ -341,7 +341,6 @@ st.components.v1.html(folium_map_html, height=600)
 
 
 
-
 import streamlit as st
 import pandas as pd
 import folium
@@ -377,27 +376,22 @@ for index, row in not_in_dg.iterrows():
 folium_static(m)
 
 # Afficher les détails du point sélectionné
-st.write("Sélectionnez des lignes dans le tableau ci-dessous pour mettre en surbrillance les points correspondants sur la carte :")
+st.write("Sélectionnez une ligne dans le tableau ci-dessous pour mettre en surbrillance le point correspondant sur la carte :")
 
-# Afficher le DataFrame not_in_dg dans Streamlit avec une case à cocher à côté de chaque ligne
-selected_rows = st.table(not_in_dg)
+# Afficher le DataFrame not_in_dg dans Streamlit avec la possibilité de sélectionner une ligne
+selected_row = st.dataframe(not_in_dg, row_selectable=True)
 
-# Vérifier si des lignes sont sélectionnées dans le tableau
-if selected_rows is not None:
-    selected_indices = selected_rows.index
-    for selected_index in selected_indices:
-        selected_row = not_in_dg.loc[selected_index]
-        
-        # Mettre en surbrillance le point correspondant sur la carte
-        folium.CircleMarker(
-            location=[selected_row['latitude'], selected_row['longitude']],
-            radius=10,
-            color='green',
-            fill=True,
-            fill_color='green',
-            fill_opacity=0.6,
-            popup=f"Point sélectionné: {selected_row['Nom_usuel']} Code_AIOT(S): {selected_row['Code_AIOT_liste']} adresse_Gun: {selected_row['Adresse_concat']}"
-        ).add_to(m)
-
-    # Afficher la carte mise à jour dans Streamlit en utilisant folium_static
-    folium_static(m)
+# Vérifier si une ligne est sélectionnée dans le DataFrame
+if selected_row is not None:
+    # Mettre en surbrillance le point correspondant sur la carte
+    selected_index = selected_row.index[0]
+    selected_data = not_in_dg.iloc[selected_index]
+    
+    folium.CircleMarker(
+        location=[selected_data['latitude'], selected_data['longitude']],
+        radius=10,
+        color='green',
+        fill=True,
+        fill_color='green',
+        fill_opacity=0.6,
+        popup=f"Point sélectionné: {selected_data['Nom_usuel']} Code_AIOT(S): {selected_data['Code_AIOT_liste']} adresse_Gun: {selected_data['Adresse
