@@ -343,7 +343,16 @@ st.components.v1.html(folium_map_html, height=600)
 
 
 
+import streamlit as st
+import pandas as pd
+import folium
 from streamlit_folium import folium_static
+
+# Chargement des données not_in_dg (suppose que vous avez les données déjà chargées)
+
+# Création de la carte centrée sur la moyenne des latitudes et longitudes
+center_lat = not_in_dg['latitude'].mean()
+center_lon = not_in_dg['longitude'].mean()
 
 # Affichage d'un titre
 st.markdown(f"<h2 style='font-size:18px;'>{len(not_in_dg)} points Gun non géocodés (cliquer sur les points de la carte)</h2>", unsafe_allow_html=True)
@@ -371,13 +380,13 @@ folium_static(m)
 # Afficher les détails du point sélectionné
 st.write("Sélectionnez une ligne dans le tableau ci-dessous pour mettre en surbrillance le point correspondant sur la carte :")
 
-# Afficher le DataFrame not_in_dg dans Streamlit avec l'option checkbox pour la sélection
-selected_indices = st.dataframe(not_in_dg, height=400, checkbox=True)
+# Afficher le DataFrame not_in_dg dans Streamlit avec une colonne de checkboxes pour la sélection
+selected_indices = st.multiselect("Sélectionnez les lignes", not_in_dg.index)
 
 # Vérifier si des lignes sont sélectionnées dans le tableau
-if selected_indices is not None and len(selected_indices) > 0:
+if selected_indices:
     for selected_index in selected_indices:
-        selected_row = not_in_dg.iloc[selected_index]
+        selected_row = not_in_dg.loc[selected_index]
         
         # Mettre en surbrillance le point correspondant sur la carte
         folium.CircleMarker(
@@ -392,8 +401,3 @@ if selected_indices is not None and len(selected_indices) > 0:
 
 # Afficher la carte mise à jour dans Streamlit en utilisant folium_static
 folium_static(m)
-
-
-
-
-
