@@ -4,3 +4,4 @@ geopandas
 numpy
 matplotlib
 plotly
+folium
