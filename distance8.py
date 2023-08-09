@@ -284,10 +284,12 @@ with st.expander(f"Afficher les données Geocodage"):
 st.plotly_chart(fig)
 
 
-# ...
+import plotly.graph_objects as go
 
-# Create a function to generate a Mapbox figure with a scale bar
-def create_mapbox_figure(center_lat, center_lon, zoom, data, color_column):
+# Load data and perform necessary operations
+
+# Create a function to generate a Mapbox figure with a distance scale bar
+def create_mapbox_figure_with_scale_bar(center_lat, center_lon, zoom, data, color_column):
     fig = go.Figure(go.Scattermapbox(
         lat=data['latitude'],
         lon=data['longitude'],
@@ -296,32 +298,38 @@ def create_mapbox_figure(center_lat, center_lon, zoom, data, color_column):
         text=data['Nom_usuel'],
         hoverinfo='text',
     ))
-    
-    # Add a scale bar using Mapbox's layout.mapbox annotation
+
+    # Calculate distances for the scale bar
+    scale_distance_km = 10  # Change this to the desired scale distance in kilometers
+    scale_distance_lat = scale_distance_km / 110.574  # Approximate degrees per kilometer
+    scale_distance_lon = scale_distance_km / (111.32 * np.cos(center_lat * np.pi / 180))  # Approximate degrees per kilometer
+
+    # Add a scale bar as an annotation
+    fig.add_annotation(
+        go.layout.Annotation(
+            text=f"{scale_distance_km} km",
+            x=center_lon + scale_distance_lon / 2,
+            y=center_lat - scale_distance_lat,
+            showarrow=False,
+            font=dict(color="black", size=12),
+        )
+    )
+
     fig.update_layout(
         mapbox_style="open-street-map",
         mapbox=dict(
             center=dict(lat=center_lat, lon=center_lon),
             zoom=zoom,
         ),
-        annotations=[
-            go.layout.Annotation(
-                text="Scale Bar",
-                x=center_lon,
-                y=center_lat,
-                showarrow=False,
-                font=dict(color="black", size=12),
-            )
-        ],
     )
-    
+
     return fig
 
 # ...
 
 # Create the map using the custom function
 st.markdown(f"<h2 style='font-size:22px;'> Gun en bleu et Geocodage en rouge pour l'intervalle [{selected_interval_left} {selected_interval_right}] (ICPE tout type)</h2>", unsafe_allow_html=True)
-map_fig = create_mapbox_figure(center_lat, center_lon, 8, filtered_dg1, 'nb_points')
+map_fig = create_mapbox_figure_with_scale_bar(center_lat, center_lon, 8, filtered_dg1, 'nb_points')
 st.plotly_chart(map_fig)
 
 # ...
@@ -330,7 +338,5 @@ st.markdown("<h2 style='font-size:22px;'> Gun en bleu et geocodage en rouge pour
 # ...
 
 # Create the map using the custom function
-map_fig2 = create_mapbox_figure(center_lat, center_lon, 8, filtered_dg2, 'nb_points')
+map_fig2 = create_mapbox_figure_with_scale_bar(center_lat, center_lon, 8, filtered_dg2, 'nb_points')
 st.plotly_chart(map_fig2)
-
-
