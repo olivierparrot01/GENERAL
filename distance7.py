@@ -338,6 +338,17 @@ folium_map_html = create_folium_map_with_scale_bar(center_lat, center_lon, None,
 st.components.v1.html(folium_map_html, height=600)
 
 
+import folium
+import streamlit as st
+from streamlit_folium import folium_static
+
+# ... (définition de la fonction create_folium_map_with_scale_bar et de la carte)
+
+# Example usage
+center_lat = not_in_dg['latitude'].mean()
+center_lon = not_in_dg['longitude'].mean()
+
+st.markdown(f"<h2 style='font-size:18px;'>{len(not_in_dg)} points Gun non géocodés</h2>", unsafe_allow_html=True)
 
 with st.expander(f"Afficher les {len(not_in_dg)} données"):
     # Afficher la table à l'intérieur de la section expansible
@@ -348,9 +359,9 @@ if selected_index >= 0 and selected_index < len(not_in_dg):
     selected_row = not_in_dg.iloc[selected_index]
 
     # Créer la carte avec le point sélectionné mis en évidence
-    folium_map_html = create_folium_map_with_scale_bar(center_lat, center_lon, None, not_in_dg)
+    folium_map = create_folium_map_with_scale_bar(center_lat, center_lon, None, not_in_dg)
 
-    # Ajouter le marqueur du point sélectionné directement à la carte principale
+    # Ajouter le marqueur du point sélectionné directement à la carte
     popup_text = f"Point sélectionné: {selected_row['Nom_usuel']} Code_AIOT(S): {selected_row['Code_AIOT_liste']} adresse_Gun: {selected_row['Adresse_concat']}"
     folium.CircleMarker(
         location=[selected_row['latitude'], selected_row['longitude']],
@@ -360,13 +371,11 @@ if selected_index >= 0 and selected_index < len(not_in_dg):
         fill_color='green',
         fill_opacity=0.6,
         popup=popup_text
-    ).add_to(folium_map_html)
+    ).add_to(folium_map)
 
-    # Afficher la carte dans Streamlit
-    st.components.v1.html(folium_map_html, height=600)
+    # Afficher la carte dans Streamlit en utilisant folium_static
+    folium_static(folium_map)
 else:
     st.warning("Index sélectionné invalide.")
-
-
 
 
