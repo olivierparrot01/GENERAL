@@ -286,11 +286,7 @@ st.plotly_chart(fig)
 
 
 import folium
-from streamlit_folium import folium_static
-
-# Load data and perform necessary operations
-
-# Create a function to generate a Folium map with a numeric scale bar
+# Create a function to generate HTML for a Folium map with a numeric scale bar
 def create_folium_map_with_scale_bar(center_lat, center_lon, data):
     m = folium.Map(location=[center_lat, center_lon], zoom_start=8, control_scale=True)
 
@@ -301,19 +297,30 @@ def create_folium_map_with_scale_bar(center_lat, center_lon, data):
     scale_distance_lat = scale_distance_km / 110.574  # Approximate degrees per kilometer
     scale_distance_lon = scale_distance_km / (111.32 * np.cos(center_lat * np.pi / 180))  # Approximate degrees per kilometer
 
-    # Add a scale bar as a custom control using MiniMap
-    minimap = folium.plugins.MiniMap()
-    minimap.add_to(m)
+    # Add a scale bar to the HTML
+    scale_bar_html = f'''
+        <div class="leaflet-bottom leaflet-right">
+            <div class="leaflet-control-scale leaflet-control">
+                <div class="leaflet-control-scale-line" style="width: {scale_distance_lat}px; height: {scale_distance_lon}px;"></div>
+                <div class="leaflet-control-scale-line" style="width: {scale_distance_lat*2}px; height: {scale_distance_lon*2}px;"></div>
+                <div class="leaflet-control-scale-line" style="width: {scale_distance_lat*3}px; height: {scale_distance_lon*3}px;"></div>
+                <div class="leaflet-control-scale-line" style="width: {scale_distance_lat*4}px; height: {scale_distance_lon*4}px;"></div>
+                <div class="leaflet-control-scale-line" style="width: {scale_distance_lat*5}px; height: {scale_distance_lon*5}px;"></div>
+            </div>
+        </div>
+    '''
 
-    return m
+    # Add the custom scale bar HTML to the map
+    folium.Element(scale_bar_html).add_to(m)
+
+    return m.get_root().render()
 
 # ...
 
 # Create the map using the custom function
 st.markdown(f"<h2 style='font-size:22px;'> Gun en bleu et Geocodage en rouge pour l'intervalle [{selected_interval_left} {selected_interval_right}] (ICPE tout type)</h2>", unsafe_allow_html=True)
-folium_map = create_folium_map_with_scale_bar(center_lat, center_lon, filtered_dg1)
-st_folium_map = folium_static(folium_map)
-st_folium_map
+folium_map_html = create_folium_map_with_scale_bar(center_lat, center_lon, filtered_dg1)
+st.components.v1.html(folium_map_html, height=600)
 
 # ...
 
@@ -321,6 +328,5 @@ st.markdown("<h2 style='font-size:22px;'> Gun en bleu et geocodage en rouge pour
 # ...
 
 # Create the map using the custom function
-folium_map2 = create_folium_map_with_scale_bar(center_lat, center_lon, filtered_dg2)
-st_folium_map2 = folium_static(folium_map2)
-st_folium_map2
+folium_map2_html = create_folium_map_with_scale_bar(center_lat, center_lon, filtered_dg2)
+st.components.v1.html(folium_map2_html, height=600)
