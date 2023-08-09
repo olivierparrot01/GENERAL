@@ -194,22 +194,22 @@ filtered_dg_statut_ied = filter_dataframe_by_interval(pd.Interval(selected_inter
 filtered_dg_statut_seveso_bas = filter_dataframe_by_interval(pd.Interval(selected_interval_left, selected_interval_right), 'Seveso seuil bas')
 filtered_dg_statut_seveso_haut = filter_dataframe_by_interval(pd.Interval(selected_interval_left, selected_interval_right), 'Seveso seuil haut')
 
-with st.expander(f"Afficher les données pour l'intervalle {selected_interval_left} à {selected_interval_right} (ICPE tout type)"):
+with st.expander(f"Afficher les {filtered_dg1} données pour l'intervalle {selected_interval_left} à {selected_interval_right} (ICPE tout type)"):
     # Afficher la table à l'intérieur de la section expansible
     st.dataframe(filtered_dg1)
     
 
 
-with st.expander(f"Afficher les données pour l'intervalle {selected_interval_left} à {selected_interval_right} (Statut_IED)"):
+with st.expander(f"Afficher les {filtered_dg1} données pour l'intervalle {selected_interval_left} à {selected_interval_right} (Statut_IED)"):
     # Afficher la table à l'intérieur de la section expansible
     st.dataframe(filtered_dg_statut_ied)
 
 
-with st.expander(f"Afficher les données pour l'intervalle {selected_interval_left} à {selected_interval_right} (Seveso seuil haut)"):
+with st.expander(f"Afficher les {filtered_dg1} données pour l'intervalle {selected_interval_left} à {selected_interval_right} (Seveso seuil haut)"):
     # Afficher la table à l'intérieur de la section expansible
     st.dataframe(filtered_dg_statut_seveso_haut)
 
-with st.expander(f"Afficher les données pour l'intervalle {selected_interval_left} à {selected_interval_right} (Seveso seuil bas)"):
+with st.expander(f"Afficher les {filtered_dg1} données pour l'intervalle {selected_interval_left} à {selected_interval_right} (Seveso seuil bas)"):
     # Afficher la table à l'intérieur de la section expansible
     st.dataframe(filtered_dg_statut_seveso_bas)
 
@@ -226,7 +226,7 @@ center_lat = filtered_dg1['latitude'].mean()
 center_lon = filtered_dg1['longitude'].mean()
 
 # Créer une seule carte avec filtered_dg en rouge et filtered_df en bleu 
-st.markdown(f"<h2 style='font-size:22px;'>  {len (filtered_dg1)} points Gun en bleu et  {len (filtered_df)} points Geocodage en rouge pour l'intervalle [{selected_interval_left} {selected_interval_right}] (ICPE tout type)</h2>", unsafe_allow_html=True)
+st.markdown(f"<h2 style='font-size:22px;'>  {len (filtered_dg1)} points, Gun en bleu et Geocodage en rouge pour l'intervalle [{selected_interval_left} {selected_interval_right}] (ICPE tout type)</h2>", unsafe_allow_html=True)
 
 
 fig = px.scatter_mapbox(filtered_dg1, lat="latitude", lon="longitude", hover_data=["Nom_usuel_liste", "Code_AIOT_liste", "result_lab","nb_points"], size='nb_points', size_max=15,  zoom=8,color_discrete_sequence=['red'])
@@ -362,7 +362,7 @@ def create_folium_map_with_scale_bar(center_lat, center_lon, data_dg, data_df):
 center_lat = filtered_dg1['latitude'].mean()
 center_lon = filtered_dg1['longitude'].mean()
 
-st.markdown(f"<h2 style='font-size:22px;'>'{len (not_in_dg)} points Gun non geocodables en bleu, {len (dg)} points geocodage en rouge</h2>", unsafe_allow_html=True)
+st.markdown(f"<h2 style='font-size:22px;'>{len (not_in_dg)} points Gun non géocodés en bleu et points Geocodage en rouge</h2>", unsafe_allow_html=True)
 
 folium_map_html = create_folium_map_with_scale_bar(center_lat, center_lon, dg, not_in_dg)
 st.components.v1.html(folium_map_html, height=600)
