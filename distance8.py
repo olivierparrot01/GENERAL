@@ -143,7 +143,7 @@ dropdown_labels = [format_interval_label(interval_index) for interval_index in i
 # Add the [0, max_distance] interval label at the beginning of the list
 # dropdown_labels.insert(0, "[0, max_distance]")
 
-
+@st.cache
 def filter_dataframe_by_interval(interval, statut):
     column_mapping = {
         'Statut_IED': 'Statut_IED',
