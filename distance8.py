@@ -3,6 +3,9 @@ import pandas as pd
 import numpy as np
 import base64
 import plotly.express as px
+import plotly.graph_objects as go
+
+
 
 # Load data from  CSV
 dg = pd.read_csv('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/2geocodage.csv')
@@ -279,3 +282,55 @@ with st.expander(f"Afficher les données Geocodage"):
 
 # Afficher la carte dans Streamlit 
 st.plotly_chart(fig)
+
+
+# ...
+
+# Create a function to generate a Mapbox figure with a scale bar
+def create_mapbox_figure(center_lat, center_lon, zoom, data, color_column):
+    fig = go.Figure(go.Scattermapbox(
+        lat=data['latitude'],
+        lon=data['longitude'],
+        mode='markers',
+        marker=dict(size=data['nb_points'], color=data[color_column], colorscale='Viridis', showscale=True),
+        text=data['Nom_usuel'],
+        hoverinfo='text',
+    ))
+    
+    # Add a scale bar using Mapbox's layout.mapbox annotation
+    fig.update_layout(
+        mapbox_style="open-street-map",
+        mapbox=dict(
+            center=dict(lat=center_lat, lon=center_lon),
+            zoom=zoom,
+        ),
+        annotations=[
+            go.layout.Annotation(
+                text="Scale Bar",
+                x=center_lon,
+                y=center_lat,
+                showarrow=False,
+                font=dict(color="black", size=12),
+            )
+        ],
+    )
+    
+    return fig
+
+# ...
+
+# Create the map using the custom function
+st.markdown(f"<h2 style='font-size:22px;'> Gun en bleu et Geocodage en rouge pour l'intervalle [{selected_interval_left} {selected_interval_right}] (ICPE tout type)</h2>", unsafe_allow_html=True)
+map_fig = create_mapbox_figure(center_lat, center_lon, 8, filtered_dg1, 'nb_points')
+st.plotly_chart(map_fig)
+
+# ...
+
+st.markdown("<h2 style='font-size:22px;'> Gun en bleu et geocodage en rouge pour nb_points >= 2</h2>", unsafe_allow_html=True)
+# ...
+
+# Create the map using the custom function
+map_fig2 = create_mapbox_figure(center_lat, center_lon, 8, filtered_dg2, 'nb_points')
+st.plotly_chart(map_fig2)
+
+
