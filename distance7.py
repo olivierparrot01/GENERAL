@@ -339,7 +339,6 @@ st.components.v1.html(folium_map_html, height=600)
 
 
 
-
 with st.expander(f"Afficher les {len(not_in_dg)} données"):
     # Afficher la table à l'intérieur de la section expansible
     selected_index = st.number_input("Sélectionnez l'index de la ligne", min_value=0, max_value=len(not_in_dg)-1, step=1, value=0, key="selected_index")
@@ -351,20 +350,24 @@ if selected_index >= 0 and selected_index < len(not_in_dg):
     # Créer la carte avec le point sélectionné mis en évidence
     folium_map_html = create_folium_map_with_scale_bar(center_lat, center_lon, None, not_in_dg)
 
-    # Ajouter le marqueur du point sélectionné sur la carte
-    if not selected_row.empty:
-        popup_text = f"Point sélectionné: {selected_row['Nom_usuel']} Code_AIOT(S): {selected_row['Code_AIOT_liste']} adresse_Gun: {selected_row['Adresse_concat']}"
-        folium.Marker(
-            location=[selected_row['latitude'], selected_row['longitude']],
-            icon=folium.Icon(color='green', icon='info-sign'),
-            popup=folium.Popup(popup_text)
-        ).add_to(folium_map_html)
+    # Créer un nouvel élément de carte Folium pour ajouter le marqueur
+    highlight_map = folium.Map(location=[selected_row['latitude'], selected_row['longitude']], zoom_start=10)
+
+    # Ajouter le marqueur du point sélectionné sur le nouvel élément de carte
+    popup_text = f"Point sélectionné: {selected_row['Nom_usuel']} Code_AIOT(S): {selected_row['Code_AIOT_liste']} adresse_Gun: {selected_row['Adresse_concat']}"
+    folium.Marker(
+        location=[selected_row['latitude'], selected_row['longitude']],
+        icon=folium.Icon(color='green', icon='info-sign'),
+        popup=folium.Popup(popup_text)
+    ).add_to(highlight_map)
+
+    # Fusionner le nouvel élément de carte avec l'élément principal
+    folium_map_html.get_root().html += highlight_map.get_root().html
 
     # Afficher la carte dans Streamlit
     st.components.v1.html(folium_map_html, height=600)
 else:
     st.warning("Index sélectionné invalide.")
-
 
 
 
