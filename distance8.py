@@ -306,16 +306,14 @@ st.plotly_chart(fig)
 
 import folium
 
-# Create a function to generate HTML for a Folium map with a numeric scale bar
 def create_folium_map_with_scale_bar(center_lat, center_lon, data_dg, data_df):
     m = folium.Map(location=[center_lat, center_lon], zoom_start=8, control_scale=True)
-
     folium.TileLayer('openstreetmap').add_to(m)
 
     # Calculate distances for the scale bar (in kilometers)
-    scale_distance_km = 10  # Change this to the desired scale distance in kilometers
+    scale_distance_km = 10
 
-    # Add a scale bar to the HTML
+    # Add a scale bar to the map
     scale_bar_html = f'''
         <div class="leaflet-bottom leaflet-right">
             <div class="leaflet-control-scale leaflet-control">
@@ -324,37 +322,37 @@ def create_folium_map_with_scale_bar(center_lat, center_lon, data_dg, data_df):
             </div>
         </div>
     '''
-
-    # Add the custom scale bar HTML to the map
     folium.Element(scale_bar_html).add_to(m)
-    
-    # Add circular data points from filtered_dg with labels and Code_AIOT values
-    for index, row in data_dg.iterrows():
-        label = f"{row['Nom_usuel']} Code_AIOT(S): {row['Code_AIOT_liste']} adresse_API: {row['result_lab']}"
-        folium.CircleMarker(
-            location=[row['latitude'], row['longitude']],
-            radius=5,  # Adjust the radius as needed
-            color='red',
-            fill=True,
-            fill_color='red',
-            fill_opacity=0.6,
-            popup=label,  # Label text
-            tooltip=label  # Tooltip text
-        ).add_to(m)
 
-    # Add circular data points from filtered_df with labels and Code_AIOT values
-    for index, row in data_df.iterrows():
-        label = f"{row['Nom_usuel']} Code_AIOT(S): {row['Code_AIOT_liste']} adresse_Gun: {row['Adresse_concat']}"
-        folium.CircleMarker(
-            location=[row['latitude'], row['longitude']],
-            radius=5,  # Adjust the radius as needed
-            color='blue',
-            fill=True,
-            fill_color='blue',
-            fill_opacity=0.6,
-            popup=label,  # Label text
-            tooltip=label  # Tooltip text
-        ).add_to(m)
+    # Iterate through data_dg if it's not None
+    if data_dg is not None:
+        for index, row in data_dg.iterrows():
+            label = f"{row['Nom_usuel']} Code_AIOT(S): {row['Code_AIOT_liste']} adresse_API: {row['result_lab']}"
+            folium.CircleMarker(
+                location=[row['latitude'], row['longitude']],
+                radius=5,
+                color='red',
+                fill=True,
+                fill_color='red',
+                fill_opacity=0.6,
+                popup=label,
+                tooltip=label
+            ).add_to(m)
+
+    # Iterate through data_df if it's not None
+    if data_df is not None:
+        for index, row in data_df.iterrows():
+            label = f"{row['Nom_usuel']} Code_AIOT(S): {row['Code_AIOT_liste']} adresse_Gun: {row['Adresse_concat']}"
+            folium.CircleMarker(
+                location=[row['latitude'], row['longitude']],
+                radius=5,
+                color='blue',
+                fill=True,
+                fill_color='blue',
+                fill_opacity=0.6,
+                popup=label,
+                tooltip=label
+            ).add_to(m)
 
     return m.get_root().render()
 
@@ -362,19 +360,9 @@ def create_folium_map_with_scale_bar(center_lat, center_lon, data_dg, data_df):
 center_lat = filtered_dg1['latitude'].mean()
 center_lon = filtered_dg1['longitude'].mean()
 
-st.markdown(f"<h2 style='font-size:22px;'>{len (not_in_dg)} points Gun non géocodés en bleu et points Geocodage en rouge</h2>", unsafe_allow_html=True)
+not_in_dg = df[~df['Code_AIOT'].isin(dg['Code_AIOT'])]['Code_AIOT']
+
+st.markdown(f"<h2 style='font-size:22px;'>{len(not_in_dg)} points Gun non géocodés en bleu et points Geocodage en rouge</h2>", unsafe_allow_html=True)
 
 folium_map_html = create_folium_map_with_scale_bar(center_lat, center_lon, None, not_in_dg)
 st.components.v1.html(folium_map_html, height=600)
-
-
-
-
-
-
-
-
-
-
-
-
