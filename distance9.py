@@ -242,7 +242,7 @@ filtered_df2["Nom_usuel_liste"] = filtered_df2.groupby(["latitude", "longitude"]
 
 
 
-st.markdown(f"<h2 style='font-size:18px;'> {filtered_df2 } points Gun en bleu et Geocodage en rouge pour nb_points Gun >= 2</h2>", unsafe_allow_html=True)
+st.markdown(f"<h2 style='font-size:18px;'> {len(filtered_df2) } points Gun en bleu et Geocodage en rouge pour nb_points Gun >= 2</h2>", unsafe_allow_html=True)
 
 # Calculer les coordonnées moyennes des latitudes et longitudes de filtered_dg2
 center_lat = filtered_dg2['latitude'].mean()
