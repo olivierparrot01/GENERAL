@@ -359,3 +359,20 @@ if selected_index >= 0 and selected_index < len(not_in_dg):
     selected_row = not_in_dg.iloc[selected_index]
 
 
+# Créer la carte avec le point sélectionné mis en évidence
+folium_map = create_folium_map_with_scale_bar(center_lat, center_lon, None, not_in_dg)
+
+# Ajouter le marqueur du point sélectionné directement à la carte
+popup_text = f"Point sélectionné: {selected_row['Nom_usuel']} Code_AIOT(S): {selected_row['Code_AIOT_liste']} adresse_Gun: {selected_row['Adresse_concat']}"
+folium.CircleMarker(
+    location=[selected_row['latitude'], selected_row['longitude']],
+    radius=10,
+    color='green',
+    fill=True,
+    fill_color='green',
+    fill_opacity=0.6,
+    popup=popup_text
+).add_to(folium_map)
+
+# Afficher la carte dans Streamlit en utilisant folium_static
+folium_static(folium_map)
