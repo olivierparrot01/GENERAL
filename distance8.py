@@ -346,9 +346,6 @@ def create_folium_map_with_scale_bar(center_lat, center_lon, data_dg, data_df):
 center_lat = filtered_dg1['latitude'].mean()
 center_lon = filtered_dg1['longitude'].mean()
 
-# Replace with your actual filtered DataFrames
-filtered_dg1 = None
-filtered_df = None
 
 folium_map_html = create_folium_map_with_scale_bar(center_lat, center_lon, filtered_dg1, filtered_df)
 st.components.v1.html(folium_map_html, height=600)
