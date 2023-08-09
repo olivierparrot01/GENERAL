@@ -391,7 +391,6 @@ if selected_indices is not None and len(selected_indices) > 0:
 
 # Afficher la carte mise à jour dans Streamlit en utilisant folium_static
 folium_static(m)
-Avec cette approche, les utilisateurs peuvent sélectionner des lignes dans le tableau en cochant les cases correspondantes, et les points correspondants seront mis en surbrillance sur la carte.
 
 
 
