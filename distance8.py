@@ -290,6 +290,7 @@ st.plotly_chart(fig)
 
 
 
+
 import folium
 
 # Create a function to generate HTML for a Folium map with a numeric scale bar
@@ -324,7 +325,8 @@ def create_folium_map_with_scale_bar(center_lat, center_lon, data_dg, data_df):
             fill=True,
             fill_color='red',
             fill_opacity=0.6,
-            popup=label  # Label text
+            popup=label,  # Label text
+            tooltip=label  # Tooltip text
         ).add_to(m)
 
     # Add circular data points from filtered_df with labels and Code_AIOT values
@@ -337,7 +339,8 @@ def create_folium_map_with_scale_bar(center_lat, center_lon, data_dg, data_df):
             fill=True,
             fill_color='blue',
             fill_opacity=0.6,
-            popup=label  # Label text
+            popup=label,  # Label text
+            tooltip=label  # Tooltip text
         ).add_to(m)
 
     return m.get_root().render()
@@ -345,6 +348,7 @@ def create_folium_map_with_scale_bar(center_lat, center_lon, data_dg, data_df):
 # Example usage
 center_lat = filtered_dg1['latitude'].mean()
 center_lon = filtered_dg1['longitude'].mean()
+
 
 
 folium_map_html = create_folium_map_with_scale_bar(center_lat, center_lon, filtered_dg1, filtered_df)
