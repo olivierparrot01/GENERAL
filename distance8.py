@@ -284,53 +284,37 @@ with st.expander(f"Afficher les données Geocodage"):
 st.plotly_chart(fig)
 
 
-import plotly.graph_objects as go
+import streamlit as st
+import pandas as pd
+import numpy as np
+import base64
+import folium
 
 # Load data and perform necessary operations
 
-# Create a function to generate a Mapbox figure with a distance scale bar
-def create_mapbox_figure_with_scale_bar(center_lat, center_lon, zoom, data, color_column):
-    fig = go.Figure(go.Scattermapbox(
-        lat=data['latitude'],
-        lon=data['longitude'],
-        mode='markers',
-        marker=dict(size=data['nb_points'], color=data[color_column], colorscale='Viridis', showscale=True),
-        text=data['Nom_usuel'],
-        hoverinfo='text',
-    ))
+# Create a function to generate a Folium map with a numeric scale bar
+def create_folium_map_with_scale_bar(center_lat, center_lon, data):
+    m = folium.Map(location=[center_lat, center_lon], zoom_start=8, control_scale=True)
+
+    folium.TileLayer('openstreetmap').add_to(m)
 
     # Calculate distances for the scale bar
     scale_distance_km = 10  # Change this to the desired scale distance in kilometers
     scale_distance_lat = scale_distance_km / 110.574  # Approximate degrees per kilometer
     scale_distance_lon = scale_distance_km / (111.32 * np.cos(center_lat * np.pi / 180))  # Approximate degrees per kilometer
 
-    # Add a scale bar as an annotation
-    fig.add_annotation(
-        go.layout.Annotation(
-            text=f"{scale_distance_km} km",
-            x=center_lon + scale_distance_lon / 2,
-            y=center_lat - scale_distance_lat,
-            showarrow=False,
-            font=dict(color="black", size=12),
-        )
-    )
+    # Add a scale bar as a custom control
+    folium.plugins.ScaleControl(position='bottomleft', imperial=False, maxWidth=200).add_to(m)
 
-    fig.update_layout(
-        mapbox_style="open-street-map",
-        mapbox=dict(
-            center=dict(lat=center_lat, lon=center_lon),
-            zoom=zoom,
-        ),
-    )
-
-    return fig
+    return m
 
 # ...
 
 # Create the map using the custom function
 st.markdown(f"<h2 style='font-size:22px;'> Gun en bleu et Geocodage en rouge pour l'intervalle [{selected_interval_left} {selected_interval_right}] (ICPE tout type)</h2>", unsafe_allow_html=True)
-map_fig = create_mapbox_figure_with_scale_bar(center_lat, center_lon, 8, filtered_dg1, 'nb_points')
-st.plotly_chart(map_fig)
+folium_map = create_folium_map_with_scale_bar(center_lat, center_lon, filtered_dg1)
+st_folium_map = folium_static(folium_map)
+st_folium_map
 
 # ...
 
@@ -338,5 +322,6 @@ st.markdown("<h2 style='font-size:22px;'> Gun en bleu et geocodage en rouge pour
 # ...
 
 # Create the map using the custom function
-map_fig2 = create_mapbox_figure_with_scale_bar(center_lat, center_lon, 8, filtered_dg2, 'nb_points')
-st.plotly_chart(map_fig2)
+folium_map2 = create_folium_map_with_scale_bar(center_lat, center_lon, filtered_dg2)
+st_folium_map2 = folium_static(folium_map2)
+st_folium_map2
