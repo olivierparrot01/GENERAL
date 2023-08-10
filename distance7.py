@@ -399,6 +399,16 @@ for index, row in filtered_data.iterrows():
         popup=f"Code_AIOT(S): {row['Code_AIOT_liste']}"
     ).add_to(m)
 
+# Ajoutez une couche d'images personnalisées (orthophotos IGN) à la carte
+folium.TileLayer(
+    tiles='https://wxs.ign.fr/choisirgeoportail/geoportail/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=ORTHOIMAGERY.ORTHOPHOTOS&TILEMATRIXSET=PM&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}&FORMAT=image/jpeg',
+    attr='IGN Orthophotos',
+    name='Orthophotos IGN',
+    overlay=True
+).add_to(m)
+
+
+
 # Afficher la carte mise à jour dans Streamlit en utilisant folium_static
 folium_static(m)
 
@@ -420,3 +430,8 @@ for _, row in filtered_data.iterrows():
     st.markdown(google_maps_link, unsafe_allow_html=True)
     google_maps_link = f"[Ouvrir dans Google Maps à partir des coordonnées Gun](https://www.google.com/maps?q={row['latitude']},{row['longitude']})"
     st.markdown(google_maps_link, unsafe_allow_html=True)
+
+
+
+
+
