@@ -66,7 +66,7 @@ distance_bins_1 = np.arange(0, 1100, 100)
 max_distance = dg['Distance'].max()
 distance_bins_2 = np.arange(1000, max_distance + 1000, 1000)
 
-# Combinez les deux listes d'intervalles de distance
+# Combiner les deux listes d'intervalles de distance
 distance_bins = np.concatenate((distance_bins_1, distance_bins_2))
 
 # Supprimer les doublons des bords des intervalles de distance
@@ -343,7 +343,8 @@ import pandas as pd
 import folium
 from streamlit_folium import folium_static
 
-# Chargement des données not_in_dg (suppose que vous avez les données déjà chargées)
+# Chargement des données not_in_dg 
+not_in_dg = not_in_dg.drop("Courriel d'échange avec l'administration", axis=1)
 
 # Création de la carte centrée sur la moyenne des latitudes et longitudes
 center_lat = not_in_dg['latitude'].mean()
