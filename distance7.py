@@ -248,7 +248,7 @@ st.markdown(f"<h2 style='font-size:18px;'> {len(filtered_df2) } points Gun en bl
 center_lat = filtered_dg2['latitude'].mean()
 center_lon = filtered_dg2['longitude'].mean()
 
-# Créer la carte avec des points rouges (dg)et bleus (df)
+# Créer la carte avec des points rouges (dg) et bleus (df)
 fig = px.scatter_mapbox(filtered_dg2, lat="latitude", lon="longitude", hover_data=["Nom_usuel_liste", "Code_AIOT_liste", "Adresse_si", "nb_points"], size='nb_points', size_max=10, zoom=8, color_discrete_sequence=['red'])
 fig.add_trace(px.scatter_mapbox(filtered_df2, lat="latitude", lon="longitude", hover_data=["Nom_usuel_liste", "Code_AIOT_liste", "Adresse_concat", "nb_points"], size='nb_points', size_max=10, color_discrete_sequence=['blue']).data[0])
 
@@ -324,20 +324,97 @@ def create_folium_map_with_scale_bar(center_lat, center_lon, data_dg, data_df):
     return m.get_root().render()
 
 # Example usage
+#center_lat = not_in_dg['latitude'].mean()
+#center_lon = not_in_dg['longitude'].mean()
+
+
+
+#st.markdown(f"<h2 style='font-size:18px;'>{len(not_in_dg)} points Gun non géocodés</h2>", unsafe_allow_html=True)
+
+
+
+
+
+
+
+
+import streamlit as st
+import pandas as pd
+import folium
+from streamlit_folium import folium_static
+
+# Chargement des données not_in_dg (suppose que vous avez les données déjà chargées)
+
+# Création de la carte centrée sur la moyenne des latitudes et longitudes
 center_lat = not_in_dg['latitude'].mean()
 center_lon = not_in_dg['longitude'].mean()
 
-
-
-st.markdown(f"<h2 style='font-size:18px;'>{len(not_in_dg)} points Gun non géocodés (cliquer sur les pts de la carte)</h2>", unsafe_allow_html=True)
+# Affichage d'un titre
+st.markdown(f"<h2 style='font-size:18px;'>{len(not_in_dg)} points Gun non géocodés (cliquer sur les points de la carte)</h2>", unsafe_allow_html=True)
 
 with st.expander(f"Afficher les {len(not_in_dg)} données"):
     # Afficher la table à l'intérieur de la section expansible
     st.dataframe( not_in_dg)
-folium_map_html = create_folium_map_with_scale_bar(center_lat, center_lon, None, not_in_dg)
-st.components.v1.html(folium_map_html, height=600)
 
 
+# Affichage de la carte une seule fois
+m = folium.Map(location=[center_lat, center_lon], zoom_start=8, control_scale=True)
+folium.TileLayer('openstreetmap').add_to(m)
+
+# Ajout des points sur la carte avec des marqueurs
+for index, row in not_in_dg.iterrows():
+    label = f"{row['Nom_usuel']} Code_AIOT(S): {row['Code_AIOT_liste']} adresse_Gun: {row['Adresse_concat']}"
+    folium.CircleMarker(
+        location=[row['latitude'], row['longitude']],
+        radius=5,
+        color='blue',
+        fill=True,
+        fill_color='blue',
+        fill_opacity=0.6,
+        popup=label,
+        tooltip=label
+    ).add_to(m)
+
+# Afficher la carte dans Streamlit en utilisant folium_static
+#folium_static(m)
+
+# Liste des codes AIOT uniques
+all_codes = not_in_dg['Code_AIOT_liste'].unique()
+
+# Sélection des codes AIOT à mettre en évidence
+selected_codes = st.multiselect("Sélectionnez les points Gun à mettre en évidence (Code AIOT)", all_codes)
+
+# Filtrer les données en fonction des codes AIOT sélectionnés
+filtered_data = not_in_dg[not_in_dg['Code_AIOT_liste'].isin(selected_codes)]
+
+# Mettre en évidence les points correspondant aux codes AIOT sélectionnés
+for index, row in filtered_data.iterrows():
+    folium.CircleMarker(
+        location=[row['latitude'], row['longitude']],
+        radius=10,
+        color='green',
+        fill=True,
+        fill_color='green',
+        fill_opacity=0.6,
+        popup=f"Code_AIOT(S): {row['Code_AIOT_liste']}"
+    ).add_to(m)
+
+# Afficher la carte mise à jour dans Streamlit en utilisant folium_static
+folium_static(m)
 
 
+# Filtrer les données en fonction des codes AIOT sélectionnés
+filtered_data = not_in_dg[not_in_dg['Code_AIOT_liste'].isin(selected_codes)]
 
+# Afficher les détails des points sélectionnés dans le DataFrame filtré
+st.write("Table Gun correspondant à la sélection :")
+st.dataframe(filtered_data)
+
+
+# Afficher les adresses Gun des points sélectionnés
+st.write("Adresses Gun des points sélectionnés :")
+for _, row in filtered_data.iterrows():
+    st.write(row['Adresse_concat'])
+    formatted_address = row['Adresse_concat'].replace(' ', '_')
+    google_maps_link = f"[Ouvrir dans Google Maps](https://www.google.com/maps/search/?api=1&query={formatted_address})"
+    st.markdown(google_maps_link, unsafe_allow_html=True)
