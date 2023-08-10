@@ -381,9 +381,9 @@ for index, row in not_in_dg.iterrows():
 # Liste des codes AIOT uniques
 all_codes = not_in_dg['Code_AIOT_liste'].unique()
 
+st.markdown("<h2 style='font-size:18px;'>Sélectionner par le Code AIOT les points Gun à mettre en évidence (carte, table et liens Google Maps)</h2>", unsafe_allow_html=True)
 # Sélection des codes AIOT à mettre en évidence
-# Sélection des codes AIOT à mettre en évidence
-selected_codes = st.multiselect( "Sélectionnez les points Gun par le Code AIOT à mettre en évidence (carte, table et liens)", all_codes)
+selected_codes = st.multiselect( "",    all_codes)
 
 
 # Filtrer les données en fonction des codes AIOT sélectionnés
