@@ -338,11 +338,9 @@ def create_folium_map_with_scale_bar(center_lat, center_lon, data_dg, data_df):
 
 
 
-
-
-
-
-#import folium
+import streamlit as st
+import pandas as pd
+import folium
 from streamlit_folium import folium_static
 
 # Chargement des données not_in_dg (suppose que vous avez les données déjà chargées)
@@ -351,12 +349,21 @@ from streamlit_folium import folium_static
 center_lat = not_in_dg['latitude'].mean()
 center_lon = not_in_dg['longitude'].mean()
 
+# Affichage d'un titre
+st.markdown(f"<h2 style='font-size:18px;'>{len(not_in_dg)} points Gun non géocodés (cliquer sur les points de la carte)</h2>", unsafe_allow_html=True)
 
-# Affichage de la carte
+# Affichage de la carte une seule fois
 m = folium.Map(location=[center_lat, center_lon], zoom_start=8, control_scale=True)
+folium.TileLayer('openstreetmap').add_to(m)
+
+# Sélection des codes AIOT
+selected_codes = st.multiselect("Sélectionnez les codes AIOT", not_in_dg['Code_AIOT_liste'])
+
+# Filtrer les données en fonction des codes AIOT sélectionnés
+filtered_data = not_in_dg[not_in_dg['Code_AIOT_liste'].isin(selected_codes)]
 
 # Ajout des points sur la carte avec des marqueurs
-for index, row in not_in_dg.iterrows():
+for index, row in filtered_data.iterrows():
     label = f"{row['Nom_usuel']} Code_AIOT(S): {row['Code_AIOT_liste']} adresse_Gun: {row['Adresse_concat']}"
     folium.CircleMarker(
         location=[row['latitude'], row['longitude']],
@@ -369,69 +376,12 @@ for index, row in not_in_dg.iterrows():
         tooltip=label
     ).add_to(m)
 
-# Afficher la carte dans Streamlit en utilisant folium_static
+# Afficher la carte mise à jour dans Streamlit en utilisant folium_static
 folium_static(m)
-
-
-
-with st.expander(f"Afficher les {len(not_in_dg)} données"):
-    # Afficher la table à l'intérieur de la section expansible
-    st.dataframe( not_in_dg)
-folium_map_html = create_folium_map_with_scale_bar(center_lat, center_lon, None, not_in_dg)
-st.components.v1.html(folium_map_html, height=600)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# Sélection des codes AIOT
-selected_codes = st.multiselect("Sélectionnez les codes AIOT", not_in_dg['Code_AIOT_liste'])
-
-# Filtrer les données en fonction des codes AIOT sélectionnés
-filtered_data = not_in_dg[not_in_dg['Code_AIOT_liste'].isin(selected_codes)]
 
 # Afficher les détails des points sélectionnés dans le DataFrame filtré
 st.write("Points correspondant aux codes AIOT sélectionnés :")
 st.dataframe(filtered_data)
-
-
-# Affichage d'un titre
-st.markdown(f"<h2 style='font-size:18px;'>{len(not_in_dg)} points Gun non géocodés (cliquer sur les points de la carte)</h2>", unsafe_allow_html=True)
-
-
-m = folium.Map(location=[center_lat, center_lon], zoom_start=8, control_scale=True)
-# Afficher les points correspondant aux codes AIOT sélectionnés sur la carte
-for index, row in filtered_data.iterrows():
-    popup_text = f"Point sélectionné: {row['Nom_usuel']} Code_AIOT(S): {row['Code_AIOT_liste']} adresse_Gun: {row['Adresse_concat']}"
-    folium.CircleMarker(
-        location=[row['latitude'], row['longitude']],
-        radius=10,
-        color='green',
-        fill=True,
-        fill_color='green',
-        fill_opacity=0.6,
-        popup=popup_text
-    ).add_to(m)
-
-# Afficher la carte mise à jour dans Streamlit en utilisant folium_static
-folium_static(m)
-
-
 
 
 
