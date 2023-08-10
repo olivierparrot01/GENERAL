@@ -350,7 +350,7 @@ center_lat = not_in_dg['latitude'].mean()
 center_lon = not_in_dg['longitude'].mean()
 
 # Affichage d'un titre
-st.markdown(f"<h2 style='font-size:18px;'>{len(not_in_dg)} points Gun non géocodés (cliquer sur les points de la carte)</h2>", unsafe_allow_html=True)
+st.markdown(f"<h2 style='font-size:18px;'>{len(not_in_dg)} points Gun non géocodés</h2>", unsafe_allow_html=True)
 
 with st.expander(f"Afficher les {len(not_in_dg)} données"):
     # Afficher la table à l'intérieur de la section expansible
