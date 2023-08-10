@@ -410,4 +410,9 @@ filtered_data = not_in_dg[not_in_dg['Code_AIOT_liste'].isin(selected_codes)]
 st.write("Table Gun correspondant à la sélection :")
 st.dataframe(filtered_data)
 
-
+import pyperclip  # Pour copier le texte dans le presse-papiers
+# Afficher les adresses Gun des points sélectionnés
+st.write("Adresses Gun des points sélectionnés :")
+for _, row in filtered_data.iterrows():
+    st.write(row['Adresse_concat'])
+    st.button("Copier l'adresse", key=row['Adresse_concat'], on_click=lambda addr=row['Adresse_concat']: pyperclip.copy(addr))
