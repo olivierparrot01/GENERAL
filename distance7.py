@@ -27,6 +27,7 @@ dg["Nom_usuel_liste"] = dg.groupby(["latitude", "longitude"])["Nom_usuel"].trans
 
 
 not_in_dg = df[~df['Code_AIOT'].isin(dg['Code_AIOT'])]
+not_in_dg = not_in_dg.drop("Unnamed: 0", axis=1)
 
 
 # Create a function to convert DataFrame to CSV and get the link  for download
