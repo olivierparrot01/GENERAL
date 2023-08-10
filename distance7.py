@@ -412,11 +412,12 @@ st.dataframe(filtered_data)
 
 
 # Afficher les adresses Gun des points sélectionnés
-st.write("Adresses Gun des points sélectionnés :")
+st.write("Adresses Gun des points sélectionnés et cordonnées Gun des points sélectionnés :")
 for _, row in filtered_data.iterrows():
     st.write(row['Adresse_concat'])
+    st.write(row['longitude'], row['latitude'])
     formatted_address = row['Adresse_concat'].replace(' ', '-')
-    google_maps_link = f"[Ouvrir dans Google Maps à partir de l'adresse](https://www.google.com/maps/search/?api=1&query={formatted_address})"
+    google_maps_link = f"[Ouvrir dans Google Maps à partir de l'adresse Gun](https://www.google.com/maps/search/?api=1&query={formatted_address})"
     st.markdown(google_maps_link, unsafe_allow_html=True)
-    google_maps_link = f"[Ouvrir dans Google Maps à partir des coordonnées](https://www.google.com/maps?q={row['latitude']},{row['longitude']})"
+    google_maps_link = f"[Ouvrir dans Google Maps à partir des coordonnées Gun](https://www.google.com/maps?q={row['latitude']},{row['longitude']})"
     st.markdown(google_maps_link, unsafe_allow_html=True)
