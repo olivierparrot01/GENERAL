@@ -370,7 +370,7 @@ for index, row in not_in_dg.iterrows():
     ).add_to(m)
 
 # Afficher la carte dans Streamlit en utilisant folium_static
-#folium_static(m)
+folium_static(m)
 
 
 
