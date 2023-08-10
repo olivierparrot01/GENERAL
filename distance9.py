@@ -353,7 +353,7 @@ center_lon = not_in_dg['longitude'].mean()
 
 
 # Affichage de la carte
-#m = folium.Map(location=[center_lat, center_lon], zoom_start=8, control_scale=True)
+m = folium.Map(location=[center_lat, center_lon], zoom_start=8, control_scale=True)
 
 # Ajout des points sur la carte avec des marqueurs
 for index, row in not_in_dg.iterrows():
