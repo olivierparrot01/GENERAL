@@ -383,8 +383,7 @@ all_codes = not_in_dg['Code_AIOT_liste'].unique()
 
 # Sélection des codes AIOT à mettre en évidence
 selected_codes = st.multiselect("Sélectionnez les points Gun à mettre en évidence (carte, table et liens) (Code AIOT)", all_codesformat_func=lambda code: f'<span style="font-size: 16px;">{code}</span>',
-    unsafe_allow_html=True
-))
+    unsafe_allow_html=True)
 
 # Filtrer les données en fonction des codes AIOT sélectionnés
 filtered_data = not_in_dg[not_in_dg['Code_AIOT_liste'].isin(selected_codes)]
