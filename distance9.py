@@ -337,6 +337,7 @@ def create_folium_map_with_scale_bar(center_lat, center_lon, data_dg, data_df):
 
 
 
+
 import streamlit as st
 import pandas as pd
 import folium
@@ -348,53 +349,89 @@ from streamlit_folium import folium_static
 center_lat = not_in_dg['latitude'].mean()
 center_lon = not_in_dg['longitude'].mean()
 
-# Fonction pour créer la carte
-@st.cache
-def create_map(center_lat, center_lon, filtered_data):
-    m = folium.Map(location=[center_lat, center_lon], zoom_start=8, control_scale=True)
-    folium.TileLayer('openstreetmap').add_to(m)
-
-    # Mettre en évidence les points correspondant aux codes AIOT sélectionnés
-    for _, row in filtered_data.iterrows():
-        folium.CircleMarker(
-            location=[row['latitude'], row['longitude']],
-            radius=10,
-            color='green',
-            fill=True,
-            fill_color='green',
-            fill_opacity=0.6,
-            popup=f"Code_AIOT(S): {row['Code_AIOT_liste']}"
-        ).add_to(m)
-    
-    return m
-
-# Liste des codes AIOT uniques
-all_codes = not_in_dg['Code_AIOT_liste'].unique()
-
-# Sélection des codes AIOT à mettre en évidence
-selected_codes = st.multiselect("Sélectionnez les points Gun à mettre en évidence (Code AIOT)", all_codes)
-
-# Filtrer les données en fonction des codes AIOT sélectionnés
-filtered_data = not_in_dg[not_in_dg['Code_AIOT_liste'].isin(selected_codes)]
-
 # Affichage d'un titre
-st.markdown(f"<h2 style='font-size:18px;'>{len(not_in_dg)} points Gun non géocodés (cliquer sur les points de la carte)</h2>", unsafe_allow_html=True)
+st.markdown(f"<h2 style='font-size:18px;'>{len(not_in_dg)} points Gun non géocodés</h2>", unsafe_allow_html=True)
 
 with st.expander(f"Afficher les {len(not_in_dg)} données"):
     # Afficher la table à l'intérieur de la section expansible
     st.dataframe( not_in_dg)
 
+
+# Affichage de la carte une seule fois
+m = folium.Map(location=[center_lat, center_lon], zoom_start=8, control_scale=True)
+folium.TileLayer('openstreetmap').add_to(m)
+
+# Ajout des points sur la carte avec des marqueurs
+for index, row in not_in_dg.iterrows():
+    label = f"{row['Nom_usuel']} Code_AIOT(S): {row['Code_AIOT_liste']} adresse_Gun: {row['Adresse_concat']}"
+    folium.CircleMarker(
+        location=[row['latitude'], row['longitude']],
+        radius=5,
+        color='blue',
+        fill=True,
+        fill_color='blue',
+        fill_opacity=0.6,
+        popup=label,
+        tooltip=label
+    ).add_to(m)
+
+# Afficher la carte dans Streamlit en utilisant folium_static
+#folium_static(m)
+
+# Liste des codes AIOT uniques
+all_codes = not_in_dg['Code_AIOT_liste'].unique()
+
+# Sélection des codes AIOT à mettre en évidence
+selected_codes = st.multiselect(
+    "Sélectionnez les points Gun à mettre en évidence (carte, table et liens) (Code AIOT)",
+    all_codes,
+    format_func=lambda code: f'<span style="font-size: 16px;">{code}</span>',
+    unsafe_allow_html=True
+)
+
+# Filtrer les données en fonction des codes AIOT sélectionnés
+filtered_data = not_in_dg[not_in_dg['Code_AIOT_liste'].isin(selected_codes)]
+
+# Mettre en évidence les points correspondant aux codes AIOT sélectionnés
+for index, row in filtered_data.iterrows():
+    folium.CircleMarker(
+        location=[row['latitude'], row['longitude']],
+        radius=10,
+        color='green',
+        fill=True,
+        fill_color='green',
+        fill_opacity=0.6,
+        popup=f"Code_AIOT(S): {row['Code_AIOT_liste']}"
+    ).add_to(m)
+
+# Ajoutez une couche d'images personnalisées (orthophotos IGN) à la carte
+folium.TileLayer(
+    tiles='https://wxs.ign.fr/choisirgeoportail/geoportail/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=ORTHOIMAGERY.ORTHOPHOTOS&TILEMATRIXSET=PM&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}&FORMAT=image/jpeg',
+    attr='IGN Orthophotos',
+    name='Orthophotos IGN',
+    overlay=True
+).add_to(m)
+
+
+
 # Afficher la carte mise à jour dans Streamlit en utilisant folium_static
-folium_static(create_map(center_lat, center_lon, filtered_data))
+folium_static(m)
+
+
+# Filtrer les données en fonction des codes AIOT sélectionnés
+filtered_data = not_in_dg[not_in_dg['Code_AIOT_liste'].isin(selected_codes)]
 
 # Afficher les détails des points sélectionnés dans le DataFrame filtré
 st.write("Table Gun correspondant à la sélection :")
 st.dataframe(filtered_data)
 
+
 # Afficher les adresses Gun des points sélectionnés
-st.write("Adresses Gun des points sélectionnés :")
+st.write("Adresses et coordonnées Gun des points sélectionnés :")
 for _, row in filtered_data.iterrows():
-    st.write(row['Adresse_concat'])
-    formatted_address = row['Adresse_concat'].replace(' ', '_')
-    google_maps_link = f"[Ouvrir dans Google Maps](https://www.google.com/maps/search/?api=1&query={formatted_address})"
+    st.write(f"Adresse Gun : {row['Adresse_concat']}, Coordonnées Gun : {row['longitude']}, {row['latitude']}")
+    formatted_address = row['Adresse_concat'].replace(' ', '-')
+    google_maps_link = f"[Ouvrir dans Google Maps à partir de l'adresse Gun](https://www.google.com/maps/search/?api=1&query={formatted_address})"
+    st.markdown(google_maps_link, unsafe_allow_html=True)
+    google_maps_link = f"[Ouvrir dans Google Maps à partir des coordonnées Gun](https://www.google.com/maps?q={row['latitude']},{row['longitude']})"
     st.markdown(google_maps_link, unsafe_allow_html=True)
