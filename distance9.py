@@ -324,18 +324,12 @@ def create_folium_map_with_scale_bar(center_lat, center_lon, data_dg, data_df):
     return m.get_root().render()
 
 # Example usage
-center_lat = not_in_dg['latitude'].mean()
-center_lon = not_in_dg['longitude'].mean()
+#center_lat = not_in_dg['latitude'].mean()
+#center_lon = not_in_dg['longitude'].mean()
 
 
 
-st.markdown(f"<h2 style='font-size:18px;'>{len(not_in_dg)} points Gun non géocodés</h2>", unsafe_allow_html=True)
-
-with st.expander(f"Afficher les {len(not_in_dg)} données"):
-    # Afficher la table à l'intérieur de la section expansible
-    st.dataframe( not_in_dg)
-folium_map_html = create_folium_map_with_scale_bar(center_lat, center_lon, None, not_in_dg)
-st.components.v1.html(folium_map_html, height=600)
+#st.markdown(f"<h2 style='font-size:18px;'>{len(not_in_dg)} points Gun non géocodés</h2>", unsafe_allow_html=True)
 
 
 
@@ -348,10 +342,7 @@ st.components.v1.html(folium_map_html, height=600)
 
 
 
-
-import streamlit as st
-import pandas as pd
-import folium
+#import folium
 from streamlit_folium import folium_static
 
 # Chargement des données not_in_dg (suppose que vous avez les données déjà chargées)
@@ -381,7 +372,34 @@ for index, row in not_in_dg.iterrows():
     ).add_to(m)
 
 # Afficher la carte dans Streamlit en utilisant folium_static
-folium_static(m)
+#folium_static(m)
+
+
+
+with st.expander(f"Afficher les {len(not_in_dg)} données"):
+    # Afficher la table à l'intérieur de la section expansible
+    st.dataframe( not_in_dg)
+folium_map_html = create_folium_map_with_scale_bar(center_lat, center_lon, None, not_in_dg)
+st.components.v1.html(folium_map_html, height=600)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 # Sélection des codes AIOT
 selected_codes = st.multiselect("Sélectionnez les codes AIOT", not_in_dg['Code_AIOT_liste'])
