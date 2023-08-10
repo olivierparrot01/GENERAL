@@ -16,7 +16,18 @@ dg['Distance'] = dg['Distance'].astype(int)
 
 dg['Code_AIOT']=dg['Code_AIOT'].astype(str)
 df['Code_AIOT']=df['Code_AIOT'].astype(str)
+dg['Nom_usuel'] = dg['Nom_usuel'].astype(str)
+df['Nom_usuel'] = df['Nom_usuel'].astype(str)
 df['Adresse_concat'] = df['Adresse 1'].str.cat([df['Adresse 2'], df['Adresse 3']], sep=' ', na_rep='')
+df["Code_AIOT_liste"] = df.groupby(["latitude", "longitude"])["Code_AIOT"].transform(lambda x: ", ".join(x))
+dg["Code_AIOT_liste"] = dg.groupby(["latitude", "longitude"])["Code_AIOT"].transform(lambda x: ", ".join(x))
+df["Nom_usuel_liste"] = df.groupby(["latitude", "longitude"])["Nom_usuel"].transform(lambda x: ", ".join(x))
+dg["Nom_usuel_liste"] = dg.groupby(["latitude", "longitude"])["Nom_usuel"].transform(lambda x: ", ".join(x))
+
+
+
+not_in_dg = df[~df['Code_AIOT'].isin(dg['Code_AIOT'])]
+
 
 # Create a function to convert DataFrame to CSV and get the link  for download
 def get_csv_download_link(df, filename):
@@ -163,22 +174,22 @@ filtered_dg_statut_seveso_bas = filter_dataframe_by_interval(pd.Interval(selecte
 filtered_dg_statut_seveso_haut = filter_dataframe_by_interval(pd.Interval(selected_interval_left, selected_interval_right), 'Seveso seuil haut')
 
 
-with st.expander(f"Afficher les données pour l'intervalle {selected_interval_left} à {selected_interval_right} (ICPE tout type)"):
+with st.expander(f"Afficher les {len(filtered_dg1)} données pour l'intervalle {selected_interval_left} à {selected_interval_right} (ICPE tout type)"):
     # Afficher la table à l'intérieur de la section expansible
     st.dataframe(filtered_dg1)
     
 
 
-with st.expander(f"Afficher les données pour l'intervalle {selected_interval_left} à {selected_interval_right} (Statut_IED)"):
+with st.expander(f"Afficher les {len(filtered_dg_statut_ied)} données pour l'intervalle {selected_interval_left} à {selected_interval_right} (Statut_IED)"):
     # Afficher la table à l'intérieur de la section expansible
     st.dataframe(filtered_dg_statut_ied)
 
 
-with st.expander(f"Afficher les données pour l'intervalle {selected_interval_left} à {selected_interval_right} (Seveso seuil haut)"):
+with st.expander(f"Afficher les {len(filtered_dg_statut_seveso_haut)} données pour l'intervalle {selected_interval_left} à {selected_interval_right} (Seveso seuil haut)"):
     # Afficher la table à l'intérieur de la section expansible
     st.dataframe(filtered_dg_statut_seveso_haut)
 
-with st.expander(f"Afficher les données pour l'intervalle {selected_interval_left} à {selected_interval_right} (Seveso seuil bas)"):
+with st.expander(f"Afficher les {len(filtered_dg_statut_seveso_bas)} données pour l'intervalle {selected_interval_left} à {selected_interval_right} (Seveso seuil bas)"):
     # Afficher la table à l'intérieur de la section expansible
     st.dataframe(filtered_dg_statut_seveso_bas)
 
@@ -195,7 +206,7 @@ center_lat = filtered_dg1['latitude'].mean()
 center_lon = filtered_dg1['longitude'].mean()
 
 # Créer une seule carte avec filtered_dg en rouge et filtered_df en bleu 
-st.markdown(f"<h2 style='font-size:22px;'> Gun en bleu et Geocodage en rouge pour l'intervalle [{selected_interval_left} {selected_interval_right}] (ICPE tout type)</h2>", unsafe_allow_html=True)
+st.markdown(f"<h2 style='font-size:18px;'> Gun en bleu et Geocodage en rouge pour l'intervalle [{selected_interval_left} {selected_interval_right}] (ICPE tout type)</h2>", unsafe_allow_html=True)
 
 
 fig = px.scatter_mapbox(filtered_dg1, lat="latitude", lon="longitude", hover_data=["Nom_usuel", "Code_AIOT", "Adresse_si","nb_points"], size='nb_points', size_max=15,  zoom=8,color_discrete_sequence=['red'])
@@ -213,14 +224,13 @@ st.plotly_chart(fig)
 
 
 
-st.markdown("<h2 style='font-size:22px;'> Gun en bleu et geocodage en rouge pour nb_points >= 2</h2>", unsafe_allow_html=True)
 
 
 # Seuil pour filtrer les valeurs de nb_points
 seuil_nb_points = 1
 
 # Utiliser applymask pour filtrer les données en fonction de la colonne "nb_points"
-filtered_dg2 = dg[dg['nb_points'].apply(lambda x: x > seuil_nb_points)]
+filtered_dg2 = dg[dg['nb_points'].apply(lambda x: x > 0)]
 filtered_df2 = df[df['nb_points'].apply(lambda x: x > seuil_nb_points)]
 filtered_df2["Nom_usuel"] = filtered_df2["Nom_usuel"].astype(str)
 # Créer une nouvelle colonne dans le DataFrame dg pour concaténer les valeurs Code_AIOT
@@ -230,11 +240,15 @@ filtered_dg2["Nom_usuel_liste"] = filtered_dg2.groupby(["latitude", "longitude"]
 filtered_df2["Code_AIOT_liste"] = filtered_df2.groupby(["latitude", "longitude"])["Code_AIOT"].transform(lambda x: ", ".join(x))
 filtered_df2["Nom_usuel_liste"] = filtered_df2.groupby(["latitude", "longitude"])["Nom_usuel"].transform(lambda x: ", ".join(x))
 
+
+
+st.markdown(f"<h2 style='font-size:18px;'> {len(filtered_df2) } points Gun en bleu et Geocodage en rouge pour nb_points Gun >= 2</h2>", unsafe_allow_html=True)
+
 # Calculer les coordonnées moyennes des latitudes et longitudes de filtered_dg2
 center_lat = filtered_dg2['latitude'].mean()
 center_lon = filtered_dg2['longitude'].mean()
 
-# Créer la carte avec des points rouges (dg) et bleus (df)
+# Créer la carte avec des points rouges (dg)et bleus (df)
 fig = px.scatter_mapbox(filtered_dg2, lat="latitude", lon="longitude", hover_data=["Nom_usuel_liste", "Code_AIOT_liste", "Adresse_si", "nb_points"], size='nb_points', size_max=10, zoom=8, color_discrete_sequence=['red'])
 fig.add_trace(px.scatter_mapbox(filtered_df2, lat="latitude", lon="longitude", hover_data=["Nom_usuel_liste", "Code_AIOT_liste", "Adresse_concat", "nb_points"], size='nb_points', size_max=10, color_discrete_sequence=['blue']).data[0])
 
@@ -255,3 +269,133 @@ with st.expander(f"Afficher les données Geocodage"):
 
 # Afficher la carte dans Streamlit 
 st.plotly_chart(fig)
+
+
+import folium
+
+def create_folium_map_with_scale_bar(center_lat, center_lon, data_dg, data_df):
+    m = folium.Map(location=[center_lat, center_lon], zoom_start=8, control_scale=True)
+    folium.TileLayer('openstreetmap').add_to(m)
+
+    # Calculate distances for the scale bar (in kilometers)
+    scale_distance_km = 10
+
+    # Add a scale bar to the map
+    scale_bar_html = f'''
+        <div class="leaflet-bottom leaflet-right">
+            <div class="leaflet-control-scale leaflet-control">
+                <div class="leaflet-control-scale-line" style="width: {scale_distance_km * 100}px;"></div>
+                <div class="leaflet-control-scale-text" style="white-space: nowrap;">{scale_distance_km} km</div>
+            </div>
+        </div>
+    '''
+    folium.Element(scale_bar_html).add_to(m)
+
+    # Iterate through data_dg if it's not None
+    if data_dg is not None:
+        for index, row in data_dg.iterrows():
+            label = f"{row['Nom_usuel']} Code_AIOT(S): {row['Code_AIOT_liste']} adresse_API: {row['result_lab']}"
+            folium.CircleMarker(
+                location=[row['latitude'], row['longitude']],
+                radius=5,
+                color='red',
+                fill=True,
+                fill_color='red',
+                fill_opacity=0.6,
+                popup=label,
+                tooltip=label
+            ).add_to(m)
+
+    # Iterate through data_df if it's not None
+    if data_df is not None:
+        for index, row in data_df.iterrows():
+            label = f"{row['Nom_usuel']} Code_AIOT(S): {row['Code_AIOT_liste']} adresse_Gun: {row['Adresse_concat']}"
+            folium.CircleMarker(
+                location=[row['latitude'], row['longitude']],
+                radius=5,
+                color='blue',
+                fill=True,
+                fill_color='blue',
+                fill_opacity=0.6,
+                popup=label,
+                tooltip=label
+            ).add_to(m)
+
+    return m.get_root().render()
+
+# Example usage
+center_lat = not_in_dg['latitude'].mean()
+center_lon = not_in_dg['longitude'].mean()
+
+
+
+st.markdown(f"<h2 style='font-size:18px;'>{len(not_in_dg)} points Gun non géocodés (cliquer sur les pts de la carte)</h2>", unsafe_allow_html=True)
+
+with st.expander(f"Afficher les {len(not_in_dg)} données"):
+    # Afficher la table à l'intérieur de la section expansible
+    st.dataframe( not_in_dg)
+folium_map_html = create_folium_map_with_scale_bar(center_lat, center_lon, None, not_in_dg)
+st.components.v1.html(folium_map_html, height=600)
+
+
+
+
+
+import streamlit as st
+import pandas as pd
+import folium
+from streamlit_folium import folium_static
+
+# Chargement des données not_in_dg (suppose que vous avez les données déjà chargées)
+
+# Création de la carte centrée sur la moyenne des latitudes et longitudes
+center_lat = not_in_dg['latitude'].mean()
+center_lon = not_in_dg['longitude'].mean()
+
+# Affichage d'un titre
+st.markdown(f"<h2 style='font-size:18px;'>{len(not_in_dg)} points Gun non géocodés (cliquer sur les points de la carte)</h2>", unsafe_allow_html=True)
+
+# Affichage de la carte
+m = folium.Map(location=[center_lat, center_lon], zoom_start=8, control_scale=True)
+
+# Ajout des points sur la carte avec des marqueurs
+for index, row in not_in_dg.iterrows():
+    label = f"{row['Nom_usuel']} Code_AIOT(S): {row['Code_AIOT_liste']} adresse_Gun: {row['Adresse_concat']}"
+    folium.CircleMarker(
+        location=[row['latitude'], row['longitude']],
+        radius=5,
+        color='blue',
+        fill=True,
+        fill_color='blue',
+        fill_opacity=0.6,
+        popup=label,
+        tooltip=label
+    ).add_to(m)
+
+# Afficher la carte dans Streamlit en utilisant folium_static
+folium_static(m)
+
+# Afficher les détails du point sélectionné
+st.write("Sélectionnez une ligne dans le tableau ci-dessous pour mettre en surbrillance le point correspondant sur la carte :")
+
+# Afficher le DataFrame not_in_dg dans Streamlit avec la possibilité de sélectionner une ligne
+selected_row = st.dataframe(not_in_dg, row_selectable=True)
+
+# Vérifier si une ligne est sélectionnée dans le DataFrame
+if selected_row is not None:
+    # Mettre en surbrillance le point correspondant sur la carte
+    selected_index = selected_row.index[0]
+    selected_data = not_in_dg.iloc[selected_index]
+    
+    folium.CircleMarker(
+        location=[selected_data['latitude'], selected_data['longitude']],
+        radius=10,
+        color='green',
+        fill=True,
+        fill_color='green',
+        fill_opacity=0.6,
+        popup=f"Point sélectionné: {selected_data['Nom_usuel']} Code_AIOT(S): {selected_data['Code_AIOT_liste']} adresse_Gun: {selected_data['Adresse_concat']}"
+    ).add_to(m)
+    
+    # Afficher la carte mise à jour dans Streamlit en utilisant folium_static
+    folium_static(m)
