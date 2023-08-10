@@ -357,7 +357,11 @@ m = folium.Map(location=[center_lat, center_lon], zoom_start=8, control_scale=Tr
 folium.TileLayer('openstreetmap').add_to(m)
 
 # Sélection des codes AIOT
-selected_codes = st.multiselect("Sélectionnez les codes AIOT", not_in_dg['Code_AIOT_liste'])
+select_all = st.checkbox("Sélectionner tous les codes AIOT")
+if select_all:
+    selected_codes = list(not_in_dg['Code_AIOT_liste'])
+else:
+    selected_codes = st.multiselect("Sélectionnez les codes AIOT", not_in_dg['Code_AIOT_liste'])
 
 # Filtrer les données en fonction des codes AIOT sélectionnés
 filtered_data = not_in_dg[not_in_dg['Code_AIOT_liste'].isin(selected_codes)]
@@ -382,7 +386,3 @@ folium_static(m)
 # Afficher les détails des points sélectionnés dans le DataFrame filtré
 st.write("Points correspondant aux codes AIOT sélectionnés :")
 st.dataframe(filtered_data)
-
-
-
-
