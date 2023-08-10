@@ -343,6 +343,12 @@ st.components.v1.html(folium_map_html, height=600)
 
 
 
+
+
+
+
+
+
 import streamlit as st
 import pandas as pd
 import folium
@@ -377,27 +383,34 @@ for index, row in not_in_dg.iterrows():
 # Afficher la carte dans Streamlit en utilisant folium_static
 folium_static(m)
 
-# Afficher les détails du point sélectionné
-st.write("Sélectionnez une ligne dans le tableau ci-dessous pour mettre en surbrillance le point correspondant sur la carte :")
+# Sélection des codes AIOT
+selected_codes = st.multiselect("Sélectionnez les codes AIOT", not_in_dg['Code_AIOT_liste'])
 
-# Afficher le DataFrame not_in_dg dans Streamlit avec une colonne de checkboxes pour la sélection
-selected_indices = st.multiselect("Sélectionnez les lignes", not_in_dg.index)
+# Filtrer les données en fonction des codes AIOT sélectionnés
+filtered_data = not_in_dg[not_in_dg['Code_AIOT_liste'].isin(selected_codes)]
 
-# Vérifier si des lignes sont sélectionnées dans le tableau
-if selected_indices:
-    for selected_index in selected_indices:
-        selected_row = not_in_dg.loc[selected_index]
-        
-        # Mettre en surbrillance le point correspondant sur la carte
-        folium.CircleMarker(
-            location=[selected_row['latitude'], selected_row['longitude']],
-            radius=10,
-            color='green',
-            fill=True,
-            fill_color='green',
-            fill_opacity=0.6,
-            popup=f"Point sélectionné: {selected_row['Nom_usuel']} Code_AIOT(S): {selected_row['Code_AIOT_liste']} adresse_Gun: {selected_row['Adresse_concat']}"
-        ).add_to(m)
+# Afficher les détails des points sélectionnés dans le DataFrame filtré
+st.write("Points correspondant aux codes AIOT sélectionnés :")
+st.dataframe(filtered_data)
+
+# Afficher les points correspondant aux codes AIOT sélectionnés sur la carte
+for index, row in filtered_data.iterrows():
+    popup_text = f"Point sélectionné: {row['Nom_usuel']} Code_AIOT(S): {row['Code_AIOT_liste']} adresse_Gun: {row['Adresse_concat']}"
+    folium.CircleMarker(
+        location=[row['latitude'], row['longitude']],
+        radius=10,
+        color='green',
+        fill=True,
+        fill_color='green',
+        fill_opacity=0.6,
+        popup=popup_text
+    ).add_to(m)
 
 # Afficher la carte mise à jour dans Streamlit en utilisant folium_static
 folium_static(m)
+
+
+
+
+
+
