@@ -351,11 +351,9 @@ from streamlit_folium import folium_static
 center_lat = not_in_dg['latitude'].mean()
 center_lon = not_in_dg['longitude'].mean()
 
-# Affichage d'un titre
-st.markdown(f"<h2 style='font-size:18px;'>{len(not_in_dg)} points Gun non géocodés (cliquer sur les points de la carte)</h2>", unsafe_allow_html=True)
 
 # Affichage de la carte
-m = folium.Map(location=[center_lat, center_lon], zoom_start=8, control_scale=True)
+#m = folium.Map(location=[center_lat, center_lon], zoom_start=8, control_scale=True)
 
 # Ajout des points sur la carte avec des marqueurs
 for index, row in not_in_dg.iterrows():
@@ -411,6 +409,12 @@ filtered_data = not_in_dg[not_in_dg['Code_AIOT_liste'].isin(selected_codes)]
 st.write("Points correspondant aux codes AIOT sélectionnés :")
 st.dataframe(filtered_data)
 
+
+# Affichage d'un titre
+st.markdown(f"<h2 style='font-size:18px;'>{len(not_in_dg)} points Gun non géocodés (cliquer sur les points de la carte)</h2>", unsafe_allow_html=True)
+
+
+m = folium.Map(location=[center_lat, center_lon], zoom_start=8, control_scale=True)
 # Afficher les points correspondant aux codes AIOT sélectionnés sur la carte
 for index, row in filtered_data.iterrows():
     popup_text = f"Point sélectionné: {row['Nom_usuel']} Code_AIOT(S): {row['Code_AIOT_liste']} adresse_Gun: {row['Adresse_concat']}"
