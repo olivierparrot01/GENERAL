@@ -336,3 +336,68 @@ with st.expander(f"Afficher les {len(not_in_dg)} données"):
     st.dataframe( not_in_dg)
 folium_map_html = create_folium_map_with_scale_bar(center_lat, center_lon, None, not_in_dg)
 st.components.v1.html(folium_map_html, height=600)
+
+
+
+
+
+
+
+import streamlit as st
+import pandas as pd
+import folium
+from streamlit_folium import folium_static
+
+# Chargement des données not_in_dg (suppose que vous avez les données déjà chargées)
+
+# Création de la carte centrée sur la moyenne des latitudes et longitudes
+center_lat = not_in_dg['latitude'].mean()
+center_lon = not_in_dg['longitude'].mean()
+
+# Affichage d'un titre
+st.markdown(f"<h2 style='font-size:18px;'>{len(not_in_dg)} points Gun non géocodés (cliquer sur les points de la carte)</h2>", unsafe_allow_html=True)
+
+# Affichage de la carte
+m = folium.Map(location=[center_lat, center_lon], zoom_start=8, control_scale=True)
+
+# Ajout des points sur la carte avec des marqueurs
+for index, row in not_in_dg.iterrows():
+    label = f"{row['Nom_usuel']} Code_AIOT(S): {row['Code_AIOT_liste']} adresse_Gun: {row['Adresse_concat']}"
+    folium.CircleMarker(
+        location=[row['latitude'], row['longitude']],
+        radius=5,
+        color='blue',
+        fill=True,
+        fill_color='blue',
+        fill_opacity=0.6,
+        popup=label,
+        tooltip=label
+    ).add_to(m)
+
+# Afficher la carte dans Streamlit en utilisant folium_static
+folium_static(m)
+
+# Afficher les détails du point sélectionné
+st.write("Sélectionnez une ligne dans le tableau ci-dessous pour mettre en surbrillance le point correspondant sur la carte :")
+
+# Afficher le DataFrame not_in_dg dans Streamlit avec une colonne de checkboxes pour la sélection
+selected_indices = st.multiselect("Sélectionnez les lignes", not_in_dg.index)
+
+# Vérifier si des lignes sont sélectionnées dans le tableau
+if selected_indices:
+    for selected_index in selected_indices:
+        selected_row = not_in_dg.loc[selected_index]
+        
+        # Mettre en surbrillance le point correspondant sur la carte
+        folium.CircleMarker(
+            location=[selected_row['latitude'], selected_row['longitude']],
+            radius=10,
+            color='green',
+            fill=True,
+            fill_color='green',
+            fill_opacity=0.6,
+            popup=f"Point sélectionné: {selected_row['Nom_usuel']} Code_AIOT(S): {selected_row['Code_AIOT_liste']} adresse_Gun: {selected_row['Adresse_concat']}"
+        ).add_to(m)
+
+# Afficher la carte mise à jour dans Streamlit en utilisant folium_static
+folium_static(m)
