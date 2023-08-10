@@ -356,18 +356,8 @@ st.markdown(f"<h2 style='font-size:18px;'>{len(not_in_dg)} points Gun non géoco
 m = folium.Map(location=[center_lat, center_lon], zoom_start=8, control_scale=True)
 folium.TileLayer('openstreetmap').add_to(m)
 
-# Sélection des codes AIOT
-select_all = st.checkbox("Sélectionner tous les codes AIOT")
-if select_all:
-    selected_codes = list(not_in_dg['Code_AIOT_liste'])
-else:
-    selected_codes = st.multiselect("Sélectionnez les codes AIOT", not_in_dg['Code_AIOT_liste'])
-
-# Filtrer les données en fonction des codes AIOT sélectionnés
-filtered_data = not_in_dg[not_in_dg['Code_AIOT_liste'].isin(selected_codes)]
-
 # Ajout des points sur la carte avec des marqueurs
-for index, row in filtered_data.iterrows():
+for index, row in not_in_dg.iterrows():
     label = f"{row['Nom_usuel']} Code_AIOT(S): {row['Code_AIOT_liste']} adresse_Gun: {row['Adresse_concat']}"
     folium.CircleMarker(
         location=[row['latitude'], row['longitude']],
@@ -380,9 +370,29 @@ for index, row in filtered_data.iterrows():
         tooltip=label
     ).add_to(m)
 
-# Afficher la carte mise à jour dans Streamlit en utilisant folium_static
+# Afficher la carte dans Streamlit en utilisant folium_static
 folium_static(m)
 
-# Afficher les détails des points sélectionnés dans le DataFrame filtré
-st.write("Points correspondant aux codes AIOT sélectionnés :")
-st.dataframe(filtered_data)
+# Liste des codes AIOT uniques
+all_codes = not_in_dg['Code_AIOT_liste'].unique()
+
+# Sélection des codes AIOT à mettre en évidence
+selected_codes = st.multiselect("Sélectionnez les codes AIOT à mettre en évidence", all_codes)
+
+# Filtrer les données en fonction des codes AIOT sélectionnés
+filtered_data = not_in_dg[not_in_dg['Code_AIOT_liste'].isin(selected_codes)]
+
+# Mettre en évidence les points correspondant aux codes AIOT sélectionnés
+for index, row in filtered_data.iterrows():
+    folium.CircleMarker(
+        location=[row['latitude'], row['longitude']],
+        radius=10,
+        color='green',
+        fill=True,
+        fill_color='green',
+        fill_opacity=0.6,
+        popup=f"Code_AIOT(S): {row['Code_AIOT_liste']}"
+    ).add_to(m)
+
+# Afficher la carte mise à jour dans Streamlit en utilisant folium_static
+folium_static(m)
