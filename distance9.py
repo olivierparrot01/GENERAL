@@ -354,7 +354,7 @@ st.markdown(f"<h2 style='font-size:18px;'>{len(not_in_dg)} points Gun non géoco
 
 # Affichage de la carte une seule fois
 m = folium.Map(location=[center_lat, center_lon], zoom_start=8, control_scale=True)
-folium.TileLayer('openstreetmap').add_to(m)
+#folium.TileLayer('openstreetmap').add_to(m)
 
 # Ajout des points sur la carte avec des marqueurs
 for index, row in not_in_dg.iterrows():
