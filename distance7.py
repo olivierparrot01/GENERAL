@@ -383,7 +383,7 @@ all_codes = not_in_dg['Code_AIOT_liste'].unique()
 
 # Sélection des codes AIOT à mettre en évidence
 # Sélection des codes AIOT à mettre en évidence
-selected_codes = st.multiselect( "Sélectionnez les points Gun à mettre en évidence (carte, table et liens) (Code AIOT)", all_codes)
+selected_codes = st.multiselect( "Sélectionnez les points Gun par le Code AIOT à mettre en évidence (carte, table et liens)", all_codes)
 
 
 # Filtrer les données en fonction des codes AIOT sélectionnés
