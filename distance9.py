@@ -415,6 +415,6 @@ st.dataframe(filtered_data)
 st.write("Adresses Gun des points sélectionnés :")
 for _, row in filtered_data.iterrows():
     st.write(row['Adresse_concat'])
-    formatted_address = row['Adresse_concat'].replace(' ', '_')
+    Adresse_concat = row['Adresse_concat'].replace(' ', '_')
     google_maps_link = f"[Ouvrir dans Google Maps](https://www.google.com/maps/search/?api=1&query={row['Adresse_concat']})"
     st.markdown(google_maps_link, unsafe_allow_html=True)
