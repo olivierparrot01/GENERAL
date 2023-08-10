@@ -396,3 +396,13 @@ for index, row in filtered_data.iterrows():
 
 # Afficher la carte mise à jour dans Streamlit en utilisant folium_static
 folium_static(m)
+
+
+# Filtrer les données en fonction des codes AIOT sélectionnés
+filtered_data = not_in_dg[not_in_dg['Code_AIOT_liste'].isin(selected_codes)]
+
+# Afficher les détails des points sélectionnés dans le DataFrame filtré
+st.write("Points correspondant aux codes AIOT sélectionnés :")
+st.dataframe(filtered_data)
+
+
