@@ -352,31 +352,9 @@ center_lon = not_in_dg['longitude'].mean()
 # Affichage d'un titre
 st.markdown(f"<h2 style='font-size:18px;'>{len(not_in_dg)} points Gun non géocodés (cliquer sur les points de la carte)</h2>", unsafe_allow_html=True)
 
-with st.expander(f"Afficher les {len(not_in_dg)} données"):
-    # Afficher la table à l'intérieur de la section expansible
-    st.dataframe( not_in_dg)
-
-
 # Affichage de la carte une seule fois
 m = folium.Map(location=[center_lat, center_lon], zoom_start=8, control_scale=True)
 folium.TileLayer('openstreetmap').add_to(m)
-
-# Ajout des points sur la carte avec des marqueurs
-for index, row in not_in_dg.iterrows():
-    label = f"{row['Nom_usuel']} Code_AIOT(S): {row['Code_AIOT_liste']} adresse_Gun: {row['Adresse_concat']}"
-    folium.CircleMarker(
-        location=[row['latitude'], row['longitude']],
-        radius=5,
-        color='blue',
-        fill=True,
-        fill_color='blue',
-        fill_opacity=0.6,
-        popup=label,
-        tooltip=label
-    ).add_to(m)
-
-# Afficher la carte dans Streamlit en utilisant folium_static
-#folium_static(m)
 
 # Liste des codes AIOT uniques
 all_codes = not_in_dg['Code_AIOT_liste'].unique()
@@ -402,20 +380,14 @@ for index, row in filtered_data.iterrows():
 # Afficher la carte mise à jour dans Streamlit en utilisant folium_static
 folium_static(m)
 
-
-# Filtrer les données en fonction des codes AIOT sélectionnés
-filtered_data = not_in_dg[not_in_dg['Code_AIOT_liste'].isin(selected_codes)]
-
 # Afficher les détails des points sélectionnés dans le DataFrame filtré
 st.write("Table Gun correspondant à la sélection :")
 st.dataframe(filtered_data)
-
 
 # Afficher les adresses Gun des points sélectionnés
 st.write("Adresses Gun des points sélectionnés :")
 for _, row in filtered_data.iterrows():
     st.write(row['Adresse_concat'])
-    formatted_address = row['Adresse_concat'].replace(' ', '_')
+    formatted_address = row['Adresse_concat'].replace(' ', '-')
     google_maps_link = f"[Ouvrir dans Google Maps](https://www.google.com/maps/search/?api=1&query={formatted_address})"
     st.markdown(google_maps_link, unsafe_allow_html=True)
-
