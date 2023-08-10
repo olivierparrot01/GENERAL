@@ -352,6 +352,11 @@ center_lon = not_in_dg['longitude'].mean()
 # Affichage d'un titre
 st.markdown(f"<h2 style='font-size:18px;'>{len(not_in_dg)} points Gun non géocodés (cliquer sur les points de la carte)</h2>", unsafe_allow_html=True)
 
+with st.expander(f"Afficher les {len(not_in_dg)} données"):
+    # Afficher la table à l'intérieur de la section expansible
+    st.dataframe( not_in_dg)
+
+
 # Affichage de la carte une seule fois
 m = folium.Map(location=[center_lat, center_lon], zoom_start=8, control_scale=True)
 folium.TileLayer('openstreetmap').add_to(m)
@@ -377,7 +382,7 @@ for index, row in not_in_dg.iterrows():
 all_codes = not_in_dg['Code_AIOT_liste'].unique()
 
 # Sélection des codes AIOT à mettre en évidence
-selected_codes = st.multiselect("Sélectionnez les codes AIOT à mettre en évidence", all_codes)
+selected_codes = st.multiselect("Sélectionnez les points Gun à mettre en évidence (Code AIOT)", all_codes)
 
 # Filtrer les données en fonction des codes AIOT sélectionnés
 filtered_data = not_in_dg[not_in_dg['Code_AIOT_liste'].isin(selected_codes)]
@@ -402,7 +407,7 @@ folium_static(m)
 filtered_data = not_in_dg[not_in_dg['Code_AIOT_liste'].isin(selected_codes)]
 
 # Afficher les détails des points sélectionnés dans le DataFrame filtré
-st.write("Points correspondant aux codes AIOT sélectionnés :")
+st.write("Table Gun correspondant à la sélection :")
 st.dataframe(filtered_data)
 
 
