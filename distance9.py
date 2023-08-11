@@ -3,6 +3,13 @@ import pandas as pd
 import numpy as np
 import base64
 import plotly.express as px
+import folium
+from streamlit_folium import folium_static
+import json
+from folium import plugins
+
+
+
 
 # Load data from  CSV
 dg = pd.read_csv('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/2geocodage.csv')
@@ -28,6 +35,149 @@ dg["Nom_usuel_liste"] = dg.groupby(["latitude", "longitude"])["Nom_usuel"].trans
 
 not_in_dg = df[~df['Code_AIOT'].isin(dg['Code_AIOT'])]
 not_in_dg = not_in_dg.drop("Unnamed: 0", axis=1)
+
+
+
+
+
+st.markdown(f"<h2 style='font-size:18px;'> Appareillement Gun en bleu et Geocodage en rouge (ICPE tout type, Code_AIOT identique) </h2>", unsafe_allow_html=True)
+# Création de la carte centrée sur la moyenne des latitudes et longitudes
+center_lat = (df['latitude'].mean() + dg['latitude'].mean()) / 2
+center_lon = (df['longitude'].mean() + dg['longitude'].mean()) / 2
+# Création de la carte avec Folium
+m = folium.Map(location=[center_lat, center_lon], zoom_start=8, control_scale=True)
+# Ajout des points sur la carte avec des marqueurs pour df (en bleu) et dg (en rouge)
+for index, row in df.iterrows():
+    folium.CircleMarker(
+        location=[row['latitude'], row['longitude']],
+        radius=5,
+        color='blue',
+        fill=True,
+        fill_color='blue',
+        fill_opacity=0.6,
+        popup=row['Nom_usuel'],
+        tooltip=row['Nom_usuel']
+    ).add_to(m)
+
+for index, row in dg.iterrows():
+    folium.CircleMarker(
+        location=[row['latitude'], row['longitude']],
+        radius=5,
+        color='red',
+        fill=True,
+        fill_color='red',
+        fill_opacity=0.6,
+        popup=row['Nom_usuel'],
+        tooltip=row['Nom_usuel']
+    ).add_to(m)
+
+
+# Création d'une couche de lignes reliant les points avec le même code AIOT
+for code in df['Code_AIOT_liste'].unique():
+    df_points = df[df['Code_AIOT_liste'] == code]
+    dg_points = dg[dg['Code_AIOT_liste'] == code]
+    
+    for _, row_df in df_points.iterrows():
+        for _, row_dg in dg_points.iterrows():
+            folium.PolyLine(
+                locations=[(row_df['latitude'], row_df['longitude']), (row_dg['latitude'], row_dg['longitude'])],
+                color='black',  # Couleur des lignes
+                weight=1,  # Épaisseur de la ligne en pixels
+                popup=f"Nom usuel : {row_df['Nom_usuel']}<br>Code AIOT : {row_df['Code_AIOT_liste']}<br>Distance : {row_dg['Distance']} m",
+                tooltip=f"Nom usuel : {row_df['Nom_usuel']}<br>Code AIOT : {row_df['Code_AIOT_liste']}<br>Distance : {row_dg['Distance']} m",
+                smooth_factor=0.5  # Ajoutez cette option pour un affichage plus fluide
+            ).add_to(m)
+
+
+# Création d'une couche de lignes reliant les points avec le même code AIOT
+for code in df['Code_AIOT_liste'].unique():
+    df_points = df[df['Code_AIOT_liste'] == code]
+    dg_points = dg[dg['Code_AIOT_liste'] == code]
+    
+    for _, row_df in df_points.iterrows():
+        for _, row_dg in dg_points.iterrows():
+            folium.PolyLine(
+                locations=[(row_df['latitude'], row_df['longitude']), (row_dg['latitude'], row_dg['longitude'])],
+                color='black',  # Couleur des lignes
+                weight=2,  # Épaisseur de la ligne en pixels
+                popup=f"Nom usuel : {row_df['Nom_usuel']}<br>Code AIOT : {row_df['Code_AIOT_liste']}<br>Distance : {row_dg['Distance']} m",
+                tooltip=f"Nom usuel : {row_df['Nom_usuel']}<br>Code AIOT : {row_df['Code_AIOT_liste']}<br>Distance : {row_dg['Distance']} m",
+                smooth_factor=0.5  # Ajoutez cette option pour un affichage plus fluide
+            ).add_to(m)
+
+
+
+# Ajout du style personnalisé pour le curseur
+m.get_root().html.add_child(folium.Element(f'<style>.leaflet-container {cursor: pointer !important;}</style>'))
+
+
+
+# Afficher la carte dans Streamlit en utilisant folium_static
+folium_static(m)
+
+# Téléchargement de la couche en GeoJSON
+def download_geojson():
+    # Créer un dictionnaire GeoJSON pour les lignes
+    geojson_lines = {
+        "type": "FeatureCollection",
+        "features": []
+    }
+    
+    for code in df['Code_AIOT_liste'].unique():
+        df_points = df[df['Code_AIOT_liste'] == code]
+        dg_points = dg[dg['Code_AIOT_liste'] == code]
+        
+        for _, row_df in df_points.iterrows():
+            for _, row_dg in dg_points.iterrows():
+                feature = {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "LineString",
+                        "coordinates": [
+                            [row_df['longitude'], row_df['latitude']],
+                            [row_dg['longitude'], row_dg['latitude']]
+                        ]
+                    },
+                    "properties": {
+                        "Code_AIOT": code
+                    }
+                }
+                geojson_lines["features"].append(feature)
+    
+    # Enregistrer le GeoJSON dans un fichier
+    with open("lines.geojson", "w") as f:
+        json.dump(geojson_lines, f)
+
+    # Télécharger le fichier GeoJSON
+    with open("lines.geojson", "rb") as f:
+        data = f.read()
+    st.download_button(
+        label="Télécharger la couche des lignes en GeoJSON",
+        data=data,
+        file_name="lines.geojson",
+        key="download_button"
+    )
+
+# Afficher le bouton de téléchargement
+download_geojson()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 # Create a function to convert DataFrame to CSV and get the link  for download
@@ -198,135 +348,6 @@ with st.expander(f"Afficher les {len(filtered_dg_statut_seveso_bas)} données po
 if st.button(f"Télécharger les données pour l'intervalle {selected_interval_left} à {selected_interval_right} (ICPE tout type)"):
     #filtered_df0 = filter_dataframe_by_interval(pd.Interval(selected_interval_left, selected_interval_right), 'Code_AIOT')
     st.markdown(get_csv_download_link(filtered_dg1, f'ICPE tout type_interval_{selected_interval_left}_{selected_interval_right}'), unsafe_allow_html=True)
-
-
-
-import folium
-from streamlit_folium import folium_static
-import json
-from folium import plugins
-
-st.markdown(f"<h2 style='font-size:18px;'> Appareillement Gun en bleu et Geocodage en rouge (ICPE tout type, Code_AIOT identique) </h2>", unsafe_allow_html=True)
-# Création de la carte centrée sur la moyenne des latitudes et longitudes
-center_lat = (df['latitude'].mean() + dg['latitude'].mean()) / 2
-center_lon = (df['longitude'].mean() + dg['longitude'].mean()) / 2
-# Création de la carte avec Folium
-m = folium.Map(location=[center_lat, center_lon], zoom_start=8, control_scale=True)
-# Ajout des points sur la carte avec des marqueurs pour df (en bleu) et dg (en rouge)
-for index, row in df.iterrows():
-    folium.CircleMarker(
-        location=[row['latitude'], row['longitude']],
-        radius=5,
-        color='blue',
-        fill=True,
-        fill_color='blue',
-        fill_opacity=0.6,
-        popup=row['Nom_usuel'],
-        tooltip=row['Nom_usuel']
-    ).add_to(m)
-
-for index, row in dg.iterrows():
-    folium.CircleMarker(
-        location=[row['latitude'], row['longitude']],
-        radius=5,
-        color='red',
-        fill=True,
-        fill_color='red',
-        fill_opacity=0.6,
-        popup=row['Nom_usuel'],
-        tooltip=row['Nom_usuel']
-    ).add_to(m)
-
-
-# Création d'une couche de lignes reliant les points avec le même code AIOT
-for code in df['Code_AIOT_liste'].unique():
-    df_points = df[df['Code_AIOT_liste'] == code]
-    dg_points = dg[dg['Code_AIOT_liste'] == code]
-    
-    for _, row_df in df_points.iterrows():
-        for _, row_dg in dg_points.iterrows():
-            folium.PolyLine(
-                locations=[(row_df['latitude'], row_df['longitude']), (row_dg['latitude'], row_dg['longitude'])],
-                color='black',  # Couleur des lignes
-                weight=1,  # Épaisseur de la ligne en pixels
-                popup=f"Nom usuel : {row_df['Nom_usuel']}<br>Code AIOT : {row_df['Code_AIOT_liste']}<br>Distance : {row_dg['Distance']} m",
-                tooltip=f"Nom usuel : {row_df['Nom_usuel']}<br>Code AIOT : {row_df['Code_AIOT_liste']}<br>Distance : {row_dg['Distance']} m",
-                smooth_factor=0.5  # Ajoutez cette option pour un affichage plus fluide
-            ).add_to(m)
-
-
-# Création d'une couche de lignes reliant les points avec le même code AIOT
-for code in df['Code_AIOT_liste'].unique():
-    df_points = df[df['Code_AIOT_liste'] == code]
-    dg_points = dg[dg['Code_AIOT_liste'] == code]
-    
-    for _, row_df in df_points.iterrows():
-        for _, row_dg in dg_points.iterrows():
-            folium.PolyLine(
-                locations=[(row_df['latitude'], row_df['longitude']), (row_dg['latitude'], row_dg['longitude'])],
-                color='black',  # Couleur des lignes
-                weight=2,  # Épaisseur de la ligne en pixels
-                popup=f"Nom usuel : {row_df['Nom_usuel']}<br>Code AIOT : {row_df['Code_AIOT_liste']}<br>Distance : {row_dg['Distance']} m",
-                tooltip=f"Nom usuel : {row_df['Nom_usuel']}<br>Code AIOT : {row_df['Code_AIOT_liste']}<br>Distance : {row_dg['Distance']} m",
-                smooth_factor=0.5  # Ajoutez cette option pour un affichage plus fluide
-            ).add_to(m)
-
-
-
-# Ajout du style personnalisé pour le curseur
-m.get_root().html.add_child(folium.Element(f'<style>.leaflet-container {cursor: pointer !important;}</style>'))
-
-
-
-# Afficher la carte dans Streamlit en utilisant folium_static
-folium_static(m)
-
-# Téléchargement de la couche en GeoJSON
-def download_geojson():
-    # Créer un dictionnaire GeoJSON pour les lignes
-    geojson_lines = {
-        "type": "FeatureCollection",
-        "features": []
-    }
-    
-    for code in df['Code_AIOT_liste'].unique():
-        df_points = df[df['Code_AIOT_liste'] == code]
-        dg_points = dg[dg['Code_AIOT_liste'] == code]
-        
-        for _, row_df in df_points.iterrows():
-            for _, row_dg in dg_points.iterrows():
-                feature = {
-                    "type": "Feature",
-                    "geometry": {
-                        "type": "LineString",
-                        "coordinates": [
-                            [row_df['longitude'], row_df['latitude']],
-                            [row_dg['longitude'], row_dg['latitude']]
-                        ]
-                    },
-                    "properties": {
-                        "Code_AIOT": code
-                    }
-                }
-                geojson_lines["features"].append(feature)
-    
-    # Enregistrer le GeoJSON dans un fichier
-    with open("lines.geojson", "w") as f:
-        json.dump(geojson_lines, f)
-
-    # Télécharger le fichier GeoJSON
-    with open("lines.geojson", "rb") as f:
-        data = f.read()
-    st.download_button(
-        label="Télécharger la couche des lignes en GeoJSON",
-        data=data,
-        file_name="lines.geojson",
-        key="download_button"
-    )
-
-# Afficher le bouton de téléchargement
-download_geojson()
-
 
 
 
