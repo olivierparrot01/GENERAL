@@ -75,12 +75,13 @@ for index, row in dg.iterrows():
 # Définir une échelle de couleurs basée sur la distance
 color_scale = linear.YlOrRd_04.scale(0, df['Distance'].max())  # Utilisez votre propre échelle de couleurs
 
-# Ajouter la couche GeoJSON des lignes avec des couleurs basées sur la distance
+
+# Ajouter la couche GeoJSON des lignes avec une couleur unique
 geojson_layer = folium.GeoJson(
-    data="lines.geojson"
+    data='https://raw.githubusercontent.com/olivierparrot01/ICPE/main/lines.geojson',  # Utilisez le chemin local ou l'URL
     name="Lignes entre points",
     style_function=lambda feature: {
-        'color': color_scale(feature['properties']['Distance']),
+        'color': 'blue',  # Utilisez la couleur de votre choix
         'opacity': 0.8,
         'weight': 2  # Épaisseur constante
     },
@@ -90,6 +91,7 @@ geojson_layer = folium.GeoJson(
         style="font-size: 12px; text-align: center;"
     )
 )
+geojson_layer.add_to(m)
 geojson_layer.add_to(m)
 
 # Ajouter une légende pour l'échelle de couleurs
