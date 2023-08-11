@@ -385,7 +385,9 @@ folium_static(m)
 
 st.write(len(data))
 
+st.write(len(filtered_codes))
 
+st.write(len(filtered_geojson))
 
 
 
