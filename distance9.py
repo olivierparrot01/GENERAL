@@ -212,8 +212,7 @@ center_lat = (df['latitude'].mean() + dg['latitude'].mean()) / 2
 center_lon = (df['longitude'].mean() + dg['longitude'].mean()) / 2
 
 m = folium.Map(location=[center_lat, center_lon], zoom_start=8, control_scale=True)
-# Changer le curseur de la carte en pointeur (flèche)
-m.get_root().style.add_to('cursor', 'pointer')
+
 # Ajout des points sur la carte avec des marqueurs pour df (en bleu) et dg (en rouge)
 for index, row in df.iterrows():
     folium.CircleMarker(
@@ -272,6 +271,15 @@ for code in df['Code_AIOT_liste'].unique():
                 tooltip=f"Nom usuel : {row_df['Nom_usuel']}<br>Code AIOT : {row_df['Code_AIOT_liste']}<br>Distance : {row_dg['Distance']} m",
                 smooth_factor=0.5  # Ajoutez cette option pour un affichage plus fluide
             ).add_to(m)
+# Ajouter du code JavaScript pour changer le curseur en pointeur (flèche)
+st.write("""
+    <style>
+        .leaflet-container {
+            cursor: pointer !important;
+        }
+    </style>
+""", unsafe_allow_html=True)
+
 # Afficher la carte dans Streamlit en utilisant folium_static
 folium_static(m)
 
