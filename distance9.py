@@ -316,9 +316,18 @@ st.plotly_chart(fig)
 
 
 
-import folium
-from streamlit_folium import folium_static
-import plotly.express as px
+# Charger la couche GeoJSON des lignes
+filtered_codes = filtered_dg1['Code_AIOT'].unique()  # Utiliser les codes AIOT de filtered_dg1
+filtered_geojson = {
+    "type": "FeatureCollection",
+    "features": []
+}
+
+with open("lines.geojson", "r") as f:
+    data = json.load(f)
+    for feature in data['features']:
+        if feature['properties']['Code_AIOT'] in filtered_codes:
+            filtered_geojson['features'].append(feature)
 
 # Créer une carte Folium avec la bibliothèque Plotly Express
 m = folium.Map(location=[center_lat, center_lon], zoom_start=8, control_scale=True)
@@ -349,19 +358,6 @@ for _, row in filtered_df.iterrows():
         tooltip=row['Nom_usuel']
     ).add_to(m)
 
-# Charger la couche GeoJSON des lignes
-filtered_codes = filtered_dg1['Code_AIOT'].unique()  # Utiliser les codes AIOT de filtered_dg1
-filtered_geojson = {
-    "type": "FeatureCollection",
-    "features": []
-}
-
-with open("lines.geojson", "r") as f:
-    data = json.load(f)
-    for feature in data['features']:
-        if feature['properties']['Code_AIOT'] in filtered_codes:
-            filtered_geojson['features'].append(feature)
-
 # Ajouter la couche GeoJSON filtrée
 geojson_layer = folium.GeoJson(
     data=filtered_geojson,
@@ -379,7 +375,7 @@ geojson_layer = folium.GeoJson(
 )
 geojson_layer.add_to(m)
 
-# Afficher  la carte Folium dans Streamlit
+# Afficher la carte Folium dans Streamlit
 folium_static(m)
 
 
