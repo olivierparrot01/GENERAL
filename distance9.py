@@ -205,6 +205,8 @@ import folium
 from streamlit_folium import folium_static
 import json
 
+
+st.markdown(f"<h2 style='font-size:18px;'> Appareillement Gun en bleu et Geocodage en rouge (ICPE tout type, Code_AIOT identique) </h2>", unsafe_allow_html=True)
 # Création de la carte centrée sur la moyenne des latitudes et longitudes
 center_lat = (df['latitude'].mean() + dg['latitude'].mean()) / 2
 center_lon = (df['longitude'].mean() + dg['longitude'].mean()) / 2
@@ -246,8 +248,8 @@ for code in df['Code_AIOT_liste'].unique():
         for _, row_dg in dg_points.iterrows():
             folium.PolyLine(
                 locations=[(row_df['latitude'], row_df['longitude']), (row_dg['latitude'], row_dg['longitude'])],
-                color='green',  # Couleur des lignes
-                weight=2,  # Épaisseur de la ligne en pixels
+                color='black',  # Couleur des lignes
+                weight=1,  # Épaisseur de la ligne en pixels
                 popup=f"Nom usuel : {row_df['Nom_usuel']}<br>Code AIOT : {row_df['Code_AIOT_liste']}",
                 tooltip=f"Nom usuel : {row_df['Nom_usuel']}<br>Code AIOT : {row_df['Code_AIOT_liste']}"
             ).add_to(m)
