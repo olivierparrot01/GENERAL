@@ -211,13 +211,6 @@ st.markdown(f"<h2 style='font-size:18px;'> Appareillement Gun en bleu et Geocoda
 center_lat = (df['latitude'].mean() + dg['latitude'].mean()) / 2
 center_lon = (df['longitude'].mean() + dg['longitude'].mean()) / 2
 
-m = folium.Map(location=[center_lat, center_lon], zoom_start=8, control_scale=True)
-# Ajout d'un style CSS personnalisé pour modifier le curseur de la carte
-custom_css = """
-    .folium-map {
-        cursor: pointer !important;
-    }
-"""
 folium.Element(f'<style>{custom_css}</style>').add_to(m)
 # Ajout des points sur la carte avec des marqueurs pour df (en bleu) et dg (en rouge)
 for index, row in df.iterrows():
@@ -277,14 +270,16 @@ for code in df['Code_AIOT_liste'].unique():
                 tooltip=f"Nom usuel : {row_df['Nom_usuel']}<br>Code AIOT : {row_df['Code_AIOT_liste']}<br>Distance : {row_dg['Distance']} m",
                 smooth_factor=0.5  # Ajoutez cette option pour un affichage plus fluide
             ).add_to(m)
-# Ajouter du code JavaScript pour changer le curseur en pointeur (flèche)
-st.write("""
-    <style>
-        .leaflet-container {
-            cursor: pointer !important;
-        }
-    </style>
-""", unsafe_allow_html=True)
+# Ajout du style personnalisé pour le curseur
+custom_css = """
+.leaflet-container {
+    cursor: pointer !important;
+}
+"""
+
+# Ajout du CSS personnalisé à la page Streamlit
+st.write(f'<style>{custom_css}</style>', unsafe_allow_html=True)
+
 
 # Afficher la carte dans Streamlit en utilisant folium_static
 folium_static(m)
