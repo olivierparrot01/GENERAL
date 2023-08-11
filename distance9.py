@@ -200,6 +200,76 @@ if st.button(f"Télécharger les données pour l'intervalle {selected_interval_l
     st.markdown(get_csv_download_link(filtered_dg1, f'ICPE tout type_interval_{selected_interval_left}_{selected_interval_right}'), unsafe_allow_html=True)
 
 
+
+import folium
+from streamlit_folium import folium_static
+
+# Création de la carte centrée sur une position quelconque
+center_lat = df['latitude'].mean()
+center_lon = df['longitude'].mean()
+m = folium.Map(location=[center_lat, center_lon], zoom_start=8, control_scale=True)
+
+# Ajout des points sur la carte avec des marqueurs pour df (en bleu) et dg (en rouge)
+for index, row in df.iterrows():
+    folium.CircleMarker(
+        location=[row['latitude'], row['longitude']],
+        radius=5,
+        color='blue',
+        fill=True,
+        fill_color='blue',
+        fill_opacity=0.6,
+        popup=row['Nom_usuel'],
+        tooltip=row['Nom_usuel']
+    ).add_to(m)
+
+for index, row in dg.iterrows():
+    folium.CircleMarker(
+        location=[row['latitude'], row['longitude']],
+        radius=5,
+        color='red',
+        fill=True,
+        fill_color='red',
+        fill_opacity=0.6,
+        popup=row['Nom_usuel'],
+        tooltip=row['Nom_usuel']
+    ).add_to(m)
+
+# Création d'une couche de lignes reliant les points avec le même code AIOT
+for code in df['Code_AIOT_liste'].unique():
+    df_points = df[df['Code_AIOT_liste'] == code]
+    dg_points = dg[dg['Code_AIOT_liste'] == code]
+    
+    for _, row_df in df_points.iterrows():
+        for _, row_dg in dg_points.iterrows():
+            folium.PolyLine(
+                locations=[(row_df['latitude'], row_df['longitude']), (row_dg['latitude'], row_dg['longitude'])],
+                color='green'  # Couleur des lignes
+            ).add_to(m)
+
+# Afficher la carte dans Streamlit en utilisant folium_static
+folium_static(m)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 filtered_df = df[df['Code_AIOT'].isin(filtered_dg1['Code_AIOT'])]
 
 # Calculer les coordonnées moyennes des latitudes et longitudes de filtered_df
@@ -322,17 +392,6 @@ def create_folium_map_with_scale_bar(center_lat, center_lon, data_dg, data_df):
                 tooltip=label
             ).add_to(m)
 
-# Création d'une couche de lignes reliant les points avec le même code AIOT
-    for code in df['Code_AIOT_liste'].unique():
-        df_points = df[df['Code_AIOT_liste'] == code]
-        dg_points = dg[dg['Code_AIOT_liste'] == code]
-    
-    for _, row_df in df_points.iterrows():
-        for _, row_dg in dg_points.iterrows():
-            folium.PolyLine(
-                locations=[(row_df['latitude'], row_df['longitude']), (row_dg['latitude'], row_dg['longitude'])],
-                color='green'  # Couleur des lignes
-            ).add_to(m)
 
     return m.get_root().render()
 
