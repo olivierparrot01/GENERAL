@@ -237,17 +237,7 @@ for index, row in dg.iterrows():
 # Création d'une couche de lignes reliant les points avec le même code AIOT
 for code in df['Code_AIOT_liste'].unique():
     df_points = df[df['Code_AIOT_liste'] == code]
-    dg_points = dg[dg['Code_AIOT_liste'] == code]
-    
-    for _, row_df in df_points.iterrows():
-        for _, row_dg in dg_points.iterrows():
-            folium.PolyLine(
-                locations=[(row_df['latitude'], row_df['longitude']), (row_dg['latitude'], row_dg['longitude'])],
-                color='green'  # Couleur des lignes
-               # Création d'une couche de lignes reliant les points avec le même code AIOT
-for code in df['Code_AIOT_liste'].unique():
-    df_points = df[df['Code_AIOT_liste'] == code]
-    dg_points = dg[dg['Code_AIOT_liste'] == code]
+    dg_points = dg[dg['Code_AIOT_liste'] == code]  
     
     for _, row_df in df_points.iterrows():
         for _, row_dg in dg_points.iterrows():
