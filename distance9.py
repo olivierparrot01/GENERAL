@@ -328,11 +328,11 @@ m = folium.Map(location=[center_lat, center_lon], zoom_start=8, control_scale=Tr
 for _, row in filtered_dg1.iterrows():
     folium.CircleMarker(
         location=[row['latitude'], row['longitude']],
-        radius=row['nb_points'],
+        radius=5,
         color='red',
         fill=True,
         fill_color='red',
-        fill_opacity=0.6,
+        fill_opacity=1,
         popup_content = f"Nom usuel : {row['Nom_usuel']}<br>Code AIOT : {row['Code_AIOT_liste']}",
         tooltip_content = f"Nom usuel : {row['Nom_usuel']}<br>Code AIOT : {row['Code_AIOT_liste']}"
     ).add_to(m)
@@ -341,11 +341,11 @@ for _, row in filtered_dg1.iterrows():
 for _, row in filtered_df.iterrows():
     folium.CircleMarker(
         location=[row['latitude'], row['longitude']],
-        radius=row['nb_points'],
+        radius=5,
         color='blue',
         fill=True,
         fill_color='blue',
-        fill_opacity=0.6,
+        fill_opacity=1,
         popup_content = f"Nom usuel : {row['Nom_usuel']}<br>Code AIOT : {row['Code_AIOT_liste']}",
         tooltip_content = f"Nom usuel : {row['Nom_usuel']}<br>Code AIOT : {row['Code_AIOT_liste']}"
     ).add_to(m)
