@@ -57,11 +57,11 @@ for index, row in df.iterrows():
         radius=5,
         color='blue',
         fill=True,
-        fill_color='red',
+        fill_color='blue',
         fill_opacity=1,
         popup=popup_content,
         tooltip=tooltip_content,
-        icon=folium.Icon(icon='circle', color='blue')
+        #icon=folium.Icon(icon='circle', color='blue')
     ).add_to(m)
 
 for index, row in dg.iterrows():
@@ -77,7 +77,7 @@ for index, row in dg.iterrows():
         fill_opacity=1,
         popup=popup_content,
         tooltip=tooltip_content,
-        icon=folium.Icon(icon='circle', color='red') 
+        #icon=folium.Icon(icon='circle', color='red') 
     ).add_to(m)
 
 # Ajouter la couche GeoJSON des lignes avec une couleur unique
