@@ -350,7 +350,7 @@ for _, row in filtered_df.iterrows():
     ).add_to(m)
 
 # Charger la couche GeoJSON des lignes
-filtered_codes = filtered_dg1['Code_AIOT_liste'].unique()  # Utiliser les codes AIOT de filtered_dg1
+filtered_codes = filtered_dg1['Code_AIOT'].unique()  # Utiliser les codes AIOT de filtered_dg1
 filtered_geojson = {
     "type": "FeatureCollection",
     "features": []
