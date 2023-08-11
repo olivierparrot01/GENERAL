@@ -326,6 +326,8 @@ m = folium.Map(location=[center_lat, center_lon], zoom_start=8, control_scale=Tr
 
 # Ajouter les points de filtered_dg en rouge
 for _, row in filtered_dg1.iterrows():
+    label = f"{row['Nom_usuel']} Code_AIOT(S): {row['Code_AIOT_liste']} adresse_Gun: {row['Adresse_concat']}"
+    
     folium.CircleMarker(
         location=[row['latitude'], row['longitude']],
         radius=5,
@@ -333,12 +335,13 @@ for _, row in filtered_dg1.iterrows():
         fill=True,
         fill_color='red',
         fill_opacity=1,
-        popup_content = f"Nom usuel : {row['Nom_usuel']}<br>Code AIOT : {row['Code_AIOT_liste']}",
-        tooltip_content = f"Nom usuel : {row['Nom_usuel']}<br>Code AIOT : {row['Code_AIOT_liste']}"
+        popup = label ,
+        tooltip =label 
     ).add_to(m)
 
 # Ajouter les points de filtered_df en bleu
 for _, row in filtered_df.iterrows():
+    label = f"{row['Nom_usuel']} Code_AIOT(S): {row['Code_AIOT_liste']} adresse_Gun: {row['Adresse_concat']}"
     folium.CircleMarker(
         location=[row['latitude'], row['longitude']],
         radius=5,
@@ -346,8 +349,8 @@ for _, row in filtered_df.iterrows():
         fill=True,
         fill_color='blue',
         fill_opacity=1,
-        popup_content = f"Nom usuel : {row['Nom_usuel']}<br>Code AIOT : {row['Code_AIOT_liste']}",
-        tooltip_content = f"Nom usuel : {row['Nom_usuel']}<br>Code AIOT : {row['Code_AIOT_liste']}"
+        popup = label ,
+        tooltip =label 
     ).add_to(m)
 
 # Ajouter la couche GeoJSON filtrée
