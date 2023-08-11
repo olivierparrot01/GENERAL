@@ -204,7 +204,7 @@ if st.button(f"Télécharger les données pour l'intervalle {selected_interval_l
 import folium
 from streamlit_folium import folium_static
 import json
-
+from folium import plugins
 
 st.markdown(f"<h2 style='font-size:18px;'> Appareillement Gun en bleu et Geocodage en rouge (ICPE tout type, Code_AIOT identique) </h2>", unsafe_allow_html=True)
 # Création de la carte centrée sur la moyenne des latitudes et longitudes
@@ -270,15 +270,12 @@ for code in df['Code_AIOT_liste'].unique():
                 tooltip=f"Nom usuel : {row_df['Nom_usuel']}<br>Code AIOT : {row_df['Code_AIOT_liste']}<br>Distance : {row_dg['Distance']} m",
                 smooth_factor=0.5  # Ajoutez cette option pour un affichage plus fluide
             ).add_to(m)
-# Ajout du style personnalisé pour le curseur
-custom_css = """
-.leaflet-container {
-    cursor: pointer !important;
-}
-"""
 
-# Ajout du CSS personnalisé à la page Streamlit
-st.write(f'<style>{custom_css}</style>', unsafe_allow_html=True)
+
+
+# Ajout du style personnalisé pour le curseur
+m.get_root().html.add_child(folium.Element(f'<style>.leaflet-container {cursor: pointer !important;}</style>'))
+
 
 
 # Afficher la carte dans Streamlit en utilisant folium_static
