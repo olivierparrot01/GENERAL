@@ -87,7 +87,7 @@ geojson_layer = folium.GeoJson(
         style="font-size: 12px; text-align: center;"
     )
 )
-geojson_layer.add_to(m)
+
 geojson_layer.add_to(m)
 
 
