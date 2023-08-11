@@ -77,7 +77,7 @@ color_scale = linear.YlOrRd_04.scale(0, df['Distance'].max())  # Utilisez votre 
 
 # Ajouter la couche GeoJSON des lignes avec des couleurs basées sur la distance
 geojson_layer = folium.GeoJson(
-    data="lines.geojson",  # Chemin vers le fichier GeoJSON
+    data="lines.geojson"
     name="Lignes entre points",
     style_function=lambda feature: {
         'color': color_scale(feature['properties']['Distance']),
