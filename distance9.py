@@ -250,8 +250,9 @@ for code in df['Code_AIOT_liste'].unique():
                 locations=[(row_df['latitude'], row_df['longitude']), (row_dg['latitude'], row_dg['longitude'])],
                 color='black',  # Couleur des lignes
                 weight=1,  # Épaisseur de la ligne en pixels
-                popup=f"Nom usuel : {row_df['Nom_usuel']}<br>Code AIOT : {row_df['Code_AIOT_liste']}",
-                tooltip=f"Nom usuel : {row_df['Nom_usuel']}<br>Code AIOT : {row_df['Code_AIOT_liste']}"
+                popup=f"Nom usuel : {row_df['Nom_usuel']}<br>Code AIOT : {row_df['Code_AIOT_liste']}<br>Distance : {row_dg['Distance']} m",
+                tooltip=f"Nom usuel : {row_df['Nom_usuel']}<br>Code AIOT : {row_df['Code_AIOT_liste']}<br>Distance : {row_dg['Distance']} m",
+                smooth_factor=0.5  # Ajoutez cette option pour un affichage plus fluide
             ).add_to(m)
 
 
