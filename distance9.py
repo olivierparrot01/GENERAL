@@ -110,7 +110,12 @@ for code in df['Code_AIOT_liste'].unique():
 folium_static(m)
 
 # Téléchargement de la couche en GeoJSON
-def download_geojson():
+import json
+
+# ...
+
+# Téléchargement de la couche en GeoJSON
+def download_geojson(df, dg):
     # Créer un dictionnaire GeoJSON pour les lignes
     geojson_lines = {
         "type": "FeatureCollection",
@@ -133,7 +138,8 @@ def download_geojson():
                         ]
                     },
                     "properties": {
-                        "Code_AIOT": code
+                        "Code_AIOT": code,
+                        "Distance": row_dg['Distance']
                     }
                 }
                 geojson_lines["features"].append(feature)
@@ -151,6 +157,7 @@ def download_geojson():
         file_name="lines.geojson",
         key="download_button"
     )
+
 
 # Afficher le bouton de téléchargement
 download_geojson()
