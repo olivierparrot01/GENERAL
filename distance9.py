@@ -40,45 +40,42 @@ not_in_dg = not_in_dg.drop("Unnamed: 0", axis=1)
 
 
 
-st.markdown(f"<h2 style='font-size:18px;'> Appareillement Gun en bleu et Geocodage en rouge (ICPE tout type, Code_AIOT identique) </h2>", unsafe_allow_html=True)
-# Création de la carte centrée sur la moyenne des latitudes et longitudes
+st.markdown(f"<h2 style='font-size:18px;'> Appareillement (Codes AIOT identiques) : Gun en bleu et Geocodage en rouge ICPE tout type </h2>", unsafe_allow_html=True)
+# Importation des bibliothèques
+import streamlit as st
+import pandas as pd
+import folium
+from streamlit_folium import folium_static
+
+
+# Calcul des coordonnées du centre de la carte
 center_lat = (df['latitude'].mean() + dg['latitude'].mean()) / 2
 center_lon = (df['longitude'].mean() + dg['longitude'].mean()) / 2
+
 # Création de la carte avec Folium
 m = folium.Map(location=[center_lat, center_lon], zoom_start=8, control_scale=True)
 
-# Ajout des points sur la carte avec des marqueurs pour df (en bleu) et dg (en rouge)
-for index, row in df.iterrows():
-    popup_content = f"Nom usuel : {row['Nom_usuel']}<br>Code AIOT : {row['Code_AIOT_liste']}"
-    tooltip_content = f"Nom usuel : {row['Nom_usuel']}<br>Code AIOT : {row['Code_AIOT_liste']}"
-    
-    folium.CircleMarker(
-        location=[row['latitude'], row['longitude']],
-        radius=5,
-        color='blue',
-        fill=True,
-        fill_color='blue',
-        fill_opacity=1,
-        popup=popup_content,
-        tooltip=tooltip_content,
-        #icon=folium.Icon(icon='circle', color='blue')
-    ).add_to(m)
+# Fonction pour ajouter des marqueurs à la carte
+def add_markers(data, color):
+    for index, row in data.iterrows():
+        popup_content = f"Nom usuel : {row['Nom_usuel']}<br>Code AIOT : {row['Code_AIOT_liste']}"
+        tooltip_content = f"Nom usuel : {row['Nom_usuel']}<br>Code AIOT : {row['Code_AIOT_liste']}"
+        
+        folium.CircleMarker(
+            location=[row['latitude'], row['longitude']],
+            radius=5,
+            color=color,
+            fill=True,
+            fill_color=color,
+            fill_opacity=1,
+            popup=popup_content,
+            tooltip=tooltip_content,
+            #icon=folium.Icon(icon='circle', color=color)
+        ).add_to(m)
 
-for index, row in dg.iterrows():
-    popup_content = f"Nom usuel : {row['Nom_usuel']}<br>Code AIOT : {row['Code_AIOT_liste']}"
-    tooltip_content = f"Nom usuel : {row['Nom_usuel']}<br>Code AIOT : {row['Code_AIOT_liste']}"
-    
-    folium.CircleMarker(
-        location=[row['latitude'], row['longitude']],
-        radius=5,
-        color='red',
-        fill=True,
-        fill_color='red',
-        fill_opacity=1,
-        popup=popup_content,
-        tooltip=tooltip_content,
-        #icon=folium.Icon(icon='circle', color='red') 
-    ).add_to(m)
+# Ajouter les marqueurs pour df (en bleu) et dg (en rouge)
+add_markers(df, 'blue')
+add_markers(dg, 'red')
 
 # Ajouter la couche GeoJSON des lignes avec une couleur unique
 geojson_layer = folium.GeoJson(
@@ -97,7 +94,6 @@ geojson_layer = folium.GeoJson(
 )
 
 geojson_layer.add_to(m)
-
 
 # Afficher la carte dans Streamlit en utilisant folium_static
 folium_static(m)
