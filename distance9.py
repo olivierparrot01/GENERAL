@@ -210,8 +210,8 @@ st.markdown(f"<h2 style='font-size:18px;'> Appareillement Gun en bleu et Geocoda
 # Création de la carte centrée sur la moyenne des latitudes et longitudes
 center_lat = (df['latitude'].mean() + dg['latitude'].mean()) / 2
 center_lon = (df['longitude'].mean() + dg['longitude'].mean()) / 2
-
-
+# Création de la carte avec Folium
+m = folium.Map(location=[center_lat, center_lon], zoom_start=8, control_scale=True)
 # Ajout des points sur la carte avec des marqueurs pour df (en bleu) et dg (en rouge)
 for index, row in df.iterrows():
     folium.CircleMarker(
