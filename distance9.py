@@ -394,7 +394,7 @@ st.plotly_chart(fig)
 
 
 
-
+st.write(len(data))
 
 
 
