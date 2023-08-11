@@ -303,6 +303,105 @@ st.plotly_chart(fig)
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+import folium
+from streamlit_folium import folium_static
+import plotly.express as px
+
+# Créer une carte Folium avec la bibliothèque Plotly Express
+m = folium.Map(location=[center_lat, center_lon], zoom_start=8, control_scale=True)
+
+# Ajouter les points de filtered_dg en rouge
+for _, row in filtered_dg1.iterrows():
+    folium.CircleMarker(
+        location=[row['latitude'], row['longitude']],
+        radius=row['nb_points'],  # Utiliser la colonne nb_points pour définir la taille du cercle
+        color='red',
+        fill=True,
+        fill_color='red',
+        fill_opacity=0.6,
+        popup=row['Nom_usuel'],
+        tooltip=row['Nom_usuel']
+    ).add_to(m)
+
+# Ajouter les points de filtered_df en bleu
+for _, row in filtered_df.iterrows():
+    folium.CircleMarker(
+        location=[row['latitude'], row['longitude']],
+        radius=row['nb_points'],  # Utiliser la colonne nb_points pour définir la taille du cercle
+        color='blue',
+        fill=True,
+        fill_color='blue',
+        fill_opacity=0.6,
+        popup=row['Nom_usuel'],
+        tooltip=row['Nom_usuel']
+    ).add_to(m)
+
+# Charger la couche GeoJSON des lignes
+geojson_layer = folium.GeoJson(
+    data='https://raw.githubusercontent.com/olivierparrot01/ICPE/main/lines.geojson',
+    name="Lignes entre points",
+    style_function=lambda feature: {
+        'color': 'green',  # Utilisez la couleur de votre choix pour les lignes
+        'opacity': 0.8,
+        'weight': 2  # Épaisseur constante
+    },
+    tooltip=folium.GeoJsonTooltip(
+        fields=["Code_AIOT", "Distance"],
+        aliases=["Code AIOT", "Distance"],
+        style="font-size: 12px; text-align: center;"
+    )
+)
+geojson_layer.add_to(m)
+
+# Afficher la carte Folium dans Streamlit
+folium_static(m)
+
+# Créer une carte Plotly Express avec les points filtrés
+fig = px.scatter_mapbox(filtered_df1, lat="latitude", lon="longitude", hover_data=["Nom_usuel", "Code_AIOT", "Adresse_si","nb_points"], size='nb_points', size_max=15,  zoom=8,color_discrete_sequence=['blue'])
+
+# Ajouter la couche GeoJSON des lignes
+fig.add_trace(px.line_geojson('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/lines.geojson').data[0])
+
+# Afficher la carte Plotly Express dans Streamlit
+st.plotly_chart(fig)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # Seuil pour filtrer les valeurs de nb_points
 seuil_nb_points = 1
 
