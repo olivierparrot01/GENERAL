@@ -80,7 +80,7 @@ add_markers(dg, 'red')
 
 # Ajouter la couche GeoJSON des lignes avec une couleur unique
 geojson_layer = folium.GeoJson(
-    data='https://raw.githubusercontent.com/olivierparrot01/ICPE/main/lines.geojson', 
+    data='https://raw.githubusercontent.com/olivierparrot01/ICPE/main/line_json.geojson', 
     name="Lignes entre points",
     style_function=lambda feature: {
         'color': 'blue',  # Utilisez la couleur de votre choix
@@ -311,7 +311,7 @@ filtered_geojson = {
     "type": "FeatureCollection",
     "features": []
 }
-with open("lines.geojson", "r") as f:
+with open("line_json.geojson", "r") as f:
     data = json.load(f)
     for feature in data['features']:
         if feature['properties']['Code_AIOT'] in filtered_codes:
