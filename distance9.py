@@ -49,18 +49,24 @@ m = folium.Map(location=[center_lat, center_lon], zoom_start=8, control_scale=Tr
 
 # Ajout des points sur la carte avec des marqueurs pour df (en bleu) et dg (en rouge)
 for index, row in df.iterrows():
+    popup_content = f"Nom usuel : {row['Nom_usuel']}<br>Code AIOT : {row['Code_AIOT_liste']}"
+    tooltip_content = f"Nom usuel : {row['Nom_usuel']}<br>Code AIOT : {row['Code_AIOT_liste']}"
+    
     folium.CircleMarker(
         location=[row['latitude'], row['longitude']],
         radius=5,
         color='blue',
         fill=True,
-        fill_color='blue',
+        fill_color='red',
         fill_opacity=0.6,
-        popup=row['Nom_usuel'],
-        tooltip=row['Nom_usuel']
+        popup=popup_content,
+        tooltip=tooltip_content
     ).add_to(m)
 
 for index, row in dg.iterrows():
+    popup_content = f"Nom usuel : {row['Nom_usuel']}<br>Code AIOT : {row['Code_AIOT_liste']}"
+    tooltip_content = f"Nom usuel : {row['Nom_usuel']}<br>Code AIOT : {row['Code_AIOT_liste']}"
+    
     folium.CircleMarker(
         location=[row['latitude'], row['longitude']],
         radius=5,
@@ -68,8 +74,8 @@ for index, row in dg.iterrows():
         fill=True,
         fill_color='red',
         fill_opacity=0.6,
-        popup=row['Nom_usuel'],
-        tooltip=row['Nom_usuel']
+        popup=popup_content,
+        tooltip=tooltip_content
     ).add_to(m)
 
 # Ajouter la couche GeoJSON des lignes avec une couleur unique
