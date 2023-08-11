@@ -41,6 +41,7 @@ not_in_dg = not_in_dg.drop("Unnamed: 0", axis=1)
 
 
 st.markdown(f"<h2 style='font-size:18px;'> Appareillement (Codes AIOT identiques) : Gun en bleu et Geocodage en rouge ICPE tout type </h2>", unsafe_allow_html=True)
+st.text("")
 # Importation des bibliothèques
 import streamlit as st
 import pandas as pd
