@@ -322,12 +322,10 @@ filtered_geojson = {
     "type": "FeatureCollection",
     "features": []
 }
-
-with open("lines.geojson", "r") as f:
-    data = json.load(f)
-    for feature in data['features']:
+for feature in data['features']:
         if feature['properties']['Code_AIOT'] in filtered_codes:
             filtered_geojson['features'].append(feature)
+
 
 # Créer une carte Folium avec la bibliothèque Plotly Express
 m = folium.Map(location=[center_lat, center_lon], zoom_start=8, control_scale=True)
