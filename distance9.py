@@ -58,7 +58,7 @@ for index, row in df.iterrows():
         color='blue',
         fill=True,
         fill_color='red',
-        fill_opacity=0.6,
+        fill_opacity=1,
         popup=popup_content,
         tooltip=tooltip_content
     ).add_to(m)
@@ -73,7 +73,7 @@ for index, row in dg.iterrows():
         color='red',
         fill=True,
         fill_color='red',
-        fill_opacity=0.6,
+        fill_opacity=1,
         popup=popup_content,
         tooltip=tooltip_content
     ).add_to(m)
@@ -84,7 +84,7 @@ geojson_layer = folium.GeoJson(
     name="Lignes entre points",
     style_function=lambda feature: {
         'color': 'blue',  # Utilisez la couleur de votre choix
-        'opacity': 0.8,
+        'opacity': 1,
         'weight': 2  # Épaisseur constante
     },
     tooltip=folium.GeoJsonTooltip(
