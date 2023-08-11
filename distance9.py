@@ -322,6 +322,11 @@ filtered_geojson = {
     "type": "FeatureCollection",
     "features": []
 }
+with open("lines.geojson", "r") as f:
+    data = json.load(f)
+    for feature in data['features']:
+        if feature['properties']['Code_AIOT'] in filtered_codes:
+            filtered_geojson['features'].append(feature)
 for feature in data['features']:
         if feature['properties']['Code_AIOT'] in filtered_codes:
             filtered_geojson['features'].append(feature)
