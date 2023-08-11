@@ -158,6 +158,26 @@ download_geojson()
 import json
 
 # ...
+def create_points_geojson(data):
+    geojson_points = {
+        "type": "FeatureCollection",
+        "features": []
+    }
+
+    for _, row in data.iterrows():
+        feature = {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [row['longitude'], row['latitude']]
+            },
+            "properties": {
+                "Code_AIOT": row['Code_AIOT_liste']
+            }
+        }
+        geojson_points["features"].append(feature)
+
+    return geojson_points
 
 # Téléchargement de la couche en GeoJSON
 def download_geojson(df, dg):
