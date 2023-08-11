@@ -212,7 +212,13 @@ center_lat = (df['latitude'].mean() + dg['latitude'].mean()) / 2
 center_lon = (df['longitude'].mean() + dg['longitude'].mean()) / 2
 
 m = folium.Map(location=[center_lat, center_lon], zoom_start=8, control_scale=True)
-
+# Ajout d'un style CSS personnalisé pour modifier le curseur de la carte
+custom_css = """
+    .folium-map {
+        cursor: pointer !important;
+    }
+"""
+folium.Element(f'<style>{custom_css}</style>').add_to(m)
 # Ajout des points sur la carte avec des marqueurs pour df (en bleu) et dg (en rouge)
 for index, row in df.iterrows():
     folium.CircleMarker(
