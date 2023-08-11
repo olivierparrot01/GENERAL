@@ -203,10 +203,12 @@ if st.button(f"Télécharger les données pour l'intervalle {selected_interval_l
 
 import folium
 from streamlit_folium import folium_static
+import json
 
-# Création de la carte centrée sur une position quelconque
-center_lat = df['latitude'].mean()
-center_lon = df['longitude'].mean()
+# Création de la carte centrée sur la moyenne des latitudes et longitudes
+center_lat = (df['latitude'].mean() + dg['latitude'].mean()) / 2
+center_lon = (df['longitude'].mean() + dg['longitude'].mean()) / 2
+
 m = folium.Map(location=[center_lat, center_lon], zoom_start=8, control_scale=True)
 
 # Ajout des points sur la carte avec des marqueurs pour df (en bleu) et dg (en rouge)
@@ -233,24 +235,7 @@ for index, row in dg.iterrows():
         popup=row['Nom_usuel'],
         tooltip=row['Nom_usuel']
     ).add_to(m)
-import streamlit as st
-import pandas as pd
-import folium
-from streamlit_folium import folium_static
-import json
 
-# Chargement des données df et dg (suppose que vous avez les données déjà chargées)
-
-# Création de la carte centrée sur la moyenne des latitudes et longitudes
-center_lat = (df['latitude'].mean() + dg['latitude'].mean()) / 2
-center_lon = (df['longitude'].mean() + dg['longitude'].mean()) / 2
-
-# Création de la carte
-m = folium.Map(location=[center_lat, center_lon], zoom_start=8, control_scale=True)
-
-# Ajout des points sur la carte avec des marqueurs
-
-# ... (ajoutez votre code pour ajouter les marqueurs ici)
 
 # Création d'une couche de lignes reliant les points avec le même code AIOT
 for code in df['Code_AIOT_liste'].unique():
@@ -266,24 +251,7 @@ for code in df['Code_AIOT_liste'].unique():
                 popup=f"Nom usuel : {row_df['Nom_usuel']}<br>Code AIOT : {row_df['Code_AIOT_liste']}",
                 tooltip=f"Nom usuel : {row_df['Nom_usuel']}<br>Code AIOT : {row_df['Code_AIOT_liste']}"
             ).add_to(m)
-import streamlit as st
-import pandas as pd
-import folium
-from streamlit_folium import folium_static
-import json
 
-# Chargement des données df et dg (suppose que vous avez les données déjà chargées)
-
-# Création de la carte centrée sur la moyenne des latitudes et longitudes
-center_lat = (df['latitude'].mean() + dg['latitude'].mean()) / 2
-center_lon = (df['longitude'].mean() + dg['longitude'].mean()) / 2
-
-# Création de la carte
-m = folium.Map(location=[center_lat, center_lon], zoom_start=8, control_scale=True)
-
-# Ajout des points sur la carte avec des marqueurs
-
-# ... (ajoutez votre code pour ajouter les marqueurs ici)
 
 # Création d'une couche de lignes reliant les points avec le même code AIOT
 for code in df['Code_AIOT_liste'].unique():
@@ -299,6 +267,8 @@ for code in df['Code_AIOT_liste'].unique():
                 popup=f"Nom usuel : {row_df['Nom_usuel']}<br>Code AIOT : {row_df['Code_AIOT_liste']}",
                 tooltip=f"Nom usuel : {row_df['Nom_usuel']}<br>Code AIOT : {row_df['Code_AIOT_liste']}"
             ).add_to(m)
+# Afficher la carte dans Streamlit en utilisant folium_static
+folium_static(m)
 
 # Téléchargement de la couche en GeoJSON
 def download_geojson():
@@ -345,25 +315,6 @@ def download_geojson():
 
 # Afficher le bouton de téléchargement
 download_geojson()
-
-# Afficher la carte dans Streamlit en utilisant folium_static
-folium_static(m)
-
-
-# Afficher la carte dans Streamlit en utilisant folium_static
-folium_static(m)
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
