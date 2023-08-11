@@ -106,12 +106,6 @@ for code in df['Code_AIOT_liste'].unique():
             ).add_to(m)
 
 
-
-# Ajout du style personnalisé pour le curseur
-m.get_root().html.add_child(folium.Element(f'<style>.leaflet-container {cursor: pointer !important;}</style>'))
-
-
-
 # Afficher la carte dans Streamlit en utilisant folium_static
 folium_static(m)
 
