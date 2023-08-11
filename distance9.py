@@ -383,7 +383,7 @@ geojson_layer.add_to(m)
 folium_static(m)
 
 # Créer une carte Plotly Express avec les points filtrés
-fig = px.scatter_mapbox(filtered_df1, lat="latitude", lon="longitude", hover_data=["Nom_usuel", "Code_AIOT", "Adresse_si","nb_points"], size='nb_points', size_max=15,  zoom=8,color_discrete_sequence=['blue'])
+fig = px.scatter_mapbox(filtered_df, lat="latitude", lon="longitude", hover_data=["Nom_usuel", "Code_AIOT", "Adresse_si","nb_points"], size='nb_points', size_max=15,  zoom=8,color_discrete_sequence=['blue'])
 
 # Ajouter la couche GeoJSON filtrée
 filtered_geojson_layer = px.line_geojson(filtered_geojson)
