@@ -321,7 +321,7 @@ for feature in data['features']:
             filtered_geojson['features'].append(feature)
 
 
-# Création de la carte avec Folium
+# Création de la carte avec  Folium
 m = folium.Map(location=[center_lat, center_lon], zoom_start=8, control_scale=True)
 
 # Ajouter les points de filtered_dg en rouge
