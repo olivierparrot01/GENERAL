@@ -60,8 +60,8 @@ for index, row in df.iterrows():
         fill_color='red',
         fill_opacity=1,
         popup=popup_content,
-        tooltip=tooltip_content
-         icon=folium.Icon(icon='circle', color='blue')
+        tooltip=tooltip_content,
+        icon=folium.Icon(icon='circle', color='blue')
     ).add_to(m)
 
 for index, row in dg.iterrows():
@@ -76,7 +76,7 @@ for index, row in dg.iterrows():
         fill_color='red',
         fill_opacity=1,
         popup=popup_content,
-        tooltip=tooltip_content
+        tooltip=tooltip_content,
         icon=folium.Icon(icon='circle', color='red') 
     ).add_to(m)
 
