@@ -244,7 +244,7 @@ for code in df['Code_AIOT_liste'].unique():
             folium.PolyLine(
                 locations=[(row_df['latitude'], row_df['longitude']), (row_dg['latitude'], row_dg['longitude'])],
                 color='black',  # Couleur des lignes
-                weight=2,
+                weight=1,
                 popup=f"Nom usuel : {row_df['Nom_usuel']}<br>Code AIOT : {row_df['Code_AIOT_liste']}",
                 tooltip=f"Nom usuel : {row_df['Nom_usuel']}<br>Code AIOT : {row_df['Code_AIOT_liste']}"
             ).add_to(m)
