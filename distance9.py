@@ -379,19 +379,8 @@ geojson_layer = folium.GeoJson(
 )
 geojson_layer.add_to(m)
 
-# Afficher la carte Folium dans Streamlit
+# Afficher  la carte Folium dans Streamlit
 folium_static(m)
-
-# Créer une carte Plotly Express avec les points filtrés
-fig = px.scatter_mapbox(filtered_df, lat="latitude", lon="longitude", hover_data=["Nom_usuel", "Code_AIOT", "Adresse_si","nb_points"], size='nb_points', size_max=15,  zoom=8,color_discrete_sequence=['blue'])
-
-# Ajouter la couche GeoJSON filtrée
-filtered_geojson_layer = px.line_geojson(filtered_geojson)
-fig.add_trace(filtered_geojson_layer.data[0])
-
-# Afficher la carte Plotly Express dans Streamlit
-st.plotly_chart(fig)
-
 
 
 st.write(len(data))
