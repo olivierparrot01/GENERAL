@@ -26,6 +26,7 @@ df['Code_AIOT']=df['Code_AIOT'].astype(str)
 dg['Nom_usuel'] = dg['Nom_usuel'].astype(str)
 df['Nom_usuel'] = df['Nom_usuel'].astype(str)
 df['Adresse_concat'] = df['Adresse 1'].str.cat([df['Adresse 2'], df['Adresse 3']], sep=' ', na_rep='')
+
 df["Code_AIOT_liste"] = df.groupby(["latitude", "longitude"])["Code_AIOT"].transform(lambda x: ", ".join(x))
 dg["Code_AIOT_liste"] = dg.groupby(["latitude", "longitude"])["Code_AIOT"].transform(lambda x: ", ".join(x))
 df["Nom_usuel_liste"] = df.groupby(["latitude", "longitude"])["Nom_usuel"].transform(lambda x: ", ".join(x))
@@ -326,7 +327,7 @@ m = folium.Map(location=[center_lat, center_lon], zoom_start=8, control_scale=Tr
 
 # Ajouter les points de filtered_dg en rouge
 for _, row in filtered_dg1.iterrows():
-    label = f"{row['Nom_usuel']} Code_AIOT(S): {row['Code_AIOT_liste']} adresse_Gun: {row['Adresse_concat']}"
+    label = f"{row['Nom_usuel']} Code_AIOT(S): {row['Code_AIOT_liste']} adresse_Gun: {row['Adresse_si']}"
     
     folium.CircleMarker(
         location=[row['latitude'], row['longitude']],
