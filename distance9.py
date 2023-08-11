@@ -155,6 +155,52 @@ def download_geojson():
 # Afficher le bouton de téléchargement
 download_geojson()
 
+import json
+
+# ...
+
+# Téléchargement de la couche en GeoJSON
+def download_geojson(df, dg):
+    layers = ["df", "dg", "lines"]
+
+    geojson_data = {}
+    for layer in layers:
+        if layer == "lines":
+            geojson_data[layer] = create_lines_geojson(df, dg)
+        else:
+            geojson_data[layer] = create_points_geojson(df if layer == "df" else dg)
+
+        # Enregistrer le GeoJSON dans un fichier
+        with open(f"{layer}.geojson", "w") as f:
+            json.dump(geojson_data[layer], f)
+
+    # Télécharger les fichiers GeoJSON
+    for layer in layers:
+        with open(f"{layer}.geojson", "rb") as f:
+            data = f.read()
+            st.download_button(
+                label=f"Télécharger la couche '{layer}' en GeoJSON",
+                data=data,
+                file_name=f"{layer}.geojson",
+                key=f"download_button_{layer}"
+            )
+
+# Afficher les boutons de téléchargement
+download_geojson(df, dg)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
