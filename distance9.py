@@ -327,7 +327,7 @@ m = folium.Map(location=[center_lat, center_lon], zoom_start=8, control_scale=Tr
 for _, row in filtered_dg1.iterrows():
     folium.CircleMarker(
         location=[row['latitude'], row['longitude']],
-        radius=row['nb_points'],  # Utiliser la colonne nb_points pour définir la taille du cercle
+        radius=row['nb_points'],
         color='red',
         fill=True,
         fill_color='red',
@@ -340,7 +340,7 @@ for _, row in filtered_dg1.iterrows():
 for _, row in filtered_df.iterrows():
     folium.CircleMarker(
         location=[row['latitude'], row['longitude']],
-        radius=row['nb_points'],  # Utiliser la colonne nb_points pour définir la taille du cercle
+        radius=row['nb_points'],
         color='blue',
         fill=True,
         fill_color='blue',
@@ -350,13 +350,26 @@ for _, row in filtered_df.iterrows():
     ).add_to(m)
 
 # Charger la couche GeoJSON des lignes
+filtered_codes = filtered_dg1['Code_AIOT_liste'].unique()  # Utiliser les codes AIOT de filtered_dg1
+filtered_geojson = {
+    "type": "FeatureCollection",
+    "features": []
+}
+
+with open("lines.geojson", "r") as f:
+    data = json.load(f)
+    for feature in data['features']:
+        if feature['properties']['Code_AIOT'] in filtered_codes:
+            filtered_geojson['features'].append(feature)
+
+# Ajouter la couche GeoJSON filtrée
 geojson_layer = folium.GeoJson(
-    data='https://raw.githubusercontent.com/olivierparrot01/ICPE/main/lines.geojson',
+    data=filtered_geojson,
     name="Lignes entre points",
     style_function=lambda feature: {
-        'color': 'green',  # Utilisez la couleur de votre choix pour les lignes
+        'color': 'green',
         'opacity': 0.8,
-        'weight': 2  # Épaisseur constante
+        'weight': 2
     },
     tooltip=folium.GeoJsonTooltip(
         fields=["Code_AIOT", "Distance"],
@@ -372,24 +385,12 @@ folium_static(m)
 # Créer une carte Plotly Express avec les points filtrés
 fig = px.scatter_mapbox(filtered_df1, lat="latitude", lon="longitude", hover_data=["Nom_usuel", "Code_AIOT", "Adresse_si","nb_points"], size='nb_points', size_max=15,  zoom=8,color_discrete_sequence=['blue'])
 
-# Ajouter la couche GeoJSON des lignes
-fig.add_trace(px.line_geojson('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/lines.geojson').data[0])
+# Ajouter la couche GeoJSON filtrée
+filtered_geojson_layer = px.line_geojson(filtered_geojson)
+fig.add_trace(filtered_geojson_layer.data[0])
 
 # Afficher la carte Plotly Express dans Streamlit
 st.plotly_chart(fig)
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
