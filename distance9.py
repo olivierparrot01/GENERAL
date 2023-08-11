@@ -11,7 +11,7 @@ from folium import plugins
 
 
 
-# Load data from  CSV
+# Load data from CSV
 dg = pd.read_csv('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/2geocodage.csv')
 df = pd.read_csv('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/0208_gun.csv')
 # Filter out negative and non-finite values from the 'Distance' column
