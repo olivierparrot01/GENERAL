@@ -286,17 +286,6 @@ center_lon = filtered_dg1['longitude'].mean()
 st.markdown(f"<h2 style='font-size:18px;'> Gun en bleu et Geocodage en rouge pour l'intervalle [{selected_interval_left} {selected_interval_right}] (ICPE tout type)</h2>", unsafe_allow_html=True)
 
 
-fig = px.scatter_mapbox(filtered_dg1, lat="latitude", lon="longitude", hover_data=["Nom_usuel", "Code_AIOT", "Adresse_si","nb_points"], size='nb_points', size_max=15,  zoom=8,color_discrete_sequence=['red'])
-fig.add_trace(px.scatter_mapbox(filtered_df, lat="latitude", lon="longitude", hover_data=["Nom_usuel", "Code_AIOT","Adresse_concat","nb_points"], size='nb_points', size_max=10,  zoom=8, color_discrete_sequence=['blue']).data[0])
-
-
-
-fig.update_layout(mapbox_style="open-street-map")
-fig.update_layout(margin={"r": 0, "t": 0, "l": 0, "b": 0})
-fig.update_layout(mapbox_center={"lat": center_lat, "lon": center_lon})
-# Créer une seule carte avec filtered_df en rouge et filtered_df1 en bleu
-
-st.plotly_chart(fig)
                                                                                                                                        
 
 
@@ -332,7 +321,7 @@ for feature in data['features']:
             filtered_geojson['features'].append(feature)
 
 
-# Créer une carte Folium avec la bibliothèque Plotly Express
+# Création de la carte avec Folium
 m = folium.Map(location=[center_lat, center_lon], zoom_start=8, control_scale=True)
 
 # Ajouter les points de filtered_dg en rouge
