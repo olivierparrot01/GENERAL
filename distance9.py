@@ -333,8 +333,8 @@ for _, row in filtered_dg1.iterrows():
         fill=True,
         fill_color='red',
         fill_opacity=0.6,
-        popup=row['Nom_usuel'],
-        tooltip=row['Nom_usuel']
+        popup_content = f"Nom usuel : {row['Nom_usuel']}<br>Code AIOT : {row['Code_AIOT_liste']}"
+        tooltip_content = f"Nom usuel : {row['Nom_usuel']}<br>Code AIOT : {row['Code_AIOT_liste']}"
     ).add_to(m)
 
 # Ajouter les points de filtered_df en bleu
@@ -346,8 +346,8 @@ for _, row in filtered_df.iterrows():
         fill=True,
         fill_color='blue',
         fill_opacity=0.6,
-        popup=row['Nom_usuel'],
-        tooltip=row['Nom_usuel']
+        popup_content = f"Nom usuel : {row['Nom_usuel']}<br>Code AIOT : {row['Code_AIOT_liste']}"
+        tooltip_content = f"Nom usuel : {row['Nom_usuel']}<br>Code AIOT : {row['Code_AIOT_liste']}"
     ).add_to(m)
 
 # Ajouter la couche GeoJSON filtrée
@@ -357,7 +357,7 @@ geojson_layer = folium.GeoJson(
     style_function=lambda feature: {
         'color': 'green',
         'opacity': 0.8,
-        'weight': 2
+        'weight': 5
     },
     tooltip=folium.GeoJsonTooltip(
         fields=["Code_AIOT", "Distance"],
