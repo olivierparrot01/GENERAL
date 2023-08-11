@@ -72,10 +72,6 @@ for index, row in dg.iterrows():
         tooltip=row['Nom_usuel']
     ).add_to(m)
 
-# Définir une échelle de couleurs basée sur la distance
-color_scale = linear.YlOrRd_04.scale(0, df['Distance'].max())  # Utilisez votre propre échelle de couleurs
-
-
 # Ajouter la couche GeoJSON des lignes avec une couleur unique
 geojson_layer = folium.GeoJson(
     data='https://raw.githubusercontent.com/olivierparrot01/ICPE/main/lines.geojson', 
@@ -93,11 +89,6 @@ geojson_layer = folium.GeoJson(
 )
 geojson_layer.add_to(m)
 geojson_layer.add_to(m)
-
-# Ajouter une légende pour l'échelle de couleurs
-color_scale.caption = 'Distance'
-color_scale.add_to(m)
-
 
 
 # Afficher la carte dans Streamlit en utilisant folium_static
