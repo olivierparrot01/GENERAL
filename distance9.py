@@ -160,7 +160,7 @@ def download_geojson(df, dg):
 
 
 # Afficher le bouton de téléchargement
-download_geojson()
+download_geojson(df, dg)
 
 
 
