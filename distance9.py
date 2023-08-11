@@ -333,7 +333,7 @@ for _, row in filtered_dg1.iterrows():
         fill=True,
         fill_color='red',
         fill_opacity=0.6,
-        popup_content = f"Nom usuel : {row['Nom_usuel']}<br>Code AIOT : {row['Code_AIOT_liste']}"
+        popup_content = f"Nom usuel : {row['Nom_usuel']}<br>Code AIOT : {row['Code_AIOT_liste']}",
         tooltip_content = f"Nom usuel : {row['Nom_usuel']}<br>Code AIOT : {row['Code_AIOT_liste']}"
     ).add_to(m)
 
