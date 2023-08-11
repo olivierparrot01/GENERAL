@@ -27,6 +27,7 @@ dg["Nom_usuel_liste"] = dg.groupby(["latitude", "longitude"])["Nom_usuel"].trans
 
 
 not_in_dg = df[~df['Code_AIOT'].isin(dg['Code_AIOT'])]
+not_in_dg = not_in_dg.drop("Unnamed: 0", axis=1)
 
 
 # Create a function to convert DataFrame to CSV and get the link  for download
@@ -66,7 +67,7 @@ distance_bins_1 = np.arange(0, 1100, 100)
 max_distance = dg['Distance'].max()
 distance_bins_2 = np.arange(1000, max_distance + 1000, 1000)
 
-# Combinez les deux listes d'intervalles de distance
+# Combiner les deux listes d'intervalles de distance
 distance_bins = np.concatenate((distance_bins_1, distance_bins_2))
 
 # Supprimer les doublons des bords des intervalles de distance
@@ -321,6 +322,18 @@ def create_folium_map_with_scale_bar(center_lat, center_lon, data_dg, data_df):
                 tooltip=label
             ).add_to(m)
 
+# Création d'une couche de lignes reliant les points avec le même code AIOT
+    for code in df['Code_AIOT_liste'].unique():
+        df_points = df[df['Code_AIOT_liste'] == code]
+        dg_points = dg[dg['Code_AIOT_liste'] == code]
+    
+    for _, row_df in df_points.iterrows():
+        for _, row_dg in dg_points.iterrows():
+            folium.PolyLine(
+                locations=[(row_df['latitude'], row_df['longitude']), (row_dg['latitude'], row_dg['longitude'])],
+                color='green'  # Couleur des lignes
+            ).add_to(m)
+
     return m.get_root().render()
 
 # Example usage
@@ -343,7 +356,8 @@ import pandas as pd
 import folium
 from streamlit_folium import folium_static
 
-# Chargement des données not_in_dg (suppose que vous avez les données déjà chargées)
+# Chargement des données not_in_dg 
+not_in_dg = not_in_dg.drop("Courriel d'échange avec l'administration", axis=1)
 
 # Création de la carte centrée sur la moyenne des latitudes et longitudes
 center_lat = not_in_dg['latitude'].mean()
@@ -380,9 +394,11 @@ for index, row in not_in_dg.iterrows():
 
 # Liste des codes AIOT uniques
 all_codes = not_in_dg['Code_AIOT_liste'].unique()
-st.markdown("<h2 style='font-size:18px;'>Sélectionnez les points Gun (par le Code AIOT) à mettre en évidence (carte, table et liens)</h2>", unsafe_allow_html=True)
+
+st.markdown("<h2 style='font-size:18px;'>Sélectionner par le Code AIOT les points Gun à mettre en évidence (carte, table et liens Google Maps)</h2>", unsafe_allow_html=True)
 # Sélection des codes AIOT à mettre en évidence
 selected_codes = st.multiselect( "",    all_codes)
+
 
 # Filtrer les données en fonction des codes AIOT sélectionnés
 filtered_data = not_in_dg[not_in_dg['Code_AIOT_liste'].isin(selected_codes)]
