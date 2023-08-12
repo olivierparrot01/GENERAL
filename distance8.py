@@ -61,7 +61,7 @@ m = folium.Map(location=[center_lat, center_lon], zoom_start=8, control_scale=Tr
 def add_markers(data, color):
     for index, row in data.iterrows():
         popup_content = f"Nom usuel : {row['Nom_usuel']}<br>Code AIOT : {row['Code_AIOT_liste']}"
-        tooltip_content = f"Nom usuel : {row['Nom_usuel']}<br>Code AIOT : {row['Code_AIOT_liste']<br>nb points : {row['nb_points']}"
+        tooltip_content = f"Nom usuel : {row['Nom_usuel']}<br>Code AIOT : {row['Code_AIOT_liste']}<br>nb points : {row['nb_points']}"
         
         
         folium.CircleMarker(
