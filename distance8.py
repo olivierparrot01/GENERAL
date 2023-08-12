@@ -82,7 +82,7 @@ add_markers(dg, 'red')
 
 # Ajouter la couche GeoJSON des lignes avec une couleur unique
 geojson_layer = folium.GeoJson(
-    data='https://raw.githubusercontent.com/olivierparrot01/ICPE/main/line_json.geojson', 
+    data='https://raw.githubusercontent.com/olivierparrot01/ICPE/main/lines.geojson', 
     name="Lignes entre points",
     style_function=lambda feature: {
         'color': 'black',  # Utilisez la couleur de votre choix
