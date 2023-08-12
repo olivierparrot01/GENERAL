@@ -594,4 +594,4 @@ for _, row in filtered_data.iterrows():
     google_maps_link = f"[Ouvrir dans Google Maps à partir de l'adresse Gun](https://www.google.com/maps/search/?api=1&query={formatted_address})"
     st.markdown(google_maps_link, unsafe_allow_html=True)
     google_maps_link = f"[Ouvrir dans Google Maps à partir des coordonnées Gun](https://www.google.com/maps?q={row['latitude']},{row['longitude']})"
-    st.markdown(google_maps_link, unsafe_allow_html=True) tu
+    st.markdown(google_maps_link, unsafe_allow_html=True) 
