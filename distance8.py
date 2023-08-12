@@ -85,7 +85,7 @@ geojson_layer = folium.GeoJson(
     data='https://raw.githubusercontent.com/olivierparrot01/ICPE/main/line_json.geojson', 
     name="Lignes entre points",
     style_function=lambda feature: {
-        'color': 'blue',  # Utilisez la couleur de votre choix
+        'color': 'black',  # Utilisez la couleur de votre choix
         'opacity': 1,
         'weight': 2  # Épaisseur constante
     },
