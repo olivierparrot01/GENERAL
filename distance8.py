@@ -87,7 +87,7 @@ geojson_layer = folium.GeoJson(
     style_function=lambda feature: {
         'color': 'black',  # Utilisez la couleur de votre choix
         'opacity': 1,
-        'weight': 2  # Épaisseur constante
+        'weight': 5  # Épaisseur constante
     },
     tooltip=folium.GeoJsonTooltip(
         fields=["Code_AIOT", "Distance"],
