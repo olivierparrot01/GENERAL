@@ -107,6 +107,9 @@ geojson_layer = folium.GeoJson(
 )
 
 geojson_layer.add_to(m)
+ #Filtrer les données en fonction des codes AIOT sélectionnés
+selected_codes = st.multiselect("Sélectionner par le Code AIOT les points Gun à mettre en évidence", df["Code_AIOT"])
+
 
 # Zoomer sur les points sélectionnés
 if selected_codes:
