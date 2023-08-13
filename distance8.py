@@ -99,15 +99,19 @@ geojson_layer = folium.GeoJson(
 geojson_layer.add_to(m)
 
 # Afficher la carte dans Streamlit en utilisant folium_static
-folium_static(m)
+#folium_static(m)
+
+with st.expander(f"Afficher les {len(df)} données"):
+    # Afficher la table à l'intérieur de la section expansible
+    st.dataframe( df)
 
 st.markdown("<h2 style='font-size:18px;'>Sélectionner par le Code AIOT les points Gun à mettre en évidence (carte, table et liens Google Maps)</h2>", unsafe_allow_html=True)
 # Sélection des codes AIOT à mettre en évidence
-selected_codes = st.multiselect( "",    df)
+selected_codes = st.multiselect( "",df["Code_AIOT"])
 
 
 # Filtrer les données en fonction des codes AIOT sélectionnés
-filtered_data = df[df['Code_AIOT_liste'].isin(selected_codes)]
+filtered_data = df[df['Code_AIOT'].isin(selected_codes)]
 
 # Mettre en évidence les points correspondant aux codes AIOT sélectionnés
 for index, row in filtered_data.iterrows():
