@@ -46,6 +46,28 @@ center_lon = (df['longitude'].mean() + dg['longitude'].mean()) / 2
 
 # Création de la carte avec Folium
 m = folium.Map(location=[center_lat, center_lon], zoom_start=8, control_scale=True)
+ 
+#Fonction pour ajouter des marqueurs à la carte
+def add_markers(data, color):
+    for index, row in data.iterrows():
+        popup_content = f"Nom usuel : {row['Nom_usuel']}<br>Code AIOT : {row['Code_AIOT_liste']}"
+        tooltip_content = f"Nom usuel : {row['Nom_usuel']}<br>Code AIOT : {row['Code_AIOT_liste']}"
+        
+        folium.CircleMarker(
+            location=[row['latitude'], row['longitude']],
+            radius=5,
+            color=color,
+            fill=True,
+            fill_color=color,
+            fill_opacity=1,
+            popup=popup_content,
+            tooltip=tooltip_content,
+            #icon=folium.Icon(icon='circle', color=color)
+        ).add_to(m)
+
+# Ajouter les marqueurs pour df (en bleu) et dg (en rouge)
+add_markers(df, 'blue')
+add_markers(dg, 'red')
 
 # Fonction pour ajouter des marqueurs à la carte avec effet de clignotement
 def add_blinking_markers(data):
