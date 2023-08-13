@@ -113,4 +113,4 @@ for index, row in filtered_data.iterrows():
     ).add_to(m)
 
 # Afficher la carte mise à jour dans Streamlit en utilisant folium_static
-folium_static(m)
+#folium_static(m)
