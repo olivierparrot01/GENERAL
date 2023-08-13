@@ -78,7 +78,7 @@ def add_blinking_markers(data):
         
         marker = folium.Marker(
             location=[row['latitude'], row['longitude']],
-            popup=popup_content,
+            #popup=popup_content,
             tooltip=tooltip_content,
             icon=None  # No default icon, to use custom CSS animation
         )
@@ -97,7 +97,7 @@ geojson_layer = folium.GeoJson(
     style_function=lambda feature: {
         'color': 'black',  # Utilisez la couleur de votre choix
         'opacity': 1,
-        'weight': 5  # Épaisseur constante
+        'weight': 2  # Épaisseur constante
     },
     tooltip=folium.GeoJsonTooltip(
         fields=["Code_AIOT", "Distance"],
