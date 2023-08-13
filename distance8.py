@@ -1,7 +1,42 @@
 import streamlit as st
 import pandas as pd
+import numpy as np
+import base64
+import plotly.express as px
 import folium
 from streamlit_folium import folium_static
+import json
+from folium import plugins
+
+
+
+
+# Load data from CSV
+dg = pd.read_csv('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/2geocodage.csv')
+df = pd.read_csv('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/0208_gun.csv')
+# Filter out negative and non-finite values from the 'Distance' column
+dg = dg[dg['Distance'] >= 0]
+dg = dg[np.isfinite(dg['Distance'])]
+
+# Convert 'Distance' column to integers
+dg['Distance'] = dg['Distance'].astype(int)
+
+dg['Code_AIOT']=dg['Code_AIOT'].astype(str)
+df['Code_AIOT']=df['Code_AIOT'].astype(str)
+dg['Nom_usuel'] = dg['Nom_usuel'].astype(str)
+df['Nom_usuel'] = df['Nom_usuel'].astype(str)
+df['Adresse_concat'] = df['Adresse 1'].str.cat([df['Adresse 2'], df['Adresse 3']], sep=' ', na_rep='')
+
+df["Code_AIOT_liste"] = df.groupby(["latitude", "longitude"])["Code_AIOT"].transform(lambda x: ", ".join(x))
+dg["Code_AIOT_liste"] = dg.groupby(["latitude", "longitude"])["Code_AIOT"].transform(lambda x: ", ".join(x))
+df["Nom_usuel_liste"] = df.groupby(["latitude", "longitude"])["Nom_usuel"].transform(lambda x: ", ".join(x))
+dg["Nom_usuel_liste"] = dg.groupby(["latitude", "longitude"])["Nom_usuel"].transform(lambda x: ", ".join(x))
+
+
+
+not_in_dg = df[~df['Code_AIOT'].isin(dg['Code_AIOT'])]
+not_in_dg = not_in_dg.drop("Unnamed: 0", axis=1)
+
 
 # Load data from CSV
 dg = pd.read_csv('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/2geocodage.csv')
