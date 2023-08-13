@@ -37,11 +37,6 @@ dg["Nom_usuel_liste"] = dg.groupby(["latitude", "longitude"])["Nom_usuel"].trans
 not_in_dg = df[~df['Code_AIOT'].isin(dg['Code_AIOT'])]
 not_in_dg = not_in_dg.drop("Unnamed: 0", axis=1)
 
-
-# Load data from CSV
-dg = pd.read_csv('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/2geocodage.csv')
-df = pd.read_csv('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/0208_gun.csv')
-
 # ... (autres traitements sur les données)
 
 # Calcul des coordonnées du centre de la carte
@@ -51,7 +46,7 @@ center_lon = (df['longitude'].mean() + dg['longitude'].mean()) / 2
 # Création de la carte avec Folium
 m = folium.Map(location=[center_lat, center_lon], zoom_start=8, control_scale=True)
 
-# Fonction pour ajouter des marqueurs à la carte
+# Fonction pour ajouter des marqueurs à la Carter
 def add_markers(data, color):
     for index, row in data.iterrows():
         popup_content = f"Nom usuel : {row['Nom_usuel']}<br>Code AIOT : {row['Code_AIOT_liste']}"
