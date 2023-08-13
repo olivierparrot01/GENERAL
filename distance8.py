@@ -37,7 +37,6 @@ dg["Nom_usuel_liste"] = dg.groupby(["latitude", "longitude"])["Nom_usuel"].trans
 not_in_dg = df[~df['Code_AIOT'].isin(dg['Code_AIOT'])]
 not_in_dg = not_in_dg.drop("Unnamed: 0", axis=1)
 
-# ... (autres traitements sur les données)
 
 # Calcul des coordonnées du centre de la carte
 center_lat = (df['latitude'].mean() + dg['latitude'].mean()) / 2
@@ -46,7 +45,7 @@ center_lon = (df['longitude'].mean() + dg['longitude'].mean()) / 2
 # Création de la carte avec Folium
 m = folium.Map(location=[center_lat, center_lon], zoom_start=8, control_scale=True)
 
-# Fonction pour ajouter des marqueurs à la Carter
+# Fonction pour ajouter des marqueurs à la carte
 def add_markers(data, color):
     for index, row in data.iterrows():
         popup_content = f"Nom usuel : {row['Nom_usuel']}<br>Code AIOT : {row['Code_AIOT_liste']}"
@@ -67,7 +66,7 @@ def add_markers(data, color):
 add_markers(df, 'blue')
 add_markers(dg, 'red')
 
-# Ajouter la couche GeoJSON des lignes avec une couleur unique
+# Afficher la couche GeoJSON des lignes avec une couleur unique
 geojson_layer = folium.GeoJson(
     data='https://raw.githubusercontent.com/olivierparrot01/ICPE/main/lines.geojson', 
     name="Lignes entre points",
@@ -85,32 +84,17 @@ geojson_layer = folium.GeoJson(
 
 geojson_layer.add_to(m)
 
+# Afficher la carte dans Streamlit en utilisant folium_static
+folium_static(m)
+
+# Filtrer les données en fonction des codes AIOT sélectionnés
+selected_codes = st.multiselect("Sélectionner par le Code AIOT les points Gun à mettre en évidence", df["Code_AIOT"])
+
+# Mettre en évidence les points correspondant aux codes AIOT sélectionnés en vert
+for index, row in df.iterrows():
+    color = 'green' if row['Code_AIOT'] in selected_codes else 'blue'
+    add_markers(pd.DataFrame([row]), color)
+
 # Afficher la carte mise à jour dans Streamlit en utilisant folium_static
 folium_static(m)
 
-# Afficher les données tabulaires dans une section expansible
-with st.expander(f"Afficher les {len(df)} données"):
-    # Afficher la table à l'intérieur de la section expansible
-    st.dataframe(df)
-
-st.markdown("<h2 style='font-size:18px;'>Sélectionner par le Code AIOT les points Gun à mettre en évidence (carte, table et liens Google Maps)</h2>", unsafe_allow_html=True)
-# Sélection des codes AIOT à mettre en évidence
-selected_codes = st.multiselect("", df["Code_AIOT"])
-
-# Filtrer les données en fonction des codes AIOT sélectionnés
-filtered_data = df[df['Code_AIOT'].isin(selected_codes)]
-
-# Mettre en évidence les points correspondant aux codes AIOT sélectionnés
-for index, row in filtered_data.iterrows():
-    folium.CircleMarker(
-        location=[row['latitude'], row['longitude']],
-        radius=10,
-        color='green',
-        fill=True,
-        fill_color='green',
-        fill_opacity=0.6,
-        popup=f"Code_AIOT(S): {row['Code_AIOT_liste']}"
-    ).add_to(m)
-
-# Afficher la carte mise à jour dans Streamlit en utilisant folium_static
-#folium_static(m)
