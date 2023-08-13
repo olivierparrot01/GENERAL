@@ -47,7 +47,8 @@ center_lon = (df['longitude'].mean() + dg['longitude'].mean()) / 2
 # Création de la carte avec Folium
 m = folium.Map(location=[center_lat, center_lon], zoom_start=8, control_scale=True)
  
-#Fonction pour ajouter des marqueurs à la carte
+
+# Fonction pour ajouter des marqueurs à la carte
 def add_markers(data, color):
     for index, row in data.iterrows():
         popup_content = f"Nom usuel : {row['Nom_usuel']}<br>Code AIOT : {row['Code_AIOT_liste']}"
@@ -61,33 +62,11 @@ def add_markers(data, color):
             fill_color=color,
             fill_opacity=1,
             popup=popup_content,
-            tooltip=tooltip_content,
-            #icon=folium.Icon(icon='circle', color=color)
+            tooltip=tooltip_content
         ).add_to(m)
 
 # Ajouter les marqueurs pour df (en bleu) et dg (en rouge)
 add_markers(df, 'blue')
-add_markers(dg, 'red')
-
-# Fonction pour ajouter des marqueurs à la carte avec effet de clignotement
-def add_blinking_markers(data):
-    marker_cluster = plugins.MarkerCluster()
-    for index, row in data.iterrows():
-        popup_content = f"Nom usuel : {row['Nom_usuel']}<br>Code AIOT : {row['Code_AIOT_liste']}"
-        tooltip_content = f"Nom usuel : {row['Nom_usuel']}<br>Code AIOT : {row['Code_AIOT_liste']}<br>nb points : {row['nb_points']}"
-        
-        marker = folium.Marker(
-            location=[row['latitude'], row['longitude']],
-            #popup=popup_content,
-            tooltip=tooltip_content,
-            icon=None  # No default icon, to use custom CSS animation
-        )
-        marker_cluster.add_child(marker)
-
-    m.add_child(marker_cluster)
-
-# Ajouter les marqueurs pour df (en bleu) et dg (en rouge)
-add_blinking_markers(df)
 add_markers(dg, 'red')
 
 # Afficher la couche GeoJSON des lignes avec une couleur unique
@@ -107,9 +86,23 @@ geojson_layer = folium.GeoJson(
 )
 
 geojson_layer.add_to(m)
- #Filtrer les données en fonction des codes AIOT sélectionnés
+
+# Filtrer les données en fonction des codes AIOT sélectionnés
 selected_codes = st.multiselect("Sélectionner par le Code AIOT les points Gun à mettre en évidence", df["Code_AIOT"])
 
+# Ajouter les marqueurs verts pour les points sélectionnés
+for index, row in df.iterrows():
+    if row['Code_AIOT'] in selected_codes:
+        folium.CircleMarker(
+            location=[row['latitude'], row['longitude']],
+            radius=8,
+            color='green',
+            fill=True,
+            fill_color='green',
+            fill_opacity=1,
+            popup=f"Nom usuel : {row['Nom_usuel']}<br>Code AIOT : {row['Code_AIOT_liste']}",
+            tooltip=f"Nom usuel : {row['Nom_usuel']}<br>Code AIOT : {row['Code_AIOT_liste']}"
+        ).add_to(m)
 
 # Zoomer sur les points sélectionnés
 if selected_codes:
