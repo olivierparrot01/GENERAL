@@ -161,7 +161,7 @@ if selected_codes:
         m.fit_bounds(bounds)
 
 # Afficher la carte dans Streamlit en utilisant folium_static
-folium_static(m)
+#folium_static(m)
 
 # ... (suite du code)
 
