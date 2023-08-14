@@ -145,7 +145,7 @@ for index, row in df.iterrows():
             color='green',
             fill=True,
             fill_color='green',
-            fill_opacity=1,
+            fill_opacity=0.7,
             popup=f"Nom usuel : {row['Nom_usuel']}<br>Code AIOT : {row['Code_AIOT_liste']}",
             tooltip=f"Nom usuel : {row['Nom_usuel']}<br>Code AIOT : {row['Code_AIOT_liste']}"
         ).add_to(m)
