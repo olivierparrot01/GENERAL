@@ -69,9 +69,43 @@ def add_markers(data, color):
 add_markers(df, 'blue')
 add_markers(dg, 'red')
 
-# Afficher la couche GeoJSON des lignes avec une couleur unique
-geojson_layer = folium.GeoJson(
-    data='https://raw.githubusercontent.com/olivierparrot01/ICPE/main/lines.geojson', 
+
+
+
+
+
+
+
+
+
+
+# Créer le GeoJSON des lignes
+lines_geojson_data = {
+    "type": "FeatureCollection",
+    "features": []
+}
+
+for code_aiot in df['Code_AIOT'].unique():
+    points = df[df['Code_AIOT'] == code_aiot][['longitude', 'latitude']].values.tolist()
+    if code_aiot in dg['Code_AIOT'].values:
+        points.extend(dg[dg['Code_AIOT'] == code_aiot][['longitude', 'latitude']].values.tolist())
+    
+    if len(points) >= 2:
+        feature = {
+            "type": "Feature",
+            "geometry": {
+                "type": "LineString",
+                "coordinates": points
+            },
+            "properties": {
+                "Code_AIOT": code_aiot
+            }
+        }
+        lines_geojson_data['features'].append(feature)
+
+# Créer une couche GeoJSON pour les lignes
+lines_geojson_layer = folium.GeoJson(
+    lines_geojson_data,
     name="Lignes entre points",
     style_function=lambda feature: {
         'color': 'black',  # Utilisez la couleur de votre choix
@@ -79,13 +113,25 @@ geojson_layer = folium.GeoJson(
         'weight': 2  # Épaisseur constante
     },
     tooltip=folium.GeoJsonTooltip(
-        fields=["Code_AIOT", "Distance"],
-        aliases=["Code AIOT", "Distance"],
+        fields=["Code_AIOT"],
+        aliases=["Code AIOT"],
         style="font-size: 12px; text-align: center;"
     )
 )
 
-geojson_layer.add_to(m)
+# Ajouter la couche GeoJSON des lignes à la carte
+lines_geojson_layer.add_to(m)
+
+# Afficher la carte dans Streamlit en utilisant folium_static
+folium_static(m)
+
+
+
+
+
+
+
+
 
 # Filtrer les données en fonction des codes AIOT sélectionnés
 selected_codes = st.multiselect("Sélectionner par le Code AIOT les points Gun à mettre en évidence", df["Code_AIOT"])
