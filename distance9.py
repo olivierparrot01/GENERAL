@@ -86,9 +86,9 @@ def add_blinking_markers(data):
 
     m.add_child(marker_cluster)
 
-st.markdown("<h2 style='font-size:18px;'>Afficher/Masquer la table Gun</h2>", unsafe_allow_html=True)
+st.markdown("<h2 style='font-size:18px;'>Afficher la table Gun</h2>", unsafe_allow_html=True)
 
-#st.write("")
+#st.write("Afficher/Masquer")
 #st.dataframe(df)
 
 
