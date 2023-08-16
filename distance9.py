@@ -12,7 +12,7 @@ geojson_url = 'https://raw.githubusercontent.com/olivierparrot01/ICPE/main/lines
 
 # Charger le contenu du GeoJSON depuis l'URL
 lines_geojson_data = requests.get(geojson_url).json()
-
+dg = pd.read_csv('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/2geocodage.csv')
 # Ajouter la colonne 'Distance' à lines_geojson_data en effectuant une jointure avec dg
 lines_geojson_data_with_distance = lines_geojson_data.copy()  # Créer une copie pour ajouter la colonne
 lines_geojson_data_with_distance['features'] = [
@@ -44,7 +44,7 @@ lines_geojson_layer = folium.GeoJson(
 
 
 # Chargement des données
-dg = pd.read_csv('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/2geocodage.csv')
+
 df = pd.read_csv('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/0208_gun.csv')
 
 # Conversion des données
