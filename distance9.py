@@ -174,6 +174,13 @@ if selected_codes:
         m.fit_bounds(bounds)
 
 
+# Chargement de l'orthophoto à grande échelle (remplacez l'URL par l'URL de votre orthophoto)
+orthophoto_url = 'URL_DE_VOTRE_ORTHOPHOTO'
+image_overlay = ImageOverlay(
+    orthophoto_url,
+    bounds=[upper_left, lower_right],
+    opacity=1  # Opacité de l'orthophoto (1 étant totalement opaque)
+).add_to(m)
 
 
 
