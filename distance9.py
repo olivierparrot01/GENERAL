@@ -192,19 +192,18 @@ for zoom_level in range(13, 19):
         max_zoom=zoom_level,
     ).add_to(m)
 
-
-# Fonction pour gérer le clic sur la carte
-def handle_click(event, **kwargs):
-    lat, lon = event.latlng
-    st.sidebar.write(f"Latitude : {lat}, Longitude : {lon}")
-
-
-# Ajouter un événement de clic à la carte
-m.add_child(folium.ClickEvent(callback=handle_click))
+# Ajouter un événement de clic pour afficher les coordonnées
+m.add_child(folium.ClickForMarker(popup=None))
 
 
 # Afficher la carte dans Streamlit en utilisant folium_static
 folium_static(m)
+
+# Obtenir les données de clic depuis la barre latérale de Streamlit
+click_data = st.session_state.click_data
+if click_data:
+    st.sidebar.write(f"Latitude : {click_data['lat']}, Longitude : {click_data['lon']}")
+
 
 
 # Afficher les adresses Gun des points sélectionnés
