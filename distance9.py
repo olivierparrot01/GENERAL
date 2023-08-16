@@ -44,6 +44,8 @@ df['Adresse_concat'] = df['Adresse 1'].str.cat([df['Adresse 2'], df['Adresse 3']
 dg["Code_AIOT_liste"] = dg.groupby(["latitude", "longitude"])["Code_AIOT"].transform(lambda x: ", ".join(x))
 
 
+df= df.drop("Courriel d'échange avec l'administration", axis=1)
+
 
 not_in_dg = df[~df['Code_AIOT'].isin(dg['Code_AIOT'])]
 not_in_dg = not_in_dg.drop("Unnamed: 0", axis=1)
