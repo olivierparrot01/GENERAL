@@ -192,8 +192,16 @@ for zoom_level in range(13, 19):
         max_zoom=zoom_level,
     ).add_to(m)
 
-# Ajouter un événement de clic pour afficher les coordonnées
-m.add_child(folium.ClickForMarker(popup=None))
+
+# Initialiser st.session_state
+if 'click_data' not in st.session_state:
+    st.session_state.click_data = None
+
+# Fonction pour gérer le clic sur la carte
+def handle_click(**kwargs):
+    lat = kwargs.get('lat')
+    lon = kwargs.get('lon')
+    st.session_state.click_data = {'lat': lat, 'lon': lon}
 
 
 # Afficher la carte dans Streamlit en utilisant folium_static
