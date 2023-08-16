@@ -13,6 +13,14 @@ geojson_url = 'https://raw.githubusercontent.com/olivierparrot01/ICPE/main/line_
 # Charger le contenu du GeoJSON depuis l'URL
 lines_geojson_data = requests.get(geojson_url).json()
 
+
+# Convertir la colonne "Distance" en nombre entier
+for feature in lines_geojson_data['features']:
+    if 'properties' in feature and 'Distance' in feature['properties']:
+        feature['properties']['Distance'] = int(feature['properties']['Distance'])
+
+
+
 # Créer une couche GeoJSON pour les lignes
 lines_geojson_layer = folium.GeoJson(
     lines_geojson_data,
