@@ -28,7 +28,7 @@ lines_geojson_layer = folium.GeoJson(
     style_function=lambda feature: {
         'color': 'black',  # Utilisez la couleur de votre choix
         'opacity': 1,
-        'weight': 1  # Épaisseur constante
+        'weight': 1.5  # Épaisseur constante
     },
     tooltip=folium.GeoJsonTooltip(
         fields=[ "Distance"],
