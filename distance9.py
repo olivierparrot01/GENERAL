@@ -24,6 +24,7 @@ dg['Code_AIOT'] = dg['Code_AIOT'].astype(str)
 df['Code_AIOT'] = df['Code_AIOT'].astype(str)
 df['Nom_usuel'] = df['Nom_usuel'].astype(str)
 df["Code_AIOT_liste"] = df.groupby(["latitude", "longitude"])["Code_AIOT"].transform(lambda x: ", ".join(x))
+dg["Code_AIOT_liste"] = dg.groupby(["latitude", "longitude"])["Code_AIOT"].transform(lambda x: ", ".join(x))
 
 # Fonction pour ajouter des marqueurs à la carte
 def add_markers(data, color):
