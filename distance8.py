@@ -139,7 +139,7 @@ st.dataframe(df)
 
 # Filtrer les données en fonction des codes AIOT sélectionnés
 st.markdown("<h2 style='font-size:18px;'>Sélectionner par le Code AIOT les points Gun à mettre en évidence (carte, table et liens Google Maps)</h2>", unsafe_allow_html=True)
-selected_codes = st.multiselect([""])
+selected_codes = st.multiselect(["",, df["Code_AIOT"]])
 
 # Ajouter les marqueurs verts pour les points sélectionnés
 for index, row in df.iterrows():
