@@ -134,8 +134,8 @@ lines_geojson_layer.add_to(m)
 
 
 
-st.write("Table Gun correspondant à la sélection :")
-st.dataframe(filtered_data)
+st.write("Table Gun :")
+st.dataframe(df)
 
 # Filtrer les données en fonction des codes AIOT sélectionnés
 selected_codes = st.multiselect("Sélectionner par le Code AIOT les points Gun à mettre en évidence", df["Code_AIOT"])
