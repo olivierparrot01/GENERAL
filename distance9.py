@@ -13,9 +13,22 @@ geojson_url = 'https://raw.githubusercontent.com/olivierparrot01/ICPE/main/lines
 # Charger le contenu du GeoJSON depuis l'URL
 lines_geojson_data = requests.get(geojson_url).json()
 
-# Créer une couche GeoJSON pour les lignes
+# Ajouter la colonne 'Distance' à lines_geojson_data en effectuant une jointure avec dg
+lines_geojson_data_with_distance = lines_geojson_data.copy()  # Créer une copie pour ajouter la colonne
+lines_geojson_data_with_distance['features'] = [
+    {
+        **feature,
+        'properties': {
+            **feature['properties'],
+            'Distance': dg[dg['Code_AIOT'] == feature['properties']['Code_AIOT']]['Distance'].values[0]
+        }
+    }
+    for feature in lines_geojson_data_with_distance['features']
+]
+
+# Créer une couche GeoJSON pour les lignes avec les distances
 lines_geojson_layer = folium.GeoJson(
-    lines_geojson_data,
+    lines_geojson_data_with_distance,
     name="Lignes entre points",
     style_function=lambda feature: {
         'color': 'black',  # Utilisez la couleur de votre choix
@@ -23,11 +36,12 @@ lines_geojson_layer = folium.GeoJson(
         'weight': 2  # Épaisseur constante
     },
     tooltip=folium.GeoJsonTooltip(
-        fields=["Code_AIOT"],
-        aliases=["Code AIOT"],
+        fields=["Code_AIOT", "Distance"],
+        aliases=["Code AIOT", "Distance"],
         style="font-size: 12px; text-align: center;"
     )
 )
+
 
 # Chargement des données
 dg = pd.read_csv('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/2geocodage.csv')
