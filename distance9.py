@@ -28,7 +28,7 @@ lines_geojson_layer = folium.GeoJson(
     style_function=lambda feature: {
         'color': 'black',  # Utilisez la couleur de votre choix
         'opacity': 1,
-        'weight': 2  # Épaisseur constante
+        'weight': 1  # Épaisseur constante
     },
     tooltip=folium.GeoJsonTooltip(
         fields=[ "Distance"],
@@ -97,7 +97,7 @@ def add_blinking_markers(data):
     m.add_child(marker_cluster)
 
 
-st.markdown("<h2 style='font-size:30px;'>Appareillement Gun-Geocodage et recherches Google Maps</h2>", unsafe_allow_html=True)
+st.markdown("<h2 style='font-size:28px;'>Appareillement Gun-Geocodage et recherches Google Maps</h2>", unsafe_allow_html=True)
 
 
 st.markdown("<h2 style='font-size:18px;'>Afficher la table Gun</h2>", unsafe_allow_html=True)
