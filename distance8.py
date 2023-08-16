@@ -162,6 +162,14 @@ if selected_codes:
 
 # Afficher la carte dans Streamlit en utilisant folium_static
 folium_static(m)
-
-# ... (suite du code)
+# Télécharger le GeoJSON à partir de Streamlit
+if st.button("Télécharger le GeoJSON"):
+    with st.spinner("Téléchargement en cours..."):
+        with open("lines.geojson", "w") as f:
+            json.dump(lines_geojson_data, f)
+        st.success("Téléchargement terminé. Cliquez pour télécharger le fichier.")
+        st.markdown(
+            get_binary_file_downloader_html("lines.geojson", "Télécharger le GeoJSON"),
+            unsafe_allow_html=True
+        )
 
