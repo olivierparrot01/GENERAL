@@ -199,8 +199,8 @@ def handle_click(event, **kwargs):
     st.sidebar.write(f"Latitude : {lat}, Longitude : {lon}")
 
 
-# Ajouter un gestionnaire de clic à la carte
-m.add_child(folium.ClickForMarker(popup=None, callback=handle_click))
+# Ajouter un événement de clic à la carte
+m.add_child(folium.ClickEvent(callback=handle_click))
 
 
 # Afficher la carte dans Streamlit en utilisant folium_static
