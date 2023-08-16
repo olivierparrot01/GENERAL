@@ -173,15 +173,15 @@ folium_static(m)
 
 
 # Télécharger le GeoJSON à partir de Streamlit
-if st.button("Télécharger le GeoJSON des lignes joignant les points correspondant"):
-    with st.spinner("Téléchargement en cours..."):
-        with open("lines.geojson", "w") as f:
-            json.dump(lines_geojson_data, f)
-        st.success("Téléchargement terminé. Cliquez pour télécharger le fichier.")
-        st.markdown(
-            get_binary_file_downloader_html("lines.geojson", "Télécharger le GeoJSON"),
-            unsafe_allow_html=True
-        )
+# if st.button("Télécharger le GeoJSON des lignes joignant les points correspondant"):
+#     with st.spinner("Téléchargement en cours..."):
+#         with open("lines.geojson", "w") as f:
+#             json.dump(lines_geojson_data, f)
+#         st.success("Téléchargement terminé. Cliquez pour télécharger le fichier.")
+#         st.markdown(
+#             get_binary_file_downloader_html("lines.geojson", "Télécharger le GeoJSON"),
+#             unsafe_allow_html=True
+#         )
 
 
 # Filtrer les données en fonction des codes AIOT sélectionnés
@@ -201,7 +201,7 @@ st.markdown("<h2 style='font-size:18px;'>Adresses, coordonnées Gun et liens Goo
 
 #st.write("Adresses et coordonnées Gun des points sélectionnés :")
 for _, row in filtered_data.iterrows():
-    st.write(f"Adresse Gun : {row['Adresse_concat']}, Coordonnées Gun : {row['longitude']}, {row['latitude']}")
+    st.write(f"- Adresse Gun : {row['Adresse_concat']}, Coordonnées Gun : {row['longitude']}, {row['latitude']}")
     formatted_address = row['Adresse_concat'].replace(' ', '-')
     google_maps_link = f"[Ouvrir dans Google Maps à partir de l'adresse Gun](https://www.google.com/maps/search/?api=1&query={formatted_address})"
     st.markdown(google_maps_link, unsafe_allow_html=True)
