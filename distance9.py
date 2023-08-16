@@ -199,15 +199,13 @@ def handle_click(event, **kwargs):
     st.sidebar.write(f"Latitude : {lat}, Longitude : {lon}")
 
 
+# Ajouter un gestionnaire de clic à la carte
+m.add_child(folium.ClickForMarker(popup=None, callback=handle_click))
+
+
 # Afficher la carte dans Streamlit en utilisant folium_static
 folium_static(m)
 
-# Récupérer les coordonnées lors du clic sur la carte
-click_data = st.folium_click()
-
-if click_data:
-    lat, lon = click_data["lat"], click_data["lon"]
-    handle_click(lat, lon)
 
 # Afficher les adresses Gun des points sélectionnés
 
