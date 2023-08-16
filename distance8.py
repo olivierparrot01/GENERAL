@@ -173,3 +173,11 @@ if st.button("Télécharger le GeoJSON"):
             unsafe_allow_html=True
         )
 
+
+# Filtrer les données en fonction des codes AIOT sélectionnés
+filtered_data = df[df['Code_AIOT'].isin(selected_data)]
+
+# Afficher les détails des points sélectionnés dans le DataFrame filtré
+st.write("Table Gun correspondant à la sélection :")
+st.dataframe(filtered_data)
+
