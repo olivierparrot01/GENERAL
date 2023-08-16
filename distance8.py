@@ -134,11 +134,12 @@ lines_geojson_layer.add_to(m)
 
 st.markdown("<h2 style='font-size:18px;'>Table Gun : </h2>", unsafe_allow_html=True)
 
-st.write("Table Gun :")
+st.write("")
 st.dataframe(df)
 
 # Filtrer les données en fonction des codes AIOT sélectionnés
-selected_codes = st.multiselect("Sélectionner par le Code AIOT les points Gun à mettre en évidence (carte, table et liens Google Maps)", df["Code_AIOT"])
+st.markdown("<h2 style='font-size:18px;'>Sélectionner par le Code AIOT les points Gun à mettre en évidence (carte, table et liens Google Maps)</h2>", unsafe_allow_html=True)
+#selected_codes = st.multiselect("Sélectionner par le Code AIOT les points Gun à mettre en évidence (carte, table et liens Google Maps)", df["Code_AIOT"])
 
 # Ajouter les marqueurs verts pour les points sélectionnés
 for index, row in df.iterrows():
@@ -198,7 +199,7 @@ filtered_data = df[df['Code_AIOT'].isin(selected_codes)]
 
 st.markdown("<h2 style='font-size:18px;'>Adresses, coordonnées Gun et liens Google Maps des points sélectionnés : </h2>", unsafe_allow_html=True)
 
-st.write("Adresses et coordonnées Gun des points sélectionnés :")
+#st.write("Adresses et coordonnées Gun des points sélectionnés :")
 for _, row in filtered_data.iterrows():
     st.write(f"Adresse Gun : {row['Adresse_concat']}, Coordonnées Gun : {row['longitude']}, {row['latitude']}")
     formatted_address = row['Adresse_concat'].replace(' ', '-')
