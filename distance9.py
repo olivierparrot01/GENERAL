@@ -91,6 +91,48 @@ add_blinking_markers(df)
 # Ajouter la couche GeoJSON des lignes à la carte
 lines_geojson_layer.add_to(m)
 
+
+
+
+
+
+# Filtrer les données en fonction des codes AIOT sélectionnés
+st.markdown("<h2 style='font-size:18px;'>Sélectionner par le Code AIOT les points Gun à mettre en évidence (carte, table et liens Google Maps)</h2>", unsafe_allow_html=True)
+selected_codes = st.multiselect("", df["Code_AIOT"])
+
+# Ajouter les marqueurs verts pour les points sélectionnés
+for index, row in df.iterrows():
+    if row['Code_AIOT'] in selected_codes:
+        folium.CircleMarker(
+            location=[row['latitude'], row['longitude']],
+            radius=8,
+            color='green',
+            fill=True,
+            fill_color='green',
+            fill_opacity=0.7,
+            popup=f"Nom usuel : {row['Nom_usuel']}<br>Code AIOT : {row['Code_AIOT_liste']}",
+            tooltip=f"Nom usuel : {row['Nom_usuel']}<br>Code AIOT : {row['Code_AIOT_liste']}"
+        ).add_to(m)
+
+# Zoomer sur les points sélectionnés
+if selected_codes:
+    selected_data = df[df['Code_AIOT'].isin(selected_codes)]
+    if not selected_data.empty:
+        bounds = [
+            (selected_data['latitude'].min(), selected_data['longitude'].min()),
+            (selected_data['latitude'].max(), selected_data['longitude'].max())
+        ]
+        m.fit_bounds(bounds)
+
+
+
+
+
+
+
+
+
+
 # Afficher la carte dans Streamlit en utilisant folium_static
 folium_static(m)
 
