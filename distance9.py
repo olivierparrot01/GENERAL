@@ -23,7 +23,7 @@ lines_geojson_layer = folium.GeoJson(
         'weight': 2  # Épaisseur constante
     },
     tooltip=folium.GeoJsonTooltip(
-        fields=["CDistance"],
+        fields=["Distance"],
         aliases=["Distance"],
         style="font-size: 12px; text-align: center;"
     )
