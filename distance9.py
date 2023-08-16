@@ -86,15 +86,16 @@ def add_blinking_markers(data):
 
     m.add_child(marker_cluster)
 
+st.markdown("<h2 style='font-size:18px;'>Afficher/Masquer la table Gun</h2>", unsafe_allow_html=True)
 
-
-st.markdown("<h2 style='font-size:18px;'>Table Gun : </h2>", unsafe_allow_html=True)
-
-st.write("")
-st.dataframe(df)
+#st.write("")
+#st.dataframe(df)
 
 
 
+with st.expander(""):
+    # Afficher la table à l'intérieur de la section expansible
+    st.table(df)
 
 
 
@@ -118,10 +119,6 @@ add_blinking_markers(df)
 
 # Ajouter la couche GeoJSON des lignes à la carte
 lines_geojson_layer.add_to(m)
-
-
-
-
 
 
 # Filtrer les données en fonction des codes AIOT sélectionnés
