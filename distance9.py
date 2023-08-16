@@ -123,7 +123,11 @@ lines_geojson_layer.add_to(m)
 
 # Filtrer les données en fonction des codes AIOT sélectionnés
 st.markdown("<h2 style='font-size:18px;'>Sélectionner par le Code AIOT les points Gun à mettre en évidence (carte et liens Google Maps individualisés)</h2>", unsafe_allow_html=True)
-selected_codes = st.multiselect("", df["Code_AIOT"])
+# Triez les codes AIOT dans l'ordre décroissant
+sorted_codes = df['Code_AIOT'].unique()
+sorted_codes.sort(reverse=True)
+
+selected_codes = st.multiselect("", sorted_codes)
 
 
 filtered_data = df[df['Code_AIOT'].isin(selected_codes)]
