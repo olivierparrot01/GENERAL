@@ -95,7 +95,7 @@ st.markdown("<h2 style='font-size:18px;'>Afficher/Masquer la table Gun</h2>", un
 
 with st.expander(""):
     # Afficher la table à l'intérieur de la section expansible
-    st.table(df)
+    st.dataframe(df)
 
 
 
