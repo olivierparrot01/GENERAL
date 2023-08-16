@@ -8,7 +8,7 @@ import requests
 import base64
 
 # URL du GeoJSON
-geojson_url = 'https://raw.githubusercontent.com/olivierparrot01/ICPE/main/lines.geojson'
+geojson_url = 'https://raw.githubusercontent.com/olivierparrot01/ICPE/main/line_json.geojson'
 
 # Charger le contenu du GeoJSON depuis l'URL
 lines_geojson_data = requests.get(geojson_url).json()
