@@ -381,10 +381,13 @@ for index, row in not_in_dg.iterrows():
 #folium_static(m)
 
 # Liste des codes AIOT uniques
-all_codes = not_in_dg['Code_AIOT_liste'].unique()
+#◙all_codes = not_in_dg['Code_AIOT_liste'].unique()
+
+all_codes =sorted( not_in_dg['Code_AIOT_liste'].unique(), reverse=True)
 
 st.markdown("<h2 style='font-size:18px;'>Sélectionner par le Code AIOT les points Gun à mettre en évidence (carte, table et liens Google Maps)</h2>", unsafe_allow_html=True)
 # Sélection des codes AIOT à mettre en évidence
+
 selected_codes = st.multiselect( "",    all_codes)
 
 
@@ -417,15 +420,13 @@ folium.TileLayer(
 folium_static(m)
 
 
+
 # Filtrer les données en fonction des codes AIOT sélectionnés
 filtered_data = not_in_dg[not_in_dg['Code_AIOT_liste'].isin(selected_codes)]
-# Triez les codes AIOT dans l'ordre décroissant
-sorted_codes = sorted(filtered_data.unique(), reverse=True)
 
 # Afficher les détails des points sélectionnés dans le DataFrame filtré
 st.write("Table Gun correspondant à la sélection :")
-st.dataframe(sorted_codes)
-
+st.dataframe(filtered_data)
 
 # Afficher les adresses Gun des points sélectionnés
 st.write("Adresses et coordonnées Gun des points sélectionnés :")
