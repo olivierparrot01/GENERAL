@@ -6,4 +6,4 @@ matplotlib
 plotly
 folium
 streamlit-folium
-request
+requests
