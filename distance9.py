@@ -192,27 +192,25 @@ for zoom_level in range(13, 19):
         max_zoom=zoom_level,
     ).add_to(m)
 
-
 # Initialiser st.session_state
 if 'click_data' not in st.session_state:
     st.session_state.click_data = None
 
 # Fonction pour gérer le clic sur la carte
-def handle_click(**kwargs):
-    lat = kwargs.get('lat')
-    lon = kwargs.get('lon')
+def handle_click(lat, lon):
     st.session_state.click_data = {'lat': lat, 'lon': lon}
 
-# Ajouter un événement de clic pour afficher les coordonnées
-m.add_child(folium.ClickForMarker(popup=None, callback=handle_click))
 
 # Afficher la carte dans Streamlit en utilisant folium_static
 folium_static(m)
 
-# Afficher les coordonnées dans la barre latérale
+
+# Ajouter un événement de clic pour capturer les coordonnées
 if st.session_state.click_data:
     st.sidebar.write(f"Latitude : {st.session_state.click_data['lat']}, Longitude : {st.session_state.click_data['lon']}")
-# Afficher les adresses Gun des points sélectionnés
+
+# Ajouter l'événement de clic à la carte
+st.map.handle_click(m, handle_click)
 
 st.markdown("<h2 style='font-size:18px;'>Adresses, coordonnées Gun et liens Google Maps des points sélectionnés : </h2>", unsafe_allow_html=True)
 
