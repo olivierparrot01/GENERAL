@@ -12,6 +12,21 @@ geojson_url = 'https://raw.githubusercontent.com/olivierparrot01/ICPE/main/lines
 # Charger le contenu du GeoJSON depuis l'URL
 lines_geojson_data = requests.get(geojson_url).json()
 
+# Créer une couche GeoJSON pour les lignes
+lines_geojson_layer = folium.GeoJson(
+    lines_geojson_data,
+    name="Lignes entre points",
+    style_function=lambda feature: {
+        'color': 'black',  # Utilisez la couleur de votre choix
+        'opacity': 1,
+        'weight': 2  # Épaisseur constante
+    },
+    tooltip=folium.GeoJsonTooltip(
+        fields=["Code_AIOT"],
+        aliases=["Code AIOT"],
+        style="font-size: 12px; text-align: center;"
+    )
+)
 
 # Chargement des données
 dg = pd.read_csv('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/2geocodage.csv')
@@ -73,7 +88,7 @@ add_markers(dg, 'red')
 add_blinking_markers(df)
 
 # Ajouter la couche GeoJSON des lignes à la carte
-lines_geojson_data.add_to(m)
+lines_geojson_layer.add_to(m)
 
 # Afficher la carte dans Streamlit en utilisant folium_static
 folium_static(m)
