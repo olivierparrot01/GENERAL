@@ -181,8 +181,8 @@ orthophoto_url = "https://wxs.ign.fr/choisirgeoportail/geoportail/wmts?" \
                  "FORMAT=image/jpeg&TILECOL={x}&TILEROW={y}&TILEMATRIX={z}&" \
                  "STYLE=normal"
 
-# Ajout de la couche de tuile de l'orthophoto IGN uniquement aux niveaux de zoom 17 et 18
-for zoom_level in range(17, 19):
+# Ajout de la couche de tuile de l'orthophoto IGN uniquement aux niveaux de zoom 13 
+for zoom_level in range(13, 19):
     folium.TileLayer(
         tiles=orthophoto_url,
         attr="IGN France",
