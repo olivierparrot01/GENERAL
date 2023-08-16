@@ -203,17 +203,15 @@ def handle_click(**kwargs):
     lon = kwargs.get('lon')
     st.session_state.click_data = {'lat': lat, 'lon': lon}
 
+# Ajouter un événement de clic pour afficher les coordonnées
+m.add_child(folium.ClickForMarker(popup=None, callback=handle_click))
 
 # Afficher la carte dans Streamlit en utilisant folium_static
 folium_static(m)
 
-# Obtenir les données de clic depuis la barre latérale de Streamlit
-click_data = st.session_state.click_data
-if click_data:
-    st.sidebar.write(f"Latitude : {click_data['lat']}, Longitude : {click_data['lon']}")
-
-
-
+# Afficher les coordonnées dans la barre latérale
+if st.session_state.click_data:
+    st.sidebar.write(f"Latitude : {st.session_state.click_data['lat']}, Longitude : {st.session_state.click_data['lon']}")
 # Afficher les adresses Gun des points sélectionnés
 
 st.markdown("<h2 style='font-size:18px;'>Adresses, coordonnées Gun et liens Google Maps des points sélectionnés : </h2>", unsafe_allow_html=True)
