@@ -87,7 +87,7 @@ def add_blinking_markers(data):
     m.add_child(marker_cluster)
 
 
-st.markdown("<h2 style='font-size:24px;'>Appareillement Gun-Geocodage et recherches Google Maps</h2>", unsafe_allow_html=True)
+st.markdown("<h2 style='font-size:30px;'>Appareillement Gun-Geocodage et recherches Google Maps</h2>", unsafe_allow_html=True)
 
 
 st.markdown("<h2 style='font-size:18px;'>Afficher la table Gun</h2>", unsafe_allow_html=True)
