@@ -86,6 +86,10 @@ def add_blinking_markers(data):
 
     m.add_child(marker_cluster)
 
+
+st.markdown("<h2 style='font-size:24px;'>Appareillement Gun-Geocodage et recherches Google Maps</h2>", unsafe_allow_html=True)
+
+
 st.markdown("<h2 style='font-size:18px;'>Afficher la table Gun</h2>", unsafe_allow_html=True)
 
 #st.write("Afficher/Masquer")
@@ -124,8 +128,8 @@ lines_geojson_layer.add_to(m)
 # Filtrer les données en fonction des codes AIOT sélectionnés
 st.markdown("<h2 style='font-size:18px;'>Sélectionner par le Code AIOT les points Gun à mettre en évidence (carte et liens Google Maps individualisés)</h2>", unsafe_allow_html=True)
 # Triez les codes AIOT dans l'ordre décroissant
-sorted_codes = df['Code_AIOT'].unique()
-sorted_codes.sort(reverse=True)
+sorted_codes = sorted(df['Code_AIOT'].unique(), reverse=True)
+
 
 selected_codes = st.multiselect("", sorted_codes)
 
