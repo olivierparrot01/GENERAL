@@ -132,7 +132,7 @@ lines_geojson_layer.add_to(m)
 #folium_static(m)
 
 
-
+st.markdown("<h2 style='font-size:18px;'>Table Gun : </h2>", unsafe_allow_html=True)
 
 st.write("Table Gun :")
 st.dataframe(df)
@@ -164,10 +164,15 @@ if selected_codes:
         ]
         m.fit_bounds(bounds)
 
+
+st.markdown("<h2 style='font-size:18px;'>Table Gun : </h2>", unsafe_allow_html=True)
+
 # Afficher la carte dans Streamlit en utilisant folium_static
 folium_static(m)
+
+
 # Télécharger le GeoJSON à partir de Streamlit
-if st.button("Télécharger le GeoJSON"):
+if st.button("Télécharger le GeoJSON des lignes joignant les points correspondant"):
     with st.spinner("Téléchargement en cours..."):
         with open("lines.geojson", "w") as f:
             json.dump(lines_geojson_data, f)
