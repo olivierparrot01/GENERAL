@@ -12,21 +12,18 @@ geojson_url = 'https://raw.githubusercontent.com/olivierparrot01/ICPE/main/lines
 # Charger le contenu du GeoJSON depuis l'URL
 lines_geojson_data = requests.get(geojson_url).json()
 
-# Créer une couche GeoJSON pour les lignes
-lines_geojson_layer = folium.GeoJson(
-    lines_geojson_data,
-    name="Lignes entre points",
-    style_function=lambda feature: {
-        'color': 'black',  # Utilisez la couleur de votre choix
-        'opacity': 1,
-        'weight': 2  # Épaisseur constante
-    },
-    tooltip=folium.GeoJsonTooltip(
-        fields=["Code_AIOT"],
-        aliases=["Code AIOT"],
-        style="font-size: 12px; text-align: center;"
-    )
-)
+
+# Chargement des données
+dg = pd.read_csv('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/2geocodage.csv')
+df = pd.read_csv('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/0208_gun.csv')
+
+# Conversion des données
+dg = dg[dg['Distance'] >= 0]
+dg['Distance'] = dg['Distance'].astype(int)
+dg['Code_AIOT'] = dg['Code_AIOT'].astype(str)
+df['Code_AIOT'] = df['Code_AIOT'].astype(str)
+df['Nom_usuel'] = df['Nom_usuel'].astype(str)
+df["Code_AIOT_liste"] = df.groupby(["latitude", "longitude"])["Code_AIOT"].transform(lambda x: ", ".join(x))
 
 # Fonction pour ajouter des marqueurs à la carte
 def add_markers(data, color):
@@ -59,19 +56,6 @@ def add_blinking_markers(data):
         marker_cluster.add_child(marker)
 
     m.add_child(marker_cluster)
-
-# Chargement des données
-dg = pd.read_csv('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/2geocodage.csv')
-df = pd.read_csv('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/0208_gun.csv')
-
-# Conversion des données
-dg = dg[dg['Distance'] >= 0]
-dg['Distance'] = dg['Distance'].astype(int)
-dg['Code_AIOT'] = dg['Code_AIOT'].astype(str)
-df['Code_AIOT'] = df['Code_AIOT'].astype(str)
-df['Nom_usuel'] = df['Nom_usuel'].astype(str)
-df["Code_AIOT_liste"] = df.groupby(["latitude", "longitude"])["Code_AIOT"].transform(lambda x: ", ".join(x))
-# ...
 
 # Calcul des coordonnées du centre de la carte
 center_lat = (df['latitude'].mean() + dg['latitude'].mean()) / 2
