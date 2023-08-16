@@ -70,6 +70,12 @@ add_markers(df, 'blue')
 add_markers(dg, 'red')
 
 
+def get_binary_file_downloader_html(bin_file, label="Télécharger le fichier"):
+    with open(bin_file, 'rb') as f:
+        data = f.read()
+    bin_str = base64.b64encode(data).decode()
+    href = f'<a href="data:application/octet-stream;base64,{bin_str}" download="{bin_file}" target="_blank">{label}</a>'
+    return href
 
 
 
