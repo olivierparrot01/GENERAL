@@ -17,6 +17,9 @@ folium_static(m)
 
 # Display the captured coordinates in Streamlit
 if popup:
+    captured_coords = popup.html.split(",")
+    latitude = float(captured_coords[0].split(":")[1])
+    longitude = float(captured_coords[1].split(":")[1])
     st.write("Captured Coordinates:")
-    st.write("Latitude:", popup.args[0].lat)
-    st.write("Longitude:", popup.args[0].lng)
+    st.write("Latitude:", latitude)
+    st.write("Longitude:", longitude)
