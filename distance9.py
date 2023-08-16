@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import folium
 from streamlit_folium import folium_static
+from folium.raster_layers import ImageOverlay
 import json
 from folium import plugins
 import requests
