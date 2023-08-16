@@ -73,7 +73,7 @@ add_markers(dg, 'red')
 add_blinking_markers(df)
 
 # Ajouter la couche GeoJSON des lignes à la carte
-lines_geojson_layer.add_to(m)
+lines_geojson_data.add_to(m)
 
 # Afficher la carte dans Streamlit en utilisant folium_static
 folium_static(m)
