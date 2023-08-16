@@ -92,4 +92,27 @@ lines_geojson_layer.add_to(m)
 # Afficher la carte dans Streamlit en utilisant folium_static
 folium_static(m)
 
-# ... (suite du code)
+
+# Afficher les adresses Gun des points sélectionnés
+
+st.markdown("<h2 style='font-size:18px;'>Adresses, coordonnées Gun et liens Google Maps des points sélectionnés : </h2>", unsafe_allow_html=True)
+
+#st.write("Adresses et coordonnées Gun des points sélectionnés :")
+for _, row in filtered_data.iterrows():
+    st.write(f"- Adresse Gun : {row['Adresse_concat']}, Coordonnées Gun : {row['longitude']}, {row['latitude']}")
+    formatted_address = row['Adresse_concat'].replace(' ', '-')
+    google_maps_link = f"[Ouvrir dans Google Maps à partir de l'adresse Gun](https://www.google.com/maps/search/?api=1&query={formatted_address})"
+    st.markdown(google_maps_link, unsafe_allow_html=True)
+    google_maps_link = f"[Ouvrir dans Google Maps à partir des coordonnées Gun](https://www.google.com/maps?q={row['latitude']},{row['longitude']})"
+    st.markdown(google_maps_link, unsafe_allow_html=True)
+
+
+
+
+
+
+
+
+
+#st.write("Table Gun correspondant à la sélection :")
+#st.dataframe(filtered_data)
