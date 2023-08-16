@@ -419,10 +419,12 @@ folium_static(m)
 
 # Filtrer les données en fonction des codes AIOT sélectionnés
 filtered_data = not_in_dg[not_in_dg['Code_AIOT_liste'].isin(selected_codes)]
+# Triez les codes AIOT dans l'ordre décroissant
+sorted_codes = sorted(filtered_data.unique(), reverse=True)
 
 # Afficher les détails des points sélectionnés dans le DataFrame filtré
 st.write("Table Gun correspondant à la sélection :")
-st.dataframe(filtered_data)
+st.dataframe(sorted_codes)
 
 
 # Afficher les adresses Gun des points sélectionnés
