@@ -165,8 +165,8 @@ if selected_codes:
         m.fit_bounds(bounds)
 
 
-st.markdown("<h2 style='font-size:18px;'>Table Gun : </h2>", unsafe_allow_html=True)
-
+st.markdown("<h2 style='font-size:18px;'>Appareillement (code aiot identique) des points Gun en bleu et Geocodage en rouge</h2>", unsafe_allow_html=True)
+st.markdown(f"<h2 style='font-size:18px;'> Gun en bleu et Geocodage en rouge pour l'intervalle [{selected_interval_left} {selected_interval_right}] (ICPE tout type)</h2>", unsafe_allow_html=True)
 # Afficher la carte dans Streamlit en utilisant folium_static
 folium_static(m)
 
