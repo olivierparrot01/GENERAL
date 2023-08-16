@@ -100,6 +100,10 @@ lines_geojson_layer.add_to(m)
 st.markdown("<h2 style='font-size:18px;'>Sélectionner par le Code AIOT les points Gun à mettre en évidence (carte, table et liens Google Maps)</h2>", unsafe_allow_html=True)
 selected_codes = st.multiselect("", df["Code_AIOT"])
 
+
+filtered_data = df[df['Code_AIOT'].isin(selected_codes)]
+
+
 # Ajouter les marqueurs verts pour les points sélectionnés
 for index, row in df.iterrows():
     if row['Code_AIOT'] in selected_codes:
