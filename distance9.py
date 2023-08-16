@@ -193,6 +193,13 @@ for zoom_level in range(13, 19):
     ).add_to(m)
 
 
+# Fonction pour gérer le clic sur la carte
+def handle_click(event, **kwargs):
+    lat, lon = event.latlng
+    st.sidebar.write(f"Latitude : {lat}, Longitude : {lon}")
+
+# Ajouter un gestionnaire de clics à la carte
+m.add_click_listener(handle_click)
 
 
 
