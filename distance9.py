@@ -43,6 +43,15 @@ df["Code_AIOT_liste"] = df.groupby(["latitude", "longitude"])["Code_AIOT"].trans
 df['Adresse_concat'] = df['Adresse 1'].str.cat([df['Adresse 2'], df['Adresse 3']], sep=' ', na_rep='')
 dg["Code_AIOT_liste"] = dg.groupby(["latitude", "longitude"])["Code_AIOT"].transform(lambda x: ", ".join(x))
 
+
+
+not_in_dg = df[~df['Code_AIOT'].isin(dg['Code_AIOT'])]
+not_in_dg = not_in_dg.drop("Unnamed: 0", axis=1)
+df = df.drop("Unnamed: 0", axis=1)
+
+
+
+
 # Fonction pour ajouter des marqueurs à la carte
 def add_markers(data, color):
     for _, row in data.iterrows():
@@ -74,6 +83,22 @@ def add_blinking_markers(data):
         marker_cluster.add_child(marker)
 
     m.add_child(marker_cluster)
+
+
+
+st.markdown("<h2 style='font-size:18px;'>Table Gun : </h2>", unsafe_allow_html=True)
+
+st.write("")
+st.dataframe(df)
+
+
+
+
+
+
+
+
+
 
 # Calcul des coordonnées du centre de la carte
 center_lat = (df['latitude'].mean() + dg['latitude'].mean()) / 2
