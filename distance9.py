@@ -208,7 +208,6 @@ try:
     st.write("Longitude :", longitude)
 except AttributeError:
     st.write("Aucune coordonnée capturée pour le moment.")
-Avec ce code, si l'objet popup n'a pas d'attribut html, un message sera affiché indiquant qu'aucune coordonnée n'a été capturée pour le moment.
 
 
 
