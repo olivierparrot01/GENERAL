@@ -209,7 +209,11 @@ fullscreen.add_to(m)
 # Afficher la carte dans Streamlit en utilisant folium_static
 folium_static(m)
 
+
+
+
 # Récupérer les coordonnées du popup si elles sont disponibles
+captured_coordinates_list = []
 try:
     captured_coords = popup.html.split(",")
     latitude = float(captured_coords[0].split(":")[1])
