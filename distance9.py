@@ -199,6 +199,11 @@ for zoom_level in range(13, 19):
 popup = folium.LatLngPopup()
 m.add_child(popup)
 
+# Ajouter le bouton de plein écran à la carte
+fullscreen = Fullscreen(position="topleft", title="Plein écran", title_cancel="Quitter le plein écran")
+fullscreen.add_to(m)
+
+
 # Afficher la carte dans Streamlit en utilisant folium_static
 folium_static(m)
 # Récupérer les coordonnées du popup si elles sont disponibles
