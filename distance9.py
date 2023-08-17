@@ -6,9 +6,10 @@ from folium.raster_layers import ImageOverlay
 import json
 from folium import plugins
 from folium.plugins import Fullscreen
-
 import requests
 import base64
+
+st.session_state.click_data = None
 
 # URL du GeoJSON
 geojson_url = 'https://raw.githubusercontent.com/olivierparrot01/ICPE/main/line_json_wgs84.geojson'
@@ -230,13 +231,12 @@ try:
 except AttributeError:
     st.write("")
     
-
-# Récupérer les coordonnées du popup si elles sont disponibles
+# Récupérer les coordonnées du clic sur la carte
 if st.button("Enregistrer les coordonnées"):
-    captured_coords = st.folium_click()
-    if captured_coords:
-        latitude = captured_coords[0]['lat']
-        longitude = captured_coords[0]['lng']
+    click_data = st.session_state.click_data
+    if click_data:
+        latitude = click_data['lat']
+        longitude = click_data['lon']
         st.write("Coordonnées capturées :")
         st.write("Latitude :", latitude)
         st.write("Longitude :", longitude)
@@ -246,7 +246,6 @@ if st.button("Enregistrer les coordonnées"):
 
 # Afficher les coordonnées capturées
 st.write("Coordonnées capturées :", captured_coordinates_list)
-
 
 
 
