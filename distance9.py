@@ -192,12 +192,21 @@ for zoom_level in range(13, 19):
         max_zoom=zoom_level,
     ).add_to(m)
 
-
+# Add a LatLngPopup to the map
+popup = folium.LatLngPopup()
+m.add_child(popup)
 
 # Afficher la carte dans Streamlit en utilisant folium_static
 folium_static(m)
 
-
+# Display the captured coordinates in Streamlit
+if popup:
+    captured_coords = popup.html.split(",")
+    latitude = float(captured_coords[0].split(":")[1])
+    longitude = float(captured_coords[1].split(":")[1])
+    st.write("Captured Coordinates:")
+    st.write("Latitude:", latitude)
+    st.write("Longitude:", longitude)
 
 st.markdown("<h2 style='font-size:18px;'>Adresses, coordonnées Gun et liens Google Maps des points sélectionnés : </h2>", unsafe_allow_html=True)
 
