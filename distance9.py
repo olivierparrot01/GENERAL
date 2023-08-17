@@ -243,7 +243,11 @@ except AttributeError:
     st.write("")
 
 
+ # Récupérer le contenu du popup
+popup_content = popup.get_name()
 
+
+st.write(popup_content)
 
 
 
