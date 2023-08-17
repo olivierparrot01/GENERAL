@@ -203,21 +203,13 @@ for zoom_level in range(13, 19):
 popup = folium.LatLngPopup()
 m.add_child(popup)
 
-# Capter l'événement de clic sur la carte
-if m.folium_click is not None:
-    latitude, longitude = m.folium_click
-    st.write("Coordonnées capturées :")
-    st.write("Latitude :", latitude)
-    st.write("Longitude :", longitude)
-    
-    # Récupérer le contenu du popup de coordonnées
+
+# Récupérer le contenu du popup de coordonnées
     popup_content = popup.html
     
-    # Ajouter les coordonnées capturées et le contenu du popup à la liste
-    captured_coordinates_list.append((latitude, longitude, popup_content))
+# Ajouter les coordonnées capturées et le contenu du popup à la liste
+    #captured_coordinates_list.append(popup_content)
 
-# Afficher les coordonnées capturées
-st.write("Coordonnées capturées :", captured_coordinates_list)
 
 
 # Ajouter le bouton de plein écran à la carte
@@ -244,7 +236,9 @@ try:
     
     # Ajouter les coordonnées capturées à la liste
     captured_coordinates_list.append((latitude, longitude))
-    
+    # Afficher les coordonnées capturées
+    st.write("Coordonnées capturées :", captured_coordinates_list)
+
 except AttributeError:
     st.write("")
 
