@@ -58,6 +58,7 @@ dg["Code_AIOT_liste"] = dg.groupby(["latitude", "longitude"])["Code_AIOT"].trans
 
 
 df= df.drop("Courriel d'échange avec l'administration", axis=1)
+df= df.drop("Région", axis=1)
 
 
 not_in_dg = df[~df['Code_AIOT'].isin(dg['Code_AIOT'])]
