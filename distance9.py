@@ -204,7 +204,7 @@ m.add_child(popup)
 # Ajouter le bouton de plein écran à la carte
 fullscreen = Fullscreen(position="topleft", title="Plein écran", title_cancel="Quitter le plein écran")
 fullscreen.add_to(m)
-
+captured_coordinates_list = []
 
 # Afficher la carte dans Streamlit en utilisant folium_static
 folium_static(m)
@@ -213,7 +213,7 @@ folium_static(m)
 
 
 # Récupérer les coordonnées du popup si elles sont disponibles
-captured_coordinates_list = []
+
 try:
     captured_coords = popup.html.split(",")
     latitude = float(captured_coords[0].split(":")[1])
