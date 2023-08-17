@@ -193,15 +193,6 @@ for zoom_level in range(13, 19):
     ).add_to(m)
 
 
-# Fonction pour gérer le clic sur la carte
-def handle_click(e):
-    lat, lon = e.latlng
-    st.write(f"Latitude : {lat}, Longitude : {lon}")
-
-# Ajouter l'événement de clic à la carte
-m.add_child(folium.ClickForMarker(popup=None, callback=handle_click))
-
-
 
 # Afficher la carte dans Streamlit en utilisant folium_static
 folium_static(m)
