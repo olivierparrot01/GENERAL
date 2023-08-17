@@ -230,12 +230,29 @@ try:
 except AttributeError:
     st.write("")
     
+
 # Récupérer les coordonnées du popup si elles sont disponibles
 if st.button("Enregistrer les coordonnées"):
-    if captured_coordinates_list:
-        st.write("Coordonnées capturées :", captured_coordinates_list)
-    else:
-        st.write("Aucune coordonnée capturée pour le moment.")
+    captured_coords = st.folium_click()
+    if captured_coords:
+        latitude = captured_coords[0]['lat']
+        longitude = captured_coords[0]['lng']
+        st.write("Coordonnées capturées :")
+        st.write("Latitude :", latitude)
+        st.write("Longitude :", longitude)
+        
+        # Ajouter les coordonnées capturées à la liste
+        captured_coordinates_list.append((latitude, longitude))
+
+# Afficher les coordonnées capturées
+st.write("Coordonnées capturées :", captured_coordinates_list)
+
+
+
+
+
+
+
 
 
 
