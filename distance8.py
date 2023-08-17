@@ -168,8 +168,24 @@ if selected_codes:
 
 st.markdown("<h2 style='font-size:18px;'>Appareillement (code aiot identique) des points Gun en bleu et Geocodage en rouge</h2>", unsafe_allow_html=True)
 
+# Add a LatLngPopup to the map
+popup = folium.LatLngPopup()
+m.add_child(popup)
+
+
 # Afficher la carte dans Streamlit en utilisant folium_static
 folium_static(m)
+
+# Display the captured coordinates in Streamlit
+if popup:
+    captured_coords = popup.html.split(",")
+    latitude = float(captured_coords[0].split(":")[1])
+    longitude = float(captured_coords[1].split(":")[1])
+    st.write("Captured Coordinates:")
+    st.write("Latitude:", latitude)
+    st.write("Longitude:", longitude)
+
+
 
 
 # Télécharger le GeoJSON à partir de Streamlit
