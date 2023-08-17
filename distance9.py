@@ -5,6 +5,8 @@ from streamlit_folium import folium_static
 from folium.raster_layers import ImageOverlay
 import json
 from folium import plugins
+from folium.plugins import Fullscreen
+
 import requests
 import base64
 
