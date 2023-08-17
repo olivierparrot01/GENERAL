@@ -121,7 +121,7 @@ st.sidebar.title("Options")
 
 
 # Sidebar section to filter the DataFrame based on selected criteria
-st.sidebar.subheader("Filtrer les données")
+#st.sidebar.subheader("Filtrer les données")
 selected_criteria = st.sidebar.multiselect("Critères de sélection", ["Statut Seveso", "Statut IED"])
 
 # Apply the selected criteria to filter the DataFrame
@@ -129,15 +129,16 @@ filtered_df = df.copy()
 for criterion in selected_criteria:
     if criterion == 'Statut Seveso':
         unique_values = filtered_df['Statut Seveso'].unique()
-        selected_value = st.sidebar.selectbox("Sélectionner un statut Seveso", options=unique_values)
+        selected_value = st.sidebar.selectbox("Statut Seveso", options=unique_values)
         filtered_df = filtered_df[filtered_df['Statut Seveso'] == selected_value]
     elif criterion == 'Statut IED':
         unique_values = filtered_df['Statut IED'].unique()
-        selected_value = st.sidebar.selectbox("Sélectionner un IED", options=unique_values)
+        selected_value = st.sidebar.selectbox("Statut IED", options=unique_values)
         filtered_df = filtered_df[filtered_df['Statut IED'] == selected_value]
 
-# Display the filtered DataFrame in the sidebar
-st.sidebar.write("Données filtrées :", filtered_df)
+# Use an expander to display the filtered DataFrame in the sidebar
+with st.sidebar.expander("Afficher les données filtrées"):
+    st.write("Données filtrées :", filtered_df)
 
 
 
