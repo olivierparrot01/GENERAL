@@ -208,6 +208,7 @@ fullscreen.add_to(m)
 
 # Afficher la carte dans Streamlit en utilisant folium_static
 folium_static(m)
+
 # Récupérer les coordonnées du popup si elles sont disponibles
 try:
     captured_coords = popup.html.split(",")
@@ -216,11 +217,15 @@ try:
     st.write("Coordonnées capturées :")
     st.write("Latitude :", latitude)
     st.write("Longitude :", longitude)
+    
+    # Ajouter les coordonnées capturées à la liste
+    captured_coordinates_list.append((latitude, longitude))
+    
 except AttributeError:
     st.write("")
-
-
-
+    
+# Afficher les coordonnées capturées
+st.write("Coordonnées capturées :", captured_coordinates_list)
 
 
 
