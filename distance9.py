@@ -198,16 +198,6 @@ m.add_child(popup)
 
 # Afficher la carte dans Streamlit en utilisant folium_static
 folium_static(m)
-
-# Display the captured coordinates in Streamlit
-if popup:
-    captured_coords = popup.html.split(",")
-    latitude = float(captured_coords[0].split(":")[1])
-    longitude = float(captured_coords[1].split(":")[1])
-    st.write("Captured Coordinates:")
-    st.write("Latitude:", latitude)
-    st.write("Longitude:", longitude)
-
 # Récupérer les coordonnées du popup si elles sont disponibles
 try:
     captured_coords = popup.html.split(",")
@@ -217,7 +207,13 @@ try:
     st.write("Latitude :", latitude)
     st.write("Longitude :", longitude)
 except AttributeError:
-    pass  # Ignorer l'erreur si le popup n'a pas d'attribut html
+    st.write("Aucune coordonnée capturée pour le moment.")
+Avec ce code, si l'objet popup n'a pas d'attribut html, un message sera affiché indiquant qu'aucune coordonnée n'a été capturée pour le moment.
+
+
+
+
+
 
 
 st.markdown("<h2 style='font-size:18px;'>Adresses, coordonnées Gun et liens Google Maps des points sélectionnés : </h2>", unsafe_allow_html=True)
