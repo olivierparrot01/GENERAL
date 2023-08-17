@@ -116,6 +116,56 @@ st.markdown("<h2 style='font-size:28px;'>Appareillement Gun (bleu)-Geocodage (ro
 # Sidebar pour les options et l'affichage des données
 st.sidebar.title("Options")
 
+
+
+
+
+# Sidebar section to filter the DataFrame based on selected criteria
+st.sidebar.subheader("Filtrer les données")
+selected_criteria = st.sidebar.multiselect("Critères de sélection", ["Statut Seveso", "IED"])
+
+# Apply the selected criteria to filter the DataFrame
+filtered_df = df.copy()
+for criterion in selected_criteria:
+    if criterion == 'Statut Seveso':
+        unique_values = filtered_df['Statut Seveso'].unique()
+        selected_value = st.sidebar.selectbox("Sélectionner un statut Seveso", options=unique_values)
+        filtered_df = filtered_df[filtered_df['Statut Seveso'] == selected_value]
+    elif criterion == 'IED':
+        unique_values = filtered_df['IED'].unique()
+        selected_value = st.sidebar.selectbox("Sélectionner un IED", options=unique_values)
+        filtered_df = filtered_df[filtered_df['IED'] == selected_value]
+
+# Display the filtered DataFrame
+st.write("Données filtrées :", filtered_df)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # Afficher le titre dans le sidebar
 st.sidebar.markdown("<h2 style='font-size:18px;'>Afficher la table Gun</h2>", unsafe_allow_html=True)
 
