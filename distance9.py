@@ -207,7 +207,7 @@ try:
     st.write("Latitude :", latitude)
     st.write("Longitude :", longitude)
 except AttributeError:
-    st.write("Aucune coordonnée capturée pour le moment.")
+    st.write("")
 
 
 
