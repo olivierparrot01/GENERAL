@@ -381,9 +381,9 @@ for index, row in not_in_dg.iterrows():
 #folium_static(m)
 
 # Liste des codes AIOT uniques
-#◙all_codes = not_in_dg['Code_AIOT_liste'].unique()
+#all_codes = not_in_dg['Code_AIOT_liste'].unique()
 
-all_codes =sorted( not_in_dg['Code_AIOT_liste'].unique(), reverse=True)
+all_codes =sorted( not_in_dg['Code_AIOT'].unique(), reverse=True)
 
 st.markdown("<h2 style='font-size:18px;'>Sélectionner par le Code AIOT les points Gun à mettre en évidence (carte, table et liens Google Maps)</h2>", unsafe_allow_html=True)
 # Sélection des codes AIOT à mettre en évidence
