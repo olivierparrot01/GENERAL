@@ -205,7 +205,7 @@ m.add_child(popup)
 
 
 # Récupérer le contenu du popup de coordonnées
-    popup_content = popup.html
+popup_content = popup.html
     
 # Ajouter les coordonnées capturées et le contenu du popup à la liste
     #captured_coordinates_list.append(popup_content)
