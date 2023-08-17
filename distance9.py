@@ -225,7 +225,6 @@ fullscreen = Fullscreen(position="topleft", title="Plein écran", title_cancel="
 fullscreen.add_to(m)
 
 
-captured_coordinates_list = []
 
 # Afficher la carte dans Streamlit en utilisant folium_static
 folium_static(m)
