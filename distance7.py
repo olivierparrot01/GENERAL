@@ -392,7 +392,7 @@ selected_codes = st.multiselect( "",    all_codes)
 
 
 # Filtrer les données en fonction des codes AIOT sélectionnés
-filtered_data = not_in_dg[not_in_dg['Code_AIOT_liste'].isin(selected_codes)]
+#filtered_data = not_in_dg[not_in_dg['Code_AIOT'].isin(selected_codes)]
 
 # Mettre en évidence les points correspondant aux codes AIOT sélectionnés
 for index, row in filtered_data.iterrows():
@@ -422,7 +422,7 @@ folium_static(m)
 
 
 # Filtrer les données en fonction des codes AIOT sélectionnés
-filtered_data = not_in_dg[not_in_dg['Code_AIOT_liste'].isin(selected_codes)]
+filtered_data = not_in_dg[not_in_dg['Code_AIOT'].isin(selected_codes)]
 
 # Afficher les détails des points sélectionnés dans le DataFrame filtré
 st.write("Table Gun correspondant à la sélection :")
