@@ -230,24 +230,17 @@ try:
     captured_coords = popup.html.split(",")
     latitude = float(captured_coords[0].split(":")[1])
     longitude = float(captured_coords[1].split(":")[1])
-    st.write("Coordonnées capturées :")
-    st.write("Latitude :", latitude)
-    st.write("Longitude :", longitude)
-    
-    # Ajouter les coordonnées capturées à la liste
-    captured_coordinates_list.append((latitude, longitude))
-    # Afficher les coordonnées capturées
-    st.write("Coordonnées capturées :", captured_coordinates_list)
+    # Récupérer le contenu du popup
+    popup_content = popup.get_name()
+
+
+    st.write(popup_content)
+
 
 except AttributeError:
     st.write("")
 
 
- # Récupérer le contenu du popup
-popup_content = popup.get_name()
-
-
-st.write(popup_content)
 
 
 
