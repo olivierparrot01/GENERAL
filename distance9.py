@@ -208,6 +208,18 @@ if popup:
     st.write("Latitude:", latitude)
     st.write("Longitude:", longitude)
 
+# Récupérer les coordonnées du popup si elles sont disponibles
+try:
+    captured_coords = popup.html.split(",")
+    latitude = float(captured_coords[0].split(":")[1])
+    longitude = float(captured_coords[1].split(":")[1])
+    st.write("Coordonnées capturées :")
+    st.write("Latitude :", latitude)
+    st.write("Longitude :", longitude)
+except AttributeError:
+    pass  # Ignorer l'erreur si le popup n'a pas d'attribut html
+
+
 st.markdown("<h2 style='font-size:18px;'>Adresses, coordonnées Gun et liens Google Maps des points sélectionnés : </h2>", unsafe_allow_html=True)
 
 #st.write("Adresses et coordonnées Gun des points sélectionnés :")
