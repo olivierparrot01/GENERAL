@@ -69,7 +69,7 @@ df = df.merge(dg[['Code_AIOT', 'Distance']], on='Code_AIOT', how='left')
 
 
 not_in_dg = df[~df['Code_AIOT'].isin(dg['Code_AIOT'])]
-not_in_dg = not_in_dg.drop("Unnamed: 0", axis=1)
+#not_in_dg = not_in_dg.drop("Unnamed: 0", axis=1)
 
 # Créer une liste pour enregistrer les coordonnées capturées
 captured_coordinates_list = []
