@@ -164,11 +164,10 @@ for criterion in selected_criteria:
 
 # Use an expander to display the filtered DataFrame in the sidebar
 with st.sidebar.expander(f"Afficher les {len(filtered_df)} données filtrées"):
-    #filtered_df_formatted = filtered_df.copy()
-    #filtered_df_formatted['Distance'] = filtered_df_formatted['Distance'].apply(lambda x: "{:.0f}".format(x))
-    #filtered_df_formatted['Distance'] = filtered_df_formatted['Distance'].astype(float)
+     sorted_filtered_df = filtered_df.sort_values(by='Distance', na_position='first')
     # Afficher les données filtrées dans le sidebar
-    st.write(filtered_df)
+    
+    st.write(sorted_filtered_df)
 
 # Calcul des coordonnées du centre de la carte
 center_lat = (df['latitude'].mean() + dg['latitude'].mean()) / 2
