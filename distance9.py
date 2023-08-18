@@ -288,7 +288,7 @@ for group in grouped_points:
     group_codes = [row['Code_AIOT'] for row in group]  # Extraire les codes AIOT du groupe
     grouped_codes.append(group_codes)  # Ajouter la liste de codes AIOT au groupe correspondant
 
-
+  st.sidebar.write(grouped_codes)
 
 
 
