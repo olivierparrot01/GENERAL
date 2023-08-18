@@ -118,10 +118,13 @@ def add_blinking_markers(data):
 st.markdown("<h2 style='font-size:28px;'>Appareillement Gun (bleu)-Geocodage (rouge) </h2>", unsafe_allow_html=True)
 
 
-st.sidebar.info("Les temps de réponse sont un peu longs, il faut patienter...         
+# Afficher le contenu dans l'expander
+with st.sidebar.expander("Informations"):
+    st.sidebar.info('''Les temps de réponse sont un peu longs, il faut patienter...
                     À grande échelle, les orthophotos s'affichent.
                     Un clic gauche permet d'afficher les coordonnées géographiques.
-                    La virgule dans les grandes valeurs de distance est le séparateur de millier et non la virgule décimale.")
+                    La virgule dans les grandes valeurs de distance est le séparateur de millier et non la virgule décimale.''')
+
 
 st.sidebar.markdown("<h2 style='font-size:18px;'>Filtrer les données par Statut Seveso, Statut IED ou Distance (distance ente les pts homologues Gun-Geocodage)</h2>", unsafe_allow_html=True)
 st.sidebar.markdown("")
