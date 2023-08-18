@@ -79,7 +79,7 @@ not_in_dg = df[~df['Code_AIOT'].isin(dg['Code_AIOT'])]
 #not_in_dg = not_in_dg.drop("Unnamed: 0", axis=1)
 
 # Créer une liste pour enregistrer les coordonnées capturées
-captured_coordinates_list = []
+#captured_coordinates_list = []
 
 
 # Fonction pour ajouter des marqueurs à la carte
@@ -119,10 +119,9 @@ st.markdown("<h2 style='font-size:28px;'>Appareillement Gun (bleu)-Geocodage (ro
 
 
 # Afficher le contenu dans le sidebar
-with st.sidebar.beta_expander("Informations"):
+with st.sidebar.expander("Informations"):
     st.sidebar.info("Ceci est une bulle d'information. Vous pouvez y ajouter du texte explicatif ou des détails.")
     st.sidebar.markdown("Cliquer sur la flèche ci-dessus pour refermer la bulle d'information.")
-
 
 # Sidebar section to filter the DataFrame based on selected criteria
 #st.sidebar.subheader("Filtrer les données par "Statut Seveso", "Statut IED" ou "Distance")
