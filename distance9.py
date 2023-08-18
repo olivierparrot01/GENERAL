@@ -218,7 +218,7 @@ for index, row in df.iterrows():
             color='white',
             fill=True,
             fill_color='white',
-            fill_opacity=0.7,
+            fill_opacity=1,
             popup=f"Nom usuel : {row['Nom_usuel']}<br>Code AIOT : {row['Code_AIOT_liste']}",
             tooltip=f"Nom usuel : {row['Nom_usuel']}<br>Code AIOT : {row['Code_AIOT_liste']}"
         ).add_to(m)
