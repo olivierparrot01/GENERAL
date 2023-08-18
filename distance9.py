@@ -62,11 +62,14 @@ dg["Code_AIOT_liste"] = dg.groupby(["latitude", "longitude"])["Code_AIOT"].trans
 
 df= df.drop("Courriel d'échange avec l'administration", axis=1)
 df= df.drop("Région", axis=1)
+df = df.drop("Unnamed: 0", axis=1)
+# Merge df and dg on 'Code_AIOT'
+df = df.merge(dg[['Code_AIOT', 'Distance']], on='Code_AIOT', how='left')
+
 
 
 not_in_dg = df[~df['Code_AIOT'].isin(dg['Code_AIOT'])]
 not_in_dg = not_in_dg.drop("Unnamed: 0", axis=1)
-df = df.drop("Unnamed: 0", axis=1)
 
 # Créer une liste pour enregistrer les coordonnées capturées
 captured_coordinates_list = []
@@ -122,7 +125,9 @@ st.sidebar.title("Options")
 
 # Sidebar section to filter the DataFrame based on selected criteria
 #st.sidebar.subheader("Filtrer les données")
-selected_criteria = st.sidebar.multiselect("Critères de sélection", ["Statut Seveso", "Statut IED"])
+selected_criteria = st.sidebar.multiselect("Critères de sélection", ["Statut Seveso", "Statut IED", "Distance"])
+
+
 
 # Apply the selected criteria to filter the DataFrame
 filtered_df = df.copy()
@@ -131,10 +136,15 @@ for criterion in selected_criteria:
         unique_values = filtered_df['Statut Seveso'].unique()
         selected_value = st.sidebar.selectbox("Statut Seveso", options=unique_values)
         filtered_df = filtered_df[filtered_df['Statut Seveso'] == selected_value]
-    elif criterion == 'Statut IED':
+    if criterion == 'Statut IED':
         unique_values = filtered_df['Statut IED'].unique()
         selected_value = st.sidebar.selectbox("Statut IED", options=unique_values)
         filtered_df = filtered_df[filtered_df['Statut IED'] == selected_value]
+
+    elif criterion == 'Distance':
+        selected_distance = st.slider("La distance est supérieure ou égale à :", min_value=dg['Distance'].min(), max_value=dg['Distance'].max(), step=100)
+        filtered_dg = filtered_dg[filtered_dg['Distance'] >= selected_distance]
+
 
 # Use an expander to display the filtered DataFrame in the sidebar
 with st.sidebar.expander("Afficher les données filtrées"):
