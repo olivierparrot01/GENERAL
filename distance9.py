@@ -152,7 +152,7 @@ for criterion in selected_criteria:
         min_distance = df['Distance'].min()
         max_distance = df['Distance'].max()
         distance_range = max_distance - min_distance
-        step_value = max(1, distance_range // 100)  # Adjust step value for small ranges
+        step_value = max(100, distance_range // 100)  # Adjust step value for small ranges
 
         selected_distance = st.sidebar.slider("La distance est supérieure ou égale à :", min_value=df['Distance'].min(), max_value=df['Distance'].max(), step=100 )
         filtered_df = filtered_df[filtered_df['Distance'] >= selected_distance]
