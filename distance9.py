@@ -204,7 +204,7 @@ sorted_codes = sorted( filtered_df['Code_AIOT'].unique(), reverse=True)
 st.sidebar.markdown(f"<h2 style='font-size:18px;'>Sélectionner parmi les {len(filtered_df)} données filtrées, les points Gun à mettre en évidence (sélection multiple possible)</h2>", unsafe_allow_html=True)
 st.sidebar.markdown("")
 selected_codes = st.sidebar.multiselect("", sorted_codes)
-Filtrer les données par Statut Seveso, Statut IED ou Distance (distance ente les pts homologues Gun-Geocodage
+
 #st.sidebar.markdown("<h2 style='font-size:14px;'></h2>", unsafe_allow_html=True)
 st.sidebar.markdown("<h2 style='font-size:14px;'>Adresses, coordonnées Gun et liens Google Maps des points sélectionnés :</h2>", unsafe_allow_html=True)
 
