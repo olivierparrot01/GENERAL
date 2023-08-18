@@ -264,7 +264,7 @@ def haversine_distance(lat1, lon1, lat2, lon2):
 grouped_points = []
 
 # Parcourir les points dans filtered_data pour les regrouper
-for _, row1 in filtered_data.iterrows():
+for _, row1 in df.iterrows():
     is_added = False
     for group in grouped_points:
         row2 = group[0]
@@ -283,13 +283,20 @@ grouped_codes = []
 for group in grouped_points:
     group_codes = [row['Code_AIOT'] for row in group]  # Extraire les codes AIOT du groupe
     grouped_codes.append(group_codes)  # Ajouter la liste de codes AIOT au groupe correspondant
-st.sidebar.write(grouped_codes)
+#st.sidebar.write(grouped_codes)
 
 
+grouped_codes
+# Créer une colonne 'Categorie' dans le DataFrame df
+df['Categorie'] = None
+
+# Parcourir les points dans df et assigner la catégorie en fonction des groupes
+for group_idx, group in enumerate(grouped_points):
+    group_codes = [row['Code_AIOT'] for row in group]  # Extraire les codes AIOT du groupe
+    df.loc[df['Code_AIOT'].isin(group_codes), 'Categorie'] = f'Categorie {group_idx + 1}'
 
 
-
-
+st.sidebar.write(df)
 
 
 
