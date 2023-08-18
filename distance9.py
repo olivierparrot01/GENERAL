@@ -158,9 +158,9 @@ for criterion in selected_criteria:
         step=0.1,  # Adjust the step value for smoothness
         format="%d m"  # Format the labels as "X m")
         # Convert the selected logarithmic distance back to linear scale
-        selected_distance = 10 ** selected_log_distance
+    selected_distance = 10 ** selected_log_distance
 
-        filtered_df = filtered_df[filtered_df['Distance'] >= selected_distance]
+    filtered_df = filtered_df[filtered_df['Distance'] >= selected_distance]
 
 
 # Use an expander to display the filtered DataFrame in the sidebar
