@@ -2,11 +2,15 @@ import streamlit as st
 import pandas as pd
 import folium
 from streamlit_folium import folium_static
+from folium.raster_layers import ImageOverlay
+import json
+from folium import plugins
 from folium.plugins import Fullscreen
 import requests
+import base64
 import numpy as np
 
-st.session_state.click_data = None
+
 
 # Load GeoJSON data
 geojson_url = 'https://raw.githubusercontent.com/olivierparrot01/ICPE/main/line_json_wgs84.geojson'
