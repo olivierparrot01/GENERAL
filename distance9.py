@@ -132,7 +132,7 @@ st.sidebar.title("Options")
 
 # Sidebar section to filter the DataFrame based on selected criteria
 #st.sidebar.subheader("Filtrer les données par "Statut Seveso", "Statut IED" ou "Distance")
-selected_criteria = st.sidebar.multiselect("Filtrer les données par Statut Seveso, Statut IED ou Distance", ["Statut Seveso", "Statut IED", "Distance"])
+selected_criteria = st.sidebar.multiselect("Filtrer les données par Statut Seveso, Statut IED ou Distance (distance ente les pts homologues Gun-Geocodage)", ["Statut Seveso", "Statut IED", "Distance"])
 
 
 
