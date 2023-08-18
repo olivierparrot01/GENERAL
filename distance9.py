@@ -54,13 +54,14 @@ dg = dg[dg['Distance'] >= 0]
 dg['Distance'] = dg['Distance'].astype(int)
 dg['Code_AIOT'] = dg['Code_AIOT'].astype(str)
 dg["Code_AIOT_liste"] = dg.groupby(["latitude", "longitude"])["Code_AIOT"].transform(lambda x: ", ".join(x))
-# Merge df and dg on 'Code_AIOT'
-df = df.merge(dg[['Code_AIOT', 'Distance']], on='Code_AIOT', how='left')
 
 df['Code_AIOT'] = df['Code_AIOT'].astype(str)
 df['Nom_usuel'] = df['Nom_usuel'].astype(str)
 df["Code_AIOT_liste"] = df.groupby(["latitude", "longitude"])["Code_AIOT"].transform(lambda x: ", ".join(x))
 df['Adresse_concat'] = df['Adresse 1'].str.cat([df['Adresse 2'], df['Adresse 3']], sep=' ', na_rep='')
+
+# Merge df and dg on 'Code_AIOT'
+df = df.merge(dg[['Code_AIOT', 'Distance']], on='Code_AIOT', how='left')
 df['Distance'] = df['Distance'].astype(int)
 
 
