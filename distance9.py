@@ -150,6 +150,7 @@ for criterion in selected_criteria:
 
     elif criterion == 'Distance':
         df = df[df['Distance'] >= 0]
+        df['Distance'] = df['Distance'].astype(int)
         # Calculate the step value for the slider based on the range of distances
         min_distance =df['Distance'].min() 
         max_distance = df['Distance'].max()      
@@ -170,35 +171,6 @@ with st.sidebar.expander(f"Afficher les {len(filtered_df)} données filtrées"):
     #filtered_df['Distance'] = filtered_df['Distance'].astype(str)
     #filtered_df= filtered_df.astype(str)
     st.write( filtered_df)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 # Calcul des coordonnées du centre de la carte
