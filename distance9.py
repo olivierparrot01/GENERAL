@@ -143,7 +143,7 @@ for criterion in selected_criteria:
 
     elif criterion == 'Distance':
         selected_distance = st.slider("La distance est supérieure ou égale à :", min_value=dg['Distance'].min(), max_value=dg['Distance'].max(), step=100)
-        filtered_dg = filtered_dg[filtered_dg['Distance'] >= selected_distance]
+        filtered_df = filtered_df[filtered_df['Distance'] >= selected_distance]
 
 
 # Use an expander to display the filtered DataFrame in the sidebar
