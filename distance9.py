@@ -241,62 +241,6 @@ filtered_data = df[df['Code_AIOT'].isin(selected_codes)]
 
 
 
-import math
-
-
-
-
-# Fonction pour calculer la distance entre deux points en coordonnées géographiques (lat, lon)
-def haversine_distance(lat1, lon1, lat2, lon2):
-    R = 6371000  # Rayon de la Terre en mètres
-    phi_1 = math.radians(lat1)
-    phi_2 = math.radians(lat2)
-    delta_phi = math.radians(lat2 - lat1)
-    delta_lambda = math.radians(lon2 - lon1)
-
-    a = math.sin(delta_phi / 2.0) ** 2 + math.cos(phi_1) * math.cos(phi_2) * math.sin(delta_lambda / 2.0) ** 2
-    c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
-
-    distance = R * c
-    return distance
-
-# Créer une liste pour stocker les groupes de points regroupés par distance
-grouped_points = []
-
-# Parcourir les points dans filtered_data pour les regrouper
-for _, row1 in df.iterrows():
-    is_added = False
-    for group in grouped_points:
-        row2 = group[0]
-        distance = haversine_distance(row1['latitude'], row1['longitude'], row2['latitude'], row2['longitude'])
-        if distance <= 20000:  # Modifier la distance de regroupement selon vos besoins
-            group.append(row1)
-            is_added = True
-            break
-    if not is_added:
-        grouped_points.append([row1])
-
-# Créer une liste pour stocker les codes AIOT correspondant à chaque groupe de points
-grouped_codes = []
-
-# Parcourir les groupes de points dans grouped_points
-for group in grouped_points:
-    group_codes = [row['Code_AIOT'] for row in group]  # Extraire les codes AIOT du groupe
-    grouped_codes.append(group_codes)  # Ajouter la liste de codes AIOT au groupe correspondant
-#st.sidebar.write(grouped_codes)
-
-
-grouped_codes
-# Créer une colonne 'Categorie' dans le DataFrame df
-df['Categorie'] = None
-
-# Parcourir les points dans df et assigner la catégorie en fonction des groupes
-for group_idx, group in enumerate(grouped_points):
-    group_codes = [row['Code_AIOT'] for row in group]  # Extraire les codes AIOT du groupe
-    df.loc[df['Code_AIOT'].isin(group_codes), 'Categorie'] = f'Categorie {group_idx + 1}'
-
-
-st.sidebar.write(df)
 
 
 
