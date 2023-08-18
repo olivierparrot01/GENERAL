@@ -196,7 +196,7 @@ lines_geojson_layer.add_to(m)
 # Triez les codes AIOT dans l'ordre décroissant
 sorted_codes = sorted( filtered_df['Code_AIOT'].unique(), reverse=True)
 
-selected_codes = st.sidebar.multiselect("Sélectionner par le Code AIOT les points Gun à mettre en évidence (sélection multiple)", sorted_codes)
+selected_codes = st.sidebar.multiselect("Sélectionner parmi les {len(filtered_df)} données filtrées, les points Gun à mettre en évidence (sélection multiple possible)", sorted_codes)
 
 filtered_data = df[df['Code_AIOT'].isin(selected_codes)]
 
