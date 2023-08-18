@@ -143,7 +143,7 @@ for criterion in selected_criteria:
 
     elif criterion == 'Distance':
         df = df[df['Distance'] >= 0]
-        df['Distance'] = df['Distance'].astype(int)
+        #df['Distance'] = df['Distance'].astype(int)
         # Calculate the step value for the slider based on the range of distances
         min_distance =df['Distance'].min() 
         max_distance = df['Distance'].max()      
