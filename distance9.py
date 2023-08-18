@@ -223,9 +223,9 @@ for index, row in df.iterrows():
         folium.CircleMarker(
             location=[row['latitude'], row['longitude']],
             radius=8,
-            color='green',
+            color='white',
             fill=True,
-            fill_color='green',
+            fill_color='white',
             fill_opacity=0.7,
             popup=f"Nom usuel : {row['Nom_usuel']}<br>Code AIOT : {row['Code_AIOT_liste']}",
             tooltip=f"Nom usuel : {row['Nom_usuel']}<br>Code AIOT : {row['Code_AIOT_liste']}"
