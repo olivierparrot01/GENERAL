@@ -54,6 +54,9 @@ dg = dg[dg['Distance'] >= 0]
 dg['Distance'] = dg['Distance'].astype(int)
 dg['Code_AIOT'] = dg['Code_AIOT'].astype(str)
 dg["Code_AIOT_liste"] = dg.groupby(["latitude", "longitude"])["Code_AIOT"].transform(lambda x: ", ".join(x))
+# Merge df and dg on 'Code_AIOT'
+df = df.merge(dg[['Code_AIOT', 'Distance']], on='Code_AIOT', how='left')
+
 df['Code_AIOT'] = df['Code_AIOT'].astype(str)
 df['Nom_usuel'] = df['Nom_usuel'].astype(str)
 df["Code_AIOT_liste"] = df.groupby(["latitude", "longitude"])["Code_AIOT"].transform(lambda x: ", ".join(x))
@@ -65,8 +68,7 @@ df['Distance'] = df['Distance'].astype(int)
 df= df.drop("Courriel d'échange avec l'administration", axis=1)
 df= df.drop("Région", axis=1)
 df = df.drop("Unnamed: 0", axis=1)
-# Merge df and dg on 'Code_AIOT'
-df = df.merge(dg[['Code_AIOT', 'Distance']], on='Code_AIOT', how='left')
+
 
 
 
