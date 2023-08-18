@@ -164,7 +164,7 @@ for criterion in selected_criteria:
             filtered_df = filtered_df[filtered_df['Distance'] >= selected_distance]
 
 # Use an expander to display the filtered DataFrame in the sidebar
-with st.sidebar.expander("Afficher les données filtrées"):
+with st.sidebar.expander(f"Afficher les {len(filtered_df)} données filtrées"):
     # Convert the 'Distance' column to integer and format it without commas
     #filtered_df['Distance'] = filtered_df['Distance'].astype(str)
     #filtered_df= filtered_df.astype(str)
