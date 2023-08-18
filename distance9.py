@@ -521,7 +521,7 @@ selected_cat = st.sidebar.multiselect("", sorted_cat)
 
 # Ajouter les marqueurs blanc pour les points sélectionnés
 for index, row in df.iterrows():
-    if row['Code_AIOT'] in selected_codes:
+    if row['Code_AIOT'] in selected_cat:
         folium.CircleMarker(
             location=[row['latitude'], row['longitude']],
             radius=8,
@@ -535,7 +535,7 @@ for index, row in df.iterrows():
 
 # Zoomer sur les points sélectionnés
 if selected_codes:
-    selected_data = df[df['Code_AIOT'].isin(selected_codes)]
+    selected_data = df[df['Code_AIOT'].isin(selected_cat)]
     if not selected_data.empty:
         bounds = [
             (selected_data['latitude'].min(), selected_data['longitude'].min()),
