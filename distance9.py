@@ -155,7 +155,7 @@ for criterion in selected_criteria:
         selected_log_distance = st.sidebar.slider(    "La distance est supérieure ou égale à (échelle logarithmique) :",
         min_value=np.log10(min_distance),
         max_value=np.log10(max_distance),
-        step=0.1,
+        step=100,
         format="%d m" )       
         selected_distance = int(10 ** selected_log_distance)
         filtered_df = filtered_df[filtered_df['Distance'] >= selected_distance]
