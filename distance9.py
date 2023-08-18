@@ -192,11 +192,11 @@ lines_geojson_layer.add_to(m)
 
 
 # Filtrer les données en fonction des codes AIOT sélectionnés
-st.sidebar.markdown("<h2 style='font-size:18px;'>Sélectionner par le Code AIOT les points Gun à mettre en évidence (sélection multiple)</h2>", unsafe_allow_html=True)
+#st.sidebar.markdown("<h2 style='font-size:18px;'>Sélectionner par le Code AIOT les points Gun à mettre en évidence (sélection multiple)</h2>", unsafe_allow_html=True)
 # Triez les codes AIOT dans l'ordre décroissant
 sorted_codes = sorted( filtered_df['Code_AIOT'].unique(), reverse=True)
 
-selected_codes = st.sidebar.multiselect("", sorted_codes)
+selected_codes = st.sidebar.multiselect("Sélectionner par le Code AIOT les points Gun à mettre en évidence (sélection multiple)", sorted_codes)
 
 filtered_data = df[df['Code_AIOT'].isin(selected_codes)]
 
@@ -292,7 +292,7 @@ except AttributeError:
 
 
 # Afficher le titre dans le sidebar
-st.sidebar.markdown("<h2 style='font-size:18px;'>Adresses, coordonnées Gun et liens Google Maps des points sélectionnés :</h2>", unsafe_allow_html=True)
+st.sidebar.markdown("<h2 style='font-size:12px;'>Adresses, coordonnées Gun et liens Google Maps des points sélectionnés :</h2>", unsafe_allow_html=True)
 
 # Afficher le contenu dans le sidebar
 for _, row in filtered_data.iterrows():
