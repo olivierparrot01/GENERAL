@@ -118,11 +118,13 @@ def add_blinking_markers(data):
 st.markdown("<h2 style='font-size:28px;'>Appareillement Gun (bleu)-Geocodage (rouge) </h2>", unsafe_allow_html=True)
 
 
-# Afficher le contenu dans le sidebar
-with st.sidebar.expander("Informations"):
-    st.sidebar.info("Ceci est une bulle d'information. Vous pouvez y ajouter du texte explicatif ou des détails.")
-    #st.sidebar.markdown("Cliquer sur la flèche ci-dessus pour refermer la bulle d'information.")
+# Afficher un bouton pour afficher/masquer la bulle d'information
+info_expander_button = st.sidebar.button("ℹ️ Informations")
 
+# Vérifier si le bouton a été cliqué
+if info_expander_button:
+    st.sidebar.info("Ceci est une bulle d'information. Vous pouvez y ajouter du texte explicatif ou des détails.")
+    st.sidebar.write("Cliquez à nouveau sur le bouton pour masquer les informations.")
 #st.sidebar.info("Ceci est une bulle d'information. Vous pouvez y ajouter du texte explicatif ou des détails.")
 
 # Sidebar section to filter the DataFrame based on selected criteria
