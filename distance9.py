@@ -151,13 +151,19 @@ for criterion in selected_criteria:
     elif criterion == 'Distance':
         # Calculate the step value for the slider based on the range of distances
         min_distance =df['Distance'].min() 
-        max_distance = 10000 #df['Distance'].max()      
+        max_distance = df['Distance'].max()      
        
 
-        selected_distance = st.sidebar.slider ("La distance est supérieure ou égale à :", min_value=min_distance, max_value=max_distance, step=50)    
+        selected_distance = st.sidebar.slider ("La distance est supérieure ou égale à :", min_value=min_distance, max_value=10000, step=50)    
         
         filtered_df = filtered_df[filtered_df['Distance'] >= selected_distance]
-
+        # Add a button to filter distances between 10000 and the max distance
+        if st.sidebar.button("Filtrer entre 10000 et max"):
+        filtered_df = filtered_df[
+            (filtered_df['Distance'] >= 10000) & (filtered_df['Distance'] <= max_distance)
+        ]
+        else:
+        filtered_df = filtered_df[filtered_df['Distance'] >= selected_distance]
 
 # Use an expander to display the filtered DataFrame in the sidebar
 with st.sidebar.expander("Afficher les données filtrées"):
