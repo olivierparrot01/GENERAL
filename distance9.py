@@ -124,7 +124,7 @@ st.markdown("<h2 style='font-size:28px;'>Appareillement Gun (bleu)-Geocodage (ro
 #st.dataframe(df)
 
 # Sidebar pour les options et l'affichage des données
-st.sidebar.write("Options")
+st.sidebar.write("Options : ")
 
 
 
