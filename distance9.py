@@ -118,10 +118,8 @@ def add_blinking_markers(data):
 st.markdown("<h2 style='font-size:28px;'>Appareillement Gun (bleu)-Geocodage (rouge) </h2>", unsafe_allow_html=True)
 
 
-
-
-#st.write("Afficher/Masquer")
-#st.dataframe(df)
+# Afficher une bulle d'information dans le sidebar
+st.sidebar.info("Ceci est une bulle d'information. Vous pouvez y ajouter du texte explicatif ou des détails.")
 
 
 
