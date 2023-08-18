@@ -148,7 +148,7 @@ for criterion in selected_criteria:
         filtered_df = filtered_df[filtered_df['Statut IED'] == selected_value]
 
     elif criterion == 'Distance':
-        selected_distance = st.sidebar.slider("La distance est supérieure ou égale à :", min_value=df['Distance'].min(), max_value=df['Distance'].max(), step=100)
+        selected_distance = st.sidebar.slider("La distance est supérieure ou égale à :", min_value=df['Distance'].min(), max_value=df['Distance'].max(), step=100,format="%d" )
         filtered_df = filtered_df[filtered_df['Distance'] >= selected_distance]
 
 
