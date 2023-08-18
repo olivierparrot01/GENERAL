@@ -120,7 +120,7 @@ st.markdown("<h2 style='font-size:28px;'>Appareillement Gun (bleu)-Geocodage (ro
 
 # Afficher le contenu dans le sidebar
 with st.sidebar.expander("Informations"):
-    #st.sidebar.info("Ceci est une bulle d'information. Vous pouvez y ajouter du texte explicatif ou des détails.")
+    st.sidebar.info("Ceci est une bulle d'information. Vous pouvez y ajouter du texte explicatif ou des détails.")
     #st.sidebar.markdown("Cliquer sur la flèche ci-dessus pour refermer la bulle d'information.")
 
 # Sidebar section to filter the DataFrame based on selected criteria
