@@ -207,7 +207,7 @@ for group in grouped_points:
     grouped_codes.append(group_codes)  # Ajouter la liste de codes AIOT au groupe correspondant
 
 
-grouped_codes
+#grouped_codes
 # Créer une colonne 'Categorie' dans le DataFrame df
 df['Categorie'] = None
 
