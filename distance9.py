@@ -118,6 +118,204 @@ def add_blinking_markers(data):
 st.markdown("<h2 style='font-size:28px;'>Appareillement Gun (bleu)-Geocodage (rouge) </h2>", unsafe_allow_html=True)
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import math
+
+# Fonction pour calculer la distance entre deux points en coordonnées géographiques (lat, lon)
+def haversine_distance(lat1, lon1, lat2, lon2):
+    R = 6371000  # Rayon de la Terre en mètres
+    phi_1 = math.radians(lat1)
+    phi_2 = math.radians(lat2)
+    delta_phi = math.radians(lat2 - lat1)
+    delta_lambda = math.radians(lon2 - lon1)
+
+    a = math.sin(delta_phi / 2.0) ** 2 + math.cos(phi_1) * math.cos(phi_2) * math.sin(delta_lambda / 2.0) ** 2
+    c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
+
+    distance = R * c
+    return distance
+
+# Créer une liste pour stocker les groupes de points regroupés par distance
+grouped_points = []
+
+# Parcourir les points dans filtered_data pour les regrouper
+for _, row1 in df.iterrows():
+    is_added = False
+    for group in grouped_points:
+        row2 = group[0]
+        distance = haversine_distance(row1['latitude'], row1['longitude'], row2['latitude'], row2['longitude'])
+        if distance <= 20000:  # Modifier la distance de regroupement selon vos besoins
+            group.append(row1)
+            is_added = True
+            break
+    if not is_added:
+        grouped_points.append([row1])
+
+# Créer une liste pour stocker les codes AIOT correspondant à chaque groupe de points
+grouped_codes = []
+
+# Parcourir les groupes de points dans grouped_points
+for group in grouped_points:
+    group_codes = [row['Code_AIOT'] for row in group]  # Extraire les codes AIOT du groupe
+    grouped_codes.append(group_codes)  # Ajouter la liste de codes AIOT au groupe correspondant
+#st.sidebar.write(grouped_codes)
+
+
+grouped_codes
+# Créer une colonne 'Categorie' dans le DataFrame df
+df['Categorie'] = None
+
+# Parcourir les points dans df et assigner la catégorie en fonction des groupes
+for group_idx, group in enumerate(grouped_points):
+    group_codes = [row['Code_AIOT'] for row in group]  # Extraire les codes AIOT du groupe
+    df.loc[df['Code_AIOT'].isin(group_codes), 'Categorie'] = f'Categorie {group_idx + 1}'
+
+
+#st.sidebar.write(df)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Afficher le titre dans le sidebar
+st.sidebar.markdown("<h2 style='font-size:18px;'>Afficher la table Gun</h2>", unsafe_allow_html=True)
+
+# Afficher la table dans le sidebar
+with st.sidebar.expander("Afficher/Masquer"):
+    # Afficher la table à l'intérieur de la section expansible dans le sidebar
+    st.dataframe(df)
+
+
 # Afficher le contenu dans l'expander
 with st.sidebar.expander("Informations"):
     st.sidebar.info('''Les temps de réponse sont un peu longs, il faut patienter...
@@ -200,7 +398,7 @@ lines_geojson_layer.add_to(m)
 #st.sidebar.markdown("<h2 style='font-size:18px;'>Sélectionner parmi les {len(filtered_df)} données filtrées, les points Gun à mettre en évidence (sélection multiple possible)</h2>", unsafe_allow_html=True)
 # Triez les codes AIOT dans l'ordre décroissant
 sorted_codes = sorted( filtered_df['Code_AIOT'].unique(), reverse=True)
-
+sorted_cat = sorted( filtered_df['Categorie'].unique(), reverse=True)
 
 st.sidebar.markdown(f"<h2 style='font-size:18px;'>Sélectionner parmi les {len(filtered_df)} données filtrées, les points Gun à mettre en évidence sur la carte (pts blancs)</h2>", unsafe_allow_html=True)
 st.sidebar.markdown("")
@@ -209,6 +407,12 @@ selected_codes = st.sidebar.multiselect("", sorted_codes)
 filtered_data = df[df['Code_AIOT'].isin(selected_codes)]
 
 
+
+st.sidebar.markdown(f"<h2 style='font-size:18px;'>Sélectionner parmi les {len(filtered_df)} données filtrées, les points Gun à mettre en évidence sur la carte (pts blancs) par categorie</h2>", unsafe_allow_html=True)
+st.sidebar.markdown("")
+selected_cat = st.sidebar.multiselect("", sorted_cat)
+
+#filtered_data = df[df['Categorie'].isin(selected_cat)]
 
 
 
