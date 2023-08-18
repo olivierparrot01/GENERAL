@@ -1,57 +1,153 @@
 import streamlit as st
 import pandas as pd
-import matplotlib.pyplot as plt
+import folium
+from streamlit_folium import folium_static
+from folium.plugins import Fullscreen
+import requests
 import numpy as np
 
-# Load data from CSV file
-df= pd.read_csv('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/1geocodage.csv')              
+st.session_state.click_data = None
 
-# Define distance bins
-distance_bins = list(range(0, 600, 100)) + [np.inf]  # Up to 500m and then >500m
+# Load GeoJSON data
+geojson_url = 'https://raw.githubusercontent.com/olivierparrot01/ICPE/main/line_json_wgs84.geojson'
+lines_geojson_data = requests.get(geojson_url).json()
 
-# Categorize distances into bins
-df['distance_category'] = pd.cut(df['Distance'], bins=distance_bins, labels=['0-100m', '100-200m', '200-300m', '300-400m', '400-500m', '>500m'])
+# Convert 'Distance' column to integer
+for feature in lines_geojson_data['features']:
+    if 'properties' in feature and 'Distance' in feature['properties']:
+        feature['properties']['Distance'] = int(feature['properties']['Distance'])
 
-# Create histogram for distance categories
-hist_data = df['distance_category'].value_counts().sort_index()
+# Load data
+df = pd.read_csv('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/0208_gun.csv')
+dg = pd.read_csv('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/2geocodage.csv')
 
-# Calculate proportions for 'Statut_IED' and 'Statut_Seveso' in each distance category
-statut_ied_proportions = df[df['Statut_IED'] == 'Oui']['distance_category'].value_counts(normalize=True).sort_index()
-statut_seveso_proportions = df[df['Statut_Sev'] == 'Seveso seuil haut']['distance_category'].value_counts(normalize=True).sort_index()
+# Data conversions
+dg = dg[dg['Distance'] >= 0]
+dg['Distance'] = dg['Distance'].astype(int)
+dg['Code_AIOT'] = dg['Code_AIOT'].astype(str)
+dg["Code_AIOT_liste"] = dg.groupby(["latitude", "longitude"])["Code_AIOT"].transform(lambda x: ", ".join(x))
 
-# Plot the histogram
-fig, ax = plt.subplots()
-bars = ax.bar(hist_data.index, hist_data.values, label='Total')
+df['Code_AIOT'] = df['Code_AIOT'].astype(str)
+df['Nom_usuel'] = df['Nom_usuel'].astype(str)
+df["Code_AIOT_liste"] = df.groupby(["latitude", "longitude"])["Code_AIOT"].transform(lambda x: ", ".join(x))
+df['Adresse_concat'] = df['Adresse 1'].str.cat([df['Adresse 2'], df['Adresse 3']], sep=' ', na_rep='')
 
-# Plot the proportions of 'Statut_IED' in each distance category
-bars_statut_ied = ax.bar(statut_ied_proportions.index, statut_ied_proportions.values * hist_data.values,
-                        label='Statut_IED', alpha=0.7)
+# Merge df and dg on 'Code_AIOT'
+df = df.merge(dg[['Code_AIOT', 'Distance']], on='Code_AIOT', how='left')
+df = df[df['Distance'] >= 0]
+df['Distance'] = df['Distance'].astype(int)
 
-# Plot the proportions of 'Statut_Seveso' in each distance category
-bars_statut_seveso = ax.bar(statut_seveso_proportions.index, statut_seveso_proportions.values * hist_data.values,
-                           label='Statut_Seveso', alpha=0.7)
+# Data cleanup
+df = df.drop(["Courriel d'échange avec l'administration", "Région", "Unnamed: 0"], axis=1)
 
-# Add labels to the bars
-for bar in bars:
-    height = bar.get_height()
-    ax.annotate('{}'.format(height),
-                xy=(bar.get_x() + bar.get_width() / 2, height),
-                xytext=(0, 3),  # 3 points vertical offset
-                textcoords="offset points",
-                ha='center', va='bottom')
+# Create a list to store captured coordinates
+captured_coordinates_list = []
 
-st.write('Counts:')
-st.write(hist_data)
-st.write('Proportions of Statut_IED:')
-st.write(statut_ied_proportions * 100)
-st.write('Proportions of Statut_Seveso:')
-st.write(statut_seveso_proportions * 100)
-# Customize the plot
-plt.xlabel('Distance')
-plt.ylabel('Count')
-plt.title('Distance Histogram with Statut Proportions')
-plt.xticks(rotation=45)
-plt.legend()
+# Function to add markers to the map
+def add_markers(data, color):
+    for _, row in data.iterrows():
+        popup_content = f"Nom usuel : {row['Nom_usuel']}<br>Code AIOT : {row['Code_AIOT_liste']}"
+        tooltip_content = f"Nom usuel : {row['Nom_usuel']}<br>Code AIOT : {row['Code_AIOT_liste']}"
+        
+        folium.CircleMarker(
+            location=[row['latitude'], row['longitude']],
+            radius=5,
+            color=color,
+            fill=True,
+            fill_color=color,
+            fill_opacity=1,
+            popup=popup_content,
+            tooltip=tooltip_content,
+        ).add_to(m)
 
-# Show the plot in Streamlit
-st.pyplot(fig)
+# Function to add blinking markers to the map
+def add_blinking_markers(data):
+    marker_cluster = plugins.MarkerCluster()
+    for _, row in data.iterrows():
+        tooltip_content = f"Nom usuel : {row['Nom_usuel']}<br>Code AIOT : {row['Code_AIOT_liste']}"
+        
+        marker = folium.Marker(
+            location=[row['latitude'], row['longitude']],
+            tooltip=tooltip_content,
+            icon=None  # No default icon, to use custom CSS animation
+        )
+        marker_cluster.add_child(marker)
+
+    m.add_child(marker_cluster)
+
+st.markdown("<h2 style='font-size:28px;'>Appareillement Gun (bleu)-Geocodage (rouge) </h2>", unsafe_allow_html=True)
+
+# Sidebar options
+st.sidebar.title("Options")
+
+# Sidebar section to filter the DataFrame based on selected criteria
+selected_criteria = st.sidebar.multiselect("Critères de sélection", ["Statut Seveso", "Statut IED", "Distance"])
+
+# Apply the selected criteria to filter the DataFrame
+filtered_df = df.copy()
+for criterion in selected_criteria:
+    if criterion == 'Statut Seveso':
+        unique_values = filtered_df['Statut Seveso'].unique()
+        selected_value = st.sidebar.selectbox("Statut Seveso", options=unique_values)
+        filtered_df = filtered_df[filtered_df['Statut Seveso'] == selected_value]
+    elif criterion == 'Statut IED':
+        unique_values = filtered_df['Statut IED'].unique()
+        selected_value = st.sidebar.selectbox("Statut IED", options=unique_values)
+        filtered_df = filtered_df[filtered_df['Statut IED'] == selected_value]
+    elif criterion == 'Distance':
+        min_distance = df['Distance'].min()
+        max_distance = df['Distance'].max()
+        selected_distance = st.sidebar.slider("La distance est supérieure ou égale à :", min_value=min_distance, max_value=max_distance, step=50)
+        filtered_df = filtered_df[filtered_df['Distance'] >= selected_distance]
+        if st.sidebar.button("Filtrer entre 10000 et max"):
+            filtered_df = filtered_df[(filtered_df['Distance'] >= 10000) & (filtered_df['Distance'] <= max_distance)]
+        else:
+            filtered_df = filtered_df[filtered_df['Distance'] >= selected_distance]
+
+# Display filtered DataFrame in an expander
+with st.sidebar.expander("Afficher les données filtrées"):
+    st.write("Données filtrées :", filtered_df)
+
+# Map center coordinates
+center_lat = (df['latitude'].mean() + dg['latitude'].mean()) / 2
+center_lon = (df['longitude'].mean() + dg['longitude'].mean()) / 2
+
+# Create a Folium map
+m = folium.Map(location=[center_lat, center_lon], zoom_start=8, control_scale=True)
+
+# Add markers for df (blue) and dg (red)
+add_markers(df, 'blue')
+add_markers(dg, 'red')
+
+# Add blinking markers for df
+add_blinking_markers(df)
+
+# Add GeoJSON layer of lines to the map
+lines_geojson_layer.add_to(m)
+
+# Add full screen button to the map
+fullscreen = Fullscreen(position="topleft", title="Plein écran", title_cancel="Quitter le plein écran")
+fullscreen.add_to(m)
+
+# Display the map using folium_static
+folium_static(m)
+
+# Retrieve coordinates from the popup if available
+try:
+    captured_coords = popup.html.split(",")
+    latitude = float(captured_coords[0].split(":")[1])
+    longitude = float(captured_coords[1].split(":")[1])
+    popup_content = popup.get_name()
+    st.write(popup_content)
+except AttributeError:
+    st.write("")
+
+# Display information in the sidebar
+st.sidebar.markdown("<h2 style='font-size:18px;'>Adresses, coordonnées Gun et liens Google Maps des points sélectionnés :</h2>", unsafe_allow_html=True)
+for _, row in filtered_data.iterrows():
+    st.sidebar.write(f"- Adresse Gun : {row['Adresse_concat']}, Coordonnées Gun : {row['longitude']}, {row['latitude']}")
+    formatted_address = row['Adresse_concat'].replace(' ', '-')
+    google_maps_link_address = f"[Ouvrir dans Google Maps à partir de l'adresse Gun](https://www.google.com/maps/search/?api=1&query={formatted_address})"
+    st.sidebar.markdown(google_maps_link_address, unsafe_allow_html=True)
+    google_maps_link_coords = f"[Ouvrir dans Google Maps à partir des coordonnées Gun](https://www.google.com/maps?q={row['latitude']},{row['longitude']})"
+    st.sidebar.markdown(google_maps_link_coords, unsafe_allow_html=True)
