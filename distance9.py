@@ -148,12 +148,14 @@ for criterion in selected_criteria:
         filtered_df = filtered_df[filtered_df['Statut IED'] == selected_value]
 
     elif criterion == 'Distance':
-        selected_distance = st.sidebar.slider("La distance est supérieure ou égale à :", min_value=df['Distance'].min(), max_value=df['Distance'].max(), step=100,format="%d" )
+        selected_distance = st.sidebar.slider("La distance est supérieure ou égale à :", min_value=df['Distance'].min(), max_value=df['Distance'].max(), step=100 )
         filtered_df = filtered_df[filtered_df['Distance'] >= selected_distance]
 
 
 # Use an expander to display the filtered DataFrame in the sidebar
 with st.sidebar.expander("Afficher les données filtrées"):
+    # Convert the 'Distance' column to integer and format it without commas
+    filtered_df['Distance'] = filtered_df['Distance'].astype(int).apply(lambda x: '{:,}'.format(x))
     st.write("Données filtrées :", filtered_df)
 
 
