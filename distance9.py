@@ -153,7 +153,7 @@ for criterion in selected_criteria:
         min_distance =1
         max_distance = df['Distance'].max()      
         selected_log_distance = st.sidebar.slider(    "La distance est supérieure ou égale à (échelle logarithmique) :",
-        min_value0,
+        min_value=0,
         max_value=np.log10(23040),
         step=100,
         format="%f")       
