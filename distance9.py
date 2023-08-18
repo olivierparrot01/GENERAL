@@ -131,8 +131,8 @@ st.sidebar.title("Options")
 
 
 # Sidebar section to filter the DataFrame based on selected criteria
-#st.sidebar.subheader("Filtrer les données par "Statut Seveso", "Statut IED" ou "Distance"]")
-selected_criteria = st.sidebar.multiselect("Critères de sélection", ["Statut Seveso", "Statut IED", "Distance"])
+#st.sidebar.subheader("Filtrer les données par "Statut Seveso", "Statut IED" ou "Distance")
+selected_criteria = st.sidebar.multiselect("Filtrer les données par Statut Seveso, Statut IED ou Distance", ["Statut Seveso", "Statut IED", "Distance"])
 
 
 
