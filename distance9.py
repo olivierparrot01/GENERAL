@@ -126,7 +126,7 @@ with st.sidebar.expander("Informations"):
                     La virgule dans les grandes valeurs de distance est le séparateur de millier et non la virgule décimale.''')
 
 
-st.sidebar.markdown("<h2 style='font-size:18px;'>Filtrer les données par Statut Seveso, Statut IED ou Distance (distance ente les pts homologues Gun-Geocodage)</h2>", unsafe_allow_html=True)
+st.sidebar.markdown("<h2 style='font-size:18px;'>Filtrer les données Gun par Statut Seveso, Statut IED ou Distance (distance ente les pts homologues Gun-Geocodage)</h2>", unsafe_allow_html=True)
 st.sidebar.markdown("")
 selected_criteria = st.sidebar.multiselect("", ["Statut Seveso", "Statut IED", "Distance"])                                                                                                           
 st.sidebar.markdown("")
@@ -173,7 +173,7 @@ with st.sidebar.expander(f"Afficher les {len(filtered_df)} données filtrées"):
 count_none = filtered_df['Distance'].isna().sum()
 
 # Afficher le nombre de valeurs "None" dans le sidebar
-st.sidebar.info(f"Nombre de valeurs 'None' dans la colonne 'Distance' : {count_none}")
+st.sidebar.info(f"Nombre de pts Gun non géocodés parmi les données filtrées : {count_none}")
 
 
 
@@ -202,7 +202,7 @@ lines_geojson_layer.add_to(m)
 sorted_codes = sorted( filtered_df['Code_AIOT'].unique(), reverse=True)
 
 
-st.sidebar.markdown(f"<h2 style='font-size:18px;'>Sélectionner parmi les {len(filtered_df)} données filtrées, les points Gun à mettre en évidence (sélection multiple possible)</h2>", unsafe_allow_html=True)
+st.sidebar.markdown(f"<h2 style='font-size:18px;'>Sélectionner parmi les {len(filtered_df)} données filtrées, les points Gun à mettre en évidence sur la carte (pts blancs)</h2>", unsafe_allow_html=True)
 st.sidebar.markdown("")
 selected_codes = st.sidebar.multiselect("", sorted_codes)
 
