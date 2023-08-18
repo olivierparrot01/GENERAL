@@ -544,7 +544,7 @@ for index, row in df.iterrows():
         ).add_to(m)
 
 # Zoomer sur les points sélectionnés
-if selected_codes:
+if selected_codes1:
     selected_data = df[df['Code_AIOT'].isin(selected_codes1)]
     if not selected_data.empty:
         bounds = [
