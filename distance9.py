@@ -128,7 +128,7 @@ st.markdown("<h2 style='font-size:28px;'>Appareillement Gun (bleu)-Geocodage (ro
 # Sidebar section to filter the DataFrame based on selected criteria
 #st.sidebar.subheader("Filtrer les données par "Statut Seveso", "Statut IED" ou "Distance")
 
-st.sidebar.markdown("<h2 style='font-size:18px;'>Filtrer les données par Statut Seveso, Statut IED ou Distance (distance ente les pts homologues Gun-Geocodage</h2>", unsafe_allow_html=True)
+st.sidebar.markdown("<h2 style='font-size:18px;'>Filtrer les données par Statut Seveso, Statut IED ou Distance (distance ente les pts homologues Gun-Geocodage)</h2>", unsafe_allow_html=True)
 st.sidebar.markdown("")
 selected_criteria = st.sidebar.multiselect("", ["Statut Seveso", "Statut IED", "Distance"])                                                                                                           
 st.sidebar.markdown("")
