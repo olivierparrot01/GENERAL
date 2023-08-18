@@ -10,7 +10,7 @@ import requests
 import base64
 import numpy as np
 
-st.session_state.click_data = None
+#st.session_state.click_data = None
 
 # URL du GeoJSON
 geojson_url = 'https://raw.githubusercontent.com/olivierparrot01/ICPE/main/line_json_wgs84.geojson'
@@ -205,7 +205,6 @@ grouped_codes = []
 for group in grouped_points:
     group_codes = [row['Code_AIOT'] for row in group]  # Extraire les codes AIOT du groupe
     grouped_codes.append(group_codes)  # Ajouter la liste de codes AIOT au groupe correspondant
-#st.sidebar.write(grouped_codes)
 
 
 grouped_codes
@@ -218,7 +217,6 @@ for group_idx, group in enumerate(grouped_points):
     df.loc[df['Code_AIOT'].isin(group_codes), 'Categorie'] = f'Categorie {group_idx + 1}'
 
 
-#st.sidebar.write(df)
 
 
 
