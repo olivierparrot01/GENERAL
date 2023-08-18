@@ -170,7 +170,7 @@ for criterion in selected_criteria:
 with st.sidebar.expander(f"Afficher les {len(filtered_df)} données filtrées"):
     filtered_df_formatted = filtered_df.copy()
     filtered_df_formatted['Distance'] = filtered_df_formatted['Distance'].apply(lambda x: "{:.0f}".format(x))
-    
+    filtered_df_formatted['Distance'] = filtered_df_formatted['Distance'].astype(int)
     # Afficher les données filtrées dans le sidebar
     st.write(filtered_df_formatted)
 
