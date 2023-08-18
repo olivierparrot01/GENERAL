@@ -63,7 +63,7 @@ df['Adresse_concat'] = df['Adresse 1'].str.cat([df['Adresse 2'], df['Adresse 3']
 
 # Merge df and dg on 'Code_AIOT'
 df = df.merge(dg[['Code_AIOT', 'Distance']], on='Code_AIOT', how='left')
-df = df[df['Distance'] >= 0]
+#df = df[df['Distance'] >= 0]
 df['Distance'] = df['Distance'].astype(int)
 
 
