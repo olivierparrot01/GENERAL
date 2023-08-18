@@ -123,11 +123,6 @@ st.markdown("<h2 style='font-size:28px;'>Appareillement Gun (bleu)-Geocodage (ro
 #st.write("Afficher/Masquer")
 #st.dataframe(df)
 
-# Sidebar pour les options et l'affichage des données
-st.sidebar.write("Options : ")
-
-
-
 
 
 # Sidebar section to filter the DataFrame based on selected criteria
