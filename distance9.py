@@ -133,7 +133,7 @@ st.sidebar.write("Options : ")
 # Sidebar section to filter the DataFrame based on selected criteria
 #st.sidebar.subheader("Filtrer les données par "Statut Seveso", "Statut IED" ou "Distance")
 selected_criteria = st.sidebar.multiselect("Filtrer les données par Statut Seveso, Statut IED ou Distance (distance ente les pts homologues Gun-Geocodage)", ["Statut Seveso", "Statut IED", "Distance"])
-st.sidebar.markdown("<h2 style='font-size:14px;'></h2>", unsafe_allow_html=Tr)
+st.sidebar.markdown("<h2 style='font-size:14px;'></h2>", unsafe_allow_html=Tr")
 
 
 # Apply the selected criteria to filter the DataFrame
@@ -197,7 +197,7 @@ lines_geojson_layer.add_to(m)
 sorted_codes = sorted( filtered_df['Code_AIOT'].unique(), reverse=True)
 
 selected_codes = st.sidebar.multiselect(f"Sélectionner parmi les {len(filtered_df)} données filtrées, les points Gun à mettre en évidence sur la carte, patienter...", sorted_codes)
-st.sidebar.markdown("<h2 style='font-size:14px;'></h2>", unsafe_allow_html=Tr)
+st.sidebar.markdown("<h2 style='font-size:14px;'></h2>", unsafe_allow_html=Tr")
 filtered_data = df[df['Code_AIOT'].isin(selected_codes)]
 
 
