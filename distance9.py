@@ -307,8 +307,6 @@ for group_idx, group in enumerate(grouped_points):
 
 
 
-# Afficher le titre dans le sidebar
-#st.sidebar.markdown("<h2 style='font-size:18px;'>Afficher la table Gun</h2>", unsafe_allow_html=True)
 
 # Afficher le contenu dans l'expander
 with st.sidebar.expander("Informations"):
@@ -318,6 +316,8 @@ with st.sidebar.expander("Informations"):
                     La virgule dans les grandes valeurs de distance est le séparateur de millier et non la virgule décimale.''')
 
 
+# Afficher le titre dans le sidebar
+st.sidebar.markdown("<h2 style='font-size:18px;'>Afficher la table Gun</h2>", unsafe_allow_html=True)
 
 # Afficher la table dans le sidebar
 with st.sidebar.expander("Afficher/Masquer"):
