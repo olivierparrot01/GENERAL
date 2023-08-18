@@ -63,7 +63,7 @@ df['Adresse_concat'] = df['Adresse 1'].str.cat([df['Adresse 2'], df['Adresse 3']
 
 # Merge df and dg on 'Code_AIOT'
 df = df.merge(dg[['Code_AIOT', 'Distance']], on='Code_AIOT', how='left')
-df = df[df['Distance'] >= 0]
+#df = df[df['Distance'] >= 0]
 #df['Distance'] = df['Distance'].astype(int)
 
 
@@ -158,11 +158,11 @@ for criterion in selected_criteria:
 
 # Use an expander to display the filtered DataFrame in the sidebar
 with st.sidebar.expander(f"Afficher les {len(filtered_df)} données filtrées"):
-    filtered_df_formatted = filtered_df.copy()
-    filtered_df_formatted['Distance'] = filtered_df_formatted['Distance'].apply(lambda x: "{:.0f}".format(x))
-    filtered_df_formatted['Distance'] = filtered_df_formatted['Distance'].astype(float)
+    #filtered_df_formatted = filtered_df.copy()
+    #filtered_df_formatted['Distance'] = filtered_df_formatted['Distance'].apply(lambda x: "{:.0f}".format(x))
+    #filtered_df_formatted['Distance'] = filtered_df_formatted['Distance'].astype(float)
     # Afficher les données filtrées dans le sidebar
-    st.write(filtered_df_formatted)
+    st.write(filtered_df)
 
 # Calcul des coordonnées du centre de la carte
 center_lat = (df['latitude'].mean() + dg['latitude'].mean()) / 2
