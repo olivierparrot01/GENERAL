@@ -150,17 +150,14 @@ for criterion in selected_criteria:
     elif criterion == 'Distance':
         # Calculate the step value for the slider based on the range of distances
         min_distance = df['Distance'].min()
-        max_distance = df['Distance'].max()
-       # Display the slider in the sidebar with a logarithmic scale
+        max_distance = df['Distance'].max()      
         selected_log_distance = st.sidebar.slider(    "La distance est supérieure ou égale à (échelle logarithmique) :",
         min_value=np.log10(min_distance),
         max_value=np.log10(max_distance),
         step=0.1,  # Adjust the step value for smoothness
-        format="%d m"  # Format the labels as "X m")
-        # Convert the selected logarithmic distance back to linear scale
-    selected_distance = 10 ** selected_log_distance
-
-    filtered_df = filtered_df[filtered_df['Distance'] >= selected_distance]
+        format="%d m"  # Format the labels as "X m")       
+        selected_distance = 10 ** selected_log_distance
+        filtered_df = filtered_df[filtered_df['Distance'] >= selected_distance]
 
 
 # Use an expander to display the filtered DataFrame in the sidebar
