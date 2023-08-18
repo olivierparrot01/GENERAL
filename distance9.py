@@ -410,12 +410,14 @@ filtered_data = df[df['Code_AIOT'].isin(selected_codes)]
 
 st.sidebar.markdown(f"<h2 style='font-size:18px;'>Sélectionner parmi les {len(filtered_df)} données filtrées, les points Gun à mettre en évidence sur la carte (pts blancs) par categorie</h2>", unsafe_allow_html=True)
 st.sidebar.markdown("")
-selected_cat = st.sidebar.multiselect("", sorted_cat)
+#selected_cat = st.sidebar.multiselect("", sorted_cat)
 
 #filtered_data = df[df['Categorie'].isin(selected_cat)]
 
 
 
+selected_cat = st.sidebar.multiselect("Sélectionner des catégories", df['Categorie'].unique())
+selected_codes1 = df[df['Categorie'].isin(selected_cat)]['Code_AIOT'].tolist()
 
 
 
@@ -521,7 +523,7 @@ selected_cat = st.sidebar.multiselect("", sorted_cat)
 
 # Ajouter les marqueurs blanc pour les points sélectionnés
 for index, row in df.iterrows():
-    if row['Code_AIOT'] in selected_cat:
+    if row['Code_AIOT'] in selected_codes1:
         folium.CircleMarker(
             location=[row['latitude'], row['longitude']],
             radius=8,
@@ -535,7 +537,7 @@ for index, row in df.iterrows():
 
 # Zoomer sur les points sélectionnés
 if selected_codes:
-    selected_data = df[df['Code_AIOT'].isin(selected_cat)]
+    selected_data = df[df['Code_AIOT'].isin(selected_codes1)]
     if not selected_data.empty:
         bounds = [
             (selected_data['latitude'].min(), selected_data['longitude'].min()),
