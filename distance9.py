@@ -164,7 +164,7 @@ for criterion in selected_criteria:
 
 # Use an expander to display the filtered DataFrame in the sidebar
 with st.sidebar.expander(f"Afficher les {len(filtered_df)} données filtrées"):
-     sorted_filtered_df = filtered_df.sort_values(by='Distance', na_position='first')
+    sorted_filtered_df = filtered_df.sort_values(by='Distance', na_position='first')
     # Afficher les données filtrées dans le sidebar
     
     st.write(sorted_filtered_df)
