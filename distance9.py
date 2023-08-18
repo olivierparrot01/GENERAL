@@ -169,6 +169,15 @@ with st.sidebar.expander(f"Afficher les {len(filtered_df)} données filtrées"):
     
     st.write(sorted_filtered_df)
 
+# Calculer le nombre de valeurs "None" dans la colonne "Distance"
+count_none = filtered_df['Distance'].isna().sum()
+
+# Afficher le nombre de valeurs "None" dans le sidebar
+st.sidebar.info(f"Nombre de valeurs 'None' dans la colonne 'Distance' : {count_none}")
+
+
+
+
 # Calcul des coordonnées du centre de la carte
 center_lat = (df['latitude'].mean() + dg['latitude'].mean()) / 2
 center_lon = (df['longitude'].mean() + dg['longitude'].mean()) / 2
