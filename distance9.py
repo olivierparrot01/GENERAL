@@ -168,11 +168,11 @@ for criterion in selected_criteria:
 
 # Use an expander to display the filtered DataFrame in the sidebar
 with st.sidebar.expander(f"Afficher les {len(filtered_df)} données filtrées"):
-    # Convert the 'Distance' column to integer and format it without commas
-    #filtered_df['Distance'] = filtered_df['Distance'].astype(str)
-    #filtered_df= filtered_df.astype(str)
-    st.write( filtered_df)
-
+    filtered_df_formatted = filtered_df.copy()
+    filtered_df_formatted['Distance'] = filtered_df_formatted['Distance'].apply(lambda x: "{:.0f}".format(x))
+    
+    # Afficher les données filtrées dans le sidebar
+    st.write(filtered_df_formatted)
 
 # Calcul des coordonnées du centre de la carte
 center_lat = (df['latitude'].mean() + dg['latitude'].mean()) / 2
