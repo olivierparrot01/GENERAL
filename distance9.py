@@ -131,7 +131,7 @@ st.sidebar.title("Options")
 
 
 # Sidebar section to filter the DataFrame based on selected criteria
-#st.sidebar.subheader("Filtrer les données")
+#st.sidebar.subheader("Filtrer les données par "Statut Seveso", "Statut IED" ou "Distance"]")
 selected_criteria = st.sidebar.multiselect("Critères de sélection", ["Statut Seveso", "Statut IED", "Distance"])
 
 
@@ -292,7 +292,7 @@ except AttributeError:
 
 
 # Afficher le titre dans le sidebar
-st.sidebar.markdown("<h2 style='font-size:12px;'>Adresses, coordonnées Gun et liens Google Maps des points sélectionnés :</h2>", unsafe_allow_html=True)
+st.sidebar.markdown("<h2 style='font-size:14px;'>Adresses, coordonnées Gun et liens Google Maps des points sélectionnés :</h2>", unsafe_allow_html=True)
 
 # Afficher le contenu dans le sidebar
 for _, row in filtered_data.iterrows():
