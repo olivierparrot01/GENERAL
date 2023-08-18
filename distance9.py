@@ -159,11 +159,9 @@ for criterion in selected_criteria:
         filtered_df = filtered_df[filtered_df['Distance'] >= selected_distance]
         # Add a button to filter distances between 10000 and the max distance
         if st.sidebar.button("Filtrer entre 10000 et max"):
-        filtered_df = filtered_df[
-            (filtered_df['Distance'] >= 10000) & (filtered_df['Distance'] <= max_distance)
-        ]
+            filtered_df = filtered_df[(filtered_df['Distance'] >= 10000) & (filtered_df['Distance'] <= max_distance)        ]
         else:
-        filtered_df = filtered_df[filtered_df['Distance'] >= selected_distance]
+            filtered_df = filtered_df[filtered_df['Distance'] >= selected_distance]
 
 # Use an expander to display the filtered DataFrame in the sidebar
 with st.sidebar.expander("Afficher les données filtrées"):
