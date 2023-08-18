@@ -8,6 +8,7 @@ from folium import plugins
 from folium.plugins import Fullscreen
 import requests
 import base64
+import numpy as np
 
 st.session_state.click_data = None
 
