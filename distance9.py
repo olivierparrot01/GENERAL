@@ -156,7 +156,7 @@ for criterion in selected_criteria:
         max_value=np.log10(max_distance),
         step=0.1,  # Adjust the step value for smoothness
         format="%d m"  # Format the labels as "X m")       
-        selected_distance = 10 ** selected_log_distance
+        selected_distance = int(10 ** selected_log_distance)
         filtered_df = filtered_df[filtered_df['Distance'] >= selected_distance]
 
 
