@@ -168,7 +168,7 @@ with st.sidebar.expander("Afficher les données filtrées"):
     # Convert the 'Distance' column to integer and format it without commas
     #filtered_df['Distance'] = filtered_df['Distance'].astype(str)
     #filtered_df= filtered_df.astype(str)
-    st.write("Données filtrées :", filtered_df)
+    st.write( filtered_df)
 
 
 
