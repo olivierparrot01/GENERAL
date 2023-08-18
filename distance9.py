@@ -53,11 +53,13 @@ dg = pd.read_csv('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/2g
 dg = dg[dg['Distance'] >= 0]
 dg['Distance'] = dg['Distance'].astype(int)
 dg['Code_AIOT'] = dg['Code_AIOT'].astype(str)
+dg["Code_AIOT_liste"] = dg.groupby(["latitude", "longitude"])["Code_AIOT"].transform(lambda x: ", ".join(x))
 df['Code_AIOT'] = df['Code_AIOT'].astype(str)
 df['Nom_usuel'] = df['Nom_usuel'].astype(str)
 df["Code_AIOT_liste"] = df.groupby(["latitude", "longitude"])["Code_AIOT"].transform(lambda x: ", ".join(x))
 df['Adresse_concat'] = df['Adresse 1'].str.cat([df['Adresse 2'], df['Adresse 3']], sep=' ', na_rep='')
-dg["Code_AIOT_liste"] = dg.groupby(["latitude", "longitude"])["Code_AIOT"].transform(lambda x: ", ".join(x))
+df['Distance'] = df['Distance'].astype(int)
+
 
 
 df= df.drop("Courriel d'échange avec l'administration", axis=1)
