@@ -241,11 +241,7 @@ filtered_data = df[df['Code_AIOT'].isin(selected_codes)]
 
 
 
-
-
-
-
-
+import math
 
 
 
