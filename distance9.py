@@ -7,7 +7,7 @@ import json
 from folium import plugins
 from folium.plugins import Fullscreen
 import requests
-import base64
+import base64 ni
 import numpy as np
 
 #st.session_state.click_data = None
@@ -233,7 +233,7 @@ with st.sidebar.expander(f"Afficher les {len(filtered_df)} données filtrées"):
 count_none = filtered_df['Distance'].isna().sum()
 
 # Afficher le nombre de valeurs "None" dans le sidebar
-st.sidebar.info(f"Nombre de pts Gun non géocodés parmi les données filtrées (valeurs 'None' dans "Distance") : {count_none}")
+st.sidebar.info(f"Nombre de pts Gun non géocodés parmi les données filtrées valeurs 'None' dans "Distance" : {count_none}")
 
 
 
