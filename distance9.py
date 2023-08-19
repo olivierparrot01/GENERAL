@@ -161,7 +161,7 @@ for group in grouped_points:
 
 #grouped_codes
 # Créer une colonne 'Categorie' dans le DataFrame df
-df[Secteur'] = None
+df['Secteur'] = None
 
 # Parcourir les points dans df et assigner la catégorie en fonction des groupes
 for group_idx, group in enumerate(grouped_points):
