@@ -115,7 +115,7 @@ def add_blinking_markers(data):
     m.add_child(marker_cluster)
 
 
-st.markdown("<h2 style='font-size:28px;'>Appareillement Gun (bleu)-Geocodage (rouge) </h2>", unsafe_allow_html=True
+st.markdown("<h2 style='font-size:28px;'>Appareillement Gun (bleu)-Geocodage (rouge) </h2>", unsafe_allow_html=True)
 
 
 import math
