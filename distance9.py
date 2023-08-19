@@ -285,7 +285,7 @@ selected_codes1 = df[df['Secteur'].isin(selected_cat)]['Code_AIOT'].tolist()
 
 # Combinez les listes selected_codes et selected_codes1 en une seule liste
 selected_codes_combined = selected_codes + selected_codes1
-selected_codes_combined = selected_codes_combined.unique()
+#selected_codes_combined = selected_codes_combined.unique()
 # Mise à jour de la variable de session
 
 #st.session_state.selected_codes_combined = selected_codes_combined
