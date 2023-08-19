@@ -115,55 +115,7 @@ def add_blinking_markers(data):
     m.add_child(marker_cluster)
 
 
-st.markdown("<h2 style='font-size:28px;'>Appareillement Gun (bleu)-Geocodage (rouge) </h2>", unsafe_allow_html=True)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+st.markdown("<h2 style='font-size:28px;'>Appareillement Gun (bleu)-Geocodage (rouge) </h2>", unsafe_allow_html=True
 
 
 import math
@@ -209,101 +161,12 @@ for group in grouped_points:
 
 #grouped_codes
 # Créer une colonne 'Categorie' dans le DataFrame df
-df['Categorie'] = None
+df[Secteur'] = None
 
 # Parcourir les points dans df et assigner la catégorie en fonction des groupes
 for group_idx, group in enumerate(grouped_points):
     group_codes = [row['Code_AIOT'] for row in group]  # Extraire les codes AIOT du groupe
-    df.loc[df['Code_AIOT'].isin(group_codes), 'Categorie'] = f'Categorie {group_idx + 1}'
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    df.loc[df['Code_AIOT'].isin(group_codes), 'Secteur'] = f'Secteur {group_idx + 1}'
 
 
 # Afficher le contenu dans l'expander
@@ -321,13 +184,6 @@ st.sidebar.markdown("<h2 style='font-size:18px;'>Afficher la table Gun</h2>", un
 with st.sidebar.expander("Afficher/Masquer"):
     # Afficher la table à l'intérieur de la section expansible dans le sidebar
     st.dataframe(df)
-
-
-
-
-
-
-
 
 
 st.sidebar.markdown("<h2 style='font-size:18px;'>Filtrer les données Gun par Statut Seveso, Statut IED ou Distance (distance ente les pts homologues Gun-Geocodage)</h2>", unsafe_allow_html=True)
@@ -377,7 +233,7 @@ with st.sidebar.expander(f"Afficher les {len(filtered_df)} données filtrées"):
 count_none = filtered_df['Distance'].isna().sum()
 
 # Afficher le nombre de valeurs "None" dans le sidebar
-st.sidebar.info(f"Nombre de pts Gun non géocodés parmi les données filtrées : {count_none}")
+st.sidebar.info(f"Nombre de pts Gun non géocodés parmi les données filtrées (valeurs None dans "Distance") : {count_none}")
 
 
 
@@ -404,7 +260,7 @@ lines_geojson_layer.add_to(m)
 #st.sidebar.markdown("<h2 style='font-size:18px;'>Sélectionner parmi les {len(filtered_df)} données filtrées, les points Gun à mettre en évidence (sélection multiple possible)</h2>", unsafe_allow_html=True)
 # Triez les codes AIOT dans l'ordre décroissant
 sorted_codes = sorted( filtered_df['Code_AIOT'].unique(), reverse=True)
-sorted_cat = sorted( filtered_df['Categorie'].unique(), reverse=True)
+sorted_cat = sorted( filtered_df['Secteur'].unique(), reverse=True)
 
 st.sidebar.markdown(f"<h2 style='font-size:18px;'>Sélectionner parmi les {len(filtered_df)} données filtrées, les points Gun à mettre en évidence sur la carte (pts blancs)</h2>", unsafe_allow_html=True)
 st.sidebar.markdown("")
@@ -414,7 +270,7 @@ filtered_data = df[df['Code_AIOT'].isin(selected_codes)]
 
 
 
-st.sidebar.markdown(f"<h2 style='font-size:18px;'>Sélectionner parmi les {len(filtered_df)} données filtrées, les points Gun à mettre en évidence sur la carte (pts blancs) par categorie</h2>", unsafe_allow_html=True)
+st.sidebar.markdown(f"<h2 style='font-size:18px;'>Sélectionner parmi les {len(filtered_df)} données filtrées, les points Gun à mettre en évidence sur la carte (pts blancs) par Secteur</h2>", unsafe_allow_html=True)
 st.sidebar.markdown("")
 #selected_cat = st.sidebar.multiselect("", sorted_cat)
 
@@ -422,109 +278,8 @@ st.sidebar.markdown("")
 
 
 
-selected_cat = st.sidebar.multiselect("Sélectionner des catégories", df['Categorie'].unique())
-selected_codes1 = df[df['Categorie'].isin(selected_cat)]['Code_AIOT'].tolist()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+selected_cat = st.sidebar.multiselect("Sélectionner des Secteurs", sorted_cat)
+selected_codes1 = df[df['Secteur'].isin(selected_cat)]['Code_AIOT'].tolist()
 
 
 # Ajouter les marqueurs blanc pour les points sélectionnés
