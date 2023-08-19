@@ -280,11 +280,20 @@ st.sidebar.markdown("")
 
 selected_cat = st.sidebar.multiselect("Sélectionner des Secteurs", sorted_cat)
 selected_codes1 = df[df['Secteur'].isin(selected_cat)]['Code_AIOT'].tolist()
+# Dans la section où vous filtrez les données
+# ...
+
+# Combinez les listes selected_codes et selected_codes1 en une seule liste
+selected_codes_combined = selected_codes + selected_codes1
+selected_codes_combined = selected_codes_combined.unique()
+# Mise à jour de la variable de session
+
+#st.session_state.selected_codes_combined = selected_codes_combined
 
 
 # Ajouter les marqueurs blanc pour les points sélectionnés
 for index, row in df.iterrows():
-    if row['Code_AIOT'] in selected_codes1:
+    if row['Code_AIOT'] in selected_codes_combined:
         folium.CircleMarker(
             location=[row['latitude'], row['longitude']],
             radius=8,
@@ -297,8 +306,8 @@ for index, row in df.iterrows():
         ).add_to(m)
 
 # Zoomer sur les points sélectionnés
-if selected_codes1:
-    selected_data = df[df['Code_AIOT'].isin(selected_codes1)]
+if selected_codes_combined:
+    selected_data = df[df['Code_AIOT'].isin(selected_codes_combined)]
     if not selected_data.empty:
         bounds = [
             (selected_data['latitude'].min(), selected_data['longitude'].min()),
