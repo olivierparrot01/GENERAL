@@ -183,6 +183,7 @@ st.sidebar.markdown("<h2 style='font-size:18px;'>Afficher la table Gun</h2>", un
 # Afficher la table dans le sidebar
 with st.sidebar.expander("Afficher/Masquer"):
     # Afficher la table à l'intérieur de la section expansible dans le sidebar
+    df['Code_AIOT'] = df['Code_AIOT'].astype(int)
     st.dataframe(df)
 
 
