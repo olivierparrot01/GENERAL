@@ -184,6 +184,7 @@ st.sidebar.markdown("<h2 style='font-size:18px;'>Afficher la table Gun</h2>", un
 with st.sidebar.expander("Afficher/Masquer"):
     # Afficher la table à l'intérieur de la section expansible dans le sidebar
     #df['Code_AIOT'] = df['Code_AIOT'].astype(int)
+    df['Secteur'] = df['Secteur'].astype(int)
     st.dataframe(df)
 
 
@@ -226,6 +227,8 @@ for criterion in selected_criteria:
 # Use an expander to display the filtered DataFrame in the sidebar
 with st.sidebar.expander(f"Afficher les {len(filtered_df)} données filtrées"):
     sorted_filtered_df = filtered_df.sort_values(by='Distance', na_position='first')
+    
+    
     # Afficher les données filtrées dans le sidebar
     
     st.write(sorted_filtered_df)
@@ -262,7 +265,8 @@ lines_geojson_layer.add_to(m)
 # Triez les codes AIOT dans l'ordre décroissant
 sorted_codes = sorted( filtered_df['Code_AIOT'].unique(), reverse=False)
 sorted_cat = sorted( filtered_df['Secteur'].unique(), reverse=True)
-sorted_cat=sorted_cat.astype(int)
+sorted_cat = [int(category) for category in sorted_cat]
+
 st.sidebar.markdown(f"<h2 style='font-size:18px;'>Sélectionner parmi les {len(filtered_df)} données filtrées, les points Gun à mettre en évidence sur la carte (pts blancs)</h2>", unsafe_allow_html=True)
 st.sidebar.markdown("")
 selected_codes = st.sidebar.multiselect("", sorted_codes)
