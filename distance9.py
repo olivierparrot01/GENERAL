@@ -228,7 +228,7 @@ for criterion in selected_criteria:
 
         # Add a button to filter distance none
         if st.sidebar.button("Filtrer pts Gun non geocodes"):
-            filtered_df = filtered_df[(filtered_df['Distance'].isna()]
+            filtered_df = filtered_df[filtered_df['Distance'].isna()]
         else:
             filtered_df = filtered_df[filtered_df['Distance'] >= selected_distance]
 
