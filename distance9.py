@@ -53,10 +53,10 @@ dg = pd.read_csv('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/2g
 # Conversion des données
 dg = dg[dg['Distance'] >= 0]
 dg['Distance'] = dg['Distance'].astype(int)
-dg['Code_AIOT'] = dg['Code_AIOT'].astype(str)
+dg['Code_AIOT'] = dg['Code_AIOT'].astype(int)
 dg["Code_AIOT_liste"] = dg.groupby(["latitude", "longitude"])["Code_AIOT"].transform(lambda x: ", ".join(x))
 
-df['Code_AIOT'] = df['Code_AIOT'].astype(str)
+df['Code_AIOT'] = df['Code_AIOT'].astype(int)
 df['Nom_usuel'] = df['Nom_usuel'].astype(str)
 df["Code_AIOT_liste"] = df.groupby(["latitude", "longitude"])["Code_AIOT"].transform(lambda x: ", ".join(x))
 df['Adresse_concat'] = df['Adresse 1'].str.cat([df['Adresse 2'], df['Adresse 3']], sep=' ', na_rep='')
@@ -160,9 +160,9 @@ for group in grouped_points:
 
 
 #grouped_codes
-# Créer une colonne 'Categorie' dans le DataFrame df
+# Créer une colonne 'Secteur' dans le DataFrame df
 df['Secteur'] = None
-
+df['Secteur'] = df['Secteur'].astype(int)
 # Parcourir les points dans df et assigner le secteur en fonction des groupes
 for group_idx, group in enumerate(grouped_points):
     group_codes = [row['Code_AIOT'] for row in group]  # Extraire les codes AIOT du groupe
