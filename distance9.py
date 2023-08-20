@@ -260,9 +260,9 @@ lines_geojson_layer.add_to(m)
 # Filtrer les données en fonction des codes AIOT sélectionnés
 #st.sidebar.markdown("<h2 style='font-size:18px;'>Sélectionner parmi les {len(filtered_df)} données filtrées, les points Gun à mettre en évidence (sélection multiple possible)</h2>", unsafe_allow_html=True)
 # Triez les codes AIOT dans l'ordre décroissant
-sorted_codes = sorted( filtered_df['Code_AIOT'].unique(), reverse=True)
+sorted_codes = sorted( filtered_df['Code_AIOT'].unique(), reverse=False)
 sorted_cat = sorted( filtered_df['Secteur'].unique(), reverse=True)
-
+sorted_cat=sorted_cat.astype(int)
 st.sidebar.markdown(f"<h2 style='font-size:18px;'>Sélectionner parmi les {len(filtered_df)} données filtrées, les points Gun à mettre en évidence sur la carte (pts blancs)</h2>", unsafe_allow_html=True)
 st.sidebar.markdown("")
 selected_codes = st.sidebar.multiselect("", sorted_codes)
