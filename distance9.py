@@ -195,6 +195,8 @@ st.sidebar.markdown("")
 
 
 
+
+
 # Apply the selected criteria to filter the DataFrame
 filtered_df = df.copy()
 for criterion in selected_criteria:
@@ -211,26 +213,23 @@ for criterion in selected_criteria:
         df = df[df['Distance'] >= 0]
         df['Distance'] = df['Distance'].astype(int)
         # Calculate the step value for the slider based on the range of distances
-        min_distance =df['Distance'].min() 
-        max_distance = df['Distance'].max()      
-       
+        min_distance = df['Distance'].min()
+        max_distance = df['Distance'].max()
 
-        selected_distance = st.sidebar.slider ("La distance est supérieure ou égale à :", min_value=min_distance, max_value=10000, step=50)    
-        
-        filtered_df = filtered_df[filtered_df['Distance'] >= selected_distance]
-      
-        # Add a button to filter distances between 10000 and the max distance
+        selected_distance = st.sidebar.slider("La distance est supérieure ou égale à :", min_value=min_distance, max_value=10000, step=50)
+
         if st.sidebar.button("Filtrer entre 10000 et max"):
             filtered_df = filtered_df[(filtered_df['Distance'] >= 10000) & (filtered_df['Distance'] <= max_distance)]
         else:
             filtered_df = filtered_df[filtered_df['Distance'] >= selected_distance]
 
+        # Check if the "Filtrer pts Gun non geocodes 'Distance is None'" checkbox is selected
+        if st.sidebar.checkbox("Filtrer pts Gun non geocodés 'Distance is None'"):
+            filtered_df = filtered_df[df['Distance'].isna()]
 
-        # Add a button to filter distance none
-        if st.sidebar.button("Filtrer pts Gun non geocodes 'Distance is None'"):
-            filtered_df =df[df['Distance'].isna()]
-        else:
-            filtered_df = filtered_df[filtered_df['Distance'] >= selected_distance]
+
+
+
 
 
 
