@@ -210,14 +210,14 @@ for criterion in selected_criteria:
         filtered_df = filtered_df[filtered_df['Statut IED'] == selected_value]
 
     elif criterion == 'Distance':
-        df = df[df['Distance'].notna()]
-        df['Distance'] = df['Distance'].astype(int)
+        df0 = df[df['Distance'].notna()]
+        #df['Distance'] = df['Distance'].astype(int)
         #df = df[df['Distance'] >= 0]
         #df['Distance'] = df['Distance'].astype(float)
         
         # Calculate the step value for the slider based on the range of distances
-        min_distance = df['Distance'].min()
-        max_distance = df['Distance'].max()
+        min_distance = df0['Distance'].min()
+        max_distance = df0['Distance'].max()
 
         selected_distance = st.sidebar.slider("La distance est supérieure ou égale à :", min_value=min_distance, max_value=10000, step=50)
 
