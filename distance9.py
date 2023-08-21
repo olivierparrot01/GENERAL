@@ -332,8 +332,8 @@ for index, row in df.iterrows():
             fill=True,
             fill_color='white',
             fill_opacity=1,
-            popup=f"Nom usuel : {row['Nom_usuel']}<br>Code AIOT : {row['Code_AIOT_liste']}",
-            tooltip=f"Nom usuel : {row['Nom_usuel']}<br>Code AIOT : {row['Code_AIOT_liste']}"
+            popup=f"Nom usuel : {row['Nom_usuel']}<br>Code AIOT : {row['Code_AIOT_liste']}<br>Secteur : {row['Secteur']}",
+            tooltip=f"Nom usuel : {row['Nom_usuel']}<br>Code AIOT : {row['Code_AIOT_liste']}<br>Secteur : {row['Secteur']}"
         ).add_to(m)
 
 # Zoomer sur les points sélectionnés
