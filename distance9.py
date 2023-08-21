@@ -194,11 +194,12 @@ st.sidebar.markdown("")
 
 
 # Add a button to filter distance none
-if st.sidebar.button("Filtrer pts Gun non geocodes"):
-    filtered_df = df[df['Distance'].isna()]
-else:
-    filtered_df = df
+if st.sidebar.button("Les pts Gun non geocodes"):
+     non_geocod = df[df['Distance'].isna()]
 
+with st.sidebar.expander(f"Afficher les {len(non_geocod)} pts Gun non géocodés"):
+    st.dataframe(non_geocod)
+    
 
 
 
