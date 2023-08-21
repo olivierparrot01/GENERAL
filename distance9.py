@@ -174,7 +174,7 @@ for group_idx, group in enumerate(grouped_points):
 # Afficher le contenu dans l'expander
 with st.sidebar.expander("Informations"):
     st.sidebar.info('''Les temps de réponse sont un peu longs, il faut patienter...Mais une fois que la carte est affichée, la navigation est fluide.
-                    Les pts Gun sont classés en 57 secteurs géographiques (secteur d'accumulation) : dans chacun de ces secteurs, chaque point a un voisin distant d'au plus 10 km ; cette approche permet de visualiser sur la carte les pts groupés, ce qui est efficace dans la vérification des coordonnées.
+                    Les pts Gun sont classés en 57 secteurs géographiques (secteur d'accumulation) : ces secteurs sont tels que chaque point a un voisin distant d'au plus 10 km ; cette approche permet de visualiser sur la carte les pts groupés, ce qui est efficace dans la vérification des coordonnées.
                     À grande échelle, les orthophotos s'affichent.
                     Un clic gauche permet d'afficher les coordonnées géographiques.
                     Rem : la virgule dans les grandes valeurs de distance est le séparateur de millier et non la virgule décimale.''')
