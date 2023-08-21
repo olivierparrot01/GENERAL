@@ -196,28 +196,6 @@ with st.sidebar.expander(f"Afficher les {len(non_geocod)} pts Gun non géocodés
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 st.sidebar.markdown("<h2 style='font-size:18px;'>Filtrer les données Gun par Statut Seveso, Statut IED ou Distance (distance ente les pts homologues Gun-Geocodage)</h2>", unsafe_allow_html=True)
 st.sidebar.markdown("")
 
@@ -313,7 +291,7 @@ sorted_codes = sorted( filtered_df['Code_AIOT'].unique(), reverse=False)
 sorted_cat = sorted( filtered_df['Secteur'].unique(), reverse=True)
 sorted_cat = [int(category) for category in sorted_cat]
 
-st.sidebar.markdown(f"<h2 style='font-size:18px;'>Sélectionner parmi les {len(filtered_df)} données filtrées, les points Gun à mettre en évidence sur la carte (pts blancs)</h2>", unsafe_allow_html=True)
+st.sidebar.markdown(f"<h2 style='font-size:18px;'>Sélectionner parmi les {len(filtered_df)} données filtrées, les points Gun à mettre en évidence sur la carte (pts blancs)<br>Entrée par le Code_AIOT</h2>", unsafe_allow_html=True)
 st.sidebar.markdown("")
 selected_codes = st.sidebar.multiselect("", sorted_codes)
 
@@ -321,7 +299,7 @@ selected_codes = st.sidebar.multiselect("", sorted_codes)
 
 
 
-st.sidebar.markdown(f"<h2 style='font-size:18px;'>Sélectionner parmi les {len(filtered_df)} données filtrées, les points Gun à mettre en évidence sur la carte (pts blancs) par Secteur</h2>", unsafe_allow_html=True)
+st.sidebar.markdown(f"<h2 style='font-size:18px;'>Sélectionner parmi les {len(filtered_df)} données filtrées, les points Gun à mettre en évidence sur la carte (pts blancs)<br>Entrée par Secteur</h2>", unsafe_allow_html=True)
 st.sidebar.markdown("")
 #selected_cat = st.sidebar.multiselect("", sorted_cat)
 
