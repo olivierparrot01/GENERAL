@@ -210,10 +210,7 @@ for criterion in selected_criteria:
         filtered_df = filtered_df[filtered_df['Statut IED'] == selected_value]
 
     elif criterion == 'Distance':
-        # Replace None values with default values for min and max distances
-        default_min_distance = 500000  # Change this to your desired default minimum distance
-        #default_max_distance = 100000  # Change this to your desired default maximum distance
-        df['Distance']=df['Distance'].fillna(default_min_distance, inplace=True)
+        df = df[df['Distance'] >= 0]
         df['Distance'] = df['Distance'].astype(int)
         
         # Calculate the step value for the slider based on the range of distances
@@ -228,12 +225,14 @@ for criterion in selected_criteria:
             filtered_df = filtered_df[filtered_df['Distance'] >= selected_distance]
 
         # Check if the "Filtrer pts Gun non geocodes 'Distance is None'" checkbox is selected
-        if st.sidebar.checkbox("Filtrer pts Gun non geocodés 'Distance is None'"):
-            df['Distance'].fillna(default_min_distance, inplace=True)
-            filtered_df = filtered_df[df['Distance'] == default_min_distance]
-
-        else:
-            filtered_df = filtered_df[filtered_df['Distance'] >= selected_distance]
+       
+        
+        
+# Add a button to filter distance none
+if st.sidebar.button("Filtrer pts Gun non geocodes"):
+    filtered_df = filtered_df[filtered_df['Distance'].isna()]
+else:
+    filtered_df = df[df['Distance'] >= 0]
 
 
 
