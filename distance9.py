@@ -211,6 +211,7 @@ for criterion in selected_criteria:
 
     elif criterion == 'Distance':
         df = df[df['Distance'].notna()]
+        df['Distance'] = df['Distance'].astype(int)
         #df = df[df['Distance'] >= 0]
         #df['Distance'] = df['Distance'].astype(float)
         
