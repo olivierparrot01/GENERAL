@@ -210,14 +210,17 @@ for criterion in selected_criteria:
         filtered_df = filtered_df[filtered_df['Statut IED'] == selected_value]
 
     elif criterion == 'Distance':
-        df0 = df[df['Distance'].notna()]
-        df0['Distance'] = df0['Distance'].astype(int)
-        #df = df[df['Distance'] >= 0]
+
+        df = df[df['Distance'] >= 0]
+        
+        #df0 = df[df['Distance'].notna()]
+        df['Distance'] = df['Distance'].astype(int)
+       
         #df['Distance'] = df['Distance'].astype(float)
         
         # Calculate the step value for the slider based on the range of distances
-        min_distance = df0['Distance'].min()
-        max_distance = df0['Distance'].max()
+        min_distance = df['Distance'].min()
+        max_distance = df['Distance'].max()
 
         selected_distance = st.sidebar.slider("La distance est supérieure ou égale à :", min_value=min_distance, max_value=10000, step=50)
 
@@ -229,15 +232,7 @@ for criterion in selected_criteria:
         # Check if the "Filtrer pts Gun non geocodes 'Distance is None'" checkbox is selected
        
         
-        
-        # Add a button to filter distance none
-        if st.sidebar.button("Filtrer pts Gun non geocodes"):
-            
-            filtered_df = filtered_df[filtered_df['Distance'].isna()]
-        else:
-            filtered_df = filtered_df[filtered_df['Distance'] >= selected_distance]
-
-
+      
 
 
 
