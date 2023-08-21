@@ -210,8 +210,8 @@ for criterion in selected_criteria:
         filtered_df = filtered_df[filtered_df['Statut IED'] == selected_value]
 
     elif criterion == 'Distance':
-        df = df[df['Distance'] >= 0]
-        df['Distance'] = df['Distance'].astype(int)
+        #df = df[df['Distance'] >= 0]
+        df['Distance'] = df['Distance'].astype(float)
         
         # Calculate the step value for the slider based on the range of distances
         min_distance = df['Distance'].min()
@@ -230,6 +230,7 @@ for criterion in selected_criteria:
         
         # Add a button to filter distance none
         if st.sidebar.button("Filtrer pts Gun non geocodes"):
+            
             filtered_df = filtered_df[filtered_df['Distance'].isna()]
         else:
             filtered_df = filtered_df[filtered_df['Distance'] >= selected_distance]
