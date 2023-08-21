@@ -285,7 +285,7 @@ st.sidebar.markdown(f"<h2 style='font-size:18px;'>Sélectionner parmi les {len(f
 st.sidebar.markdown("")
 selected_codes = st.sidebar.multiselect("", sorted_codes)
 
-filtered_data = pd.concat([df[df['Code_AIOT'].isin(selected_codes)], df[df['Code_AIOT'].isin(selected_codes1)]])
+
 
 
 
@@ -402,6 +402,8 @@ except AttributeError:
 
 # Afficher le titre dans le sidebar
 st.sidebar.markdown("<h2 style='font-size:18px;'>Adresses, coordonnées Gun et liens Google Maps des points sélectionnés :</h2>", unsafe_allow_html=True)
+
+filtered_data = pd.concat([df[df['Code_AIOT'].isin(selected_codes)],  df[df['Secteur'].isin(selected_cat)])
 
 # Afficher le contenu dans le sidebar
 for _, row in filtered_data.iterrows():
