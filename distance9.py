@@ -236,7 +236,7 @@ for criterion in selected_criteria:
 
         selected_distance = st.sidebar.slider("La distance (en m) est supérieure ou égale à :", min_value=min_distance, max_value=max_distance, step=50)
 
-        
+        filtered_df = filtered_df[filtered_df['Distance'] >= selected_distance]
       
 
 
