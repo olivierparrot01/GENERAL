@@ -191,6 +191,18 @@ with st.sidebar.expander("Afficher/Masquer"):
 
 st.sidebar.markdown("<h2 style='font-size:18px;'>Filtrer les données Gun par Statut Seveso, Statut IED ou Distance (distance ente les pts homologues Gun-Geocodage)</h2>", unsafe_allow_html=True)
 st.sidebar.markdown("")
+
+
+# Add a button to filter distance none
+if st.sidebar.button("Filtrer pts Gun non geocodes"):
+    filtered_df = df[df['Distance'].isna()]
+else:
+    filtered_df = df
+
+
+
+
+
 selected_criteria = st.sidebar.multiselect("", ["Statut Seveso", "Statut IED", "Distance"])                                                                                                           
 st.sidebar.markdown("")
 
