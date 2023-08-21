@@ -162,11 +162,13 @@ for group in grouped_points:
 #grouped_codes
 # Créer une colonne 'Secteur' dans le DataFrame df
 df['Secteur'] = None
+dg['Secteur'] = None
 #df['Secteur'] = df['Secteur'].astype(int)
 # Parcourir les points dans df et assigner le secteur en fonction des groupes
 for group_idx, group in enumerate(grouped_points):
     group_codes = [row['Code_AIOT'] for row in group]  # Extraire les codes AIOT du groupe
     df.loc[df['Code_AIOT'].isin(group_codes), 'Secteur'] = f'{group_idx + 1}'
+
 
 
 # Afficher le contenu dans l'expander
