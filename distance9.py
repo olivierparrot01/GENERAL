@@ -285,7 +285,7 @@ st.sidebar.markdown(f"<h2 style='font-size:18px;'>Sélectionner parmi les {len(f
 st.sidebar.markdown("")
 selected_codes = st.sidebar.multiselect("", sorted_codes)
 
-filtered_data = df[df['Code_AIOT'].isin(selected_codes)]
+filtered_data = pd.concat([df[df['Code_AIOT'].isin(selected_codes)], df[df['Code_AIOT'].isin(selected_codes1)]])
 
 
 
