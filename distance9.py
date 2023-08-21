@@ -229,9 +229,11 @@ for criterion in selected_criteria:
 
         # Check if the "Filtrer pts Gun non geocodes 'Distance is None'" checkbox is selected
         if st.sidebar.checkbox("Filtrer pts Gun non geocodés 'Distance is None'"):
+            df['Distance'].fillna(default_min_distance, inplace=True)
             filtered_df = filtered_df[df['Distance'] == default_min_distance]
 
-
+         else:
+            filtered_df = filtered_df[filtered_df['Distance'] >= selected_distance]
 
 
 
