@@ -414,7 +414,7 @@ filtered_data = pd.concat([df[df['Code_AIOT'].isin(selected_codes)], df[df['Sect
 
 # Afficher le contenu dans le sidebar
 for _, row in filtered_data.iterrows():
-    st.sidebar.write(f"- Adresse Gun : {row['Adresse_concat']}, Coordonnées Gun : {row['longitude']}, {row['latitude']}")
+    st.sidebar.write(f"-Code AIOT : {row['Code_AIOT']}, Nom usuel : {row['Nom_usuel']},Adresse Gun : {row['Adresse_concat']}, Coordonnées Gun : {row['longitude']}, {row['latitude']}")
     formatted_address = row['Adresse_concat'].replace(' ', '-')
     google_maps_link = f"[Ouvrir dans Google Maps à partir de l'adresse Gun](https://www.google.com/maps/search/?api=1&query={formatted_address})"
     st.sidebar.markdown(google_maps_link, unsafe_allow_html=True)
