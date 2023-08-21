@@ -171,8 +171,8 @@ for group_idx, group in enumerate(grouped_points):
 
 # Afficher le contenu dans l'expander
 with st.sidebar.expander("Informations"):
-    st.sidebar.info('''Les temps de réponse sont un peu longs, il faut patienter...Mais un fois que la carte est affichée, la navigation est fluide.
-                    les pts Gun sont regroupés en 57 secteurs pour lesquels la distance entre 2 pts qcq est au plus 10 km ; cette approche 'géographique' permet de visualiser sur la carte tout un groupe de pts, ce qui est efficace dans la vérification des coordonnées.
+    st.sidebar.info('''Les temps de réponse sont un peu longs, il faut patienter...Mais une fois que la carte est affichée, la navigation est fluide.
+                    Les pts Gun sont regroupés en 57 secteurs pour lesquels la distance entre 2 pts qcq est au plus 10 km ; cette approche 'géographique' permet de visualiser sur la carte tout un groupe de pts, ce qui est efficace dans la vérification des coordonnées.
                     À grande échelle, les orthophotos s'affichent.
                     Un clic gauche permet d'afficher les coordonnées géographiques.
                     Rem : la virgule dans les grandes valeurs de distance est le séparateur de millier et non la virgule décimale.''')
