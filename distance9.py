@@ -188,21 +188,16 @@ with st.sidebar.expander("Afficher/Masquer"):
     df['Secteur'] = df['Secteur'].astype(int)
     st.dataframe(df)
 
-
-st.sidebar.markdown("<h2 style='font-size:18px;'>Filtrer les données Gun par Statut Seveso, Statut IED ou Distance (distance ente les pts homologues Gun-Geocodage)</h2>", unsafe_allow_html=True)
-st.sidebar.markdown("")
-
-
 # Add a button to filter distance none
 non_geocod = df[df['Distance'].isna()]
-
-
-
 with st.sidebar.expander(f"Afficher les {len(non_geocod)} pts Gun non géocodés"):
     st.dataframe(non_geocod)
     
 
 
+
+st.sidebar.markdown("<h2 style='font-size:18px;'>Filtrer les données Gun par Statut Seveso, Statut IED ou Distance (distance ente les pts homologues Gun-Geocodage)</h2>", unsafe_allow_html=True)
+st.sidebar.markdown("")
 
 
 selected_criteria = st.sidebar.multiselect("", ["Statut Seveso", "Statut IED", "Distance"])                                                                                                           
