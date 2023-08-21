@@ -232,7 +232,7 @@ for criterion in selected_criteria:
             df['Distance'].fillna(default_min_distance, inplace=True)
             filtered_df = filtered_df[df['Distance'] == default_min_distance]
 
-         else:
+        else:
             filtered_df = filtered_df[filtered_df['Distance'] >= selected_distance]
 
 
