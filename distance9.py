@@ -85,8 +85,8 @@ not_in_dg = df[~df['Code_AIOT'].isin(dg['Code_AIOT'])]
 # Fonction pour ajouter des marqueurs à la carte
 def add_markers(data, color):
     for _, row in data.iterrows():
-        popup_content = f"Nom usuel : {row['Nom_usuel']}<br>Code AIOT : {row['Code_AIOT_liste']}"
-        tooltip_content = f"Nom usuel : {row['Nom_usuel']}<br>Code AIOT : {row['Code_AIOT_liste']}"
+        popup_content = f"Nom usuel : {row['Nom_usuel']}<br>Code AIOT : {row['Code_AIOT_liste']}<br>Secteur : {row['Secteur']}"
+        tooltip_content = f"Nom usuel : {row['Nom_usuel']}<br>Code AIOT : {row['Code_AIOT_liste']}<br>Secteur : {row['Secteur']}"
         
         folium.CircleMarker(
             location=[row['latitude'], row['longitude']],
