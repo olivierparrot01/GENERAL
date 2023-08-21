@@ -213,7 +213,7 @@ for criterion in selected_criteria:
         # Replace None values with default values for min and max distances
         default_min_distance = 500000  # Change this to your desired default minimum distance
         #default_max_distance = 100000  # Change this to your desired default maximum distance
-        df['Distance'].fillna(default_min_distance, inplace=True)
+        df['Distance']=df['Distance'].fillna(default_min_distance, inplace=True)
         df['Distance'] = df['Distance'].astype(int)
         
         # Calculate the step value for the slider based on the range of distances
