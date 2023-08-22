@@ -259,6 +259,16 @@ count_none = filtered_df['Distance'].isna().sum()
 #st.sidebar.info(f'''Nombre de pts Gun non géocodés parmi les données filtrées (valeurs 'None' dans "Distance" ): {count_none}''')
 
 
+
+# Create a function to convert DataFrame to CSV and get the link  for download
+def get_csv_download_link(df, filename):
+    csv = df.to_csv(index=False)
+    b64 = base64.b64encode(csv.encode()).decode()
+    href = f'<a href="data:file/csv;base64,{b64}" download="{filename}.csv">Télécharger {filename} CSV File</a>'
+    return href
+
+
+
 st.markdown(get_csv_download_link(filtered_df, f'le fichier Gun correspondant'), unsafe_allow_html=True)
 
 
