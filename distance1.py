@@ -269,7 +269,7 @@ def get_csv_download_link(df, filename):
 
 
 
-st.markdown(get_csv_download_link(filtered_df, f'le fichier Gun correspondant'), unsafe_allow_html=True)
+st.sidebar.markdown(get_csv_download_link(filtered_df, f'le fichier Gun correspondant'), unsafe_allow_html=True)
 
 
 
