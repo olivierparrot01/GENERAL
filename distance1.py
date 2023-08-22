@@ -318,7 +318,7 @@ st.sidebar.markdown("")
 
 
 selected_cat = st.sidebar.multiselect("Sélectionner un Secteur", sorted_cat)
-selected_codes1 = df[df['Secteur'].isin(selected_cat)]['Code_AIOT'].tolist()
+selected_codes1 = filtered_df[filtered_df['Secteur'].isin(selected_cat)]['Code_AIOT'].tolist()
 # Dans la section où vous filtrez les données
 # ...
 
