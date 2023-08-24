@@ -10,8 +10,7 @@ import requests
 import base64 
 import numpy as np
 import io
-import XlsxWriter
-
+import xlsxwriter
 
 #st.session_state.click_data = None
 
