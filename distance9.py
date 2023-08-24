@@ -50,6 +50,11 @@ lines_geojson_layer = folium.GeoJson(
 
 df = pd.read_csv('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/0208_gun.csv')
 dg = pd.read_csv('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/2geocodage.csv')
+
+# Fusionner df et dg sur la colonne "Code_AIOT" en utilisant une jointure à gauche (left join)
+df = df.merge(dg[['Code_AIOT', 'result_lab']], on='Code_AIOT', how='left')
+
+
 # Conversion des données
 dg = dg[dg['Distance'] >= 0]
 dg['Distance'] = dg['Distance'].astype(int)
@@ -268,7 +273,7 @@ def get_csv_download_link(df, filename):
 
 
 
-st.sidebar.markdown(get_csv_download_link(filtered_df, f'le fichier Gun correspondant'), unsafe_allow_html=True)
+st.sidebar.markdown(get_csv_download_link(filtered_df, f'fichier Gun correspondant'), unsafe_allow_html=True)
 
 
 
@@ -288,7 +293,7 @@ def get_xlsx_download_link(df, filename):
 
 
 # Créer un lien de téléchargement XLSX dans la barre latérale
-st.sidebar.markdown(get_xlsx_download_link(filtered_df, 'le_fichier_Gun_correspondant'), unsafe_allow_html=True)
+st.sidebar.markdown(get_xlsx_download_link(filtered_df, 'fichier_Gun_correspondant'), unsafe_allow_html=True)
 
 
 
