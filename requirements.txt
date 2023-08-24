@@ -7,4 +7,4 @@ plotly
 folium
 streamlit-folium
 requests
-XlsxWriter
+xlsxwriter
