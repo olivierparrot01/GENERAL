@@ -272,6 +272,25 @@ st.sidebar.markdown(get_csv_download_link(filtered_df, f'le fichier Gun correspo
 
 
 
+def get_xlsx_download_link(df, filename):
+    # Créez un objet BytesIO pour stocker les données Excel
+    output = io.BytesIO()
+    # Écrivez le DataFrame au format XLSX dans l'objet BytesIO
+    with pd.ExcelWriter(output, engine='xlsxwriter') as writer:
+        df.to_excel(writer, index=False)
+    # Récupérez les données de l'objet BytesIO
+    xlsx_data = output.getvalue()
+    # Encodez les données en base64
+    b64 = base64.b64encode(xlsx_data).decode()
+    # Créez un lien de téléchargement
+    href = f'<a href="data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{b64}" download="{filename}.xlsx">Télécharger {filename} XLSX File</a>'
+    return href
+
+
+# Créer un lien de téléchargement XLSX dans la barre latérale
+st.sidebar.markdown(get_xlsx_download_link(filtered_df, 'le_fichier_Gun_correspondant'), unsafe_allow_html=True)
+
+
 
 
 
