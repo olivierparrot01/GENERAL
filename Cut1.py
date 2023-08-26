@@ -21,7 +21,7 @@ gdf_lignes = gdf_lignes.sample(n=3, random_state=42)
 
 
 # Appliquer un tampon de taille zéro à la colonne de géométrie
-gdf_lignes['geometry'] = gdf_lignes['geometry'].buffer(0)
+#gdf_lignes['geometry'] = gdf_lignes['geometry'].buffer(0)
 
 
 
