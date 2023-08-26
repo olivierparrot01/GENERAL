@@ -1,3 +1,4 @@
+import streamlit as st
 import geopandas as gpd
 import networkx as nx
 from shapely.geometry import Point, LineString
@@ -47,8 +48,8 @@ for component in nx.connected_components(G):
 # Enregistrez le GeoDataFrame résultant dans un fichier shapefile
 #result_gdf.to_file('chemin_vers_nouvelles_entites.shp')
 
-import streamlit as st
-import geopandas as gpd
+
+#import geopandas as gpd
 import folium
 
 # Charger le GeoDataFrame contenant vos données géospatiales
