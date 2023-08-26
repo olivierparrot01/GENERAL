@@ -1,6 +1,7 @@
 import geopandas as gpd
 import pandas as pd
 from shapely.geometry import Point, LineString
+import streamlit as st
 
 # Charger le GeoDataFrame des lignes (gdf_lignes) et des points (gdf_pts)
 gdf_lignes = gpd.read_file('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/c_selected.shp')
