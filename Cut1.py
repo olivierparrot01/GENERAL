@@ -10,6 +10,23 @@ from shapely.geometry import Point, LineString
 gdf_lignes = gpd.read_file('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/c_selected.shp')
 gdf_pts = gpd.read_file('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/g_pt3.shp')
 
+
+import geopandas as gpd
+import pandas as pd
+
+# Charger votre GeoDataFrame de lignes (gdf_lines) et de points (gdf_pts)
+
+# Réduire gdf_lines à 3 éléments
+gdf_lines = gdf_lines.sample(n=3, random_state=42)
+
+# Filtrer les points qui sont dessus
+gdf_pts= gpd.sjoin(gdf_pts, gdf_lines_sample, op='intersects')
+
+# gdf_pts_on_lines contient maintenant les points qui sont sur les 3 lignes échantillonnées
+
+
+
+
 # Créer un graphe à partir des lignes
 G = nx.Graph()
 
