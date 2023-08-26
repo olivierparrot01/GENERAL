@@ -3,7 +3,7 @@ from shapely.geometry import Point, LineString
 
 # Charger le GeoDataFrame des lignes (gdf_lignes) et des points (gdf_pts)
 gdf_lignes = gpd.read_file('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/c_selected.shp')
-gdf_pts = gpd.read_file('chemin_vers_points.shp')
+gdf_pts = gpd.read_file('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/g_pt3.shp')
 
 # Créer un GeoDataFrame vide pour stocker les nouvelles entités
 result_gdf = gpd.GeoDataFrame(columns=['geometry'], crs=gdf_lignes.crs)
