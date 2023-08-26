@@ -110,7 +110,7 @@ for component in nx.connected_components(G):
 
 
 # Créez un GeoDataFrame vide pour stocker les résultats
-result_gdf = gpd.GeoDataFrame(columns=['geometry'], crs=gdf_lines.crs)
+result_gdf = gpd.GeoDataFrame(columns=['geometry'], crs=gdf_lignes.crs)
 
 # Parcourez vos composantes de lignes et ajoutez-les au GeoDataFrame résultant
 for component_line in component_lines:
