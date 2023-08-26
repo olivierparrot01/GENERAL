@@ -2,7 +2,7 @@ import geopandas as gpd
 from shapely.geometry import Point, LineString
 
 # Charger le GeoDataFrame des lignes (gdf_lignes) et des points (gdf_pts)
-gdf_lignes = gpd.read_file('chemin_vers_lignes.shp')
+gdf_lignes = gpd.read_file('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/c_selected.shp')
 gdf_pts = gpd.read_file('chemin_vers_points.shp')
 
 # Créer un GeoDataFrame vide pour stocker les nouvelles entités
