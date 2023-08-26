@@ -121,6 +121,7 @@ result_gdf = pd.concat([result_gdf, gpd.GeoDataFrame({'geometry': [component_lin
 # Enregistrez le GeoDataFrame résultant dans un fichier shapefile
 #result_gdf.to_file('chemin_vers_nouvelles_entites.shp')
 
+st.write(len(result_gdf))
 
 with st.expander(f"Afficher les {len(result_gdf)} données"):
     # Afficher la table à l'intérieur de la section expansible
