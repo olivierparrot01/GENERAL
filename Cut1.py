@@ -10,6 +10,20 @@ from shapely.geometry import Point, LineString
 gdf_lignes = gpd.read_file('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/c_selected.shp')
 gdf_pts = gpd.read_file('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/g_pt3.shp')
 
+
+
+
+# Charger votre GeoDataFrame gdf_lignes ici
+
+# Compter le nombre de géométries valides
+valid_count = 0
+
+for idx, row in gdf_lignes.iterrows():
+    if row['geometry'].is_valid:
+        valid_count += 1
+
+st.write(f"Nombre de géométries valides dans gdf_lignes : {valid_count}")
+
 import geopandas as gpd
 from shapely.geometry import Point, LineString
 
@@ -42,7 +56,7 @@ points = [
 ]
 
 # Créer un GeoDataFrame à partir des points
-gdf_pts = gpd.GeoDataFrame(geometry=points, crs="EPSG:4326")  # Remplacez le code EPSG par votre système de coordonnées
+#gdf_pts = gpd.GeoDataFrame(geometry=points, crs="EPSG:4326")  # Remplacez le code EPSG par votre système de coordonnées
 
 
 
@@ -65,7 +79,7 @@ import pandas as pd
 
 
 # Filtrer les points qui sont dessus
-gdf_pts= gpd.sjoin(gdf_pts, gdf_lignes, op='intersects')
+#gdf_pts= gpd.sjoin(gdf_pts, gdf_lignes, op='intersects')
 
 # gdf_pts_on_lines contient maintenant les points qui sont sur les 3 lignes échantillonnées
 
