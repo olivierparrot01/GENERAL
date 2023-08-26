@@ -46,3 +46,21 @@ for component in nx.connected_components(G):
 
 # Enregistrez le GeoDataFrame résultant dans un fichier shapefile
 #result_gdf.to_file('chemin_vers_nouvelles_entites.shp')
+
+import streamlit as st
+import geopandas as gpd
+import folium
+
+# Charger le GeoDataFrame contenant vos données géospatiales
+#gdf = gpd.read_file('chemin_vers_votre_fichier.shp')
+
+# Créer une carte Folium
+m = folium.Map(location=[gdf.geometry.centroid.y.mean(), result_gdf.geometry.centroid.x.mean()], zoom_start=10)
+
+# Ajouter les données géospatiales à la carte
+for idx, row in result_gdf.iterrows():
+    folium.GeoJson(row.geometry).add_to(m)
+
+# Afficher la carte dans Streamlit
+st.write("Carte des données géospatiales")
+st.write(m)
