@@ -21,13 +21,13 @@ for line in gdf_lignes['geometry']:
             
             # Si les parties sont des MultiLineString, les découper en LineString individuels
             if parts.geom_type == 'MultiLineString':
-                new_geometries.extend(parts)
+                new_geometries.extend(list(parts))
             elif parts.geom_type == 'LineString':
                 new_geometries.append(parts)
     
     # Si de nouvelles entités ont été créées, les ajouter au résultat
     if new_geometries:
-        result_gdf = result_gdf.append(new_geometries, ignore_index=True)
+        result_gdf = pd.concat([result_gdf, gpd.GeoDataFrame({'geometry': new_geometries}, crs=gdf_lignes.crs)], ignore_index=True)
 
 # Enregistrez le GeoDataFrame résultant dans un fichier shapefile
 #result_gdf.to_file('chemin_vers_nouvelles_entites.shp')
