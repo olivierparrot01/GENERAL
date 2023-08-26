@@ -24,7 +24,7 @@ gdf_pts= gpd.sjoin(gdf_pts, gdf_lignes, op='intersects')
 
 # gdf_pts_on_lines contient maintenant les points qui sont sur les 3 lignes échantillonnées
 
-
+st.write(len(gdf_pts))
 
 
 # Créer un graphe à partir des lignes
