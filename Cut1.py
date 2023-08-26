@@ -5,6 +5,9 @@ from shapely.geometry import Point, LineString
 # Charger le GeoDataFrame des lignes (gdf_lignes) et des points (gdf_pts)
 gdf_lignes = gpd.read_file('chemin_vers_lignes.shp')
 gdf_pts = gpd.read_file('chemin_vers_points.shp')
+# Charger le GeoDataFrame des lignes (gdf_lignes) et des points (gdf_pts)
+#gdf_lignes = gpd.read_file('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/c_selected.shp')
+#gdf_pts = gpd.read_file('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/g_pt3.shp')
 
 # Créer un graphe à partir des lignes
 G = nx.Graph()
@@ -42,4 +45,4 @@ for component in nx.connected_components(G):
     result_gdf = result_gdf.append({'geometry': component_line}, ignore_index=True)
 
 # Enregistrez le GeoDataFrame résultant dans un fichier shapefile
-result_gdf.to_file('chemin_vers_nouvelles_entites.shp')
+#result_gdf.to_file('chemin_vers_nouvelles_entites.shp')
