@@ -20,7 +20,7 @@ import pandas as pd
 gdf_lignes = gdf_lignes.sample(n=3, random_state=42)
 
 # Filtrer les points qui sont dessus
-gdf_pts= gpd.sjoin(gdf_pts, gdf_lignes_sample, op='intersects')
+gdf_pts= gpd.sjoin(gdf_pts, gdf_lignes, op='intersects')
 
 # gdf_pts_on_lines contient maintenant les points qui sont sur les 3 lignes échantillonnées
 
