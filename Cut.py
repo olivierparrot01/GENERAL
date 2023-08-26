@@ -30,4 +30,4 @@ for line in gdf_lignes['geometry']:
         result_gdf = result_gdf.append(new_geometries, ignore_index=True)
 
 # Enregistrez le GeoDataFrame résultant dans un fichier shapefile
-result_gdf.to_file('chemin_vers_nouvelles_entites.shp')
+#result_gdf.to_file('chemin_vers_nouvelles_entites.shp')
