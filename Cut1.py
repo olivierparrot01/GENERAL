@@ -10,6 +10,45 @@ from shapely.geometry import Point, LineString
 gdf_lignes = gpd.read_file('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/c_selected.shp')
 gdf_pts = gpd.read_file('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/g_pt3.shp')
 
+import geopandas as gpd
+from shapely.geometry import Point, LineString
+
+# Créer trois points de bifurcation
+bifurcation1 = Point(0, 0)
+bifurcation2 = Point(5, 0)
+bifurcation3 = Point(10, 0)
+
+# Créer trois autres points sur la ligne principale
+point1 = Point(2, 2)
+point2 = Point(4, 2)
+point3 = Point(7, 2)
+
+# Créer une LineString principale
+main_line = LineString([bifurcation1, point1, point2, bifurcation2, point3, bifurcation3])
+
+# Créer un GeoDataFrame pour stocker la LineString
+gdf_lignes = gpd.GeoDataFrame(geometry=[main_line])
+
+
+
+# Créer les points
+points = [
+    Point(0, 0),  # Point 1
+    Point(5, 0),  # Point 2
+    Point(10, 0),  # Point 3
+    Point(2, 2),  # Point 4
+    Point(4, 2),  # Point 5
+    Point(7, 2)  # Point 6
+]
+
+# Créer un GeoDataFrame à partir des points
+gdf_pts = gpd.GeoDataFrame(geometry=points, crs="EPSG:4326")  # Remplacez le code EPSG par votre système de coordonnées
+
+
+
+
+
+
 
 import geopandas as gpd
 import pandas as pd
@@ -17,7 +56,7 @@ import pandas as pd
 # Charger votre GeoDataFrame de lignes (gdf_lines) et de points (gdf_pts)
 
 # Réduire gdf_lines à 3 é HTléments
-gdf_lignes = gdf_lignes.sample(n=3, random_state=42)
+#gdf_lignes = gdf_lignes.sample(n=3, random_state=42)
 
 
 # Appliquer un tampon de taille zéro à la colonne de géométrie
