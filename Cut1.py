@@ -3,11 +3,11 @@ import networkx as nx
 from shapely.geometry import Point, LineString
 
 # Charger le GeoDataFrame des lignes (gdf_lignes) et des points (gdf_pts)
-gdf_lignes = gpd.read_file('chemin_vers_lignes.shp')
-gdf_pts = gpd.read_file('chemin_vers_points.shp')
+#gdf_lignes = gpd.read_file('chemin_vers_lignes.shp')
+#gdf_pts = gpd.read_file('chemin_vers_points.shp')
 # Charger le GeoDataFrame des lignes (gdf_lignes) et des points (gdf_pts)
-#gdf_lignes = gpd.read_file('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/c_selected.shp')
-#gdf_pts = gpd.read_file('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/g_pt3.shp')
+gdf_lignes = gpd.read_file('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/c_selected.shp')
+gdf_pts = gpd.read_file('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/g_pt3.shp')
 
 # Créer un graphe à partir des lignes
 G = nx.Graph()
