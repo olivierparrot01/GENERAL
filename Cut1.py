@@ -125,7 +125,7 @@ st.write(len(result_gdf))
 
 with st.expander(f"Afficher les {len(result_gdf)} données"):
     # Afficher la table à l'intérieur de la section expansible
-    st.dataframe(result_gdf)
+    st.table(result_gdf)
     
 #import geopandas as gpd
 import folium
