@@ -17,10 +17,10 @@ import pandas as pd
 # Charger votre GeoDataFrame de lignes (gdf_lines) et de points (gdf_pts)
 
 # Réduire gdf_lines à 3 éléments
-gdf_lines = gdf_lines.sample(n=3, random_state=42)
+gdf_lignes = gdf_lignes.sample(n=3, random_state=42)
 
 # Filtrer les points qui sont dessus
-gdf_pts= gpd.sjoin(gdf_pts, gdf_lines_sample, op='intersects')
+gdf_pts= gpd.sjoin(gdf_pts, gdf_lignes_sample, op='intersects')
 
 # gdf_pts_on_lines contient maintenant les points qui sont sur les 3 lignes échantillonnées
 
