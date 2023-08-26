@@ -45,5 +45,8 @@ m = folium.Map(location=[48.8566, 2.3522], zoom_start=10)  # Remplacez les coord
 # Ajouter les lignes à la carte
 folium.GeoJson(result_gdf).add_to(m)
 
+# Ajouter les pts à la carte
+folium.GeoJson(gdf_pts).add_to(m)
+
 # Afficher la carte
 folium_static(m)
