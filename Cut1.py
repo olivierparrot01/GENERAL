@@ -16,8 +16,14 @@ import pandas as pd
 
 # Charger votre GeoDataFrame de lignes (gdf_lines) et de points (gdf_pts)
 
-# Réduire gdf_lines à 3 éléments
+# Réduire gdf_lines à 3 é HTléments
 gdf_lignes = gdf_lignes.sample(n=3, random_state=42)
+
+
+# Appliquer un tampon de taille zéro à la colonne de géométrie
+gdf_lignes['geometry'] = gdf_lignes['geometry'].buffer(0)
+
+
 
 # Filtrer les points qui sont dessus
 gdf_pts= gpd.sjoin(gdf_pts, gdf_lignes, op='intersects')
