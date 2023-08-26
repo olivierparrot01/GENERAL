@@ -6,7 +6,7 @@ import streamlit as st
 # Charger le GeoDataFrame des lignes (gdf_lignes) et des points (gdf_pts)
 gdf_lignes = gpd.read_file('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/c_selected.shp')
 gdf_pts = gpd.read_file('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/g_pt3.shp')
-
+st.write(len(gdf_lignes))
 # Créer un GeoDataFrame vide pour stocker les nouvelles entités
 result_gdf = gpd.GeoDataFrame(columns=['geometry'], crs=gdf_lignes.crs)
 
@@ -30,7 +30,7 @@ for line in gdf_lignes['geometry']:
     # Si de nouvelles entités ont été créées, les ajouter au résultat
     if new_geometries:
         result_gdf = pd.concat([result_gdf, gpd.GeoDataFrame({'geometry': new_geometries}, crs=gdf_lignes.crs)], ignore_index=True)
-        st.write(len(result_gdf))
+        st.write(result_gdf)
 # Enregistrez le GeoDataFrame résultant dans un fichier shapefile
 #result_gdf.to_file('chemin_vers_nouvelles_entites.shp')
 
