@@ -1,4 +1,5 @@
 import geopandas as gpd
+import pandas as pd
 from shapely.geometry import Point, LineString
 
 # Charger le GeoDataFrame des lignes (gdf_lignes) et des points (gdf_pts)
