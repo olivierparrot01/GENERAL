@@ -6,7 +6,7 @@ from streamlit_folium import folium_static
 # Charger le GeoDataFrame des lignes (gdf_lignes) et des points (gdf_pts)
 gdf_lignes = gpd.read_file('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/c_selected.shp')
 gdf_pts = gpd.read_file('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/g_pt3.shp',crs='2154')
-st.write(gdf_pts.crs)
+gdf_pts.crs='2154'
 # Créer un GeoDataFrame vide pour stocker les nouvelles entités
 result_gdf = gpd.GeoDataFrame(columns=['geometry'], crs=gdf_lignes.crs)
 
