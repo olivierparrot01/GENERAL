@@ -60,7 +60,19 @@ for component in nx.connected_components(G):
     component_line = LineString(component_geometries)
     
     # Ajouter la LineString au GeoDataFrame résultant
-    result_gdf = result_gdf.append({'geometry': component_line}, ignore_index=True)
+    #result_gdf = result_gdf.append({'geometry': component_line}, ignore_index=True)
+
+
+
+# Créez un GeoDataFrame vide pour stocker les résultats
+result_gdf = gpd.GeoDataFrame(columns=['geometry'], crs=gdf_lines.crs)
+
+# Parcourez vos composantes de lignes et ajoutez-les au GeoDataFrame résultant
+for component_line in component_lines:
+    result_gdf = pd.concat([result_gdf, gpd.GeoDataFrame({'geometry': [component_line]}, crs=gdf_lines.crs)], ignore_index=True)
+
+# Maintenant, result_gdf contient toutes les composantes de lignes
+
 
 # Enregistrez le GeoDataFrame résultant dans un fichier shapefile
 #result_gdf.to_file('chemin_vers_nouvelles_entites.shp')
