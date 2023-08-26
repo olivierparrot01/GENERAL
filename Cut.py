@@ -46,4 +46,4 @@ m = folium.Map(location=[48.8566, 2.3522], zoom_start=10)  # Remplacez les coord
 folium.GeoJson(result_gdf.sample(n=10)).add_to(m)
 
 # Afficher la carte
-st.write(m)
+folium_static(m)
