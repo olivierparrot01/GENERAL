@@ -32,7 +32,7 @@ folium.GeoJson(gdf_i, style_function=lambda x: {'color': 'blue'}).add_to(m)
 for idx, row in gdf_pts.iterrows():
     # Obtenez les coordonnées du point
     lat, lon = row['geometry'].y, row['geometry'].x
-    
+    st.write(lat)
     # Créez un marqueur pour le point et ajoutez-le à la carte
     folium.CircleMarker(location=[lat, lon], radius=16, color='black').add_to(m)
 
