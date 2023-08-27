@@ -58,5 +58,5 @@ for idx, poi in gdf_pts.iterrows():
     ).add_to(m)
 
 # Afficher la carte
-folium_static
+folium_static(m)
 
