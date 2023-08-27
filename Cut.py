@@ -1,4 +1,4 @@
-import folium
+important folium
 import geopandas as gpd
 from shapely.geometry import Point, LineString
 import streamlit as st
@@ -11,7 +11,7 @@ gdf_i = gdf_i.to_crs('EPSG:2154')
 
 gdf_pts = gpd.read_file('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/g_pt3.shp', crs='EPSG:2154')
 #gdf_pts=gdf_pts.to_crs('EPSG:2154')
-st.write(gdg_pts)
+st.write(gdf_pts)
 
 # Coordonnées du centre de la région PACA
 center_lat = 43.7157
