@@ -9,7 +9,7 @@ gdf_lignes = gpd.read_file('https://raw.githubusercontent.com/olivierparrot01/IC
 gdf_i = gpd.read_file('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/i_83.shp')
 gdf_i = gdf_i.to_crs('EPSG:2154')
 
-gdf_pts = gpd.read_file('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/g_pt3.shp', crs='EPSG:2154')
+gdf_pts = gpd.read_file('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/i_endpoints.shp', crs='EPSG:2154')
 gdf_pts=gdf_pts.to_crs('EPSG:2154')
 #st.dataframe(gdf_pts)
 
