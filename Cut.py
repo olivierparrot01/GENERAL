@@ -5,6 +5,7 @@ import streamlit as st
 from streamlit_folium import folium_static
 # Charger le GeoDataFrame des lignes (gdf_lignes) et des points (gdf_pts)
 gdf_lignes = gpd.read_file('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/c_selected.shp')
+gdf_i = gpd.read_file('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/i83.shp')
 gdf_pts = gpd.read_file('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/g_pt3.shp',crs='2154')
 gdf_pts.crs="EPSG:2154"
 # Créer un GeoDataFrame vide pour stocker les nouvelles entités
@@ -44,6 +45,10 @@ m = folium.Map(location=[48.8566, 2.3522], zoom_start=10)  # Remplacez les coord
 
 # Ajouter les lignes à la carte
 folium.GeoJson(result_gdf).add_to(m)
+
+
+# Ajouter les lignes à la carte
+folium.GeoJson(gdf_i).add_to(m)
 
 # Ajouter les pts à la carte
 
