@@ -52,7 +52,8 @@ m = folium.Map(location=[center_lat, center_lon], zoom_start=8)
 
 
 # Ajouter les lignes à la carte
-folium.GeoJson(gdf_i).add_to(m)
+
+#folium.GeoJson(gdf_i).add_to(m)
 
 # Ajouter les pts à la carte
 
@@ -66,6 +67,8 @@ for idx, poi in gdf_pts.iterrows():
         fill_opacity=1,  # Opacité du remplissage (1 = opaque)
     ).add_to(m)
 
+
+folium.GeoJson(gdf_i).add_to(m)
 # Afficher la carte
 folium_static(m)
 
