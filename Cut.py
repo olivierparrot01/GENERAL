@@ -44,7 +44,8 @@ center_lat = 43.7157
 center_lon = 5.0792
 
 # Créer une carte centrée sur la région PACA
-m = folium.Map(location=[center_lat, center_lon], zoom_start=8)
+m = folium.Map(location=[center_lat, center_lon], zoom_start=8, crs='EPSG:2154')
+
 
 # Créer une carte Folium centrée sur la région d'intérêt
 #m = folium.Map(location=[48.8566, 2.3522], zoom_start=10)  # Remplacez les coordonnées et le niveau de zoom par ceux de votre région
