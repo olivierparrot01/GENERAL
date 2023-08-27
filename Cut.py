@@ -1,6 +1,5 @@
 import folium
 import geopandas as gpd
-import pandas as pd
 from shapely.geometry import Point, LineString
 import streamlit as st
 from streamlit_folium import folium_static
@@ -19,11 +18,11 @@ center_lon = 5.0792
 # Créer une carte Folium centrée sur la région d'intérêt
 m = folium.Map(location=[center_lat, center_lon], zoom_start=8)  # Coordonnées et niveau de zoom pour la région PACA
 
-# Ajouter les lignes à la carte
-folium.GeoJson(gdf_lignes).add_to(m)
+# Ajouter les lignes rouges à la carte
+folium.GeoJson(gdf_lignes, style_function=lambda x: {'color': 'red'}).add_to(m)
 
-# Ajouter les lignes à la carte
-folium.GeoJson(gdf_i).add_to(m)
+# Ajouter les lignes bleues à la carte
+folium.GeoJson(gdf_i, style_function=lambda x: {'color': 'blue'}).add_to(m)
 
 # Ajouter les points à la carte
 for idx, row in gdf_pts.iterrows():
