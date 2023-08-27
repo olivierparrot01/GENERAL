@@ -34,7 +34,7 @@ for idx, row in gdf_pts.iterrows():
     lat, lon = row['geometry'].y, row['geometry'].x
     
     # Créez un marqueur pour le point et ajoutez-le à la carte
-    folium.CircleMarker(location=[lat, lon], radius=5, color='black').add_to(m)
+    folium.CircleMarker(location=[lat, lon], radius=16, color='black').add_to(m)
 
 
 
