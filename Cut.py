@@ -26,10 +26,12 @@ m = folium.Map(location=[center_lat, center_lon], zoom_start=8)  # Coordonnées 
 for idx, row in gdf_pts.iterrows():
     # Obtenez les coordonnées du point
     lat, lon = row['geometry'].y, row['geometry'].x
-    st.write(lon)
+    €st.write(lon)
     # Créez un marqueur pour le point et ajoutez-le à la carte
 #folium.CircleMarker(location=[lat, lon], radius=16, color='black').add_to(m)
 
+#folium.CircleMarker(location=[lat, lon], radius=16, color='black').add_to(m)
+folium.GeoJson(gdf_pts, style_function=lambda x: {'color': 'yellow'}).add_to(m)
 
 
 # Ajouter les lignes rouges à la carte
