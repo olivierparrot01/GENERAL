@@ -27,7 +27,14 @@ folium.GeoJson(gdf_lignes, style_function=lambda x: {'color': 'red'}).add_to(m)
 folium.GeoJson(gdf_i, style_function=lambda x: {'color': 'blue'}).add_to(m)
 
 # Ajouter les points 
-folium.GeoJson(gdf_pts,style_function=lambda x: {'color': 'black'}).add_to(m)
+#folium.GeoJson(gdf_pts,style_function=lambda x: {'color': 'black'}).add_to(m)
+# Ajouter une couche de points à la carte
+for idx, row in gdf_pts.iterrows():
+    # Obtenez les coordonnées du point
+    lat, lon = row['geometry'].y, row['geometry'].x
+    
+    # Créez un marqueur pour le point et ajoutez-le à la carte
+    folium.CircleMarker(location=[lat, lon], radius=5, color='black').add_to(m)
 
 
 
