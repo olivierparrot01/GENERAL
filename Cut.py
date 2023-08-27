@@ -28,7 +28,7 @@ folium.GeoJson(gdf_i, style_function=lambda x: {'color': 'blue'}).add_to(m)
 
 # Ajouter les points 
 folium.GeoJson(gdf_pts,style_function=lambda x: {'color': 'black'}).add_to(m)
-).add_to(m)
+
 
 
 # Afficher la carte
