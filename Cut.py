@@ -46,7 +46,17 @@ m = folium.Map(location=[48.8566, 2.3522], zoom_start=10)  # Remplacez les coord
 folium.GeoJson(result_gdf).add_to(m)
 
 # Ajouter les pts à la carte
-folium.GeoJson(gdf_pts).add_to(m)
+
+for idx, poi in gdf_pts.iterrows():
+    folium.CircleMarker(
+        location=[poi['geometry'].y, poi['geometry'].x],  # Coordonnées du point
+        radius=5,  # Rayon du marqueur en pixels
+        color='black',  # Couleur de la bordure du marqueur
+        fill=True,
+        fill_color='black',  # Couleur de remplissage du marqueur
+        fill_opacity=1,  # Opacité du remplissage (1 = opaque)
+    ).add_to(m)
 
 # Afficher la carte
-folium_static(m)
+folium_static
+
