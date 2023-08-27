@@ -1,3 +1,4 @@
+import folium
 import geopandas as gpd
 import pandas as pd
 from shapely.geometry import Point, LineString
@@ -13,7 +14,7 @@ gdf_pts.crs="EPSG:2154"
 # Créer un GeoDataFrame vide pour stocker les nouvelles entités
 result_gdf = gpd.GeoDataFrame(columns=['geometry'], crs=gdf_lignes.crs
 
-import folium
+
 
 # Coordonnées approximatives du centre de la région PACA
 center_lat = 43.7157
