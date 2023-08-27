@@ -21,13 +21,14 @@ center_lon = 5.0792
 m = folium.Map(location=[center_lat, center_lon], zoom_start=8)  # Coordonnées et niveau de zoom pour la région PACA
 
 # Ajouter les lignes rouges à la carte
-#folium.GeoJson(gdf_lignes, style_function=lambda x: {'color': 'red'}).add_to(m)
+folium.GeoJson(gdf_lignes, style_function=lambda x: {'color': 'red'}).add_to(m)
 
 # Ajouter les lignes bleues à la carte
-#folium.GeoJson(gdf_i, style_function=lambda x: {'color': 'blue'}).add_to(m)
+folium.GeoJson(gdf_i, style_function=lambda x: {'color': 'blue'}).add_to(m)
 
 # Ajouter les points 
-folium.GeoJson(gdf_pts).add_to(m)
+folium.GeoJson(gdf_pts,style_function=lambda x: {'color': 'black'}).add_to(m)
+).add_to(m)
 
 
 # Afficher la carte
