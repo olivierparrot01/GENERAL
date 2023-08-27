@@ -51,7 +51,7 @@ m = folium.Map(location=[center_lat, center_lon], zoom_start=8, crs='EPSG:2154')
 #m = folium.Map(location=[48.8566, 2.3522], zoom_start=10)  # Remplacez les coordonnées et le niveau de zoom par ceux de votre région
 
 # Ajouter les lignes à la carte
-#folium.GeoJson(result_gdf).add_to(m)
+folium.GeoJson(result_gdf).add_to(m)
 
 
 # Ajouter les lignes à la carte
@@ -60,15 +60,13 @@ m = folium.Map(location=[center_lat, center_lon], zoom_start=8, crs='EPSG:2154')
 
 # Ajouter les pts à la carte
 
-for idx, poi in gdf_pts.iterrows():
-    folium.CircleMarker(
-        location=[poi['geometry'].y, poi['geometry'].x],  # Coordonnées du point
-        radius=5,  # Rayon du marqueur en pixels
-        color='black',  # Couleur de la bordure du marqueur
-        fill=True,
-        fill_color='black',  # Couleur de remplissage du marqueur
-        fill_opacity=1,  # Opacité du remplissage (1 = opaque)
-    ).add_to(m)
+# Ajouter une couche de points à la carte
+for idx, row in gdf_pts.iterrows():
+    # Obtenez les coordonnées du point
+    lat, lon = row['geometry'].y, row['geometry'].x
+    
+    # Créez un marqueur pour le point et ajoutez-le à la carte
+    folium.CircleMarker(location=[lat, lon], radius=5, color='black').add_to(m)
 
 
 #folium.GeoJson(gdf_i).add_to(m)
