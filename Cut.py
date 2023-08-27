@@ -11,6 +11,8 @@ gdf_i = gdf_i.to_crs('EPSG:2154')
 
 gdf_pts = gpd.read_file('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/g_pt3.shp', crs='EPSG:2154')
 #gdf_pts=gdf_pts.to_crs('EPSG:2154')
+st.write(gdg_pts)
+
 # Coordonnées du centre de la région PACA
 center_lat = 43.7157
 center_lon = 5.0792
@@ -25,7 +27,7 @@ folium.GeoJson(gdf_lignes, style_function=lambda x: {'color': 'red'}).add_to(m)
 folium.GeoJson(gdf_i, style_function=lambda x: {'color': 'blue'}).add_to(m)
 
 # Ajouter les points 
-folium.GeoJson(gdf_pts).add_to(m)
+#folium.GeoJson(gdf_pts).add_to(m)
 
 
 # Afficher la carte
