@@ -40,8 +40,20 @@ import folium
 # Charger le GeoDataFrame des lignes (gdf_lignes)
 #gdf_lignes = gpd.read_file('chemin_vers_votre_shapefile.shp')
 
+
+
+
+import folium
+
+# Coordonnées approximatives du centre de la région PACA
+center_lat = 43.7157
+center_lon = 5.0792
+
+# Créer une carte centrée sur la région PACA
+m = folium.Map(location=[center_lat, center_lon], zoom_start=8)
+
 # Créer une carte Folium centrée sur la région d'intérêt
-m = folium.Map(location=[48.8566, 2.3522], zoom_start=10)  # Remplacez les coordonnées et le niveau de zoom par ceux de votre région
+#m = folium.Map(location=[48.8566, 2.3522], zoom_start=10)  # Remplacez les coordonnées et le niveau de zoom par ceux de votre région
 
 # Ajouter les lignes à la carte
 folium.GeoJson(result_gdf).add_to(m)
