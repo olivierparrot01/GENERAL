@@ -48,7 +48,7 @@ m = folium.Map(location=[center_lat, center_lon], zoom_start=8)
 #m = folium.Map(location=[48.8566, 2.3522], zoom_start=10)  # Remplacez les coordonnées et le niveau de zoom par ceux de votre région
 
 # Ajouter les lignes à la carte
-folium.GeoJson(result_gdf).add_to(m)
+#folium.GeoJson(result_gdf).add_to(m)
 
 
 # Ajouter les lignes à la carte
