@@ -1,4 +1,4 @@
-important folium
+import folium
 import geopandas as gpd
 from shapely.geometry import Point, LineString
 import streamlit as st
