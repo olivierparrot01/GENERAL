@@ -24,18 +24,18 @@ folium.GeoJson(gdf_lignes).add_to(m)
 folium.GeoJson(gdf_i).add_to(m)
 
 # Créer une nouvelle carte pour les points
-m_pts = folium.Map(location=[center_lat, center_lon], zoom_start=8)  # Coordonnées et niveau de zoom pour la région PACA
+#m_pts = folium.Map(location=[center_lat, center_lon], zoom_start=8)  # Coordonnées et niveau de zoom pour la région PACA
 
 # Ajouter les points à la nouvelle carte avec des marqueurs noirs
-for idx, row in gdf_pts.iterrows():
+for _, row in gdf_pts.iterrows():
     # Obtenez les coordonnées du point
     lat, lon = row['geometry'].y, row['geometry'].x
     
     # Créez un marqueur pour le point avec une couleur noire
-    folium.CircleMarker(location=[lat, lon], radius=16, color='black').add_to(m_pts)
+    folium.CircleMarker(location=[lat, lon], radius=16, color='black').add_to(m)
 
 # Afficher la carte des lignes
 folium_static(m)
 
 # Afficher la carte des points
-folium_static(m_pts)
+#folium_static(m_pts)
