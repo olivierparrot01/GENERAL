@@ -8,7 +8,7 @@ gdf_lignes = gpd.read_file('https://raw.githubusercontent.com/olivierparrot01/IC
 gdf_i = gpd.read_file('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/i_83.shp')
 gdf_i = gdf_i.to_crs('EPSG:2154')
 
-gdf_pts = gpd.read_file('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/g_pt3.shp', crs='EPSG:2154')
+i_pts = gpd.read_file('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/i_endpoints.shp', crs='EPSG:2154')
 
 # Coordonnées du centre de la région PACA
 center_lat = 43.7157
@@ -27,7 +27,7 @@ folium.GeoJson(gdf_i).add_to(m)
 #m_pts = folium.Map(location=[center_lat, center_lon], zoom_start=8)  # Coordonnées et niveau de zoom pour la région PACA
 
 # Ajouter les points à la nouvelle carte avec des marqueurs noirs
-for _, row in gdf_pts.iterrows():
+for _, row in i_pts.iterrows():
     # Obtenez les coordonnées du point
     lat, lon = row['geometry'].y, row['geometry'].x
     
