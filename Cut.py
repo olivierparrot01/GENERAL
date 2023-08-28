@@ -10,6 +10,24 @@ gdf_i = gdf_i.to_crs('EPSG:2154')
 
 i_pts = gpd.read_file('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/i_endpoints.shp', crs='EPSG:2154')
 
+def add_markers(data, color):
+    for _, row in data.iterrows():
+        popup_content = f"Nom usuel : {row['Nom_usuel']}<br>Code AIOT : {row['Code_AIOT_liste']}<br>Secteur : {row['Secteur']}"
+        tooltip_content = f"Nom usuel : {row['Nom_usuel']}<br>Code AIOT : {row['Code_AIOT_liste']}<br>Secteur : {row['Secteur']}"
+        
+        folium.CircleMarker(
+            location=[row['latitude'], row['longitude']],
+            radius=5,
+            color=color,
+            fill=True,
+            fill_color=color,
+            fill_opacity=1,
+            popup=popup_content,
+            tooltip=tooltip_content,
+        ).add_to(m)
+
+
+
 # Coordonnées du centre de la région PACA
 center_lat = 43.7157
 center_lon = 5.0792
