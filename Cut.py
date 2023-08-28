@@ -34,6 +34,10 @@ for _, row in i_pts.iterrows():
     # Créez un marqueur pour le point avec une couleur noire
     folium.CircleMarker(location=[lat, lon], radius=16, color='black').add_to(m)
 
+
+# Ajouter les lignes à la carte
+folium.GeoJson(i_pts).add_to(m)
+
 # Afficher la carte des lignes
 folium_static(m)
 
