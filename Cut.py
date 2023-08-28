@@ -6,10 +6,10 @@ from streamlit_folium import folium_static
 # Charger le GeoDataFrame des lignes (gdf_lignes) et des points (gdf_pts)
 gdf_lignes = gpd.read_file('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/c_selected.shp')
 gdf_i = gpd.read_file('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/i_83.shp')
-gdf_i = gdf_i.to_crs('EPSG:2154')
+#gdf_i = gdf_i.to_crs('EPSG:2154')
 
 i_pts = gpd.read_file('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/i_endpoints.shp', crs='EPSG:2154')
-
+i_pts = i_pts.to_crs('EPSG:4326')
 
 
 
