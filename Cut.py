@@ -10,21 +10,7 @@ gdf_i = gdf_i.to_crs('EPSG:2154')
 
 i_pts = gpd.read_file('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/i_endpoints.shp', crs='EPSG:2154')
 
-def add_markers(data, color):
-    for _, row in data.iterrows():
-        popup_content = f"Nom usuel : {row['Nom_usuel']}<br>Code AIOT : {row['Code_AIOT_liste']}<br>Secteur : {row['Secteur']}"
-        tooltip_content = f"Nom usuel : {row['Nom_usuel']}<br>Code AIOT : {row['Code_AIOT_liste']}<br>Secteur : {row['Secteur']}"
-        
-        folium.CircleMarker(
-            location=[row['latitude'], row['longitude']],
-            radius=5,
-            color=color,
-            fill=True,
-            fill_color=color,
-            fill_opacity=1,
-            popup=popup_content,
-            tooltip=tooltip_content,
-        ).add_to(m)
+
 
 
 
@@ -45,13 +31,17 @@ folium.GeoJson(gdf_i).add_to(m)
 #m_pts = folium.Map(location=[center_lat, center_lon], zoom_start=8)  # Coordonnées et niveau de zoom pour la région PACA
 
 # Ajouter les points à la nouvelle carte avec des marqueurs noirs
-for _, row in i_pts.iterrows():
+for idx, row in i_pts.iterrows():
     # Obtenez les coordonnées du point
     lat, lon = row['geometry'].y, row['geometry'].x
-    
+    i_pts.at[idx, 'lat'] = lat
+    i_pts.at[idx, 'lon'] = lon
     # Créez un marqueur pour le point avec une couleur noire
     folium.CircleMarker(location=[lat, lon], radius=16, color='black').add_to(m)
 
+
+# Ajouter les lignes à la carte
+folium.GeoJson(i_pts).add_to(m)
 
 # Ajouter les lignes à la carte
 folium.GeoJson(i_pts).add_to(m)
