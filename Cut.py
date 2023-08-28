@@ -41,10 +41,10 @@ for idx, row in i_pts.iterrows():
 
 
 # Ajouter les lignes à la carte
-folium.GeoJson(i_pts).add_to(m)
+#folium.GeoJson(i_pts).add_to(m)
 
 # Ajouter les lignes à la carte
-folium.GeoJson(i_pts).add_to(m)
+#folium.GeoJson(i_pts).add_to(m)
 
 # Afficher la carte des lignes
 folium_static(m)
