@@ -60,6 +60,8 @@ for id_pair in grouped_filtered['ID_PCE']:
 #d['ID_PCE']='olive'
 
 st.dataframe(c[columns_to_display1])
+st.dataframe(d[columns_to_display1])
+
     
     # Comparer les DataFrames et afficher les différences colonne par colonne
 
