@@ -23,10 +23,10 @@ grouped_filtered = grouped[grouped['ID_PCE'].apply(len) > 1]
 
 
 grouped_filtered['ID_PCE'] = grouped_filtered['ID_PCE'].apply(tuple)
-
+columns_to_display = [col for col in grouped_filtered.columns if col != 'geometry']
 
 # Sélectionner toutes les colonnes sauf 'geometry'
-columns_to_display = [col for col in grouped_filtered.columns if col != 'geometry']
+columns_to_display1 = [col for col in gdf.columns if col != 'geometry']
 
 # Afficher le DataFrame sans la colonne 'geometry'
 st.dataframe(grouped_filtered[columns_to_display])
@@ -53,7 +53,7 @@ for id_pair in grouped_filtered['ID_PCE']:
 c = pd.concat([df_int_1, df_int_2])
 
    
-st.dataframe(c[columns_to_display])
+st.dataframe(c[columns_to_display1])
     
     # Comparer les DataFrames et afficher les différences colonne par colonne
     #differences = df_int_1.compare(df_int_2)
