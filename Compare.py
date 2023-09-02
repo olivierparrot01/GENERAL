@@ -1,4 +1,4 @@
-import geopandas as gpd
+himport geopandas as gpd
 import pandas as pd
 import streamlit as st
 
@@ -37,7 +37,7 @@ st.dataframe(grouped_filtered[columns_to_display])
 
 
 # Créez un DataFrame vide sans colonnes initiales
-c= pd.DataFrame
+c= pd.DataFrame()
 
 # Comparer les paires d'ID_PCE dans grouped_filtered
 for id_pair in grouped_filtered['ID_PCE']:
