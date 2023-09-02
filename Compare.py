@@ -64,7 +64,7 @@ st.dataframe(c[columns_to_display1])
 differences = c.compare(d)
 
 if differences.empty:
-       print("ont toutes les colonnes (sauf 'ID_PCE') égales.")
+       st.write("toutes les colonnes égales.")
 else:
       #print(f"Différences entre les ID_PCE {int_1} et {int_2} :")
-      print(differences)
+      st.write(differences)
