@@ -52,9 +52,8 @@ for id_pair in grouped_filtered['ID_PCE']:
 
 
      # Concaténer df_int_1 et df_int_2 en les passant en tant que liste
-    c = c+pd.concat([df_int_1, df_int_2])
+    c = (pd.concat([c,df_int_1, df_int])
 
-   
 st.dataframe(c[columns_to_display1])
     
     # Comparer les DataFrames et afficher les différences colonne par colonne
