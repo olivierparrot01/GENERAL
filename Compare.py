@@ -46,7 +46,12 @@ for id_pair in grouped_filtered['ID_PCE']:
     # Exclure la colonne 'ID_PCE' de la comparaison
     df_int_1 = df_int_1.drop(columns=['ID_PCE'])
     df_int_2 = df_int_2.drop(columns=['ID_PCE'])
-    c=pd.concat(df_int_1,df_int_2)
+
+
+
+# Concaténer df_int_1 et df_int_2 en les passant en tant que liste
+c = pd.concat([df_int_1, df_int_2])
+
    
 st.dataframe(c)
     
