@@ -44,8 +44,8 @@ for id_pair in grouped_filtered['ID_PCE']:
     df_int_2 = gdf[gdf['ID_PCE'] == int_2]
 
     # Exclure la colonne 'ID_PCE' de la comparaison
-    df_int_1 = df_int_1.drop(columns=['ID_PCE'])
-    df_int_2 = df_int_2.drop(columns=['ID_PCE'])
+    #df_int_1 = df_int_1.drop(columns=['ID_PCE'])
+    #df_int_2 = df_int_2.drop(columns=['ID_PCE'])
 
 
 
