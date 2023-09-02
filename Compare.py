@@ -2,13 +2,13 @@ import geopandas as gpd
 import pandas as pd
 
 # Charger le GeoDataFrame à partir du fichier shapefile
-gdf = gpd.read_file(r'S:\5_TRAVAUX\2023\2023_077\sig\i_trafic.shp')
+gdf = gpd.read_file('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/i.shp')
 
 # Convertir le type de la colonne 'ID_PCE' en entier
 gdf['ID_PCE'] = gdf['ID_PCE'].astype(int)
 
 # Filtrer les lignes pour le département 83
-gdf_filtered = gdf.loc[gdf['DEPT'] == '83']
+gdf_filtered = gdf.loc[gdf['DEPT'] == '83'
 
 # Grouper les lignes par géométrie et concaténer les 'ID_PCE' dans une liste
 grouped = gdf_filtered.groupby('geometry')['ID_PCE'].apply(list).reset_index()
