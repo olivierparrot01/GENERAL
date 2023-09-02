@@ -36,10 +36,10 @@ for id_pair in grouped_filtered['ID_PCE']:
     
     
     # Comparer les DataFrames et afficher les différences colonne par colonne
-    differences = df_int_1.compare(df_int_2)
+    #differences = df_int_1.compare(df_int_2)
 
-    if differences.empty:
-        print(f"Les ID_PCE {int_1} et {int_2} ont toutes les colonnes (sauf 'ID_PCE') égales.")
-    else:
-        print(f"Différences entre les ID_PCE {int_1} et {int_2} :")
-        print(differences)
+    #if differences.empty:
+       # print(f"Les ID_PCE {int_1} et {int_2} ont toutes les colonnes (sauf 'ID_PCE') égales.")
+   # else:
+     #   print(f"Différences entre les ID_PCE {int_1} et {int_2} :")
+      #  print(differences)
