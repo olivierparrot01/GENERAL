@@ -60,10 +60,11 @@ d['ID_PCE']='olive'
 st.dataframe(c[columns_to_display1])
     
     # Comparer les DataFrames et afficher les différences colonne par colonne
-    differences = c.compare(d)
 
-    if differences.empty:
+differences = c.compare(d)
+
+if differences.empty:
        #print(f"Les ID_PCE {int_1} et {int_2} ont toutes les colonnes (sauf 'ID_PCE') égales.")
-   else:
+else:
       #print(f"Différences entre les ID_PCE {int_1} et {int_2} :")
       print(differences)
