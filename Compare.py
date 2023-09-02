@@ -7,7 +7,7 @@ import streamlit as st
 gdf = gpd.read_file('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/i.shp')
 
 # Convertir le type de la colonne 'ID_PCE' en entier
-gdf['ID_PCE'] = gdf['ID_PCE'].astype(int)
+#gdf['ID_PCE'] = gdf['ID_PCE'].astype(int)
 
 # Filtrer les lignes pour le département 83
 gdf_filtered = gdf.loc[gdf['DEPT'] == '83']
