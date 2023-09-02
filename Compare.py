@@ -25,7 +25,17 @@ grouped_filtered = grouped[grouped['ID_PCE'].apply(len) > 1]
 grouped_filtered['ID_PCE'] = grouped_filtered['ID_PCE'].apply(tuple)
 
 
-st.dataframe(grouped_filtered['ID_PCE'])
+# Sélectionner toutes les colonnes sauf 'geometry'
+columns_to_display = [col for col in grouped_filtered.columns if col != 'geometry']
+
+# Afficher le DataFrame sans la colonne 'geometry'
+st.dataframe(grouped_filtered[columns_to_display])
+
+
+
+
+
+
 
 # Comparer les paires d'ID_PCE dans grouped_filtered
 for id_pair in grouped_filtered['ID_PCE']:
