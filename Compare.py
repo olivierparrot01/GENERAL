@@ -1,4 +1,4 @@
->import geopandas as gpd
+import geopandas as gpd
 import pandas as pd
 import streamlit as st
 
