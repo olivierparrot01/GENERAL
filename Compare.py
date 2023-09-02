@@ -19,6 +19,9 @@ grouped_filtered = grouped[grouped['ID_PCE'].apply(len) > 1]
 # Convertir la liste d'ID_PCE en tuple
 grouped_filtered['ID_PCE'] = grouped_filtered['ID_PCE'].apply(tuple)
 
+
+st.dataframe(grouped_filtered)
+
 # Comparer les paires d'ID_PCE dans grouped_filtered
 for id_pair in grouped_filtered['ID_PCE']:
     int_1, int_2 = id_pair
@@ -29,6 +32,9 @@ for id_pair in grouped_filtered['ID_PCE']:
     df_int_1 = df_int_1.drop(columns=['ID_PCE'])
     df_int_2 = df_int_2.drop(columns=['ID_PCE'])
 
+   
+    
+    
     # Comparer les DataFrames et afficher les différences colonne par colonne
     differences = df_int_1.compare(df_int_2)
 
