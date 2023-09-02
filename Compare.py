@@ -59,6 +59,10 @@ for id_pair in grouped_filtered['ID_PCE']:
 #d=c.copy()
 #d['ID_PCE']='olive'
 
+# Réinitialiser l'index
+c= c.reset_index(drop=True)
+d=d.reset_index(drop=True)
+
 st.dataframe(c[columns_to_display1])
 st.dataframe(d[columns_to_display1])
 
