@@ -1,4 +1,4 @@
-import geopandas as gpd
+>import geopandas as gpd
 import pandas as pd
 import streamlit as st
 
@@ -10,7 +10,7 @@ gdf = gpd.read_file('https://raw.githubusercontent.com/olivierparrot01/ICPE/main
 gdf['ID_PCE'] = gdf['ID_PCE'].astype(int)
 
 # Filtrer les lignes pour le département 83
-gdf_filtered = gdf.loc[gdf['DEPT'] == '83'
+gdf_filtered = gdf.loc[gdf['DEPT'] == '83']
 
 # Grouper les lignes par géométrie et concaténer les 'ID_PCE' dans une liste
 
