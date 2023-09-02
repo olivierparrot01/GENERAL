@@ -11,16 +11,17 @@ gdf['ID_PCE'] = gdf['ID_PCE'].astype(int)
 gdf_filtered = gdf.loc[gdf['DEPT'] == '83'
 
 # Grouper les lignes par géométrie et concaténer les 'ID_PCE' dans une liste
-grouped = gdf_filtered.groupby('geometry')['ID_PCE'].apply(list).reset_index()
+#grouped = gdf_filtered.groupby('geometry')['ID_PCE'].apply(list).reset_index()
 
 # Filtrer les groupes avec plus d'un ID_PCE
-grouped_filtered = grouped[grouped['ID_PCE'].apply(len) > 1]
+#grouped_filtered = grouped[grouped['ID_PCE'].apply(len) > 1]
 
 # Convertir la liste d'ID_PCE en tuple
-grouped_filtered['ID_PCE'] = grouped_filtered['ID_PCE'].apply(tuple)
+
+#grouped_filtered['ID_PCE'] = grouped_filtered['ID_PCE'].apply(tuple)
 
 
-st.dataframe(grouped_filtered)
+st.dataframe(gdf_filtered)
 
 # Comparer les paires d'ID_PCE dans grouped_filtered
 for id_pair in grouped_filtered['ID_PCE']:
