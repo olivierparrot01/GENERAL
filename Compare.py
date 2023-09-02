@@ -65,6 +65,6 @@ differences = c.compare(d)
 
 if differences.empty:
        #print(f"Les ID_PCE {int_1} et {int_2} ont toutes les colonnes (sauf 'ID_PCE') égales.")
-else:
+ else:
       #print(f"Différences entre les ID_PCE {int_1} et {int_2} :")
       print(differences)
