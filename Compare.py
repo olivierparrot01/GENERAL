@@ -25,7 +25,7 @@ grouped_filtered = grouped[grouped['ID_PCE'].apply(len) > 1]
 grouped_filtered['ID_PCE'] = grouped_filtered['ID_PCE'].apply(tuple)
 
 
-st.table(grouped_filtered)
+st.dataframe(grouped_filtered['ID_PCE'])
 
 # Comparer les paires d'ID_PCE dans grouped_filtered
 for id_pair in grouped_filtered['ID_PCE']:
