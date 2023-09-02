@@ -21,7 +21,7 @@ gdf_filtered = gdf.loc[gdf['DEPT'] == '83'
 #grouped_filtered['ID_PCE'] = grouped_filtered['ID_PCE'].apply(tuple)
 
 
-st.dataframe(gdf_filtered)
+#st.dataframe(gdf_filtered)
 
 # Comparer les paires d'ID_PCE dans grouped_filtered
 for id_pair in grouped_filtered['ID_PCE']:
