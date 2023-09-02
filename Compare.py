@@ -36,7 +36,9 @@ st.dataframe(grouped_filtered[columns_to_display])
 
 
 
-c=pd.empty()
+# Créez un DataFrame vide sans colonnes initiales
+c= pd.DataFrame
+
 # Comparer les paires d'ID_PCE dans grouped_filtered
 for id_pair in grouped_filtered['ID_PCE']:
     int_1, int_2 = id_pair
