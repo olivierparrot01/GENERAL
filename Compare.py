@@ -54,13 +54,16 @@ for id_pair in grouped_filtered['ID_PCE']:
      # Concaténer df_int_1 et df_int_2 en les passant en tant que liste
     c = pd.concat([c,df_int_1, df_int_2])
 
+d=c.copy()
+d['ID_PCE']='olive'
+
 st.dataframe(c[columns_to_display1])
     
     # Comparer les DataFrames et afficher les différences colonne par colonne
-    #differences = df_int_1.compare(df_int_2)
+    differences = c.compare(d)
 
-    #if differences.empty:
-       # print(f"Les ID_PCE {int_1} et {int_2} ont toutes les colonnes (sauf 'ID_PCE') égales.")
-   # else:
-     #   print(f"Différences entre les ID_PCE {int_1} et {int_2} :")
-      #  print(differences)
+    if differences.empty:
+       #print(f"Les ID_PCE {int_1} et {int_2} ont toutes les colonnes (sauf 'ID_PCE') égales.")
+   else:
+      #print(f"Différences entre les ID_PCE {int_1} et {int_2} :")
+      print(differences)
