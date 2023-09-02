@@ -49,8 +49,8 @@ for id_pair in grouped_filtered['ID_PCE']:
 
 
 
-# Concaténer df_int_1 et df_int_2 en les passant en tant que liste
-c = pd.concat([df_int_1, df_int_2])
+     # Concaténer df_int_1 et df_int_2 en les passant en tant que liste
+     c = pd.concat([df_int_1, df_int_2])
 
    
 st.dataframe(c[columns_to_display1])
