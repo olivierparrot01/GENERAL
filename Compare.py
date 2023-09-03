@@ -63,6 +63,8 @@ for id_pair in grouped_filtered['ID_PCE']:
 c= c.reset_index(drop=True)
 d=d.reset_index(drop=True)
 
+c[columns_to_display1]=c[columns_to_display1].reset_index()
+d[columns_to_display1]=d[columns_to_display1].reset_index()
 st.dataframe(c[columns_to_display1])
 st.dataframe(d[columns_to_display1])
 
