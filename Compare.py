@@ -83,7 +83,7 @@ st.write('differences',differences)
 #comparaison = df1.compare(df2)
 
 # Afficher les parties communes (valeurs identiques)
-parties_communes = differences[differences['self'].isna() & differences['other'].isna()]
+#parties_communes = differences[differences['self'].isna() & differences['other'].isna()]
 
 
 # Effectuer une jointure sur la première colonne des index en utilisant pd.merge
