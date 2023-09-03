@@ -89,7 +89,7 @@ st.write('differences',differences)
 
 
 # Effectuer une jointure sur la première colonne des index en utilisant pd.merge
-parties_communes = pd.merge(c1,d1,left_index=True, right_index=True, how='inner')
+parties_communes = pd.merge(c1,d1,left_index=True, right_index=True, how='inner').reset_index(drop=True)
 
 
 
