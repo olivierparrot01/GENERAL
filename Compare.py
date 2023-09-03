@@ -74,5 +74,5 @@ differences = c.compare(d)
 if differences.empty:
        st.write("toutes les colonnes égales.")
 else:
-      #print(f"Différences entre les ID_PCE {int_1} et {int_2} :")
+      print(f"Différences entre les ID_PCE apppareilles")
       st.write(differences)
