@@ -1,4 +1,4 @@
-import geopandas as gpd
+tuimport geopandas as gpd
 import pandas as pd
 import streamlit as st
 
@@ -75,4 +75,16 @@ if differences.empty:
        st.write("toutes les colonnes égales.")
 else:
       print(f"Différences entre les ID_PCE apppareilles")
-      st.write(differences)
+  
+    
+st.write('differences',differences)
+
+# Comparer les deux DataFrames colonne par colonne
+#comparaison = df1.compare(df2)
+
+# Afficher les parties communes (valeurs identiques)
+parties_communes = differences[differences['self'].isna() & differences['other'].isna()]
+
+# Afficher les parties communes
+st.write('en commun',parties_communes)
+
