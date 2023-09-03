@@ -85,7 +85,10 @@ st.write('differences',differences)
 # Afficher les parties communes (valeurs identiques)
 parties_communes = differences[differences['self'].isna() & differences['other'].isna()]
 
-parties_communes = parties_communes.reset_index(drop=True)
+
+# Effectuer une jointure sur la première colonne des index en utilisant pd.merge
+parties_communes = pd.merge(c,d,left_index=True, right_index=True, how='inner')
+
 
 
 
