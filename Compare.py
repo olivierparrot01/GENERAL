@@ -71,10 +71,10 @@ st.dataframe(d[columns_to_display1])
 
 differences = c.compare(d)
 
-if differences.empty:
-       st.write("toutes les colonnes égales.")
-else:
-      print(f"Différences entre les ID_PCE apppareilles")
+#if differences.empty:
+       #st.write("toutes les colonnes égales.")
+#else:
+      #print(f"Différences entre les ID_PCE apppareilles")
   
     
 st.write('differences',differences)
@@ -87,13 +87,13 @@ st.write('differences',differences)
 
 
 # Effectuer une jointure sur la première colonne des index en utilisant pd.merge
-parties_communes = pd.merge(c,d,left_index=True, right_index=True, how='inner')
+#parties_communes = pd.merge(c,d,left_index=True, right_index=True, how='inner')
 
 
 
 
 # Afficher les parties communes
-st.write('en commun',parties_communes[columns_to_display1])
+#st.write('en commun',parties_communes[columns_to_display1])
 #st.dataframe   ( parties_communes[columns_to_display1])
         
         
