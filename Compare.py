@@ -83,7 +83,11 @@ st.write('differences',differences)
 #comparaison = df1.compare(df2)
 
 # Afficher les parties communes (valeurs identiques)
-parties_communes = differences.loc[differences['self'].isna() & differences['other'].isna()]
+parties_communes = differences[differences['self'].isna() & differences['other'].isna()]
+
+parties_communes = parties_communes.reset_index(drop=True)
+
+
 
 # Afficher les parties communes
 st.write('en commun',parties_communes)
