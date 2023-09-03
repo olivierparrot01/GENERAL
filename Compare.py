@@ -95,7 +95,7 @@ parties_communes = pd.merge(c1,d1,left_index=True, right_index=True, how='inner'
 
 
 # Afficher les parties communes
-#st.write('en commun',parties_communes[columns_to_display1])
+st.write('en commun',parties_communes)
 #st.dataframe   ( parties_communes[columns_to_display1])
         
         
