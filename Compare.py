@@ -32,20 +32,6 @@ m.save('carte.html')  # Sauvegarder la carte au format HTML
 
 
 
-
-
-
-
-
-# Créer deux nouvelles colonnes pour les coordonnées des points de début et de fin
-gdf['Coord_Lambert_Debut'] = gdf['geometry'].apply(lambda geom: geom.coords[0])
-gdf['Coord_Lambert_Fin'] = gdf['geometry'].apply(lambda geom: geom.coords[-1])
-
-# Afficher le GeoDataFrame avec les nouvelles colonnes
-#print(gdf[['Coord_Lambert_Debut', 'Coord_Lambert_Fin']])
-
-
-
 # Convertir le type de la colonne 'ID_PCE' en entier
 #gdf['ID_PCE'] = gdf['ID_PCE'].astype(int)
 
