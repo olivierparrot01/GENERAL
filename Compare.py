@@ -25,13 +25,13 @@ folium.GeoJson(geojson_dict, name='GeoJSON Layer').add_to(m)
 
 # # Créer la carte choroplèthe centrée sur les données filtrées
 
-fig = px.choropleth_mapbox(filtered_data1, geojson=geojson_data, locations=filtered_data1.index,
+fig = px.choropleth_mapbox(gdf, geojson=geojson_data, locations=gdf.index,
 
                             color_continuous_scale='Viridis', range_color=(0, 20),
 
-                            #mapbox_style="open-street-map",
+                            mapbox_style="open-street-map",
 
-                           hover_data={"PROJET": True, "DATE_PUBLI": True},
+                           hover_data={"ID_PCE": True, "ID_PCE": True},
 
                             opacity=0.4,
 
@@ -43,7 +43,7 @@ fig = px.choropleth_mapbox(filtered_data1, geojson=geojson_data, locations=filte
 
 fig.update_layout(margin={"r": 0, "t": 0, "l": 0, "b": 0})
 
-fig.update_layout(mapbox_center={"lat": data1.geometry.centroid.y.mean(), "lon": data1.geometry.centroid.x.mean()})
+fig.update_layout(mapbox_center={"lat": gdf.geometry.centroid.y.mean(), "lon": gdf.geometry.centroid.x.mean()})
 
 # # Afficher la figure dans Streamlit
 
