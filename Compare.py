@@ -9,6 +9,12 @@ import plotly.express as px
 # Charger le GeoDataFrame à partir du fichier shapefile
 gdf = gpd.read_file('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/i_83_topage.shp')
 
+
+# Convertir en WGS 84 (EPSG 4326)
+gdf= gdf.to_crs(epsg=4326)
+
+# Maintenant, gdf_wgs84 contient les coordonnées en WGS 84
+
 # Convertir le GeoDataFrame en GeoJSON au format Python (dictionnaire)
 #geojson_dict = gdf.to_dict()
 
