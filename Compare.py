@@ -20,7 +20,7 @@ folium.GeoJson(geojson_dict, name='GeoJSON Layer').add_to(m)
 
 # Afficher la carte 
 
-folium_static(m)
+#folium_static(m)
 
 
 
