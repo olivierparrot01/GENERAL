@@ -10,13 +10,13 @@ import plotly.express as px
 gdf = gpd.read_file('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/i_83_topage.shp')
 
 # Convertir le GeoDataFrame en GeoJSON au format Python (dictionnaire)
-geojson_dict = gdf.to_dict()
+#geojson_dict = gdf.to_dict()
 
 # Créer une carte Folium centrée sur la zone d'intérêt
-m = folium.Map(location=[gdf['geometry'].total_bounds[1], gdf['geometry'].total_bounds[0]], zoom_start=10)
+#m = folium.Map(location=[gdf['geometry'].total_bounds[1], gdf['geometry'].total_bounds[0]], zoom_start=10)
 
 # Ajouter le GeoJSON directement à la carte Folium
-folium.GeoJson(geojson_dict, name='GeoJSON Layer').add_to(m)
+#folium.GeoJson(geojson_dict, name='GeoJSON Layer').add_to(m)
 
 # Afficher la carte 
 
