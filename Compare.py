@@ -6,9 +6,10 @@ import folium
 # Charger le GeoDataFrame à partir du fichier shapefile
 gdf = gpd.read_file('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/i_83_topage.shp')
 
-from folium.plugins import GeoJson
 
 
+# Charger le GeoDataFrame à partir du fichier shapefile
+gdf = gpd.read_file('nom_du_fichier_shapefile.shp')
 
 # Convertir le GeoDataFrame en GeoJSON au format Python (dictionnaire)
 geojson_dict = gdf.to_dict()
@@ -16,14 +17,11 @@ geojson_dict = gdf.to_dict()
 # Créer une carte Folium centrée sur la zone d'intérêt
 m = folium.Map(location=[gdf['geometry'].total_bounds[1], gdf['geometry'].total_bounds[0]], zoom_start=10)
 
-# Créer un objet GeoJson à partir du dictionnaire GeoJSON
-geojson_layer = GeoJson(geojson_dict, name='GeoJSON Layer').add_to(m)
-
-# Ajouter la couche GeoJSON à la carte Folium
-geojson_layer.add_to(m)
+# Ajouter le GeoJSON directement à la carte Folium
+folium.GeoJson(geojson_dict, name='GeoJSON Layer').add_to(m)
 
 # Afficher la carte Folium
-m.save('carte.html')  # Sauvegarder la carte au format HTML
+m.save('carte.html')  # Sauvegarder la carte au format H
 
 
 
