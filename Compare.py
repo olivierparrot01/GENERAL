@@ -18,10 +18,9 @@ m = folium.Map(location=[gdf['geometry'].total_bounds[1], gdf['geometry'].total_
 # Ajouter le GeoJSON directement à la carte Folium
 folium.GeoJson(geojson_dict, name='GeoJSON Layer').add_to(m)
 
-# Afficher la carte Folium
-m.save('carte.html')  # Sauvegarder la carte au format H
+# Afficher la carte 
 
-
+folium_static(m)
 
 
 
