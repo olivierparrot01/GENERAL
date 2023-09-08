@@ -25,6 +25,7 @@ folium.GeoJson(geojson_dict, name='GeoJSON Layer').add_to(m)
 
 # # Créer la carte choroplèthe centrée sur les données filtrées
 geojson_data = gdf.__geo_interface__
+center = {"lat": 43.9333, "lon": 6.0679}  # Coordonnées approximatives du centre de la région PACA
 fig = px.choropleth_mapbox(gdf, geojson=geojson_data, locations=gdf.index,
 
                             color_continuous_scale='Viridis', range_color=(0, 20),
