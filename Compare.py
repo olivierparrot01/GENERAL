@@ -3,7 +3,7 @@ import pandas as pd
 import streamlit as st
 import folium
 from streamlit_folium import folium_static
-
+import plotly.express as px
 
 
 # Charger le GeoDataFrame à partir du fichier shapefile
