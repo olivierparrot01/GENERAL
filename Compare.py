@@ -4,7 +4,7 @@ import streamlit as st
 
 
 # Charger le GeoDataFrame à partir du fichier shapefile
-gdf = gpd.read_file('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/i.shp')
+gdf = gpd.read_file('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/i_83_topage.shp')
 
 
 
