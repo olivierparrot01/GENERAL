@@ -20,7 +20,7 @@ for _, row in gdf.iterrows():
         'type': 'Feature',
         'geometry': row['geometry'],
         'properties': {
-            'popup': f"Nom usuel : {row['TOPO_PCE']}<br>Code AIOT : {row['ID_PCE']}
+            'popup': f"Nom usuel : {row['TOPO_PCE']}<br>Code AIOT : {row['ID_PCE']}"
         }
     }
     folium.GeoJson(
