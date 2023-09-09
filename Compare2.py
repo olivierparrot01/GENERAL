@@ -20,7 +20,7 @@ for _, row in gdf.iterrows():
         'type': 'Feature',
         'geometry': row['geometry'],
         'properties': {
-            'popup': f"Nom usuel : {row['Nom_usuel']}<br>Code AIOT : {row['Code_AIOT_liste']}<br>Secteur : {row['Secteur']}"
+            'popup': f"Nom usuel : {row['TOPO_PCE']}<br>Code AIOT : {row['ID_PCE']}
         }
     }
     folium.GeoJson(
@@ -30,4 +30,4 @@ for _, row in gdf.iterrows():
     ).add_to(m)
 
 # Afficher la carte Folium
-m.save('ma_carte.html')  # Enregistrez la carte au format HTML
+#m.save('ma_carte.html')  # Enregistrez la carte au format HTML
