@@ -23,7 +23,7 @@ center_lat = gdf['latitude'].mean()
 center_lon = gdf['longitude'].mean() 
 
 # Création de la carte avec Folium
-m = folium.Map(location=[center_lat, center_lon], zoom_start=8, control_scale=True)
+m = folium.Map(location=[44,6], zoom_start=8, control_scale=True)
 
 
 
