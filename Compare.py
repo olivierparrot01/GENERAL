@@ -8,6 +8,9 @@ import plotly.express as px
 
 # Charger le GeoDataFrame à partir du fichier shapefile
 gdf = gpd.read_file('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/i_83_topage.shp')
+
+st.write(gdf.columns)
+
 #st.dataframe(gdf["ID_PCE"])
 #st.dataframe(gdf["geometry"])
 
