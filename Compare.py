@@ -36,8 +36,8 @@ lines_geojson_layer = folium.GeoJson(
         'weight': 2  # Épaisseur constante
     },
     tooltip=folium.GeoJsonTooltip(
-        fields=[ "ID_PCE"],
-        aliases=[ "ID_PCE"],
+        fields=[ "ID_PCE","TOPO_PCE"],
+        aliases=[ "ID_PCE","TOPO_PCE"],
         style="font-size: 12px; text-align: center;",
         sticky=True,  # Rend l'étiquette collante (reste affichée lors du survol)
         delay=0  # Aucun délai d'affichage
