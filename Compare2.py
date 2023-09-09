@@ -1,13 +1,13 @@
 import geopandas as gpd
 import folium
 from streamlit_folium import folium_static
-
+un
 # Charger le GeoDataFrame à partir du fichier shapefile
 #gdf = gpd.read_file('nom_du_fichier_shapefile.shp')
 gdf = gpd.read_file('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/i_83_topage.shp')
 
 
-# Convertir en WGS 84 (EPSG 4326)
+# Convertir en WGS 84 (EP SG 4326)
 gdf= gdf.to_crs(epsg=4326)
 
 gdf= gdf.__geo_interface__
