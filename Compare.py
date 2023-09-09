@@ -57,37 +57,6 @@ lines_geojson_layer.add_to(m)
 folium_static(m)
 
 
-# # Créer la carte choroplèthe centrée sur les données filtrées
-#geojson_data = gdf.__geo_interface__
-center = {"lat": 43.9333, "lon": 6.0679}  # Coordonnées approximatives du centre de la région PACA
-fig = px.choropleth_mapbox(gdf, geojson=geojson_data, locations=gdf.index,
-
-                            color_continuous_scale='Viridis', range_color=(0, 20),
-
-                            mapbox_style="open-street-map",
-
-                           hover_data={"ID_PCE": True, "ID_PCE": True},
-
-                            opacity=0.4,
-
-                            zoom=7, center=center)
-
-# # Afficher la carte
-
-# # Mettre à jour le style et la mise en page
-
-fig.update_layout(margin={"r": 0, "t": 0, "l": 0, "b": 0})
-
-fig.update_layout(mapbox_center={"lat": gdf.geometry.centroid.y.mean(), "lon": gdf.geometry.centroid.x.mean()})
-
-# # Afficher la figure dans Streamlit
-
-st.plotly_chart(fig)
-
-
-
-
-
 # Convertir le type de la colonne 'ID_PCE' en entier
 #gdf['ID_PCE'] = gdf['ID_PCE'].astype(int)
 
