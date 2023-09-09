@@ -2,8 +2,8 @@ import geopandas as gpd
 import folium
 
 # Charger le GeoDataFrame à partir du fichier shapefile
-gdf = gpd.read_file('nom_du_fichier_shapefile.shp')
-
+#gdf = gpd.read_file('nom_du_fichier_shapefile.shp')
+gdf = gpd.read_file('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/i_83_topage.shp')
 # Créer une carte Folium
 m = folium.Map(location=[48.8566, 2.3522], zoom_start=12)
 
