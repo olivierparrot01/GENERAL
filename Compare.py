@@ -37,6 +37,9 @@ lines_geojson_layer = folium.GeoJson(
         delay=0  # Aucun délai d'affichage
     )
 )
+
+
+lines_geojson_layer.add_to(m)
 # Convertir le GeoDataFrame en GeoJSON au format Python (dictionnaire)
 #geojson_dict = gdf.to_dict()
 
