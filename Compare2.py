@@ -59,6 +59,6 @@ for zoom_level in range(13, 19):
     ).add_to(m)
 
 # Add a LatLngPopup to the map
-popup = folium.LatLngPopup()
-m.add_child(popup)
+#popup = folium.LatLngPopup()
+#m.add_child(popup)
 folium_static(m)
