@@ -14,13 +14,14 @@ st.dataframe(gdf["ID_PCE"])
 # Convertir en WGS 84 (EPSG 4326)
 gdf= gdf.to_crs(epsg=4326)
 
+gdf= gdf.__geo_interface__
 # Maintenant, gdf_wgs84 contient les coordonnées en WGS 84
 
 # Convertir le GeoDataFrame en GeoJSON au format Python (dictionnaire)
 #geojson_dict = gdf.to_dict()
 
 # Créer une carte Folium centrée sur la zone d'intérêt
-#m = folium.Map(location=[gdf['geometry'].total_bounds[1], gdf['geometry'].total_bounds[0]], zoom_start=10)
+m = folium.Map(location=[gdf['geometry'].total_bounds[1], gdf['geometry'].total_bounds[0]], zoom_start=10)
 
 # Ajouter le GeoJSON directement à la carte Folium
 #folium.GeoJson(geojson_dict, name='GeoJSON Layer').add_to(m)
