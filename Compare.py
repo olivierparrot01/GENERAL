@@ -19,7 +19,7 @@ gdf= gdf.__geo_interface__
 
 
 # Création de la carte avec Folium
-m = folium.Map(location=[44,6], zoom_start=8, control_scale=True)
+m = folium.Map(location=[45,6], zoom_start=8, control_scale=True)
 
 
 
