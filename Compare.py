@@ -27,7 +27,7 @@ m = folium.Map(location=[center_lat, center_lon], zoom_start=8, control_scale=Tr
 
 
 
-Créer une couche GeoJSON pour les lignes
+#Créer une couche GeoJSON pour les lignes
 lines_geojson_layer = folium.GeoJson(
     gdf,
     name="Lignes entre points",
