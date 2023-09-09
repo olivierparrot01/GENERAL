@@ -16,30 +16,26 @@ gdf= gdf.__geo_interface__
 
 
 # Créer une carte Folium
-m = folium.Map(location=[48.8566, 2.3522], zoom_start=12)
+m = folium.Map(location=[48.8566, 2.3522], zoom_s
 
-# Définir la fonction de style
-style_function = lambda feature: {
-    'color': 'black',
-    'opacity': 1,
-    'weight': 2
-}
 
-# Ajouter les fonctionnalités GeoJSON avec popups personnalisés
-for _, row in gdf.iterrows():
-    feature = {
-        'type': 'Feature',
-        'geometry': row['geometry'],
-        'properties': {
-            'popup': f"Nom usuel : {row['TOPO_PCE']}<br>Code AIOT : {row['ID_PCE']}"
-        }
-    }
-    folium.GeoJson(
-        feature,
-        style_function=style_function,
-        tooltip=row['TOPO_PCE']
-    ).add_to(m)
 
-# Afficher la carte Folium
-#m.save('ma_carte.html')  # Enregistrez la carte au format HTML
+
+#Créer une couche GeoJSON pour les lignes
+lines_geojson_layer = folium.GeoJson(
+    gdf,
+    name="Lignes entre points",
+    style_function=lambda feature: {
+        'color': 'black',  # Utilisez la couleur de votre choix
+        'opacity': 1,
+        'weight': 2  # Épaisseur constante
+    },
+    tooltip=folium.GeoJsonTooltip(
+        fields=[ "ID_PCE","TOPO_PCE"],
+        aliases=[ "ID_PCE","TOPO_PCE"],
+        style="font-size: 12px; text-align: center;",
+        sticky=True,  # Rend l'étiquette collante (reste affichée lors du survol)
+        delay=0  # Aucun délai d'affichage
+    )
+)
 folium_static(m)
