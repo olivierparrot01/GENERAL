@@ -34,7 +34,7 @@ lines_geojson_layer = folium.GeoJson(
     },
     tooltip=folium.GeoJsonTooltip(
         fields=[ "ID_PCE"],
-        aliases=[ "Distance"],
+        aliases=[ "ID_PCE"],
         style="font-size: 12px; text-align: center;",
         sticky=True,  # Rend l'étiquette collante (reste affichée lors du survol)
         delay=0  # Aucun délai d'affichage
