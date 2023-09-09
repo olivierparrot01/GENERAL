@@ -18,6 +18,13 @@ gdf= gdf.__geo_interface__
 # Maintenant, gdf_wgs84 contient les coordonnées en WGS 84
 
 
+# Calcul des coordonnées du centre de la carte
+center_lat = (df['latitude'].mean() + dg['latitude'].mean()) / 2
+center_lon = (df['longitude'].mean() + dg['longitude'].mean()) / 2
+
+# Création de la carte avec Folium
+m = folium.Map(location=[center_lat, center_lon], zoom_start=8, control_scale=True)
+
 
 
 Créer une couche GeoJSON pour les lignes
@@ -44,14 +51,14 @@ lines_geojson_layer.add_to(m)
 #geojson_dict = gdf.to_dict()
 
 # Créer une carte Folium centrée sur la zone d'intérêt
-m = folium.Map(location=[gdf['geometry'].total_bounds[1], gdf['geometry'].total_bounds[0]], zoom_start=10)
+#m = folium.Map(location=[gdf['geometry'].total_bounds[1], gdf['geometry'].total_bounds[0]], zoom_start=10)
 
 # Ajouter le GeoJSON directement à la carte Folium
 #folium.GeoJson(geojson_dict, name='GeoJSON Layer').add_to(m)
 
 # Afficher la carte 
 
-#folium_static(m)
+folium_static(m)
 
 
 # # Créer la carte choroplèthe centrée sur les données filtrées
