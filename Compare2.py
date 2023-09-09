@@ -16,9 +16,8 @@ gdf= gdf.__geo_interface__
 
 
 # Créer une carte Folium
-m = folium.Map(location=[48.8566, 2.3522], zoom_s
 
-
+m = folium.Map(location=[44,7], zoom_start=8, control_scale=True)
 
 
 #Créer une couche GeoJSON pour les lignes
