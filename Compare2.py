@@ -37,4 +37,5 @@ lines_geojson_layer = folium.GeoJson(
         delay=0  # Aucun délai d'affichage
     )
 )
+lines_geojson_layer.add_to(m)
 folium_static(m)
