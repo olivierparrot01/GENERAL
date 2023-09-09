@@ -17,6 +17,26 @@ gdf= gdf.to_crs(epsg=4326)
 gdf= gdf.__geo_interface__
 # Maintenant, gdf_wgs84 contient les coordonnées en WGS 84
 
+
+
+
+Créer une couche GeoJSON pour les lignes
+lines_geojson_layer = folium.GeoJson(
+    gdf,
+    name="Lignes entre points",
+    style_function=lambda feature: {
+        'color': 'black',  # Utilisez la couleur de votre choix
+        'opacity': 1,
+        'weight': 2  # Épaisseur constante
+    },
+    tooltip=folium.GeoJsonTooltip(
+        fields=[ "ID_PCE"],
+        aliases=[ "Distance"],
+        style="font-size: 12px; text-align: center;",
+        sticky=True,  # Rend l'étiquette collante (reste affichée lors du survol)
+        delay=0  # Aucun délai d'affichage
+    )
+)
 # Convertir le GeoDataFrame en GeoJSON au format Python (dictionnaire)
 #geojson_dict = gdf.to_dict()
 
