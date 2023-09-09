@@ -18,10 +18,6 @@ gdf= gdf.__geo_interface__
 # Maintenant, gdf_wgs84 contient les coordonnées en WGS 84
 
 
-# Calcul des coordonnées du centre de la carte
-center_lat = gdf['latitude'].mean() 
-center_lon = gdf['longitude'].mean() 
-
 # Création de la carte avec Folium
 m = folium.Map(location=[44,6], zoom_start=8, control_scale=True)
 
