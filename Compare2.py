@@ -1,7 +1,7 @@
 import geopandas as gpd
 import folium
 from streamlit_folium import folium_static
-un
+
 # Charger le GeoDataFrame à partir du fichier shapefile
 #gdf = gpd.read_file('nom_du_fichier_shapefile.shp')
 gdf = gpd.read_file('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/i_83_topage.shp')
