@@ -19,7 +19,7 @@ gdf= gdf.__geo_interface__
 
 
 # Création de la carte avec Folium
-m = folium.Map(location=[45,6], zoom_start=8, control_scale=True)
+m = folium.Map(location=[44,7], zoom_start=8, control_scale=True)
 
 
 
@@ -58,7 +58,7 @@ folium_static(m)
 
 
 # # Créer la carte choroplèthe centrée sur les données filtrées
-geojson_data = gdf.__geo_interface__
+#geojson_data = gdf.__geo_interface__
 center = {"lat": 43.9333, "lon": 6.0679}  # Coordonnées approximatives du centre de la région PACA
 fig = px.choropleth_mapbox(gdf, geojson=geojson_data, locations=gdf.index,
 
