@@ -38,4 +38,27 @@ lines_geojson_layer = folium.GeoJson(
     )
 )
 lines_geojson_layer.add_to(m)
+
+
+
+# URL de l'orthophoto IGN à utiliser comme couche de tuile
+orthophoto_url = "https://wxs.ign.fr/choisirgeoportail/geoportail/wmts?" \
+                 "SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=ORTHOIMAGERY.ORTHOPHOTOS&TILEMATRIXSET=PM&" \
+                 "FORMAT=image/jpeg&TILECOL={x}&TILEROW={y}&TILEMATRIX={z}&" \
+                 "STYLE=normal"
+
+# Ajout de la couche de tuile de l'orthophoto IGN uniquement aux niveaux de zoom 13 
+for zoom_level in range(13, 19):
+    folium.TileLayer(
+        tiles=orthophoto_url,
+        attr="IGN France",
+        name=f"Orthophoto IGN (Zoom {zoom_level})",
+        overlay=True,
+        min_zoom=zoom_level,
+        max_zoom=zoom_level,
+    ).add_to(m)
+
+# Add a LatLngPopup to the map
+popup = folium.LatLngPopup()
+m.add_child(popup)
 folium_static(m)
