@@ -19,8 +19,8 @@ gdf= gdf.__geo_interface__
 
 
 # Calcul des coordonnées du centre de la carte
-center_lat = (gdf['latitude'].mean() 
-center_lon = (gdf['longitude'].mean() 
+center_lat = gdf['latitude'].mean() 
+center_lon = gdf['longitude'].mean() 
 
 # Création de la carte avec Folium
 m = folium.Map(location=[center_lat, center_lon], zoom_start=8, control_scale=True)
