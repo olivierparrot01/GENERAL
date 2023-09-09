@@ -31,3 +31,4 @@ for _, row in gdf.iterrows():
 
 # Afficher la carte Folium
 #m.save('ma_carte.html')  # Enregistrez la carte au format HTML
+folium_static(m)
