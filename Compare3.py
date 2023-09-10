@@ -94,5 +94,5 @@ tooltip=folium.GeoJsonTooltip(
 geojson_layer.add_to(map)
 
 # Afficher la carte Folium
-#folium_static(map)
+folium_static(map)
 
