@@ -36,7 +36,7 @@ lines_geojson_layer = folium.GeoJson(
         delay=0  # Aucun délai d'affichage
     )
 )
-lines_geojson_layer.add_to(m)
+#lines_geojson_layer.add_to(m)
 
 
 lines_geojson_layer1 = folium.GeoJson(
@@ -57,7 +57,7 @@ lines_geojson_layer1 = folium.GeoJson(
 )
 lines_geojson_layer1.add_to(m)
 
-
+lines_geojson_layer.add_to(m)
 # URL de l'orthophoto IGN à utiliser comme couche de tuile
 orthophoto_url = "https://wxs.ign.fr/choisirgeoportail/geoportail/wmts?" \
                  "SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=ORTHOIMAGERY.ORTHOPHOTOS&TILEMATRIXSET=PM&" \
