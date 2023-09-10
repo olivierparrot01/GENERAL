@@ -1,4 +1,4 @@
-Guyimport geopandas as gpd
+import geopandas as gpd
 import folium
 from streamlit_folium import folium_static
 import streamlit as st
