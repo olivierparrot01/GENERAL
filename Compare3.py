@@ -102,7 +102,7 @@ if not filtered_gdf.empty :
     )
  geojson_layer.add_to(map)
 
-folium.LayerControl().add_to(map)
+LayerControl().add_to(map)
 
 # Afficher la carte Folium
 folium_static(map)
