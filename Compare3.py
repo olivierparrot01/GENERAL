@@ -72,7 +72,10 @@ selected_column = st.selectbox("Sélectionnez une colonne (25-59)", columns_25_t
 if selected_column:
     # Créer une couche GeoJSON en utilisant la colonne sélectionnée
     geojson_layer = folium.GeoJson(
-        gdf,
+        # Vérifiez d'abord si une colonne a été sélectionnée
+if selected_column:
+    # Filtrer le GeoDataFrame pour inclure uniquement les lignes où la colonne sélectionnée est égale à 1
+    filtered_gdf = gdf[gdf[selected_column] == 1],
         name="Données sélectionnées",
         style_function=lambda feature: {
             'color': 'black',  # Utilisez la couleur de votre choix
