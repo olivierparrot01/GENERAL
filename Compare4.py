@@ -76,7 +76,7 @@ if selected_column :
     geojson_layer = create_geojson_layer(filtered_gdf, 'blue', 'Données sélectionnées')
     geojson_layer.add_to(map)
     plugins.MousePosition().add_to(map)
- else;
+ else :
     st.write(selected_column)
 # Ajouter la couche de contrôle pour activer/désactiver les couches
 LayerControl().add_to(map)
