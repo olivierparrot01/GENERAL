@@ -64,7 +64,7 @@ map1 = folium.Map(location=[43, 7], zoom_start=8, control_scale=True)
 
 
 # Liste des colonnes de 25 à 59
-columns_25_to_59 = gdf.columns[39:58]
+columns_25_to_59 = gdf.columns[39:59]
 
 # Sélection de la colonne
 selected_column = st.selectbox("Sélectionnez une colonne (25-59)", columns_25_to_59)
