@@ -84,7 +84,7 @@ st.dataframe(filtered_gdf1)
 # Afficher la carte Folium en fonction de la sélection de l'utilisateur
 # Créer une couche GeoJSON en utilisant la colonne sélectionnée
 if not filtered_gdf.empty :
-geojson_layer = folium.GeoJson(
+ geojson_layer = folium.GeoJson(
  filtered_gdf,
         name="Données sélectionnées",
         style_function=lambda feature: {
