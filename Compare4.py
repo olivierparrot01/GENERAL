@@ -64,9 +64,9 @@ columns_25_to_59 = gdf.columns[39:59]
 # Créer un DataFrame vide
 #selected_column= None
 
-selected_column= st.selectbox("Sélectionnez une colonne (25-59)", []+list(columns_25_to_59))
-
-filtered_gdf = gdf[gdf[selected_column] == 1].copy()  # Copiez les données filtrées pour éviter les problèmes de vue
+selected_column= st.selectbox("Sélectionnez une colonne (25-59)", [""]+list(columns_25_to_59))
+if selected_column :
+ filtered_gdf = gdf[gdf[selected_column] == 1].copy()  # Copiez les données filtrées pour éviter les problèmes de vue
 
 # Exclure la colonne 'geometry'
 filtered_gdf1 = filtered_gdf.drop(columns='geometry')
