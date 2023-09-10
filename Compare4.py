@@ -72,7 +72,7 @@ if selected_column :
  filtered_gdf1 = filtered_gdf.drop(columns='geometry')
 
 # Créer une couche GeoJSON en utilisant la colonne sélectionnée
-if not filtered_gdf.empty:
+ if not filtered_gdf.empty:
     geojson_layer = create_geojson_layer(filtered_gdf, 'blue', 'Données sélectionnées')
     geojson_layer.add_to(map)
     plugins.MousePosition().add_to(map)
