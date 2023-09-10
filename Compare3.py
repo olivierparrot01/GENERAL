@@ -96,8 +96,8 @@ if not filtered_gdf.empty :
      },
  
  tooltip=folium.GeoJsonTooltip(
-            fields=[selected_column],
-            aliases=[selected_column],
+            fields=["ID_PCE", "TOPO_PCE",selected_column],
+            aliases=["ID_PCE", "TOPO_PCE",selected_column],
             style="font-size: 12px; text-align: center;",
             sticky=True,
             delay=0
