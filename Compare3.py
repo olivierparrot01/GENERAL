@@ -1,6 +1,8 @@
 import geopandas as gpd
 import folium
 from streamlit_folium import folium_static
+import streamlit as st
+
 
 # Fonction pour créer une couche GeoJSON
 def create_geojson_layer(data, color, name):
