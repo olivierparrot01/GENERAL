@@ -77,7 +77,7 @@ if selected_column :
     geojson_layer.add_to(map)
     plugins.MousePosition().add_to(map)
  else :
-    st.write(selected_column)
+    st.write(gdf[selected_column])
 # Ajouter la couche de contrôle pour activer/désactiver les couches
 LayerControl().add_to(map)
 
