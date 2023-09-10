@@ -85,14 +85,14 @@ st.dataframe(filtered_gdf1)
 # Créer une couche GeoJSON en utilisant la colonne sélectionnée
 if not filtered_gdf.empty :
 geojson_layer = folium.GeoJson(
-filtered_gdf,
+ filtered_gdf,
         name="Données sélectionnées",
         style_function=lambda feature: {
             'color': 'blue',  # Utilisez la couleur de votre choix
             'opacity': 1,
             'weight': 2
         },
-tooltip=folium.GeoJsonTooltip(
+ tooltip=folium.GeoJsonTooltip(
             fields=[selected_column],
             aliases=[selected_column],
             style="font-size: 12px; text-align: center;",
@@ -100,7 +100,7 @@ tooltip=folium.GeoJsonTooltip(
             delay=0
         )
     )
-geojson_layer.add_to(map)
+ geojson_layer.add_to(map)
 
 # Afficher la carte Folium
 folium_static(map)
