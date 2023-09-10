@@ -9,7 +9,7 @@ gdf1 = gpd.read_file('https://raw.githubusercontent.com/olivierparrot01/ICPE/mai
 
 # Convertir en WGS 84 (EP SG 4326)
 gdf= gdf.to_crs(epsg=4326)
-gdf1.to_crs(epsg=4326)
+gdf1=gdf1.to_crs(epsg=4326)
 gdf= gdf.__geo_interface__
 gdf1= gdf1.__geo_interface__
 
