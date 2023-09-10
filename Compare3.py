@@ -60,7 +60,7 @@ for zoom_level in range(13, 19):
 # Afficher la carte Folium
 #folium_static(map)
 
-map1 = folium.Map(location=[44, 7], zoom_start=8, control_scale=True)
+map1 = folium.Map(location=[43, 7], zoom_start=8, control_scale=True)
 
 
 # Liste des colonnes de 25 à 59
