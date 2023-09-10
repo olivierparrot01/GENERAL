@@ -73,12 +73,12 @@ filtered_gdf = gdf.loc[gdf[selected_column] == 1]
 
 
 # Exclure la colonne 'geometry'
-filtered_gdf=filtered_gdf.drop(columns='geometry')
+filtered_gdf1=filtered_gdf.drop(columns='geometry')
 
 
 
         
-st.dataframe(filtered_gdf)
+st.dataframe(filtered_gdf1)
 
 #st.dataframe(filtered_gdf.columns[39:58])
 # Afficher la carte Folium en fonction de la sélection de l'utilisateur
