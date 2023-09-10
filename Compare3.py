@@ -78,7 +78,7 @@ filtered_gdf1=filtered_gdf.drop(columns='geometry')
 
 
         
-st.dataframe(filtered_gdf1)
+#st.dataframe(filtered_gdf1)
 
 #st.dataframe(filtered_gdf.columns[39:58])
 # Afficher la carte Folium en fonction de la sélection de l'utilisateur
