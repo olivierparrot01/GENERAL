@@ -61,7 +61,7 @@ for zoom_level in range(13, 19):
 columns_25_to_59 = gdf.columns[39:59]
 
 # Créer un DataFrame vide
-selected_column= pd.DataFramr()
+selected_column= gpd.DataFramr()
 
 st.selectbox("Sélectionnez une colonne (25-59)", columns_25_to_59)
 
