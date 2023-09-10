@@ -10,3 +10,4 @@ requests
 xlsxwriter
 shapely
 networkx
+folium.plugins
