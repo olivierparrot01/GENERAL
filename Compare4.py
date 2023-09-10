@@ -63,7 +63,7 @@ columns_25_to_59 = gdf.columns[39:59]
 # Créer un DataFrame vide
 selected_column= pd.Series()
 
-st.selectbox("Sélectionnez une colonne (25-59)", columns_25_to_59)
+selected_column= st.selectbox("Sélectionnez une colonne (25-59)", columns_25_to_59)
 
 filtered_gdf = gdf[gdf[selected_column] == 1].copy()  # Copiez les données filtrées pour éviter les problèmes de vue
 
