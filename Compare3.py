@@ -71,6 +71,8 @@ selected_column = st.selectbox("Sélectionnez une colonne (25-59)", columns_25_t
 filtered_gdf = gdf[gdf[selected_column] == 1],
 
 
+
+st.dateframe(filteted_gdf)
 # Afficher la carte Folium en fonction de la sélection de l'utilisateur
 if selected_column:
     # Créer une couche GeoJSON en utilisant la colonne sélectionnée
