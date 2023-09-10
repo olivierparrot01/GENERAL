@@ -69,7 +69,7 @@ if selected_column :
  filtered_gdf = gdf[gdf[selected_column] == 1].copy()  # Copiez les données filtrées pour éviter les problèmes de vue
 
 # Exclure la colonne 'geometry'
-filtered_gdf1 = filtered_gdf.drop(columns='geometry')
+ filtered_gdf1 = filtered_gdf.drop(columns='geometry')
 
 # Créer une couche GeoJSON en utilisant la colonne sélectionnée
 if not filtered_gdf.empty:
