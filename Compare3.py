@@ -75,9 +75,6 @@ filtered_gdf = gdf[gdf[selected_column] == 1],
 if selected_column:
     # Créer une couche GeoJSON en utilisant la colonne sélectionnée
     geojson_layer = folium.GeoJson(
-        # Vérifiez d'abord si une colonne a été sélectionnée
-if selected_column:
-    # Filtrer le GeoDataFrame pour inclure uniquement les lignes où la colonne sélectionnée est égale à 1
     filtered_gdf,
         name="Données sélectionnées",
         style_function=lambda feature: {
