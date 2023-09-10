@@ -1,4 +1,5 @@
 import geopandas as gpd
+import pandas as pd
 import folium
 from streamlit_folium import folium_static
 import streamlit as st
@@ -61,7 +62,7 @@ for zoom_level in range(13, 19):
 columns_25_to_59 = gdf.columns[39:59]
 
 # Créer un DataFrame vide
-selected_column= gpd.Series()
+selected_column= pd.Series()
 
 selected_column= st.selectbox("Sélectionnez une colonne (25-59)", columns_25_to_59)
 
