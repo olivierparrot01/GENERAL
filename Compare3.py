@@ -58,8 +58,9 @@ for zoom_level in range(13, 19):
     ).add_to(map)
 
 # Afficher la carte Folium
-folium_static(map)
+#folium_static(map)
 
+map1 = folium.Map(location=[44, 7], zoom_start=8, control_scale=True)
 
 
 # Liste des colonnes de 25 à 59
@@ -91,8 +92,8 @@ tooltip=folium.GeoJsonTooltip(
             delay=0
         )
     )
-geojson_layer.add_to(map)
+geojson_layer.add_to(map1)
 
 # Afficher la carte Folium
-folium_static(map)
+folium_static(map1)
 
