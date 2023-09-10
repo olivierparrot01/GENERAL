@@ -91,7 +91,8 @@ if not filtered_gdf.empty :
             'color': 'blue',  # Utilisez la couleur de votre choix
             'opacity': 1,
             'weight': 2
-        },
+     },
+ highlight_function=lambda x: {'weight': 3, 'fillColor': 'yellow'},  # 
  tooltip=folium.GeoJsonTooltip(
             fields=[selected_column],
             aliases=[selected_column],
@@ -106,4 +107,10 @@ LayerControl().add_to(map)
 
 # Afficher la carte Folium
 folium_static(map)
+
+
+
+
+
+
 
