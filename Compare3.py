@@ -1,8 +1,10 @@
-import geopandas as gpd
+Guyimport geopandas as gpd
 import folium
 from streamlit_folium import folium_static
 import streamlit as st
 from folium import LayerControl
+
+import folium.plugins
 
 # Fonction pour créer une couche GeoJSON
 def create_geojson_layer(data, color, name):
@@ -92,7 +94,7 @@ if not filtered_gdf.empty :
             'opacity': 1,
             'weight': 2
      },
- highlight_function=lambda x: {'weight': 3, 'fillColor': 'yellow'},  # 
+ 
  tooltip=folium.GeoJsonTooltip(
             fields=[selected_column],
             aliases=[selected_column],
@@ -102,15 +104,9 @@ if not filtered_gdf.empty :
         )
     )
  geojson_layer.add_to(map)
-
+plugins.MousePosition().add_to(map)
 LayerControl().add_to(map)
 
 # Afficher la carte Folium
 folium_static(map)
-
-
-
-
-
-
 
