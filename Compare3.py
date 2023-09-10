@@ -58,7 +58,7 @@ for zoom_level in range(13, 19):
     ).add_to(map)
 
 # Afficher la carte Folium
-folium_static(map)
+#folium_static(map)
 
 map1 = folium.Map(location=[43, 7], zoom_start=8, control_scale=True)
 
@@ -83,6 +83,7 @@ st.dataframe(filtered_gdf1)
 #st.dataframe(filtered_gdf.columns[39:58])
 # Afficher la carte Folium en fonction de la sélection de l'utilisateur
 # Créer une couche GeoJSON en utilisant la colonne sélectionnée
+if filtered_gdf is not empty :
 geojson_layer = folium.GeoJson(
 filtered_gdf,
         name="Données sélectionnées",
@@ -99,8 +100,8 @@ tooltip=folium.GeoJsonTooltip(
             delay=0
         )
     )
-geojson_layer.add_to(map1)
+geojson_layer.add_to(map)
 
 # Afficher la carte Folium
-folium_static(map1)
+folium_static(map)
 
