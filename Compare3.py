@@ -37,8 +37,8 @@ map = folium.Map(location=[44, 7], zoom_start=8, control_scale=True)
 # Ajouter les couches GeoJSON aux deux GeoDataFrames
 lines_geojson_layer = create_geojson_layer(gdf, 'black', 'Lignes entre points')
 lines_geojson_layer1 = create_geojson_layer(gdf1, 'red', 'Lignes entre points')
-lines_geojson_layer1.add_to(map)
-lines_geojson_layer.add_to(map)
+#lines_geojson_layer1.add_to(map)
+#lines_geojson_layer.add_to(map)
 
 # URL de l'orthophoto IGN
 orthophoto_url = "https://wxs.ign.fr/choisirgeoportail/geoportail/wmts?" \
@@ -72,7 +72,7 @@ filtered_gdf = gdf.loc[gdf[selected_column] == 1],
 
 
 
-st.dataframe(filtered_gdf.columns[39:58])
+#st.dataframe(filtered_gdf.columns[39:58])
 # Afficher la carte Folium en fonction de la sélection de l'utilisateur
 if selected_column:
     # Créer une couche GeoJSON en utilisant la colonne sélectionnée
