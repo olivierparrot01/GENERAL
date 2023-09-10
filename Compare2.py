@@ -25,7 +25,7 @@ lines_geojson_layer = folium.GeoJson(
     name="Lignes entre points",
     style_function=lambda feature: {
         'color': 'black',  # Utilisez la couleur de votre choix
-        'opacity': 1,
+        'opacity': 0.6,
         'weight': 2  # Épaisseur constante
     },
     tooltip=folium.GeoJsonTooltip(
