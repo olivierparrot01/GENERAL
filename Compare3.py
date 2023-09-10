@@ -71,7 +71,7 @@ selected_column = st.selectbox("Sélectionnez une colonne (25-59)", columns_25_t
 
 filtered_gdf = gdf.loc[gdf[selected_column] == 1]
 
-folium_static(filtered_gdf)
+st.write(filtered_gdf)
 
 #st.dataframe(filtered_gdf.columns[39:58])
 # Afficher la carte Folium en fonction de la sélection de l'utilisateur
