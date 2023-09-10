@@ -73,7 +73,7 @@ filtered_gdf = gdf.loc[gdf[selected_column] == 1]
 
 
 # Exclure la colonne 'geometry'
-gdf= gdf.drop(columns='geometry')
+filtered_gdf=filtered_gdf.drop(columns='geometry')
 
 
 
