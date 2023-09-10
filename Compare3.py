@@ -68,6 +68,9 @@ columns_25_to_59 = gdf.columns[39:58]
 # Sélection de la colonne
 selected_column = st.selectbox("Sélectionnez une colonne (25-59)", columns_25_to_59)
 
+filtered_gdf = gdf[gdf[selected_column] == 1],
+
+
 # Afficher la carte Folium en fonction de la sélection de l'utilisateur
 if selected_column:
     # Créer une couche GeoJSON en utilisant la colonne sélectionnée
@@ -75,11 +78,11 @@ if selected_column:
         # Vérifiez d'abord si une colonne a été sélectionnée
 if selected_column:
     # Filtrer le GeoDataFrame pour inclure uniquement les lignes où la colonne sélectionnée est égale à 1
-    filtered_gdf = gdf[gdf[selected_column] == 1],
+    filtered_gdf,
         name="Données sélectionnées",
         style_function=lambda feature: {
-            'color': 'black',  # Utilisez la couleur de votre choix
-            'opacity': 0.6,
+            'color': 'blue',  # Utilisez la couleur de votre choix
+            'opacity': 1,
             'weight': 2
         },
         tooltip=folium.GeoJsonTooltip(
@@ -93,5 +96,5 @@ if selected_column:
     geojson_layer.add_to(map)
 
 # Afficher la carte Folium
-folium_static(map)
+#folium_static(map)
 
