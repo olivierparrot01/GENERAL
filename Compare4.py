@@ -36,8 +36,8 @@ def create_geojson_layer(data, color, name):
     )
 
 # Ajouter les couches GeoJSON aux deux GeoDataFrames
-lines_geojson_layer = create_geojson_layer(gdf, 'black', 'Lignes entre points')
-lines_geojson_layer1 = create_geojson_layer(gdf1, 'red', 'Lignes entre points')
+lines_geojson_layer = create_geojson_layer(gdf, 'black', 'Topage')
+lines_geojson_layer1 = create_geojson_layer(gdf1, 'red', 'Carthage')
 lines_geojson_layer1.add_to(map)
 lines_geojson_layer.add_to(map)
 
@@ -73,7 +73,7 @@ if selected_column :
 
 # Créer une couche GeoJSON en utilisant la colonne sélectionnée
  if not filtered_gdf.empty:
-    geojson_layer = create_geojson_layer(filtered_gdf, 'blue', 'Données sélectionnées')
+    geojson_layer = create_geojson_layer(filtered_gdf, 'blue', 'Topage-Données sélectionnées')
     geojson_layer.add_to(map)
     plugins.MousePosition().add_to(map)
  else :
