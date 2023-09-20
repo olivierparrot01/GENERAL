@@ -32,7 +32,6 @@ plt.ylabel("Somme de S_DEFRICH")
 plt.title("Somme de S_DEFRICH par année")
 plt.xticks(rotation=45)
 st.pyplot()
-Ce code utilise sns.lineplot de Seaborn pour créer une courbe montrant l'évolution de la somme de "S_DEFRICH" par année. Vous pouvez exécuter votre application Streamlit avec streamlit run nom_de_votre_script.py pour visualiser la courbe interactive.
 
 
 
