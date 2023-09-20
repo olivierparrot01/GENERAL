@@ -12,7 +12,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 # Charger les données à partir du GeoDataFrame
-gdf = gpd.read_file(r'V:\CONSULTATION\AMENAGEMENT_URBANISME\N_ZONAGES_AMENAGEMENT\AVIS_AE\PROJET\Cas_par_cas_Projet_defrichement.shp')
+gdf = gpd.read_file('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/Cas_par_cas_Projet_defrichement.shp')
 
 # Prétraiter les données pour extraire la colonne "DATE_AP" et "S_DEFRICH"
 gdf['DATE_AP'] = pd.to_datetime(gdf['DATE_AP'])
