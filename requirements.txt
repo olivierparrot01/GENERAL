@@ -10,7 +10,7 @@ requests
 xlsxwriter
 shapely
 networkx
-
+seaborn
 
 
 
