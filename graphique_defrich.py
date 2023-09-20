@@ -12,7 +12,8 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 # Chargement du fichier shapefile
-gdf = gpd.read_file(r'V:\CONSULTATION\AMENAGEMENT_URBANISME\N_ZONAGES_AMENAGEMENT\AVIS_AE\PROJET\Cas_par_cas_Projet_defrichement.shp')
+gdf = gpd.read_file('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/Cas_par_cas_Projet_defrichement.shp')
+
 
 # Conversion du champ "DATE_AP" en format de date
 gdf['DATE_AP'] = pd.to_datetime(gdf['DATE_AP'])
