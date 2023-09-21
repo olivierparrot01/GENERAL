@@ -55,7 +55,7 @@ st.write("Évolution du défrichement régional")
 
 
 fig = px.line(donnees_aggregatees, x='ANNEE', y='S_DEFRICH', markers=True)
-fig.update_traces(mode='markers+lines', hovertemplate="Année: %{x}<br>Somme: %{y}")
+fig.update_traces(mode='markers+lines', hovertemplate="Année: %{x}<br>Total : %{y}")
 fig.update_layout(xaxis_title="Année", yaxis_title="Défrichement total en m2")
 
 # Définir manuellement les valeurs de l'axe des x (toutes les années)
