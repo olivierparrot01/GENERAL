@@ -26,7 +26,7 @@ gdf1 = dbf.to_dataframe()
 
 
 
-gdf1= Dbf5('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/COMMUNE.dbf')
+#gdf1= Dbf5('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/COMMUNE.dbf')
 
 # Joindre les GeoDataFrames en utilisant la colonne 'NOM_COM'
 gdf = gdf.merge(gdf1[['NOM_COMM_M', 'INSEE_DEP']], left_on='LOCALITE',right_on='NOM_COMM_M', how='left')
