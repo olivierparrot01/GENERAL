@@ -46,11 +46,11 @@ donnees_aggregatees = gdf.groupby('ANNEE')['S_DEFRICH'].sum().reset_index()
 
 # Créer un graphique interactif avec Plotly (courbe)
 
-
+# Création de la liste d'années personnalisée
 annees_personnalisees = list(range(2014, 2024, 1))
 
-# Création de la liste d'années personnalisée
 
+st.subheader("Projets soumis au cas par cas : évolution du défrichement depuis 2014")
 st.write("Évolution du défrichement régional")
 
 
