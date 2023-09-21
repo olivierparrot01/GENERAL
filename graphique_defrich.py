@@ -51,12 +51,12 @@ annees_personnalisees = list(range(2014, 2024, 1))
 
 # Création de la liste d'années personnalisée
 
-st.write("Évolution du Total défrichement régional")
+st.write("Évolution du défrichement régional")
 
 
 fig = px.line(donnees_aggregatees, x='ANNEE', y='S_DEFRICH', markers=True)
 fig.update_traces(mode='markers+lines', hovertemplate="Année: %{x}<br>Somme: %{y}")
-fig.update_layout(xaxis_title="Année", yaxis_title="Total défrichement en m2")
+fig.update_layout(xaxis_title="Année", yaxis_title="Défrichement total en m2")
 
 # Définir manuellement les valeurs de l'axe des x (toutes les années)
 fig.update_xaxes(tickvals=annees_personnalisees, ticktext=annees_personnalisees)
@@ -116,10 +116,10 @@ gdf['DATE_AP'] = pd.to_datetime(gdf['DATE_AP'])
 gdf['ANNEE'] = gdf['DATE_AP'].dt.year
 
 # Agréger les données par année et par commune (utilisant INSEE_DEP)
-donnees_aggregatees_commune = gdf.groupby(['ANNEE', 'INSEE_DEP'])['S_DEFRICH'].sum().reset_index()
+donnees_aggregatees_depart = gdf.groupby(['ANNEE', 'INSEE_DEP'])['S_DEFRICH'].sum().reset_index()
 
 # Créer une application Streamlit
-st.write("Évolution du Total défrichement par département")
+st.write("Évolution du défrichement par département")
 
 # Liste déroulante multisélection pour sélectionner les communes (INSEE_DEP)
 communes_selectionnees = st.multiselect("Comparer des départements (sélection multiple)", donnees_aggregatees_commune['INSEE_DEP'].unique())
