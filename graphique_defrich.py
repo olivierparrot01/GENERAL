@@ -12,6 +12,7 @@ import seaborn as sns
 import plotly.express as px
 from simpledbf import Dbf5
 import requests
+from io import BytesIO
 
 st.set_option('deprecation.showPyplotGlobalUse', False)
 
