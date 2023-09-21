@@ -19,6 +19,7 @@ gdf = gpd.read_file(r'V:\CONSULTATION\AMENAGEMENT_URBANISME\N_ZONAGES_AMENAGEMEN
 
 
 gdf1 = gpd.read_file(r'S:\1_SIG\1_REFERENTIEL\BDCARTO_IGN\ADMINISTRATIF\COMMUNE.shp')
+gdf1= Dbf5(r'V:\CONSULTATION\AMENAGEMENT_URBANISME\N_ZONAGES_AMENAGEMENT\AVIS_AE\PROJET\Cas_par_cas_Projet.dbf')
 
 
 # Joindre les GeoDataFrames en utilisant la colonne 'NOM_COM'
