@@ -51,7 +51,7 @@ annees_personnalisees = list(range(2014, 2024, 1))
 
 
 st.subheader("Projets soumis au cas par cas : évolution du défrichement depuis 2014")
-st.write("")
+st.write("  ")
 st.write("Évolution du défrichement régional")
 
 
