@@ -94,7 +94,7 @@ st.plotly_chart(fig)
 
 # # Créer un graphique interactif avec Plotly (courbe)
 # fig = px.line(donnees_aggregatees_commune, x='ANNEE', y='S_DEFRICH', markers=True)
-# fig.update_traces(mode='markers+lines', hovertemplate="Année: %{x}<br>Somme: %{y}")
+# fig.update_traces(mode='markers+lines', hovertemplate="Année: %{x}<br>Total : %{y}")
 # fig.update_layout(xaxis_title="Année", yaxis_title="Somme de S_DEFRICH")
 
 # # Définir manuellement les valeurs de l'axe des x (toutes les années)
@@ -129,8 +129,8 @@ donnees_filtrees = donnees_aggregatees_depart[donnees_aggregatees_depart['INSEE_
 
 # Créer un graphique interactif avec Plotly (courbe)
 fig = px.line(donnees_filtrees, x='ANNEE', y='S_DEFRICH', color='INSEE_DEP', markers=True)
-fig.update_traces(mode='markers+lines', hovertemplate="Année: %{x}<br>Somme: %{y}")
-fig.update_layout(xaxis_title="Année", yaxis_title="Total défrichement en m2",legend_title_text='DÉPARTEMENT')
+fig.update_traces(mode='markers+lines', hovertemplate="Année: %{x}<br>Total : %{y}")
+fig.update_layout(xaxis_title="Année", yaxis_title="Défrichement total en m2",legend_title_text='DÉPARTEMENT')
 # Renommer l'axe des couleurs (légende)
 #fig.update_layout(legend_title_text='DÉPARTEMENT')
 fig.update_xaxes(tickvals=annees_personnalisees, ticktext=annees_personnalisees)
