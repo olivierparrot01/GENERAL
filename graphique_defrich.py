@@ -24,7 +24,7 @@ gdf = gpd.read_file('https://raw.githubusercontent.com/olivierparrot01/ICPE/main
 #dbf = Dbf5('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/COMMUNE.dbf')
 #gdf1 = dbf.to_dataframe()
 
-gdf1= pd.read_excel ('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/COMMUNE.xlsx', dtype='str')
+gdf1= pd.read_excel ('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/COMMUNE.ods', dtype='str')
 
 
 #gdf1= Dbf5('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/COMMUNE.dbf')
