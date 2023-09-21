@@ -10,7 +10,7 @@ import geopandas as gpd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import plotly.express as px
-from simpledbf import Dbf5
+
 
 st.set_option('deprecation.showPyplotGlobalUse', False)
 
