@@ -11,6 +11,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import plotly.express as px
 from simpledbf import Dbf5
+import requests
 
 st.set_option('deprecation.showPyplotGlobalUse', False)
 
