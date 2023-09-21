@@ -121,7 +121,7 @@ donnees_aggregatees_depart = gdf.groupby(['ANNEE', 'INSEE_DEP'])['S_DEFRICH'].su
 
 # Créer une application Streamlit
 st.write("Évolution du défrichement par département")
-
+st.write("\n")
 # Liste déroulante multisélection pour sélectionner les communes (INSEE_DEP)
 communes_selectionnees = st.multiselect("Comparer des départements (sélection multiple)", donnees_aggregatees_depart['INSEE_DEP'].unique())
 
