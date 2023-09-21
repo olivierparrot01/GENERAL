@@ -1,4 +1,4 @@
-part# -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 """
 Created on Wed Sep 20 14:38:47 2023
 
