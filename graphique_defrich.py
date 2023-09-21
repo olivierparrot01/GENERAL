@@ -125,7 +125,7 @@ st.write("Évolution du défrichement par département")
 communes_selectionnees = st.multiselect("Comparer des départements (sélection multiple)", donnees_aggregatees_depart['INSEE_DEP'].unique())
 
 # Filtrer les données en fonction des communes sélectionnées
-donnees_filtrees = donnees_aggregatees_depart[donnees_aggregatees_commune['INSEE_DEP'].isin(communes_selectionnees)]
+donnees_filtrees = donnees_aggregatees_depart[donnees_aggregatees_depart['INSEE_DEP'].isin(communes_selectionnees)]
 
 # Créer un graphique interactif avec Plotly (courbe)
 fig = px.line(donnees_filtrees, x='ANNEE', y='S_DEFRICH', color='INSEE_DEP', markers=True)
