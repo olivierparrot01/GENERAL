@@ -11,8 +11,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import plotly.express as px
 from simpledbf import Dbf5
-import requests
-from io import BytesIO
+from dbfread import DBF
 
 st.set_option('deprecation.showPyplotGlobalUse', False)
 
@@ -21,22 +20,11 @@ gdf = gpd.read_file('https://raw.githubusercontent.com/olivierparrot01/ICPE/main
 
 #gdf1 = gpd.read_file(r'S:\1_SIG\1_REFERENTIEL\BDCARTO_IGN\ADMINISTRATIF\COMMUNE.shp')
 #gdf1= Dbf5('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/COMMUNE.dbf')
-# Download the DBF file from the URL
-response = requests.get('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/COMMUNE.dbf')
+# Utilisez la fonction DBF de dbfread pour lire le fichier DBF
+table_dbf = DBF('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/COMMUNE.dbf', load=True)
 
-# Check if the download was successful
-if response.status_code == 200:
-    # Read the DBF file from the response content
-    dbf_content = BytesIO(response.content)
-    
-    # Create a Dbf5 object from the downloaded content
-    gdf1 = Dbf5(dbf_content)
-    
-    # Now you can work with the gdf1 object as needed
-    # ...
-
-else:
-    print("Failed to download the DBF file.")
+# Convertissez la table DBF en un DataFrame pandas
+gdf1= pd.DataFrame(iter(table_dbf))
 
 # Joindre les GeoDataFrames en utilisant la colonne 'NOM_COM'
 gdf = gdf.merge(gdf1[['NOM_COMM_M', 'INSEE_DEP']], left_on='LOCALITE',right_on='NOM_COMM_M', how='left')
