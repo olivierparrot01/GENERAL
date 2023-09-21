@@ -10,16 +10,15 @@ import geopandas as gpd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import plotly.express as px
-
+from simpledbf import Dbf5
 
 st.set_option('deprecation.showPyplotGlobalUse', False)
 
 # Chargement du fichier shapefile
-gdf = gpd.read_file(r'V:\CONSULTATION\AMENAGEMENT_URBANISME\N_ZONAGES_AMENAGEMENT\AVIS_AE\PROJET\Cas_par_cas_Projet_defrichement.shp')
+gdf = gpd.read_file('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/Cas_par_cas_Projet_defrichement.shp')
 
-
-gdf1 = gpd.read_file(r'S:\1_SIG\1_REFERENTIEL\BDCARTO_IGN\ADMINISTRATIF\COMMUNE.shp')
-gdf1= Dbf5(r'V:\CONSULTATION\AMENAGEMENT_URBANISME\N_ZONAGES_AMENAGEMENT\AVIS_AE\PROJET\Cas_par_cas_Projet.dbf')
+#gdf1 = gpd.read_file(r'S:\1_SIG\1_REFERENTIEL\BDCARTO_IGN\ADMINISTRATIF\COMMUNE.shp')
+gdf1= Dbf5('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/COMMUNE.dbf')
 
 
 # Joindre les GeoDataFrames en utilisant la colonne 'NOM_COM'
