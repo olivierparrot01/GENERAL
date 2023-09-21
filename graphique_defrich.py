@@ -18,8 +18,23 @@ st.set_option('deprecation.showPyplotGlobalUse', False)
 gdf = gpd.read_file('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/Cas_par_cas_Projet_defrichement.shp')
 
 #gdf1 = gpd.read_file(r'S:\1_SIG\1_REFERENTIEL\BDCARTO_IGN\ADMINISTRATIF\COMMUNE.shp')
-gdf1= Dbf5('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/COMMUNE.dbf')
+#gdf1= Dbf5('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/COMMUNE.dbf')
+# Download the DBF file from the URL
+response = requests.get('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/COMMUNE.dbf')
 
+# Check if the download was successful
+if response.status_code == 200:
+    # Read the DBF file from the response content
+    dbf_content = BytesIO(response.content)
+    
+    # Create a Dbf5 object from the downloaded content
+    gdf1 = Dbf5(dbf_content)
+    
+    # Now you can work with the gdf1 object as needed
+    # ...
+
+else:
+    print("Failed to download the DBF file.")
 
 # Joindre les GeoDataFrames en utilisant la colonne 'NOM_COM'
 gdf = gdf.merge(gdf1[['NOM_COMM_M', 'INSEE_DEP']], left_on='LOCALITE',right_on='NOM_COMM_M', how='left')
