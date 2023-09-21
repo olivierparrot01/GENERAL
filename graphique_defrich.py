@@ -24,7 +24,7 @@ gdf1 = gpd.read_file(r'S:\1_SIG\1_REFERENTIEL\BDCARTO_IGN\ADMINISTRATIF\COMMUNE.
 # Joindre les GeoDataFrames en utilisant la colonne 'NOM_COM'
 gdf = gdf.merge(gdf1[['NOM_COMM_M', 'INSEE_DEP']], left_on='LOCALITE',right_on='NOM_COMM_M', how='left')
 
-
+gdf = gdf[gdf['EI'] != 'ANNULATION']
 # Conversion du champ "DATE_AP" en format de date
 gdf['DATE_AP'] = pd.to_datetime(gdf['DATE_AP'])
 
@@ -43,7 +43,7 @@ annees_personnalisees = list(range(2014, 2024, 1))
 
 # Création de la liste d'années personnalisée
 
-st.title("Évolution du Total défrichement régional")
+st.write("Évolution du Total défrichement régional")
 
 
 fig = px.line(donnees_aggregatees, x='ANNEE', y='S_DEFRICH', markers=True)
@@ -111,10 +111,10 @@ gdf['ANNEE'] = gdf['DATE_AP'].dt.year
 donnees_aggregatees_commune = gdf.groupby(['ANNEE', 'INSEE_DEP'])['S_DEFRICH'].sum().reset_index()
 
 # Créer une application Streamlit
-st.title("Évolution du Total défrichement par département")
+st.write("Évolution du Total défrichement par département")
 
 # Liste déroulante multisélection pour sélectionner les communes (INSEE_DEP)
-communes_selectionnees = st.multiselect("Sélectionner un département", donnees_aggregatees_commune['INSEE_DEP'].unique())
+communes_selectionnees = st.multiselect("Comparer des départements (sélection multiple)", donnees_aggregatees_commune['INSEE_DEP'].unique())
 
 # Filtrer les données en fonction des communes sélectionnées
 donnees_filtrees = donnees_aggregatees_commune[donnees_aggregatees_commune['INSEE_DEP'].isin(communes_selectionnees)]
