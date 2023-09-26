@@ -34,7 +34,7 @@ gdf = gdf.merge(gdf1[['NOM_COMM_M', 'INSEE_DEP']], left_on='LOCALITE',right_on='
 
 gdf = gdf[gdf['EI'] != 'ANNULATION']
 
-gdf['DATE_AP'] = gdf['DATE_AP'].replace('nan', '2023')
+gdf['DATE_AP'] = gdf['DATE_AP'].replace('nan', '2023-01-01')
 
 
 # Conversion du champ "DATE_AP" en format de date
