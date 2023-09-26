@@ -110,6 +110,11 @@ st.plotly_chart(fig)
 # Charger le GeoDataFrame
 # gdf = gpd.read_file(r'V:\CONSULTATION\AMENAGEMENT_URBANISME\N_ZONAGES_AMENAGEMENT\AVIS_AE\PROJET\Cas_par_cas_Projet_defrichement.shp')
 
+
+# Remplacer les valeurs NaN par 2023 dans la colonne 'DATE_AP'
+gdf['DATE_AP'].fillna('2023-01-01', inplace=True)
+
+
 # Conversion du champ "DATE_AP" en format de date
 gdf['DATE_AP'] = pd.to_datetime(gdf['DATE_AP'])
 
