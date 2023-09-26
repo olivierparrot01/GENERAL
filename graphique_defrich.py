@@ -26,6 +26,10 @@ gdf = gpd.read_file('https://raw.githubusercontent.com/olivierparrot01/ICPE/main
 
 gdf1= pd.read_excel ('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/COMMUNE.ods', dtype='str')
 
+gdf1 = gdf1.loc[~((gdf1['NOM_COMM_M'] == 'ASPREMONT') & (gdf1['INSEE_DEP'] != '06')) & 
+               ~((gdf1['NOM_COMM_M'] == 'VITROLLES') & (gdf1['INSEE_DEP'] != '13')) &
+               ~((gdf1['NOM_COMM_M'] == 'MIRABEAU') & (gdf1['INSEE_DEP'] != '84')) &
+               ~((gdf1['NOM_COMM_M'] == 'ROUSSET') & (gdf1['INSEE_DEP'] != '13'))]
 
 #gdf1= Dbf5('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/COMMUNE.dbf')
 
