@@ -33,6 +33,10 @@ gdf1= pd.read_excel ('https://raw.githubusercontent.com/olivierparrot01/ICPE/mai
 gdf = gdf.merge(gdf1[['NOM_COMM_M', 'INSEE_DEP']], left_on='LOCALITE',right_on='NOM_COMM_M', how='left')
 
 gdf = gdf[gdf['EI'] != 'ANNULATION']
+
+gdf['DATE_AP'] = gdf['DATE_AP'].replace('nan', '2023')
+
+
 # Conversion du champ "DATE_AP" en format de date
 gdf['DATE_AP'] = pd.to_datetime(gdf['DATE_AP'])
 
