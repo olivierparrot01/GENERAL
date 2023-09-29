@@ -17,6 +17,11 @@ st.set_option('deprecation.showPyplotGlobalUse', False)
 # Chargement du fichier shapefile
 gdf = gpd.read_file('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/Cas_par_cas_Projet_defrichement.shp')
 
+# Sélectionner les lignes où 'LOCALITE' contient une virgule ','
+condition = gdf['LOCALITE'].str.contains(',')
+gdf.loc[condition, 'LOCALITE'] = gdf.loc[condition, 'LOCALITE'].str.split(',').str[0]
+
+
 #gdf1 = gpd.read_file(r'S:\1_SIG\1_REFERENTIEL\BDCARTO_IGN\ADMINISTRATIF\COMMUNE.shp')
 
 
