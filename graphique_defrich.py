@@ -7,15 +7,39 @@ Created on Wed Sep 20 14:38:47 2023
 import streamlit as st
 import pandas as pd
 import geopandas as gpd
-import matplotlib.pyplot as plt
-import seaborn as sns
 import plotly.express as px
-
+import re
+import plotly.graph_objs as go
 
 st.set_option('deprecation.showPyplotGlobalUse', False)
 
 # Chargement du fichier shapefile
-gdf = gpd.read_file('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/Cas_par_cas_Projet_defrichement.shp')
+#gdf = gpd.read_file('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/Cas_par_cas_Projet_defrichement.shp')
+
+gdf = gpd.read_file(r'V:\CONSULTATION\AMENAGEMENT_URBANISME\N_ZONAGES_AMENAGEMENT\AVIS_AE\PROJET\Cas_par_cas_Projet_defrichement.shp')
+
+def func(x):
+    
+    
+    a=re.findall("VITICOLE|VIGNE|VIGNOBLE", x)
+    b=re.findall("AGRICULTURE|AGRICOLE|PATURE|PATURAGE|PASTORAL|PRAIRIE|OLIVERAIE|OLIVIER|OLEICOLE|VERGER|FRUITIER|PLANTATION|PRAIRIE|CULTURE|RECONVERSION DES SOLS", x)   
+    
+   
+    if a!= []:
+        return 'VIGNE'   
+   
+  
+
+    elif b!= []:
+        return 'AGRICULTURE HORS VIGNE'
+
+
+    else:
+        return 'AMENAGEMENT-CONSTRUCTION'
+
+
+gdf['CATEGORIE'] = gdf['PROJET'].apply(func)
+
 
 # Sélectionner les lignes où 'LOCALITE' contient une virgule ','
 condition = gdf['LOCALITE'].str.contains(',')
@@ -43,39 +67,82 @@ gdf = gdf.merge(gdf1[['NOM_COMM_M', 'INSEE_DEP']], left_on='LOCALITE',right_on='
 
 gdf = gdf[gdf['EI'] != 'ANNULATION']
 
-gdf['DATE_AP'] = gdf['DATE_AP'].replace('nan', '2023-01-01')
+# Extraire les deux derniers chiffres de 'ID' et les convertir en entier
+gdf['ANNEE'] =2000 +  gdf['id'].str.extract(r'F093(\d{2})').astype(int)
+
+# Remplacer 2013 par 2014 dans la colonne 'ANNEE'
+gdf['ANNEE'] = gdf['ANNEE'].replace(2013, 2014)
 
 
-# Conversion du champ "DATE_AP" en format de date
-gdf['DATE_AP'] = pd.to_datetime(gdf['DATE_AP'])
+# Fonction pour extraire les chiffres d'une chaîne
+def extraire_chiffres(chaine):
+    chiffres = re.sub(r'\D', '', str(chaine))
+    return chiffres
 
-# Création d'une colonne pour extraire l'année
-gdf['ANNEE'] = gdf['DATE_AP'].dt.year
+# Appliquer la fonction à la colonne 'S_DEFRICH'
+gdf['S_DEFRICH'] = gdf['S_DEFRICH'].apply(extraire_chiffres)
 
 gdf['S_DEFRICH'] = gdf['S_DEFRICH'].astype(int)
+
 
 # Agréger les données par année en calculant la somme de "S_DEFRICH"
 donnees_aggregatees = gdf.groupby('ANNEE')['S_DEFRICH'].sum().reset_index()
 
-# Créer un graphique interactif avec Plotly (courbe)
 
 # Création de la liste d'années personnalisée
 annees_personnalisees = list(range(2014, 2024, 1))
 
-
-st.subheader("Projets soumis au cas par cas : évolution du défrichement depuis 2014")
 st.write("\n")
 st.write("Évolution du défrichement régional")
 
 
+# Créer un modèle de survol personnalisé
+hovertemplate = "Année : %{x}<br>Total : %{y}"
+
 fig = px.line(donnees_aggregatees, x='ANNEE', y='S_DEFRICH', markers=True)
-fig.update_traces(mode='markers+lines', hovertemplate="Année : %{x}<br>Total : %{y}")
+fig.update_traces(mode='markers+lines', hovertemplate=hovertemplate)
+
+
+# Définir une palette de couleurs personnalisée pour chaque catégorie
+couleurs_categories = {
+    'VIGNE': 'lightgreen',
+    'AGRICULTURE HORS VIGNE': 'green',
+    'AMENAGEMENT-CONSTRUCTION': 'gray'
+}
+
+
+
+# Ajouter les données personnalisées (total par catégorie) à chaque point de données
+for categorie, couleur in couleurs_categories.items():
+    donnees_categorie = gdf[gdf['CATEGORIE'] == categorie].groupby('ANNEE')['S_DEFRICH'].sum().reset_index()
+    fig.add_trace(go.Scatter(x=donnees_categorie['ANNEE'], y=donnees_categorie['S_DEFRICH'],
+                             mode='markers',
+                             text=[f"{categorie} : {val} m2" for val in donnees_categorie['S_DEFRICH']],
+                             hovertemplate="Année : %{x}<br>%{text}",
+                             # name=categorie, 
+                             name="",  # Laissez le nom vide pour enlever les numéros de trace
+                             marker_color=couleur))  # Utiliser la couleur définie pour la catégorie
+
+
+
 fig.update_layout(xaxis_title="Année", yaxis_title="Défrichement total en m2")
 
 # Définir manuellement les valeurs de l'axe des x (toutes les années)
 fig.update_xaxes(tickvals=annees_personnalisees, ticktext=annees_personnalisees)
 
 
+# Ajouter une légende
+fig.update_layout(legend=dict( orientation='v', yanchor='top', y=0.9, xanchor='left', x=0.9))
+
+# Ajouter une légende (utilisez des annotations pour ajouter des étiquettes près des entrées de la légende)
+annotations = [dict(x=0.9, y=0.887 - 0.06 * i, xref='paper', yref='paper',
+                    text=f"{categorie}", showarrow=False) for i, (categorie, couleur) in enumerate(couleurs_categories.items())]
+
+
+fig.update_layout(
+    annotations=annotations,
+    legend=dict( orientation='v', yanchor='top', y=0.9, xanchor='left', x=0.9)
+)
 
 
 
@@ -86,65 +153,17 @@ st.plotly_chart(fig)
 
 
 
-
-# # Créer une application Streamlit
-# st.title("Évolution de la somme de S_DEFRICH par année et par commune")
-# # Calculer la somme de S_DEFRICH par commune
-# somme_defrich_commune = gdf.groupby('LOCALITE')['S_DEFRICH'].sum().reset_index()
-
-# # Trier les communes par somme de S_DEFRICH décroissante
-# somme_defrich_commune = somme_defrich_commune.sort_values(by='S_DEFRICH', ascending=False)
-
-# # Sélectionner une commune à partir d'une liste déroulante triée
-# communes = somme_defrich_commune['LOCALITE'].tolist()
-
-# commune_selectionnee = st.selectbox("Sélectionnez une commune", communes)
-
-# # Filtrer les données en fonction de la commune sélectionnée
-# donnees_commune = gdf[gdf['LOCALITE'] == commune_selectionnee]
-
-# # Agréger les données par année pour la commune sélectionnée
-# donnees_aggregatees_commune = donnees_commune.groupby('ANNEE')['S_DEFRICH'].sum().reset_index()
-
-# # Créer un graphique interactif avec Plotly (courbe)
-# fig = px.line(donnees_aggregatees_commune, x='ANNEE', y='S_DEFRICH', markers=True)
-# fig.update_traces(mode='markers+lines', hovertemplate="Année : %{x}<br>Total : %{y}")
-# fig.update_layout(xaxis_title="Année", yaxis_title="Somme de S_DEFRICH")
-
-# # Définir manuellement les valeurs de l'axe des x (toutes les années)
-# fig.update_xaxes(tickvals=annees_personnalisees, ticktext=annees_personnalisees)
-
-# # Afficher le graphique interactif
-# st.plotly_chart(fig)
-
-
-
-
-# Charger le GeoDataFrame
-# gdf = gpd.read_file(r'V:\CONSULTATION\AMENAGEMENT_URBANISME\N_ZONAGES_AMENAGEMENT\AVIS_AE\PROJET\Cas_par_cas_Projet_defrichement.shp')
-
-
-# Remplacer les valeurs NaN par 2023 dans la colonne 'DATE_AP'
-gdf['DATE_AP'].fillna('2023-01-01', inplace=True)
-
-
-# Conversion du champ "DATE_AP" en format de date
-gdf['DATE_AP'] = pd.to_datetime(gdf['DATE_AP'])
-
-# Création d'une colonne pour extraire l'année
-gdf['ANNEE'] = gdf['DATE_AP'].dt.year
-
-# Agréger les données par année et par commune (utilisant INSEE_DEP)
+# Agréger les données par année et par département (utilisant INSEE_DEP)
 donnees_aggregatees_depart = gdf.groupby(['ANNEE', 'INSEE_DEP'])['S_DEFRICH'].sum().reset_index()
 
 # Créer une application Streamlit
 st.write("Évolution du défrichement par département")
 st.write("\n")
 # Liste déroulante multisélection pour sélectionner les communes (INSEE_DEP)
-communes_selectionnees = st.multiselect("Comparer des départements (sélection multiple)", donnees_aggregatees_depart['INSEE_DEP'].unique())
+departements_selectionnees = st.multiselect("Comparer des départements (sélection multiple)", donnees_aggregatees_depart['INSEE_DEP'].unique())
 
 # Filtrer les données en fonction des communes sélectionnées
-donnees_filtrees = donnees_aggregatees_depart[donnees_aggregatees_depart['INSEE_DEP'].isin(communes_selectionnees)]
+donnees_filtrees = donnees_aggregatees_depart[donnees_aggregatees_depart['INSEE_DEP'].isin(departements_selectionnees)]
 
 # Créer un graphique interactif avec Plotly (courbe)
 fig = px.line(donnees_filtrees, x='ANNEE', y='S_DEFRICH', color='INSEE_DEP', markers=True)
@@ -155,6 +174,28 @@ fig.update_layout(xaxis_title="Année", yaxis_title="Défrichement total en m2",
 fig.update_xaxes(tickvals=annees_personnalisees, ticktext=annees_personnalisees)
 # Afficher le graphique interactif
 st.plotly_chart(fig)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
