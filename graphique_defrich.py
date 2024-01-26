@@ -105,7 +105,7 @@ fig.update_traces(mode='markers+lines', hovertemplate=hovertemplate)
 
 # Définir une palette de couleurs personnalisée pour chaque catégorie
 couleurs_categories = {
-    'VIGNE': '#800020',
+    'VIGNE': '#D10056',
     'AGRICULTURE HORS VIGNE': 'lightgreen',
     'AMENAGEMENT-CONSTRUCTION': 'gray'
 }
