@@ -135,19 +135,6 @@ fig.update_layout(xaxis_title="Année", yaxis_title="Défrichement total en m2")
 fig.update_xaxes(tickvals=annees_personnalisees, ticktext=annees_personnalisees)
 
 
-# Ajouter une légende
-fig.update_layout(legend=dict( orientation='v', yanchor='top', y=0.9, xanchor='left', x=0.9))
-
-# Ajouter une légende (utilisez des annotations pour ajouter des étiquettes près des entrées de la légende)
-annotations = [dict(x=0.9, y=0.887 - 0.06 * i, xref='paper', yref='paper',
-                    text=f"{categorie}", showarrow=False) for i, (categorie, couleur) in enumerate(couleurs_categories.items())]
-
-
-fig.update_layout(
-    annotations=annotations,
-    legend=dict( orientation='v', yanchor='top', y=0.9, xanchor='left', x=0.9)
-)
-
 
 
 # Afficher le graphique interactif
