@@ -116,12 +116,16 @@ couleurs_categories = {
 for categorie, couleur in couleurs_categories.items():
     donnees_categorie = gdf[gdf['CATEGORIE'] == categorie].groupby('ANNEE')['S_DEFRICH'].sum().reset_index()
     fig.add_trace(go.Scatter(x=donnees_categorie['ANNEE'], y=donnees_categorie['S_DEFRICH'],
-                             mode='markers',
-                             text=[f"{categorie} : {val} m2" for val in donnees_categorie['S_DEFRICH']],
-                             hovertemplate="Année : %{x}<br>%{text}",
-                             # name=categorie, 
-                             name="",  # Laissez le nom vide pour enlever les numéros de trace
-                             marker_color=couleur))  # Utiliser la couleur définie pour la catégorie
+                              mode='markers',
+                              text=[f"{val} m2" for val in donnees_categorie['S_DEFRICH']],
+                              hovertemplate="Année : %{x}<br>%{text}",
+                              name=categorie, 
+                              # name="",  # Laissez le nom vide pour enlever les numéros de trace
+                              marker_color=couleur,
+                              showlegend=True))  # Utiliser la couleur définie pour la catégorie
+
+
+
 
 
 
