@@ -31,7 +31,7 @@ def func(x):
   
 
     elif b!= []:
-        return 'AGRICULTURE HORS VIGNE'
+        return 'AGRICULTURE HORMIS LA VIGNE'
 
 
     else:
