@@ -55,6 +55,7 @@ couleurs_categories = {
 
 
 
+
 # Ajouter les données personnalisées (total par catégorie) à chaque point de données
 for categorie, couleur in couleurs_categories.items():
     donnees_categorie = gdf[gdf['CATEGORIE'] == categorie].groupby('ANNEE')['S_DEFRICH'].sum().reset_index()
