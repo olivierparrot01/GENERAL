@@ -42,12 +42,16 @@ fig = px.line(donnees_aggregatees, x='ANNEE', y='S_DEFRICH', markers=True)
 fig.update_traces(mode='markers+lines', hovertemplate=hovertemplate)
 
 
+
+
 # Définir une palette de couleurs personnalisée pour chaque catégorie
 couleurs_categories = {
-    'VIGNE': 'lightgreen',
-    'AGRICULTURE HORS VIGNE': 'green',
+    'VIGNE': '#D10056',
+    'AGRICULTURE HORMIS LA VIGNE': '#4CAF50',
     'AMENAGEMENT-CONSTRUCTION': 'gray'
 }
+
+
 
 
 
