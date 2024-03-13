@@ -41,13 +41,15 @@ hovertemplate = "Année : %{x}<br>Total : %{y}"
 fig = px.line(donnees_aggregatees, x='ANNEE', y='S_DEFRICH', markers=True)
 fig.update_traces(mode='markers+lines', hovertemplate=hovertemplate)
 
+# Remplacer les valeurs dans la colonne "CATEGORIE"
+gdf['CATEGORIE'] = gdf['CATEGORIE'].replace('AGRICULTURE HORS VIGNE', 'AGRICULTURE HORS VIGNE (oliveraie, vergers ...)')
 
 
 
 # Définir une palette de couleurs personnalisée pour chaque catégorie
 couleurs_categories = {
     'VIGNE': 'lightgreen',
-    'AGRICULTURE HORS VIGNE': 'green',
+    'AGRICULTURE HORS VIGNE (oliveraies, vergers ...)': 'green',
     'AMENAGEMENT-CONSTRUCTION': 'gray'
 }
 
