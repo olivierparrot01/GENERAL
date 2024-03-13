@@ -42,7 +42,7 @@ fig = px.line(donnees_aggregatees, x='ANNEE', y='S_DEFRICH', markers=True)
 fig.update_traces(mode='markers+lines', hovertemplate=hovertemplate)
 
 # Remplacer les valeurs dans la colonne "CATEGORIE"
-gdf['CATEGORIE'] = gdf['CATEGORIE'].replace('AGRICULTURE HORS VIGNE', 'AGRICULTURE HORS VIGNE (oliveraie, vergers ...)')
+gdf['CATEGORIE'] = gdf['CATEGORIE'].replace('AGRICULTURE HORS VIGNE', 'AGRICULTURE HORS VIGNE (oliveraies, vergers ...)')
 
 
 
