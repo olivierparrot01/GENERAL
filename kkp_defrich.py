@@ -98,8 +98,8 @@ donnees_aggregatees_depart = gdf.groupby(['ANNEE', 'INSEE_DEP'])['S_DEFRICH'].su
 st.header("Évolution du défrichement par département")
 st.write("\n")
 # Liste déroulante multisélection pour sélectionner les communes (INSEE_DEP)
-st.subheader("Comparer des départements (sélection multiple")
-departements_selectionnees = st.sidebar.multiselect("Comparer des départements (sélection multiple)", donnees_aggregatees_depart['INSEE_DEP'].unique())
+st.sidebar.subheader("Comparer des départements (sélection multiple")
+departements_selectionnees = st.sidebar.multiselect("", donnees_aggregatees_depart['INSEE_DEP'].unique())
 
 # Filtrer les données en fonction des communes sélectionnées
 donnees_filtrees = donnees_aggregatees_depart[donnees_aggregatees_depart['INSEE_DEP'].isin(departements_selectionnees)]
