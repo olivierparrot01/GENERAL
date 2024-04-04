@@ -32,7 +32,7 @@ donnees_aggregatees = gdf.groupby('ANNEE')['S_DEFRICH'].sum().reset_index()
 annees_personnalisees = list(range(2014, 2024, 1))
 
 st.write("\n")
-st.subtitle("Évolution du défrichement régional")
+st.header("Évolution du défrichement régional")
 
 
 # Créer un modèle de survol personnalisé
@@ -95,7 +95,7 @@ st.plotly_chart(fig)
 donnees_aggregatees_depart = gdf.groupby(['ANNEE', 'INSEE_DEP'])['S_DEFRICH'].sum().reset_index()
 
 # Créer une application Streamlit
-st.subtitle("Évolution du défrichement par département")
+st.header("Évolution du défrichement par département")
 st.write("\n")
 # Liste déroulante multisélection pour sélectionner les communes (INSEE_DEP)
 departements_selectionnees = st.sidebar.multiselect("Comparer des départements (sélection multiple)", donnees_aggregatees_depart['INSEE_DEP'].unique())
