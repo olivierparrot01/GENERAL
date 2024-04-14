@@ -10,8 +10,8 @@ import pandas as pd
 import plotly.express as px
 
 # Charger le fichier Shapefile
-shp_file = r"V:\CONSULTATION\AMENAGEMENT_URBANISME\N_ZONAGES_AMENAGEMENT\AVIS_AE\PROJET\Avis_Projet_point.shp"
-gdf = gpd.read_file(shp_file)
+#shp_file = r"V:\CONSULTATION\AMENAGEMENT_URBANISME\N_ZONAGES_AMENAGEMENT\AVIS_AE\PROJET\Avis_Projet_point.shp"
+gdf = gpd.read_file('https://raw.githubusercontent.com/olivierparrot01/GENERAL/main/Avis_Projet_points.geojson')
 
 # Supprimer les lignes contenant des valeurs non valides dans la colonne 'DATE_PUBLI'
 gdf = gdf[~gdf['DATE_PUBLI'].str.contains('xxxxxx')]
