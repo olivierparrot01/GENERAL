@@ -28,8 +28,26 @@ gdf = gdf[gdf['YEAR'] >= 2015]
 categories = gdf['CATEGORIE'].unique()
 
 # Définir une palette de couleurs pour les catégories
-colors = px.colors.qualitative_colormaps[len(categories)]  # Sélectionner une palette de couleurs qualitative 
-# Exemple de palette : px.colors.qualitative_colormaps['Viridis']
+colors = [
+    "#1f77b4",  # blue
+    "#ff7f0e",  # orange
+    "#2ca02c",  # green
+    "#d62728",  # red
+    "#9467bd",  # purple
+    "#8c564b",  # brown
+    "#e377c2",  # pink
+    "#7f7f7f",  # gray
+    "#bcbd22",  # yellow
+    "#17becf",  # cyan
+    "#aec7e8",  # light blue
+    "#ffbb78",  # light orange
+    "#98df8a",  # light green
+    "#ff9896",  # light red
+    "#c5b0d5",  # light purple
+    "#c49c94",  # light brown
+    "#f7b6d2",  # light pink
+    "#c7c7c7"   # light gray
+]
 
 # Mapper les catégories aux couleurs
 category_color_map = dict(zip(categories, colors))
