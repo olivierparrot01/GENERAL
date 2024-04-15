@@ -74,10 +74,17 @@ for year in selected_years:
     fig.update_traces(text=grouped_data['COUNT'], textposition='inside', insidetextfont=dict(size=16))
     
 
-    fig.update_traces(
-        hoverinfo="text",
-        hovertext=f"Catégorie: {grouped_data['CATEGORIE']}<br>Nombre de projets: {grouped_data['COUNT']}<br>{data_year[data_year['CATEGORIE'] == grouped_data['CATEGORIE']].to_string(index=False)}",
-    )
+    # ... (code up to hoverinfo and hovertext lines)
+
+    selected_column = 'PROJET'  # Replace 'NOM' with the desired column name from GDF
+
+    hovertext = f"""
+    Catégorie: {grouped_data['CATEGORIE']}<br>
+    Nombre de projets: {grouped_data['COUNT']}<br>
+    {selected_column}: {data_year[data_year['CATEGORIE'] == grouped_data['CATEGORIE']][selected_column].tolist()}
+    """
+
+
 
     # Afficher le camembert
     st.plotly_chart(fig)
