@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+de# -*- coding: utf-8 -*-
 """
 Created on Thu Apr  4 16:01:20 2024
 
@@ -85,9 +85,4 @@ for year in selected_years:
     # # Afficher les données correspondant au survol de la souris
     # st.write(data_year)
     
-    # Afficher les données GeoDataFrame correspondant à la catégorie sélectionnée
-    if st.hover_data is not None:
-        selected_category = st.hover_data['CATEGORIE']
-        st.subheader(f"Données pour la catégorie '{selected_category}'")
-        selected_gdf = data_year[data_year['CATEGORIE'] == selected_category]
-        st.write(selected_gdf)
+
