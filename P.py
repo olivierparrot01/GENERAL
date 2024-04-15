@@ -1,4 +1,4 @@
-import streamlit as st
+important streamlit as st
 import geopandas as gpd
 import pandas as pd
 import plotly.express as px
@@ -77,7 +77,7 @@ for year in selected_years:
     
     # Définition du texte à afficher lors du survol de la souris
     hovertext = f"""
-    Catégorie: {grouped_data['PROJET']}<br>
+    Catégorie: {data_year['PROJET']}<br>
     Nombre de projets: {grouped_data['COUNT']}<br>
     """
 
