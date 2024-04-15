@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+une# -*- coding: utf-8 -*-
 """
 Created on Thu Apr  4 16:01:20 2024
 
@@ -74,7 +74,7 @@ for year in selected_years:
 
     #fig = px.pie(grouped_data, values='COUNT', names='CATEGORIE', title=f'Répartition des projets par catégorie pour l\'année {year}', color=categories, color_discrete_map=category_colors)
 
-    fig = px.pie(grouped_data, values='COUNT', names='CATEGORIE', title=f'Répartition des {total_projects} projets par catégorie pour l\'année {year}', color='CATEGORIE', color_discrete_map=category_color_map,hover_data={'LOCALITE': True, 'PROJET': True}))
+    fig = px.pie(grouped_data, values='COUNT', names='CATEGORIE', title=f'Répartition des {total_projects} projets par catégorie pour l\'année {year}', color='CATEGORIE', color_discrete_map=category_color_map,hover_data={'LOCALITE': True, 'PROJET': True})
     #fig = px.pie(grouped_data, values='COUNT', names='CATEGORIE', title=f'Répartition des projets par catégorie pour l\'année {year}', color='CATEGORIE', color_discrete_sequence=colors)
     # Afficher uniquement le nombre de projets dans le camembert
     fig.update_traces(text=grouped_data['COUNT'], textposition='inside', insidetextfont=dict(size=16))
