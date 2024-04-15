@@ -76,7 +76,7 @@ for year in selected_years:
 
     # ... (code up to hoverinfo and hovertext lines)
 
-    selected_column = 'PROJET'  # Replace 'NOM' with the desired column name from GDF
+    selected_column = 'PROJET'  
 
     hovertext = f"""
     Catégorie: {grouped_data['CATEGORIE']}<br>
