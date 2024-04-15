@@ -72,6 +72,12 @@ for year in selected_years:
     #fig = px.pie(grouped_data, values='COUNT', names='CATEGORIE', title=f'Répartition des projets par catégorie pour l\'année {year}', color='CATEGORIE', color_discrete_sequence=colors)
     # Afficher uniquement le nombre de projets dans le camembert
     fig.update_traces(text=grouped_data['COUNT'], textposition='inside', insidetextfont=dict(size=16))
+    
+
+    fig.update_traces(
+        hoverinfo="text",
+        hovertext=f"Catégorie: {grouped_data['CATEGORIE']}<br>Nombre de projets: {grouped_data['COUNT']}<br>{data_year[data_year['CATEGORIE'] == grouped_data['CATEGORIE']].to_string(index=False)}",
+    )
 
     # Afficher le camembert
     st.plotly_chart(fig)
