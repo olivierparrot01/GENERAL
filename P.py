@@ -74,16 +74,12 @@ for year in selected_years:
     fig.update_traces(text=grouped_data['COUNT'], textposition='inside', insidetextfont=dict(size=16))
     
 
-    # ... (code up to hoverinfo and hovertext lines)
-
-    selected_column = 'PROJET'  
-
+    
+    # Définition du texte à afficher lors du survol de la souris
     hovertext = f"""
-    Catégorie: {grouped_data['CATEGORIE']}<br>
+    Catégorie: {grouped_data['PROJET']}<br>
     Nombre de projets: {grouped_data['COUNT']}<br>
-    {selected_column}: {data_year[data_year['CATEGORIE'] == grouped_data['CATEGORIE']][selected_column].tolist()}
     """
-
 
 
     # Afficher le camembert
