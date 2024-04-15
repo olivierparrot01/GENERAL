@@ -1,9 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Thu Apr  4 16:01:20 2024
-
-@author: olivier.parrot
-"""
 import streamlit as st
 import geopandas as gpd
 import pandas as pd
