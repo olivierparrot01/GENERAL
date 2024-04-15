@@ -72,20 +72,13 @@ for year in selected_years:
     #fig = px.pie(grouped_data, values='COUNT', names='CATEGORIE', title=f'Répartition des projets par catégorie pour l\'année {year}', color='CATEGORIE', color_discrete_sequence=colors)
     # Afficher uniquement le nombre de projets dans le camembert
     fig.update_traces(text=grouped_data['COUNT'], textposition='inside', insidetextfont=dict(size=16))
-    
-
-    
-    # Définition du texte à afficher lors du survol de la souris
-    hovertext = f"""
-    Catégorie: {data_year['PROJET']}<br>
-    Nombre de projets: {grouped_data['COUNT']}<br>
-    """
 
 
     # Afficher le camembert
     st.plotly_chart(fig)
 
-    # # Afficher les données correspondant au survol de la souris
-    # st.write(data_year)
+    if 'zac' in grouped_data['CATEGORIE'].values:
+        zac_projects = data_year[data_year['CATEGORIE'] == 'zac']['PROJET'].tolist()
+        st.write(f"Projets ZAC : {zac_projects}")
     
 
