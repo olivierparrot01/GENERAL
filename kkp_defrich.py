@@ -44,13 +44,13 @@ fig.update_traces(mode='markers+lines', hovertemplate=hovertemplate)
 # Remplacer les valeurs dans la colonne "CATEGORIE"
 gdf['CATEGORIE'] = gdf['CATEGORIE'].replace('AGRICULTURE HORS VIGNE', 'AGRICULTURE HORS VIGNE (oliveraies, vergers ...)')
 
-
+gdf['CATEGORIE'] = gdf['CATEGORIE'].replace('AMENAGEMENT-CONSTRUCTION', 'AMENAGEMENT-CONSTRUCTION (villas, lotissements ...)')
 
 # Définir une palette de couleurs personnalisée pour chaque catégorie
 couleurs_categories = {
     'VIGNE': 'lightgreen',
     'AGRICULTURE HORS VIGNE (oliveraies, vergers ...)': 'green',
-    'AMENAGEMENT-CONSTRUCTION': 'gray'
+    'AMENAGEMENT-CONSTRUCTION (villas, lotissements ...)': 'gray'
 }
 
 
