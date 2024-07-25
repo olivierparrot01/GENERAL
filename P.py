@@ -19,7 +19,7 @@ gdf['YEAR'] = gdf['DATE_PUBLI'].dt.year
 
 # Filtrer les données à partir de l'année 2015
 gdf = gdf[gdf['YEAR'] >= 2015]
-
+gdf['YEAR'] = gdf['YEAR'].astype(int)
 # Obtenir toutes les catégories uniques
 categories = gdf['CATEGORIE'].unique()
 
