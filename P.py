@@ -11,7 +11,7 @@ gdf = gpd.read_file('https://raw.githubusercontent.com/olivierparrot01/GENERAL/m
 # Supprimer les lignes contenant des valeurs non valides dans la colonne 'DATE_PUBLI'
 #gdf = gdf[~gdf['DATE_PUBLI'].str.contains('xxxxxx')]
 # Remplacer les valeurs incorrectes par NaT
-gdf['DATE_AP'] = gdf['DATE_AP'].replace('0000-00-00', pd.NaT)
+gdf['DATE_PUBLI'] = gdf['DATE_PUBLI'].replace('0000-00-00', pd.NaT)
 # Convertir le champ DATE_PUBLI en objet de date
 gdf['DATE_PUBLI'] = pd.to_datetime(gdf['DATE_PUBLI'])
 # Extraire l'année
