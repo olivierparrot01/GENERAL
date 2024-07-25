@@ -4,14 +4,14 @@ import pandas as pd
 import plotly.express as px
 
 # Charger le fichier Shapefile
-shp_file = r"V:\CONSULTATION\AMENAGEMENT_URBANISME\N_ZONAGES_AMENAGEMENT\AVIS_AE\PROJET\Avis_Projet_point.shp"
+#shp_file = r"V:\CONSULTATION\AMENAGEMENT_URBANISME\N_ZONAGES_AMENAGEMENT\AVIS_AE\PROJET\Avis_Projet_point.shp"
 #gdf = gpd.read_file(r"V:\CONSULTATION\AMENAGEMENT_URBANISME\N_ZONAGES_AMENAGEMENT\AVIS_AE\PROJET\Avis_Projet_point.shp")
 gdf = gpd.read_file('https://raw.githubusercontent.com/olivierparrot01/GENERAL/main/Avis_Projet_point.geojson')
 
 # Supprimer les lignes contenant des valeurs non valides dans la colonne 'DATE_PUBLI'
 #gdf = gdf[~gdf['DATE_PUBLI'].str.contains('xxxxxx')]
 # Remplacer les valeurs incorrectes par NaT
-gdf['DATE_AP'] = df['DATE_AP'].replace('0000-00-00', pd.NaT)
+gdf['DATE_AP'] = gdf['DATE_AP'].replace('0000-00-00', pd.NaT)
 # Convertir le champ DATE_PUBLI en objet de date
 gdf['DATE_PUBLI'] = pd.to_datetime(gdf['DATE_PUBLI'])
 # Extraire l'année
