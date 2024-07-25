@@ -45,7 +45,7 @@ for year in selected_years:
     total_projects = grouped_data['COUNT'].sum()  # Nombre total de projets pour cette année
     
     # Création du camembert avec Plotly
-    fig = px.pie(grouped_data, values='COUNT', names='CATEGORIE', title=f'Répartition des projets par catégorie pour l\'année {year}')
+    fig = px.pie(grouped_data, values='COUNT', names='CATEGORIE', title=f'Répartition des {total_projects} projets par catégorie pour l\'année {year}')
     
     # Afficher uniquement le nombre de projets dans le camembert
     fig.update_traces(text=grouped_data['COUNT'], textposition='inside', insidetextfont=dict(size=16))
