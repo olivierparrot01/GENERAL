@@ -74,6 +74,9 @@ for year in selected_years:
     #fig = px.pie(grouped_data, values='COUNT', names='CATEGORIE', title=f'Répartition des projets par catégorie pour l\'année {year}', color='CATEGORIE', color_discrete_sequence=colors)
     # Afficher uniquement le nombre de projets dans le camembert
     #fig.update_traces(text=grouped_data['COUNT'], textposition='inside', insidetextfont=dict(size=16))
+   
+    # Afficher uniquement le nombre de projets dans le camembert
+    fig.update_traces(textinfo='value', text=grouped_data['COUNT'], textposition='inside', insidetextfont=dict(size=16))
 
 
     # Afficher le camembert
