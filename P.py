@@ -124,7 +124,7 @@ for year in selected_years:
     # Ajouter un séparateur pour espacer les camemberts
     #st.markdown("<hr style='border:1px solid gray;'>", unsafe_allow_html=True)
     # Afficher le camembert
-    #st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, use_container_width=True)
 
  
 
