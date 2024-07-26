@@ -64,9 +64,7 @@ for year in selected_years:
     data_year = gdf[gdf['YEAR'] == year]
 
     grouped_data = data_year.groupby('CATEGORIE').size().reset_index(name='COUNT')
-    # Calcul des pourcentages (exemple)
-    grouped_data['percent'] = (grouped_data['COUNT'] / grouped_data['COUNT'].sum()) * 100
-
+    
     total_projects = grouped_data['COUNT'].sum()  # Nombre total de projets pour cette année
 
     # Création du camembert avec Plotly
@@ -81,9 +79,11 @@ for year in selected_years:
     #fig.update_traces(text=grouped_data['COUNT'], textposition='inside', insidetextfont=dict(size=16))
    
     # Afficher uniquement le nombre de projets dans le camembert
-    fig.update_traces(textinfo='value+percent+label', text=grouped_data['COUNT'], textposition='inside', insidetextfont=dict(size=16), texttemplate='%{value} (%{percent:.0f}%)' ) # Formatage du texte
+    #fig.update_traces(textinfo='value+percent+label', text=grouped_data['COUNT'], textposition='inside', insidetextfont=dict(size=16), texttemplate='%{value} (%{percent:.0f}%)' ) # Formatage du texte
    
-
+    # Afficher uniquement le nombre de projets dans le camembert
+    fig.update_traces(textinfo='value+percent+label', text=grouped_data['COUNT'], textposition='inside', insidetextfont=dict(size=16))
+   
     # Afficher le camembert
     st.plotly_chart(fig)
 
