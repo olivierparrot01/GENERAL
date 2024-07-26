@@ -81,21 +81,9 @@ for year in selected_years:
     # Afficher uniquement le nombre de projets dans le camembert
     fig.update_traces(textinfo='value+percent+label', text=grouped_data['COUNT'], textposition='inside', insidetextfont=dict(size=16))
    
-    # Conversion en figure plotly.graph_objects pour une personnalisation plus fine
-    fig = go.Figure(fig)
-    
-    # Personnalisation de l'interaction au survol
-    fig.update_traces(
-        hovertemplate="<br>Pourboire total: %{value}<br>Pourcentage: %{percent}%<extra></extra>",
-        marker=dict(line=dict(color='#000000', width=2)))
-    
-    # Mise à jour de la taille du camembert au survol
-    fig.update_layout(hovermode='closest')
-    
-    fig.show()
 
     # Afficher le camembert
-    st.plotly_chart(fig)
+    st.plotly_chart(fig, use_container_width=True)
 
     if 'zac' in grouped_data['CATEGORIE'].values:
         zac_projects = data_year[data_year['CATEGORIE'] == 'zac']['PROJET'].tolist()
