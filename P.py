@@ -85,6 +85,23 @@ for year in selected_years:
     #fig.update_traces(textinfo='value+percent', textfont=dict(size=10), insidetextfont=dict(size=18),texttemplate='%{value}<br>(%{percent:.0%})')
     # Ajouter le paramètre pull pour espacer les segments
     fig.update_traces(pull=grouped_data['pull'], textinfo='value+percent', texttemplate='%{value}<br>(%{percent:.0%})', textfont=dict(size=10), insidetextfont=dict(size=8))
+   
+    # Ajuster la mise en forme
+    fig.update_layout(
+    showlegend=True, 
+    margin=dict(t=40, b=40, l=40, r=40)
+)
+
+    # Affichage du graphique
+    fig.show()
+    
+    
+    
+    
+    
+    
+    
+    
     # Mettre à jour les traces pour positionner le texte à l'extérieur mais proche des sections
     #fig.update_traces(textinfo='value+percent', texttemplate='%{value}<br>(%{percent:.0%})', textposition='outside', insidetextorientation='radial', pull=0.1)
 
@@ -107,7 +124,7 @@ for year in selected_years:
     # Ajouter un séparateur pour espacer les camemberts
     #st.markdown("<hr style='border:1px solid gray;'>", unsafe_allow_html=True)
     # Afficher le camembert
-    st.plotly_chart(fig, use_container_width=True)
+    #st.plotly_chart(fig, use_container_width=True)
 
  
 
