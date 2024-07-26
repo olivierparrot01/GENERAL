@@ -89,7 +89,7 @@ for year in selected_years:
     # Ajuster la mise en forme
     fig.update_layout(
     showlegend=True, 
-    margin=dict(t=40, b=40, l=40, r=40)
+    margin=dict(t=40, b=80, l=40, r=40)
 )
 
     # Affichage du graphique
@@ -124,7 +124,7 @@ for year in selected_years:
     # Ajouter un séparateur pour espacer les camemberts
     #st.markdown("<hr style='border:1px solid gray;'>", unsafe_allow_html=True)
     # Afficher le camembert
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig)
 
  
 
