@@ -100,7 +100,10 @@ for year in selected_years:
     #fig.update_traces(texttemplate='%{label}<br>%{value} (%{percent:.0%})')
 
     #fig.update_traces(text=grouped_data['COUNT'],textinfo='value+percent',texttemplate='%{value} <br>(%{percent:.0%})')
-
+    
+    
+    # Ajouter un séparateur pour espacer les camemberts
+    st.markdown("<hr style='border:1px solid gray;'>", unsafe_allow_html=True)
     # Afficher le camembert
     st.plotly_chart(fig, use_container_width=True)
 
