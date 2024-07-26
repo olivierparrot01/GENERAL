@@ -86,7 +86,7 @@ for year in selected_years:
     # Ajouter le paramètre pull pour espacer les segments
     #fig.update_traces(pull=grouped_data['pull'], textinfo='value+percent', texttemplate='%{value}<br>(%{percent:.0%})', textfont=dict(size=12), insidetextfont=dict(size=20))
     # Mettre à jour les traces pour positionner le texte à l'extérieur mais proche des sections
-    fig.update_traces(textinfo='value+percent', texttemplate='%{value}<br>(%{percent:.0%})', textposition='outside', insidetextorientation='radial', pull=[0.05]*len(grouped_data))
+    fig.update_traces(textinfo='value+percent', texttemplate='%{value}<br>(%{percent:.0%})', textposition='outside', insidetextorientation='radial', pull=0.1)
 
     # Afficher uniquement le nombre de projets dans le camembert
     #fig.update_traces(text=grouped_data['COUNT'], textposition='inside', insidetextfont=dict(size=16))
