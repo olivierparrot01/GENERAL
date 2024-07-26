@@ -109,6 +109,9 @@ for year in selected_years:
     # Afficher le camembert
     st.plotly_chart(fig, use_container_width=True)
 
+ # Ajouter un espace entre les graphiques
+    st.write("")  # Ligne vide pour créer un espace vertical
+    st.write("")  # Ajouter plus de lignes vides si nécessaire
 
 
 
