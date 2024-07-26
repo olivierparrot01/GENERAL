@@ -77,7 +77,7 @@ for year in selected_years:
     
     fig = px.pie(grouped_data,names='CATEGORIE', values='COUNT', title=f'Répartition des {total_projects} projets par catégorie pour l\'année {year}', color='CATEGORIE', color_discrete_sequence=colors)
     
-    fig.update_traces(textinfo='value+percent', textfont=dict(size=20), insidetextfont=dict(size=20),texttemplate='%{value}<br>(%{percent:.0%})')
+    fig.update_traces(textinfo='value+percent', textfont=dict(size=18), insidetextfont=dict(size=18),texttemplate='%{value}<br>(%{percent:.0%})')
     
     # Afficher uniquement le nombre de projets dans le camembert
     #fig.update_traces(text=grouped_data['COUNT'], textposition='inside', insidetextfont=dict(size=16))
