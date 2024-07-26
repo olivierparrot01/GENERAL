@@ -67,6 +67,11 @@ for year in selected_years:
     
     total_projects = grouped_data['COUNT'].sum()  # Nombre total de projets pour cette année
 
+
+     # Ajouter une colonne 'pull' pour espacer les segments du camembert
+    grouped_data['pull'] = 0.1  # Ajuster cette valeur pour espacer les segments davantage
+
+
     # Création du camembert avec Plotly
     #fig = px.pie(grouped_data, values='COUNT', names='CATEGORIE', title=f'Répartition des projets par catégorie pour l\'année {year}', color=grouped_data['CATEGORIE'], color_map=category_color_map)
 
