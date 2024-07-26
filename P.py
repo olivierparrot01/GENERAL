@@ -88,7 +88,7 @@ for year in selected_years:
     #fig.update_traces( text=grouped_data['COUNT'], textposition='inside', insidetextfont=dict(size=16))
 
     # Forcer les pourcentages à être entiers
-    fig.update_traces(texttemplate='%{label}<br>%{value} (%{percent:.0%})')
+    #fig.update_traces(texttemplate='%{label}<br>%{value} (%{percent:.0%})')
 
    
     # Afficher le camembert
