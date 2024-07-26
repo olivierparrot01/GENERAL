@@ -64,6 +64,8 @@ for year in selected_years:
     data_year = gdf[gdf['YEAR'] == year]
 
     grouped_data = data_year.groupby('CATEGORIE').size().reset_index(name='COUNT')
+    # Calcul des pourcentages (exemple)
+    grouped_data['percent'] = (grouped_data['COUNT'] / grouped_data['COUNT'].sum()) * 100
 
     total_projects = grouped_data['COUNT'].sum()  # Nombre total de projets pour cette année
 
@@ -83,7 +85,7 @@ for year in selected_years:
    
 
     # Afficher le camembert
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig)
 
     if 'zac' in grouped_data['CATEGORIE'].values:
         zac_projects = data_year[data_year['CATEGORIE'] == 'zac']['PROJET'].tolist()
