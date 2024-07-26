@@ -77,7 +77,7 @@ for year in selected_years:
     #fig.update_traces(text=grouped_data['COUNT'], textposition='inside', insidetextfont=dict(size=16))
    
     # Afficher uniquement le nombre de projets dans le camembert
-    fig.update_traces(textinfo='value', text=grouped_data['COUNT'], textposition='inside', insidetextfont=dict(size=16))
+    fig.update_traces(textinfo='percent+label', text=grouped_data['COUNT'], textposition='inside', insidetextfont=dict(size=16))
 
 
     # Afficher le camembert
