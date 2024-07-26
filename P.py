@@ -112,9 +112,8 @@ for year in selected_years:
  # Ajouter un espace entre les graphiques
     st.write("")  # Ligne vide pour créer un espace vertical
     st.write("")  # Ajouter plus de lignes vides si nécessaire
-
-
-
+    st.write("")  # Ajouter plus de lignes vides si nécessaire
+    st.write("")  # Ajouter plus de lignes vides si nécessaire
 
 
 
