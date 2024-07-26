@@ -72,7 +72,7 @@ for year in selected_years:
 
     #fig = px.pie(grouped_data, values='COUNT', names='CATEGORIE', title=f'Répartition des projets par catégorie pour l\'année {year}', color=categories, color_discrete_map=category_colors)
 
-    #fig = px.pie(grouped_data, values='COUNT', names='CATEGORIE', title=f'Répartition des {total_projects} projets par catégorie pour l\'année {year}', color='CATEGORIE', hole=0.3)
+    fig = px.pie(grouped_data, values='COUNT', names='CATEGORIE', title=f'Répartition des {total_projects} projets par catégorie pour l\'année {year}', color='CATEGORIE', hole=0.3)
     #fig = px.pie(grouped_data, values='COUNT', names='CATEGORIE', title=f'Répartition des projets par catégorie pour l\'année {year}', color='CATEGORIE', color_discrete_sequence=colors)
     # Afficher uniquement le nombre de projets dans le camembert
     #fig.update_traces(text=grouped_data['COUNT'], textposition='inside', insidetextfont=dict(size=16))
@@ -81,14 +81,14 @@ for year in selected_years:
     #fig.update_traces(textinfo='value+percent+label', text=grouped_data['COUNT'], textposition='inside', insidetextfont=dict(size=16), texttemplate='%{value} (%{percent:.0f}%)' ) # Formatage du texte
    
     # Afficher uniquement le nombre de projets dans le camembert
-    #fig.update_traces(textinfo='value+percent+label', text=grouped_data['COUNT'], textposition='inside', insidetextfont=dict(size=16))
+    fig.update_traces(textinfo='value+percent+label', text=grouped_data['COUNT'], textposition='inside', insidetextfont=dict(size=16))
 
     # Forcer les pourcentages à être entiers
-    #fig.update_traces(texttemplate='%{label}<br>%{value} (%{percent:.0%})')
+    fig.update_traces(texttemplate='%{label}<br>%{value} (%{percent:.0%})')
 
    
     # Afficher le camembert
-    #st.plotly_chart(fig)
+    st.plotly_chart(fig)
 
 
 
@@ -98,9 +98,9 @@ for year in selected_years:
 
 
     # Créer le camembert avec Plotly Graph Objects
-    fig = go.Figure()
+    #fig = go.Figure()
 
-    fig.add_trace(go.Pie(
+    #fig.add_trace(go.Pie(
         labels=grouped_data['CATEGORIE'],
         values=grouped_data['COUNT'],
         textinfo='value+percent+label',
@@ -111,7 +111,7 @@ for year in selected_years:
         insidetextfont=dict(size=16)
     ))
 
-    fig.update_traces(
+    #fig.update_traces(
         hovertemplate='%{label}<br>%{value} (%{percent:.0%})',
         # Fonction lambda pour agrandir le segment survolé
         hoverlabel=dict(
@@ -122,14 +122,14 @@ for year in selected_years:
     )
 
     # Mettre à jour le layout
-    fig.update_layout(
+    #fig.update_layout(
         title=f'Répartition des {total_projects} projets par catégorie pour l\'année {year}',
         showlegend=True,
     hovermode='closest'
     )
 
     # Afficher le camembert
-    st.plotly_chart(fig)
+    #st.plotly_chart(fig)
 
 
 
