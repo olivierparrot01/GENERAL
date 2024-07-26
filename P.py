@@ -97,42 +97,7 @@ for year in selected_years:
 
 
 
-    # Créer le camembert avec Plotly Graph Objects
-    #fig = go.Figure()
-
-    #fig.add_trace(go.Pie(
-        labels=grouped_data['CATEGORIE'],
-        values=grouped_data['COUNT'],
-        textinfo='value+percent+label',
-        hoverinfo='label+value+percent',
-        marker=dict(colors=[category_color_map[cat] for cat in grouped_data['CATEGORIE']]),
-        pull=[0.1 if i == 0 else 0 for i in range(len(grouped_data))],  # Le premier segment est tiré
-        textposition='inside',
-        insidetextfont=dict(size=16)
-    ))
-
-    #fig.update_traces(
-        hovertemplate='%{label}<br>%{value} (%{percent:.0%})',
-        # Fonction lambda pour agrandir le segment survolé
-        hoverlabel=dict(
-            bgcolor="white",
-            font_size=16,
-            font_family="Rockwell"
-        )
-    )
-
-    # Mettre à jour le layout
-    #fig.update_layout(
-        title=f'Répartition des {total_projects} projets par catégorie pour l\'année {year}',
-        showlegend=True,
-    hovermode='closest'
-    )
-
-    # Afficher le camembert
-    #st.plotly_chart(fig)
-
-
-
+    
 
 
 
