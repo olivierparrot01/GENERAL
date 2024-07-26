@@ -89,7 +89,7 @@ for year in selected_years:
     # Ajuster la mise en forme
     fig.update_layout(
     showlegend=True, 
-    margin=dict(t=40, b=80, l=40, r=40)
+    margin=dict(t=40, b=180, l=40, r=40)
 )
 
     # Affichage du graphique
