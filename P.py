@@ -72,7 +72,7 @@ for year in selected_years:
 
     #fig = px.pie(grouped_data, values='COUNT', names='CATEGORIE', title=f'Répartition des projets par catégorie pour l\'année {year}', color=categories, color_discrete_map=category_colors)
 
-    fig = px.pie(grouped_data, values='COUNT', names='CATEGORIE', title=f'Répartition des {total_projects} projets par catégorie pour l\'année {year}', color='CATEGORIE', 
+    #fig = px.pie(grouped_data, values='COUNT', names='CATEGORIE', title=f'Répartition des {total_projects} projets par catégorie pour l\'année {year}', color='CATEGORIE', 
         hole=0.3)
     #fig = px.pie(grouped_data, values='COUNT', names='CATEGORIE', title=f'Répartition des projets par catégorie pour l\'année {year}', color='CATEGORIE', color_discrete_sequence=colors)
     # Afficher uniquement le nombre de projets dans le camembert
@@ -82,14 +82,14 @@ for year in selected_years:
     #fig.update_traces(textinfo='value+percent+label', text=grouped_data['COUNT'], textposition='inside', insidetextfont=dict(size=16), texttemplate='%{value} (%{percent:.0f}%)' ) # Formatage du texte
    
     # Afficher uniquement le nombre de projets dans le camembert
-    fig.update_traces(textinfo='value+percent+label', text=grouped_data['COUNT'], textposition='inside', insidetextfont=dict(size=16))
+    #fig.update_traces(textinfo='value+percent+label', text=grouped_data['COUNT'], textposition='inside', insidetextfont=dict(size=16))
 
     # Forcer les pourcentages à être entiers
-    fig.update_traces(texttemplate='%{label}<br>%{value} (%{percent:.0%})')
+    #fig.update_traces(texttemplate='%{label}<br>%{value} (%{percent:.0%})')
 
    
     # Afficher le camembert
-    st.plotly_chart(fig)
+    #st.plotly_chart(fig)
 
 
 
