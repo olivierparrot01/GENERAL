@@ -124,7 +124,8 @@ for year in selected_years:
     # Mettre à jour le layout
     fig.update_layout(
         title=f'Répartition des {total_projects} projets par catégorie pour l\'année {year}',
-        showlegend=True
+        showlegend=True,
+    hovermode='closest'
     )
 
     # Afficher le camembert
