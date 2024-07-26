@@ -102,7 +102,7 @@ for year in selected_years:
     #fig.update_traces(text=grouped_data['COUNT'],textinfo='value+percent',texttemplate='%{value} <br>(%{percent:.0%})')
 
     # Afficher le camembert
-    st.plotly_chart(fig)
+    st.plotly_chart(fig, use_container_width=True)
 
 
 
