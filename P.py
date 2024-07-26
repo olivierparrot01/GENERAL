@@ -2,6 +2,8 @@ import streamlit as st
 import geopandas as gpd
 import pandas as pd
 import plotly.express as px
+import plotly.graph_objects as go
+
 
 # Charger le fichier Shapefile
 #shp_file = r"V:\CONSULTATION\AMENAGEMENT_URBANISME\N_ZONAGES_AMENAGEMENT\AVIS_AE\PROJET\Avis_Projet_point.shp"
@@ -78,7 +80,19 @@ for year in selected_years:
    
     # Afficher uniquement le nombre de projets dans le camembert
     fig.update_traces(textinfo='value+percent+label', text=grouped_data['COUNT'], textposition='inside', insidetextfont=dict(size=16))
-
+   
+    # Conversion en figure plotly.graph_objects pour une personnalisation plus fine
+    fig = go.Figure(fig)
+    
+    # Personnalisation de l'interaction au survol
+    fig.update_traces(
+        hovertemplate="<br>Pourboire total: %{value}<br>Pourcentage: %{percent}%<extra></extra>",
+        marker=dict(line=dict(color='#000000', width=2)))
+    
+    # Mise à jour de la taille du camembert au survol
+    fig.update_layout(hovermode='closest')
+    
+    fig.show()
 
     # Afficher le camembert
     st.plotly_chart(fig)
