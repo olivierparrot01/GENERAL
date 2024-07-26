@@ -90,7 +90,7 @@ for year in selected_years:
     # Forcer les pourcentages à être entiers
     #fig.update_traces(texttemplate='%{label}<br>%{value} (%{percent:.0%})')
 
-    fig.update_traces(texttemplate='%{value} <br>(%{percent:.0%})')
+    fig.update_traces(textinfo='value+percent',texttemplate='%{value} <br>(%{percent:.0%})')
 
     # Afficher le camembert
     st.plotly_chart(fig)
