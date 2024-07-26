@@ -84,7 +84,7 @@ for year in selected_years:
     
     #fig.update_traces(textinfo='value+percent', textfont=dict(size=10), insidetextfont=dict(size=18),texttemplate='%{value}<br>(%{percent:.0%})')
     # Ajouter le paramètre pull pour espacer les segments
-    fig.update_traces(pull=grouped_data['pull'], textinfo='value+percent', texttemplate='%{value}<br>(%{percent:.0%})', textfont=dict(size=10), insidetextfont=dict(size=10))
+    fig.update_traces(pull=grouped_data['pull'], textinfo='value+percent', texttemplate='%{value}<br>(%{percent:.0%})', textfont=dict(size=10), insidetextfont=dict(size=8))
     # Mettre à jour les traces pour positionner le texte à l'extérieur mais proche des sections
     #fig.update_traces(textinfo='value+percent', texttemplate='%{value}<br>(%{percent:.0%})', textposition='outside', insidetextorientation='radial', pull=0.1)
 
