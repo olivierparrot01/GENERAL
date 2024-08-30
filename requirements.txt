@@ -12,6 +12,7 @@ shapely
 networkx
 seaborn
 odfpy
+openpyxl
 
 
 
