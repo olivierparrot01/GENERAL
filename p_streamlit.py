@@ -11,7 +11,7 @@ import streamlit as st
 import pandas as pd
 import geopandas as gpd
 import plotly.express as px
-from simpledbf import Dbf5
+
 
 
 df = gpd.read_file('https://raw.githubusercontent.com/olivierparrot01/GENERAL/main/Avis_Projet_point.geojson')
