@@ -47,8 +47,8 @@ df = df[df['DATE_PUBLI'] >= '2015']
 df['DATE_PUBLI'] = pd.to_datetime(df['DATE_PUBLI'])
 
 # Interface Streamlit
-st.header("Analyse Spatio-Temporelle")
-
+#st.header("Analyse Spatio-Temporelle")
+st.header("Analyse des Projets MRAe par Période et Lieu")
 # Sélection des années
 min_year = int(df['DATE_PUBLI'].dt.year.min())
 max_year = int(df['DATE_PUBLI'].dt.year.max())
