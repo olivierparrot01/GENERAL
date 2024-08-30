@@ -9,12 +9,13 @@ Created on Wed Aug 28 17:55:20 2024
 
 import streamlit as st
 import pandas as pd
+import geopandas as gpd
 import plotly.express as px
 from simpledbf import Dbf5
 
-# Charger les données à partir du fichier DBF
-dbf = Dbf5(r'V:\CONSULTATION\AMENAGEMENT_URBANISME\N_ZONAGES_AMENAGEMENT\AVIS_AE\PROJET\Avis_Projet_point.dbf')
-df = dbf.to_dataframe()
+
+df = gpd.read_file('https://raw.githubusercontent.com/olivierparrot01/GENERAL/main/Avis_Projet_point.geojson')
+
 df = df.drop_duplicates(subset='id')
 # Tri des catégories et définition des couleurs
 categories = sorted(df['CATEGORIE'].unique())
