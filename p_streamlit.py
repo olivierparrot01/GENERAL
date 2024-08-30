@@ -40,6 +40,9 @@ colors = [
     "#000000",  # light pink
     
 ]
+
+
+
 category_color_map = dict(zip(categories, colors))
 
 # Filtrage des données
