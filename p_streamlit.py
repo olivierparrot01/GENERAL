@@ -67,9 +67,25 @@ filtered_df = df[(df['DATE_PUBLI'].dt.year >= year_range[0]) & (df['DATE_PUBLI']
 filtered_df['Année'] = filtered_df['DATE_PUBLI'].dt.year
 
 # Sélection des catégories
+
+# Liste des catégories par défaut
+default_categories = ['PHOTOVOLTAIQUE', 'EOLIEN', 'GEOTHERMIE', 'HYDROELECTRICITE']
+
 st.sidebar.subheader("Sélectionner les catégories :")
-selected_CATEGORIEs = st.sidebar.multiselect("", categories, default=categories)
+selected_CATEGORIEs = st.sidebar.multiselect(
+    "", 
+    categories, 
+    default=default_categories  # Spécifier les catégories par défaut
+)
+
+# Filtrer le DataFrame selon les catégories sélectionnées
 filtered_df = filtered_df[filtered_df['CATEGORIE'].isin(selected_CATEGORIEs)]
+
+
+
+#st.sidebar.subheader("Sélectionner les catégories :")
+#selected_CATEGORIEs = st.sidebar.multiselect("", categories, default=categories)
+#filtered_df = filtered_df[filtered_df['CATEGORIE'].isin(selected_CATEGORIEs)]
 
 # Étape 1 : Créer toutes les combinaisons possibles d'années et de catégories
 years = sorted(filtered_df['Année'].unique())
