@@ -257,7 +257,7 @@ for idx, row in filtered_df.iterrows():
     # Utiliser color pour changer la couleur de l'icône
     folium.Marker(
         location=[row['latitude'], row['longitude']],
-        popup=row['CATEGORIE'],
+        popup= f"{row['CATEGORIE']}<br>{row['LOCALITE']}",
         icon=folium.Icon(color=color, icon='info-sign')  # Couleur selon la catégorie
     ).add_to(marker_cluster)
 
