@@ -266,26 +266,26 @@ filtered_df = filtered_df.to_crs(epsg=4326)
 filtered_df['latitude'] = filtered_df.geometry.y
 filtered_df['longitude'] = filtered_df.geometry.x
 
-# Définir une palette de couleurs pour chaque catégorie
+# Correspondance des catégories avec les couleurs disponibles dans Folium
 color_map = {
-    "AMENAGEMENT-CONSTRUCTION": "#FFFF00",  # Jaune
-    "AGRICULTURE": "#626262",  # Gris foncé
-    "AUTORISATION-REGULARISATION-RECONVERSION": "#E6E6E6",  # Gris clair
-    "CARRIERE": "#804040",  # Marron foncé
-    "DECHETS": "#FF8000",  # Orange
-    "EAU-CAPTAGE-RETENUE-BARRAGE": "#0000FF",  # Bleu
-    "EOLIENNES": "#00FF40",  # Vert
-    "GEOTHERMIE": "#21CCD0",  # Cyan
-    "HYDROELECTRICITE": "#0000FF",  # Bleu
-    "LOGISTIQUE": "#B2B2B2",  # Gris clair
-    "MONTAGNE-LOISIR": "#FF82FF",  # Rose
-    "PHOTOVOLTAIQUE": "#009B00",  # Vert foncé
-    "PORT-AMENAGEMENT-ACTIVITES": "#828282",  # Gris
-    "RESEAU-ELECTRICITE-GAZ": "#C0C0C0",  # Argent
-    "RISQUES NATURELS-PROTECTION": "#FF0000",  # Rouge
-    "ROUTE-VOIERIE": "#CFCFCF",  # Gris clair
-    "STEP": "#9595FF",  # Violet clair
-    "ZAC": "#000000"  # Noir
+    "AMENAGEMENT-CONSTRUCTION": "orange",    # Proche de jaune
+    "AGRICULTURE": "gray",                   # Gris foncé
+    "AUTORISATION-REGULARISATION-RECONVERSION": "lightgray", # Gris clair
+    "CARRIERE": "darkred",                   # Marron foncé
+    "DECHETS": "orange",                     # Orange
+    "EAU-CAPTAGE-RETENUE-BARRAGE": "darkblue",  # Bleu foncé
+    "EOLIENNES": "green",                    # Vert
+    "GEOTHERMIE": "lightblue",               # Proche de cyan
+    "HYDROELECTRICITE": "blue",              # Bleu
+    "LOGISTIQUE": "beige",                   # Gris clair
+    "MONTAGNE-LOISIR": "pink",               # Rose
+    "PHOTOVOLTAIQUE": "darkgreen",           # Vert foncé
+    "PORT-AMENAGEMENT-ACTIVITES": "cadetblue", # Proche de gris
+    "RESEAU-ELECTRICITE-GAZ": "lightgray",   # Argent (Gris clair)
+    "RISQUES NATURELS-PROTECTION": "red",    # Rouge
+    "ROUTE-VOIERIE": "lightgray",            # Gris clair
+    "STEP": "purple",                        # Violet clair
+    "ZAC": "black",                          # Noir
 }
 
 # Créer la carte centrée sur le centre des données
@@ -297,13 +297,13 @@ marker_cluster = MarkerCluster().add_to(m)
 # Ajouter les points au cluster avec un style personnalisé selon la catégorie
 for idx, row in filtered_df.iterrows():
     category = row['CATEGORIE']
-    color = color_map.get(category, "#FFFFFF")  # Couleur selon la catégorie, blanc par défaut
+    color = color_map.get(category, "lightblue")  # Par défaut, bleu clair si la catégorie n'est pas trouvée
     
-    # Utiliser icon_color pour changer la couleur de l'icône
+    # Utiliser color pour changer la couleur de l'icône
     folium.Marker(
         location=[row['latitude'], row['longitude']],
         popup=row['CATEGORIE'],
-        icon=folium.Icon(color='white', icon='info-sign', icon_color=color)  # Couleur selon la catégorie
+        icon=folium.Icon(color=color, icon='info-sign')  # Couleur selon la catégorie
     ).add_to(marker_cluster)
 
 # Afficher la carte dans Streamlit
