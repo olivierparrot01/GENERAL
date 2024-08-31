@@ -45,7 +45,6 @@ colors = [
 
 
 category_color_map = dict(zip(categories, colors))
-st.write(list(df['CATEGORIE'].unique()))
 # Filtrage des données
 df = df[df['DATE_PUBLI'] >= '2015']
 df['DATE_PUBLI'] = pd.to_datetime(df['DATE_PUBLI'])
@@ -195,50 +194,10 @@ st.download_button(
     mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
 )
 
-import folium
-from folium.plugins import MarkerCluster
-
-# Assurez-vous que filtered_df est un GeoDataFrame
-filtered_df = gpd.GeoDataFrame(filtered_df)
-
-
-# Supposons que filtered_df est déjà un GeoDataFrame en EPSG:2154
-# Reprojeter en EPSG:4326 (WGS84)
-filtered_df = filtered_df.to_crs(epsg=4326)
-# Extraire la latitude et la longitude à partir de la colonne 'geometry'
-filtered_df['latitude'] = filtered_df.geometry.y
-filtered_df['longitude'] = filtered_df.geometry.x
-
-# Définir une palette de couleurs pour chaque catégorie
-color_map = {
-    "PHOTOVOLTAIQUE": "red",      # Rouge
-    "EOLIEN": "green",            # Vert
-    "GEOTHERMIE": "blue",         # Bleu
-    "HYDROELECTRICITE": "yellow"  # Jaune
-}
-
-# Créer la carte centrée sur le centre des données
-m = folium.Map(location=[filtered_df['latitude'].mean(), filtered_df['longitude'].mean()], zoom_start=5)
-
-# Ajouter un cluster de points (facultatif)
-marker_cluster = MarkerCluster().add_to(m)
-
-# Ajouter les points au cluster avec un style personnalisé selon la catégorie
-for idx, row in filtered_df.iterrows():
-    folium.Marker(
-        location=[row['latitude'], row['longitude']],
-        popup=row['CATEGORIE'],
-        icon=folium.Icon(color=color_map.get(row['CATEGORIE'], "gray"))  # Couleur selon la catégorie
-    ).add_to(marker_cluster)
-
-# Afficher la carte dans Streamlit
-st.subheader("Carte des catégories sélectionnées")
-folium_static(m)  # Fonction pour afficher la carte Folium dans Streamlit
 
 
 import folium
 from folium.plugins import MarkerCluster
-import streamlit as st
 from streamlit_folium import folium_static
 
 # Assurez-vous que filtered_df est un GeoDataFrame
