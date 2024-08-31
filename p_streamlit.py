@@ -194,8 +194,8 @@ st.download_button(
     mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
 )
 
-import pydeck as pdk
-import streamlit as st
+import folium
+from folium.plugins import MarkerCluster
 
 # Assurez-vous que filtered_df est un GeoDataFrame
 filtered_df = gpd.GeoDataFrame(filtered_df)
@@ -206,45 +206,26 @@ filtered_df['longitude'] = filtered_df.geometry.x
 
 # Définir une palette de couleurs pour chaque catégorie
 color_map = {
-    "PHOTOVOLTAIQUE": [255, 0, 0],  # Rouge
-    "EOLIEN": [0, 255, 0],          # Vert
-    "GEOTHERMIE": [0, 0, 255],      # Bleu
-    "HYDROELECTRICITE": [255, 255, 0]  # Jaune
+    "PHOTOVOLTAIQUE": "red",      # Rouge
+    "EOLIEN": "green",            # Vert
+    "GEOTHERMIE": "blue",         # Bleu
+    "HYDROELECTRICITE": "yellow"  # Jaune
 }
 
-# Ajouter une colonne de couleur au DataFrame selon la catégorie
-filtered_df['color'] = filtered_df['CATEGORIE'].map(color_map)
+# Créer la carte centrée sur le centre des données
+m = folium.Map(location=[filtered_df['latitude'].mean(), filtered_df['longitude'].mean()], zoom_start=5)
 
-# Vérification si le DataFrame n'est pas vide
-if not filtered_df.empty:
-    st.subheader("Carte des catégories sélectionnées")
+# Ajouter un cluster de points (facultatif)
+marker_cluster = MarkerCluster().add_to(m)
 
-    # Configuration de la carte avec pydeck
-    layer = pdk.Layer(
-        "ScatterplotLayer",
-        data=filtered_df,
-        get_position='[longitude, latitude]',
-        get_radius=200,
-        get_color='color',  # Utilisation de la colonne 'color' pour les couleurs des points
-        pickable=True
-    )
+# Ajouter les points au cluster avec un style personnalisé selon la catégorie
+for idx, row in filtered_df.iterrows():
+    folium.Marker(
+        location=[row['latitude'], row['longitude']],
+        popup=row['CATEGORIE'],
+        icon=folium.Icon(color=color_map.get(row['CATEGORIE'], "gray"))  # Couleur selon la catégorie
+    ).add_to(marker_cluster)
 
-    # Affichage de la carte avec une vue centrée
-    view_state = pdk.ViewState(
-        latitude=filtered_df['latitude'].mean(),
-        longitude=filtered_df['longitude'].mean(),
-        zoom=5,
-        pitch=50
-    )
-
-    # Création de la carte avec fond personnalisé
-    r = pdk.Deck(
-        layers=[layer],
-        initial_view_state=view_state,
-        map_style="mapbox://styles/mapbox/streets-v11",  # Choix du fond de carte
-        tooltip={"text": "{CATEGORIE}"}
-    )
-
-    st.pydeck_chart(r)
-else:
-    st.write("Aucune donnée disponible pour les catégories sélectionnées.")
+# Afficher la carte dans Streamlit
+st.subheader("Carte des catégories sélectionnées")
+folium_static(m)  # Fonction pour afficher la carte Folium dans Streamlit
