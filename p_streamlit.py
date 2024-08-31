@@ -238,7 +238,6 @@ folium_static(m)  # Fonction pour afficher la carte Folium dans Streamlit
 
 import folium
 from folium.plugins import MarkerCluster
-import geopandas as gpd
 import streamlit as st
 from streamlit_folium import folium_static
 
