@@ -193,3 +193,58 @@ st.download_button(
     file_name="filtered_data.xlsx",
     mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
 )
+
+import pydeck as pdk
+import streamlit as st
+
+# Assurez-vous que filtered_df est un GeoDataFrame
+filtered_df = gpd.GeoDataFrame(filtered_df)
+
+# Extraire la latitude et la longitude à partir de la colonne 'geometry'
+filtered_df['latitude'] = filtered_df.geometry.y
+filtered_df['longitude'] = filtered_df.geometry.x
+
+# Définir une palette de couleurs pour chaque catégorie
+color_map = {
+    "PHOTOVOLTAIQUE": [255, 0, 0],  # Rouge
+    "EOLIEN": [0, 255, 0],          # Vert
+    "GEOTHERMIE": [0, 0, 255],      # Bleu
+    "HYDROELECTRICITE": [255, 255, 0]  # Jaune
+}
+
+# Ajouter une colonne de couleur au DataFrame selon la catégorie
+filtered_df['color'] = filtered_df['CATEGORIE'].map(color_map)
+
+# Vérification si le DataFrame n'est pas vide
+if not filtered_df.empty:
+    st.subheader("Carte des catégories sélectionnées")
+
+    # Configuration de la carte avec pydeck
+    layer = pdk.Layer(
+        "ScatterplotLayer",
+        data=filtered_df,
+        get_position='[longitude, latitude]',
+        get_radius=200,
+        get_color='color',  # Utilisation de la colonne 'color' pour les couleurs des points
+        pickable=True
+    )
+
+    # Affichage de la carte avec une vue centrée
+    view_state = pdk.ViewState(
+        latitude=filtered_df['latitude'].mean(),
+        longitude=filtered_df['longitude'].mean(),
+        zoom=5,
+        pitch=50
+    )
+
+    # Création de la carte avec fond personnalisé
+    r = pdk.Deck(
+        layers=[layer],
+        initial_view_state=view_state,
+        map_style="mapbox://styles/mapbox/streets-v11",  # Choix du fond de carte
+        tooltip={"text": "{CATEGORIE}"}
+    )
+
+    st.pydeck_chart(r)
+else:
+    st.write("Aucune donnée disponible pour les catégories sélectionnées.")
