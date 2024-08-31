@@ -8,6 +8,7 @@ Created on Wed Aug 28 17:55:20 2024
 
 
 import streamlit as st
+from streamlit_folium import folium_static
 import pandas as pd
 import geopandas as gpd
 import plotly.express as px
