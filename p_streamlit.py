@@ -201,6 +201,10 @@ from folium.plugins import MarkerCluster
 # Assurez-vous que filtered_df est un GeoDataFrame
 filtered_df = gpd.GeoDataFrame(filtered_df)
 
+
+# Supposons que filtered_df est déjà un GeoDataFrame en EPSG:2154
+# Reprojeter en EPSG:4326 (WGS84)
+filtered_df = filtered_df.to_crs(epsg=4326)
 # Extraire la latitude et la longitude à partir de la colonne 'geometry'
 filtered_df['latitude'] = filtered_df.geometry.y
 filtered_df['longitude'] = filtered_df.geometry.x
