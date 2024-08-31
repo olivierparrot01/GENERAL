@@ -268,8 +268,8 @@ filtered_df['longitude'] = filtered_df.geometry.x
 
 # Correspondance des catégories avec les couleurs disponibles dans Folium
 color_map = {
-    "AMENAGEMENT-CONSTRUCTION": "orange",    # Proche de jaune
-    "AGRICULTURE": "gray",                   # Gris foncé
+    "AGRICULTURE": "orange",    # Proche de jaune#     
+    "AMENAGEMENT-CONSTRUCTION": "gray",# Gris foncé
     "AUTORISATION-REGULARISATION-RECONVERSION": "lightgray", # Gris clair
     "CARRIERE": "darkred",                   # Marron foncé
     "DECHETS": "orange",                     # Orange
@@ -310,36 +310,3 @@ for idx, row in filtered_df.iterrows():
 st.subheader("Carte des catégories sélectionnées")
 folium_static(m)  # Fonction pour afficher la carte Folium dans Streamlit
 
-import folium
-from folium.plugins import MarkerCluster
-from streamlit_folium import folium_static
-
-# ... (votre code existant)
-
-# Créer la carte centrée sur le centre des données avec une basemap personnalisée
-m = folium.Map(location=[filtered_df['latitude'].mean(), filtered_df['longitude'].mean()], zoom_start=5, tiles='CartoDB positron')
-
-# Ajouter une légende
-folium.LayerControl().add_to(m)
-
-# Créer un dictionnaire de couleurs plus lisible
-color_map = {
-    "AMENAGEMENT-CONSTRUCTION": "orange",
-    # ...
-}
-
-# Ajouter les points au cluster avec un style personnalisé selon la catégorie
-for idx, row in filtered_df.iterrows():
-    category = row['CATEGORIE']
-    color = color_map.get(category, "blue")  # Couleur par défaut si la catégorie n'est pas trouvée
-    
-    # Utiliser un icone HTML personnalisé pour plus de flexibilité
-    folium.Marker(
-        location=[row['latitude'], row['longitude']],
-        popup=row['CATEGORIE'],
-        icon=folium.Icon(color=color, icon='info-sign', prefix='fa')  # Utiliser Font Awesome pour les icônes
-    ).add_to(marker_cluster)
-
-# Afficher la carte dans Streamlit
-st.subheader("Carte interactive des projets")
-folium_static(m)
