@@ -1,12 +1,3 @@
-tu# -*- coding: utf-8 -*-
-"""
-Created on Wed Aug 28 17:55:20 2024
-
-@author: olivier.parrot
-"""
-
-
-
 import streamlit as st
 from streamlit_folium import folium_static
 import pandas as pd
