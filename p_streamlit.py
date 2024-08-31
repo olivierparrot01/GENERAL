@@ -257,13 +257,13 @@ for idx, row in filtered_df.iterrows():
     # Utiliser color pour changer la couleur de l'icône
     folium.Marker(
         location=[row['latitude'], row['longitude']],
-        popup= f"{row['CATEGORIE']}<br>{row['LOCALITE']}<br>{row['PROJET']}",
+        popup= f"{row['CATEGORIE']}<br>{row['LOCALITE']}<br>{row['LIEN_AVIS']}",
         #popup=f"{category}<br>{localite}<br>{lien_avis}"
     
         icon=folium.Icon(color=color, icon='info-sign')  # Couleur selon la catégorie
     ).add_to(marker_cluster)
 
 # Afficher la carte dans Streamlit
-st.subheader("Carte des catégories sélectionnées")
+st.subheader("Carte des catégories populaires sélectionnées")
 folium_static(m)  # Fonction pour afficher la carte Folium dans Streamlit
-
+e c 
