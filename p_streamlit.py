@@ -69,7 +69,7 @@ filtered_df['Année'] = filtered_df['DATE_PUBLI'].dt.year
 # Sélection des catégories
 
 # Liste des catégories par défaut
-default_categories = ['PHOTOVOLTAIQUE', 'HYDROELECTRICITE','EOLIEN','GEOTHERMIE']
+default_categories = ['PHOTOVOLTAIQUE', 'HYDROELECTRICITE','EOLIENNES','GEOTHERMIE']
 
 st.sidebar.subheader("Sélectionner les catégories :")
 selected_CATEGORIEs = st.sidebar.multiselect(
