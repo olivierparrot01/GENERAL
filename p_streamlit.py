@@ -1,4 +1,4 @@
-import streamlit as st
+himport streamlit as st
 from streamlit_folium import folium_static
 import pandas as pd
 import geopandas as gpd
@@ -266,4 +266,4 @@ for idx, row in filtered_df.iterrows():
 # Afficher la carte dans Streamlit
 st.subheader("Carte des catégories populaires sélectionnées")
 folium_static(m)  # Fonction pour afficher la carte Folium dans Streamlit
-e c 
+
