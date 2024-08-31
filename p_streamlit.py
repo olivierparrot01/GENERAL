@@ -234,3 +234,73 @@ for idx, row in filtered_df.iterrows():
 # Afficher la carte dans Streamlit
 st.subheader("Carte des catégories sélectionnées")
 folium_static(m)  # Fonction pour afficher la carte Folium dans Streamlit
+
+
+# Catégories et couleurs
+categories = [
+    "AMENAGEMENT-CONSTRUCTION",
+    "AGRICULTURE",
+    "AUTORISATION-REGULARISATION-RECONVERSION",
+    "CARRIERE",
+    "DECHETS",
+    "EAU-CAPTAGE-RETENUE-BARRAGE",
+    "EOLIENNES",
+    "GEOTHERMIE",
+    "HYDROELECTRICITE",
+    "LOGISTIQUE",
+    "MONTAGNE-LOISIR",
+    "PHOTOVOLTAIQUE",
+    "PORT-AMENAGEMENT-ACTIVITES",
+    "RESEAU-ELECTRICITE-GAZ",
+    "RISQUES NATURELS-PROTECTION",
+    "ROUTE-VOIERIE",
+    "STEP",
+    "ZAC"
+]
+
+colors = [
+    "#FFFF00",  # AMENAGEMENT-CONSTRUCTION (yellow)
+    "#626262",  # AGRICULTURE (gray)
+    "#E6E6E6",  # AUTORISATION-REGULARISATION-RECONVERSION (light gray)
+    "#804040",  # CARRIERE (brownish red)
+    "#FF8000",  # DECHETS (orange)
+    "#0000FF",  # EAU-CAPTAGE-RETENUE-BARRAGE (blue)
+    "#00FF40",  # EOLIENNES (green)
+    "#21CCD0",  # GEOTHERMIE (cyan)
+    "#0000FF",  # HYDROELECTRICITE (blue)
+    "#B2B2B2",  # LOGISTIQUE (light gray)
+    "#FF82FF",  # MONTAGNE-LOISIR (pink)
+    "#009B00",  # PHOTOVOLTAIQUE (dark green)
+    "#828282",  # PORT-AMENAGEMENT-ACTIVITES (gray)
+    "#C0C0C0",  # RESEAU-ELECTRICITE-GAZ (silver)
+    "#FF0000",  # RISQUES NATURELS-PROTECTION (red)
+    "#CFCFCF",  # ROUTE-VOIERIE (light gray)
+    "#9595FF",  # STEP (light purple)
+    "#000000"   # ZAC (black)
+]
+
+# Création d'un dictionnaire pour mapper les catégories aux couleurs
+category_color_map = dict(zip(categories, colors))
+
+import folium
+import streamlit as st
+from streamlit_folium import folium_static
+
+# Créer la carte centrée sur la moyenne des coordonnées
+m = folium.Map(location=[filtered_df['latitude'].mean(), filtered_df['longitude'].mean()], zoom_start=5)
+
+# Ajouter des marqueurs avec des couleurs en fonction de la catégorie
+for idx, row in filtered_df.iterrows():
+    category = row['CATEGORIE']
+    color = category_color_map.get(category, "#FFFFFF")  # Par défaut, blanc si la catégorie n'est pas trouvée
+    
+    # Utilisation d'un marqueur standard avec la couleur correspondante
+    folium.Marker(
+        location=[row['latitude'], row['longitude']],
+        popup=category,
+        icon=folium.Icon(color=color, icon='info-sign')  # Utilisation d'une icône standard
+    ).add_to(m)
+
+# Afficher la carte dans Streamlit
+st.subheader("Carte avec couleurs par catégorie")
+folium_static(m)
