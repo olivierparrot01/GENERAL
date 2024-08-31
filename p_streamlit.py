@@ -33,10 +33,8 @@ colors = [
     
 ]
 
-
-
-category_color_map = #dict(zip(categories, colors))
-    {"AGRICULTURE": "orange",    # Proche de jaune#     
+#dict(zip(categories, colors))
+category_color_map = {"AGRICULTURE": "orange",    # Proche de jaune#     
     "AMENAGEMENT-CONSTRUCTION": "gray",# Gris foncé
     "AUTORISATION-REGULARISATION-RECONVERSION": "lightgray", # Gris clair
     "CARRIERE": "darkred",                   # Marron foncé
