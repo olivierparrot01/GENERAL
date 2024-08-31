@@ -45,7 +45,7 @@ colors = [
 
 
 category_color_map = dict(zip(categories, colors))
-st.write(list(df['CATEGORIE']))
+st.write(list(df['CATEGORIE'].unique()))
 # Filtrage des données
 df = df[df['DATE_PUBLI'] >= '2015']
 df['DATE_PUBLI'] = pd.to_datetime(df['DATE_PUBLI'])
