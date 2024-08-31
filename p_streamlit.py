@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+tu# -*- coding: utf-8 -*-
 """
 Created on Wed Aug 28 17:55:20 2024
 
@@ -309,3 +309,37 @@ for idx, row in filtered_df.iterrows():
 # Afficher la carte dans Streamlit
 st.subheader("Carte des catégories sélectionnées")
 folium_static(m)  # Fonction pour afficher la carte Folium dans Streamlit
+
+import folium
+from folium.plugins import MarkerCluster
+from streamlit_folium import folium_static
+
+# ... (votre code existant)
+
+# Créer la carte centrée sur le centre des données avec une basemap personnalisée
+m = folium.Map(location=[filtered_df['latitude'].mean(), filtered_df['longitude'].mean()], zoom_start=5, tiles='CartoDB positron')
+
+# Ajouter une légende
+folium.LayerControl().add_to(m)
+
+# Créer un dictionnaire de couleurs plus lisible
+color_map = {
+    "AMENAGEMENT-CONSTRUCTION": "orange",
+    # ...
+}
+
+# Ajouter les points au cluster avec un style personnalisé selon la catégorie
+for idx, row in filtered_df.iterrows():
+    category = row['CATEGORIE']
+    color = color_map.get(category, "blue")  # Couleur par défaut si la catégorie n'est pas trouvée
+    
+    # Utiliser un icone HTML personnalisé pour plus de flexibilité
+    folium.Marker(
+        location=[row['latitude'], row['longitude']],
+        popup=row['CATEGORIE'],
+        icon=folium.Icon(color=color, icon='info-sign', prefix='fa')  # Utiliser Font Awesome pour les icônes
+    ).add_to(marker_cluster)
+
+# Afficher la carte dans Streamlit
+st.subheader("Carte interactive des projets")
+folium_static(m)
