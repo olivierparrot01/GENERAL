@@ -236,71 +236,58 @@ st.subheader("Carte des catégories sélectionnées")
 folium_static(m)  # Fonction pour afficher la carte Folium dans Streamlit
 
 
-# Catégories et couleurs
-categories = [
-    "AMENAGEMENT-CONSTRUCTION",
-    "AGRICULTURE",
-    "AUTORISATION-REGULARISATION-RECONVERSION",
-    "CARRIERE",
-    "DECHETS",
-    "EAU-CAPTAGE-RETENUE-BARRAGE",
-    "EOLIENNES",
-    "GEOTHERMIE",
-    "HYDROELECTRICITE",
-    "LOGISTIQUE",
-    "MONTAGNE-LOISIR",
-    "PHOTOVOLTAIQUE",
-    "PORT-AMENAGEMENT-ACTIVITES",
-    "RESEAU-ELECTRICITE-GAZ",
-    "RISQUES NATURELS-PROTECTION",
-    "ROUTE-VOIERIE",
-    "STEP",
-    "ZAC"
-]
-
-colors = [
-    "#FFFF00",  # AMENAGEMENT-CONSTRUCTION (yellow)
-    "#626262",  # AGRICULTURE (gray)
-    "#E6E6E6",  # AUTORISATION-REGULARISATION-RECONVERSION (light gray)
-    "#804040",  # CARRIERE (brownish red)
-    "#FF8000",  # DECHETS (orange)
-    "#0000FF",  # EAU-CAPTAGE-RETENUE-BARRAGE (blue)
-    "#00FF40",  # EOLIENNES (green)
-    "#21CCD0",  # GEOTHERMIE (cyan)
-    "#0000FF",  # HYDROELECTRICITE (blue)
-    "#B2B2B2",  # LOGISTIQUE (light gray)
-    "#FF82FF",  # MONTAGNE-LOISIR (pink)
-    "#009B00",  # PHOTOVOLTAIQUE (dark green)
-    "#828282",  # PORT-AMENAGEMENT-ACTIVITES (gray)
-    "#C0C0C0",  # RESEAU-ELECTRICITE-GAZ (silver)
-    "#FF0000",  # RISQUES NATURELS-PROTECTION (red)
-    "#CFCFCF",  # ROUTE-VOIERIE (light gray)
-    "#9595FF",  # STEP (light purple)
-    "#000000"   # ZAC (black)
-]
-
-# Création d'un dictionnaire pour mapper les catégories aux couleurs
-category_color_map = dict(zip(categories, colors))
-
 import folium
+from folium.plugins import MarkerCluster
+import geopandas as gpd
 import streamlit as st
 from streamlit_folium import folium_static
 
-# Créer la carte centrée sur la moyenne des coordonnées
+# Assurez-vous que filtered_df est un GeoDataFrame
+filtered_df = gpd.GeoDataFrame(filtered_df)
+
+# Reprojection en EPSG:4326 (WGS84)
+filtered_df = filtered_df.to_crs(epsg=4326)
+
+# Extraire la latitude et la longitude à partir de la colonne 'geometry'
+filtered_df['latitude'] = filtered_df.geometry.y
+filtered_df['longitude'] = filtered_df.geometry.x
+
+# Définir une palette de couleurs pour chaque catégorie
+color_map = {
+    "AGRICULTURE": "#FFFF00",  # Jaune
+    "AMENAGEMENT-CONSTRUCTION": "#626262",  # Gris foncé
+    "AUTORISATION-REGULARISATION-RECONVERSION": "#E6E6E6",  # Gris clair
+    "CARRIERE": "#804040",  # Marron foncé
+    "DECHETS": "#FF8000",  # Orange
+    "EAU-CAPTAGE-RETENUE-BARRAGE": "#0000FF",  # Bleu
+    "EOLIENNES": "#00FF40",  # Vert
+    "GEOTHERMIE": "#21CCD0",  # Cyan
+    "HYDROELECTRICITE": "#0000FF",  # Bleu
+    "LOGISTIQUE": "#B2B2B2",  # Gris clair
+    "MONTAGNE-LOISIR": "#FF82FF",  # Rose
+    "PHOTOVOLTAIQUE": "#009B00",  # Vert foncé
+    "PORT-AMENAGEMENT-ACTIVITES": "#828282",  # Gris
+    "RESEAU-ELECTRICITE-GAZ": "#C0C0C0",  # Argent
+    "RISQUES NATURELS-PROTECTION": "#FF0000",  # Rouge
+    "ROUTE-VOIERIE": "#CFCFCF",  # Gris clair
+    "STEP": "#9595FF",  # Violet clair
+    "ZAC": "#000000"  # Noir
+}
+
+# Créer la carte centrée sur le centre des données
 m = folium.Map(location=[filtered_df['latitude'].mean(), filtered_df['longitude'].mean()], zoom_start=5)
 
-# Ajouter des marqueurs avec des couleurs en fonction de la catégorie
+# Ajouter un cluster de points (facultatif)
+marker_cluster = MarkerCluster().add_to(m)
+
+# Ajouter les points au cluster avec un style personnalisé selon la catégorie
 for idx, row in filtered_df.iterrows():
-    category = row['CATEGORIE']
-    color = category_color_map.get(category, "#FFFFFF")  # Par défaut, blanc si la catégorie n'est pas trouvée
-    
-    # Utilisation d'un marqueur standard avec la couleur correspondante
     folium.Marker(
         location=[row['latitude'], row['longitude']],
-        popup=category,
-        icon=folium.Icon(color=color, icon='info-sign')  # Utilisation d'une icône standard
-    ).add_to(m)
+        popup=row['CATEGORIE'],
+        icon=folium.Icon(color=color_map.get(row['CATEGORIE'], "gray"))  # Couleur selon la catégorie, gris par défaut
+    ).add_to(marker_cluster)
 
 # Afficher la carte dans Streamlit
-st.subheader("Carte avec couleurs par catégorie")
-folium_static(m)
+st.subheader("Carte des catégories sélectionnées")
+folium_static(m)  # Fonction pour afficher la carte Folium dans Streamlit
