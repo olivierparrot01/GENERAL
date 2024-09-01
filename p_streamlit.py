@@ -264,6 +264,7 @@ for idx, row in filtered_df.iterrows():
     ).add_to(marker_cluster)
 
 # Afficher la carte dans Streamlit
-st.subheader("Carte des catégories populaires sélectionnées")
+st.subheader("Catégories sélectionnées")
+st.subheader("")
 folium_static(m)  # Fonction pour afficher la carte Folium dans Streamlit
 
