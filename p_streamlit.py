@@ -53,16 +53,28 @@ category_color_map = {"AGRICULTURE": "orange",    # Proche de jaune#
     "STEP": "purple",                        # Violet clair
     "ZAC": "black",                          # Noir
 }
+
+
 # Filtrage des données
 df = df[df['DATE_PUBLI'] >= '2015']
 df['DATE_PUBLI'] = pd.to_datetime(df['DATE_PUBLI'])
+# Convertir la colonne 'DATE_PUBLI' pour ne garder que la date (année-mois-jour)
+# df['DATE_PUBLI'] = pd.to_datetime(df['DATE_PUBLI']).dt.date
 
+
+# df['DATE_PUBLI'] = pd.to_datetime(df['DATE_PUBLI'])
 # Interface Streamlit
 #st.header("Analyse Spatio-Temporelle")
 st.header("Analyse des Projets MRAe par Période et Lieu")
 # Sélection des années
-min_year = int(df['DATE_PUBLI'].dt.year.min())
-max_year = int(df['DATE_PUBLI'].dt.year.max())
+
+# min_year = int(df['DATE_PUBLI'].dt.year.min())
+# max_year = int(df['DATE_PUBLI'].dt.year.max())
+
+
+min_year = df['DATE_PUBLI'].dt.year.min()
+max_year = df['DATE_PUBLI'].dt.year.max()
+
 
 st.sidebar.subheader("Sélectionner une période :")
 year_range = st.sidebar.slider("", 
@@ -72,6 +84,9 @@ year_range = st.sidebar.slider("",
                                step=1)
 
 filtered_df = df[(df['DATE_PUBLI'].dt.year >= year_range[0]) & (df['DATE_PUBLI'].dt.year <= year_range[1])]
+
+
+
 filtered_df['Année'] = filtered_df['DATE_PUBLI'].dt.year
 
 # Sélection des catégories
@@ -220,7 +235,7 @@ filtered_df = filtered_df.to_crs(epsg=4326)
 # Extraire la latitude et la longitude à partir de la colonne 'geometry'
 filtered_df['latitude'] = filtered_df.geometry.y
 filtered_df['longitude'] = filtered_df.geometry.x
-
+filtered_df['DATE_PUBLI'] = pd.to_datetime(df['DATE_PUBLI']).dt.date
 # Correspondance des catégories avec les couleurs disponibles dans Folium
 color_map = {
     "AGRICULTURE": "orange",    # Proche de jaune#     
