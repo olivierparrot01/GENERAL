@@ -230,9 +230,8 @@ st.download_button(
 
 
 import folium
-from folium.plugins import MarkerCluster
-from streamlit_folium import folium_static
-
+from folium.plugins import MarkerCluster,Fullscreen
+from folium.plugins import Fullscreen
 # Assurez-vous que filtered_df est un GeoDataFrame
 filtered_df = gpd.GeoDataFrame(filtered_df)
 
@@ -267,7 +266,8 @@ color_map = {
 
 # Créer la carte centrée sur le centre des données
 m = folium.Map(location=[filtered_df['latitude'].mean(), filtered_df['longitude'].mean()], zoom_start=5)
-
+# Ajouter le bouton de plein écran
+Fullscreen().add_to(m)
 # Ajouter un cluster de points (facultatif)
 marker_cluster = MarkerCluster().add_to(m)
 
