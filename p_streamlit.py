@@ -231,7 +231,6 @@ st.download_button(
 
 import folium
 from folium.plugins import MarkerCluster,Fullscreen
-from folium.plugins import Fullscreen
 # Assurez-vous que filtered_df est un GeoDataFrame
 filtered_df = gpd.GeoDataFrame(filtered_df)
 
