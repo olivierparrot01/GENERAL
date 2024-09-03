@@ -66,7 +66,7 @@ df['DATE_PUBLI'] = pd.to_datetime(df['DATE_PUBLI'])
 #date_mise_a_jour_str = date_mise_a_jour.strftime("%Y %B %d") 
 
 # Afficher la date de mise à jour en haut de la page
-st.subheader('Mise à jour : 2024-08-29')
+st.header('Mise à jour : 2024-08-29')
 
 
 # df['DATE_PUBLI'] = pd.to_datetime(df['DATE_PUBLI'])
