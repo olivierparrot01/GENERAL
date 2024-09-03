@@ -84,7 +84,7 @@ max_year = df['DATE_PUBLI'].dt.year.max()
 
 
 st.sidebar.subheader("Sélectionner une période :")
-year_range = st.sidebar.slider("", 
+year_range = st.sidebar.slider("olive", 
                                min_value=min_year, 
                                max_value=max_year, 
                                value=(min_year, max_year), 
@@ -104,7 +104,7 @@ default_categories = ['PHOTOVOLTAIQUE', 'HYDROELECTRICITE','EOLIENNES','GEOTHERM
 
 st.sidebar.subheader("Sélectionner les catégories :")
 selected_CATEGORIEs = st.sidebar.multiselect(
-    "", 
+    "olive", 
     categories, 
     default=default_categories  # Spécifier les catégories par défaut, label_visibility="collapsed"
 )
