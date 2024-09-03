@@ -84,7 +84,7 @@ max_year = df['DATE_PUBLI'].dt.year.max()
 
 
 st.sidebar.subheader("Sélectionner une période :")
-#year_range = st.sidebar.slider("", 
+year_range = st.sidebar.slider("", 
                                min_value=min_year, 
                                max_value=max_year, 
                                value=(min_year, max_year), 
