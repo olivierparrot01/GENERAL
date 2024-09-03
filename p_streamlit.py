@@ -128,7 +128,9 @@ count_by_year_category = filtered_df.groupby(['Année', 'CATEGORIE']).size().res
 
 # Étape 3 : Fusionner avec all_combinations pour ajouter les comptes
 all_combinations_with_counts = pd.merge(all_combinations, count_by_year_category, on=['Année', 'CATEGORIE'], how='left')
-all_combinations_with_counts['count'].fillna(0, inplace=True)
+#all_combinations_with_counts['count'].fillna(0, inplace=True)
+all_combinations_with_counts['count'] = all_combinations_with_counts['count'].fillna(0)
+
 all_combinations_with_counts['count'] = all_combinations_with_counts['count'].astype(int)
 
 
