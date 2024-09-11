@@ -131,13 +131,13 @@ selected_CATEGORIEs = st.sidebar.multiselect(
 filtered_df = df[df['CATEGORIE'].isin(selected_CATEGORIEs)]
 
 #st.sidebar.subheader(" ")
-#st.sidebar.write("")
-st.sidebar.write("\n")
+st.sidebar.write("")
+#st.sidebar.write("\n")
 
 st.sidebar.subheader("Sélectionner une période :")
 #st.sidebar.subheader(" ", )
-#st.sidebar.write("")
-st.sidebar.write("\n")
+st.sidebar.write("")
+#st.sidebar.write("\n")
 
 year_range = st.sidebar.slider("", 
                                min_value=min_year, 
@@ -338,6 +338,8 @@ for idx, row in filtered_df.iterrows():
 
 # Afficher la carte dans Streamlit
 st.subheader("Géolocalisation des projets par catégorie")
-st.subheader(" ")
+#st.subheader(" ")
+st.write("")
+
 folium_static(m)  # Fonction pour afficher la carte Folium dans Streamlit
 
