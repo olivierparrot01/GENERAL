@@ -119,7 +119,7 @@ max_year = df['DATE_PUBLI'].dt.year.max()
 # Liste des catégories par défaut
 default_categories = ['PHOTOVOLTAIQUE', 'HYDROELECTRICITE','EOLIENNES','GEOTHERMIE']
 
-st.sidebar.subheader("Sélectionner les catégories :")
+st.sidebar.subheader("Sélectionner des catégories :")
 selected_CATEGORIEs = st.sidebar.multiselect(
     "", 
     categories, 
@@ -132,6 +132,7 @@ filtered_df = df[df['CATEGORIE'].isin(selected_CATEGORIEs)]
 
 st.sidebar.subheader("")
 st.sidebar.subheader("Sélectionner une période :")
+st.sidebar.subheader("")
 year_range = st.sidebar.slider("", 
                                min_value=min_year, 
                                max_value=max_year, 
