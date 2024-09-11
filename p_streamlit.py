@@ -130,9 +130,9 @@ selected_CATEGORIEs = st.sidebar.multiselect(
 #filtered_df = filtered_df[filtered_df['CATEGORIE'].isin(selected_CATEGORIEs)]
 filtered_df = df[df['CATEGORIE'].isin(selected_CATEGORIEs)]
 
-st.sidebar.subheader(" ")
+st.sidebar.subheader("d")
 st.sidebar.subheader("Sélectionner une période :")
-st.sidebar.subheader(" ", )
+st.sidebar.subheader("d", )
 year_range = st.sidebar.slider("", 
                                min_value=min_year, 
                                max_value=max_year, 
