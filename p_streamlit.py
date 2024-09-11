@@ -89,6 +89,17 @@ max_year = df['DATE_PUBLI'].dt.year.max()
 filtered_df = df[(df['DATE_PUBLI'].dt.year >= year_range[0]) & (df['DATE_PUBLI'].dt.year <= year_range[1])]
 
 
+st.sidebar.subheader("Sélectionner une période :")
+year_range = st.sidebar.slider("", 
+                               min_value=min_year, 
+                               max_value=max_year, 
+                               value=(min_year, max_year), 
+                               step=1, label_visibility="collapsed")
+
+
+
+
+
 
 filtered_df['Année'] = filtered_df['DATE_PUBLI'].dt.year
 
@@ -138,12 +149,6 @@ all_combinations_with_counts['CATEGORIE'] = pd.Categorical(all_combinations_with
 # Trier le DataFrame selon l'ordre des catégories
 all_combinations_with_counts = all_combinations_with_counts.sort_values(by='CATEGORIE')
 
-st.sidebar.subheader("Sélectionner une période :")
-year_range = st.sidebar.slider("", 
-                               min_value=min_year, 
-                               max_value=max_year, 
-                               value=(min_year, max_year), 
-                               step=1, label_visibility="collapsed")
 
 
 
