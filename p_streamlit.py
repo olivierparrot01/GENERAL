@@ -104,7 +104,7 @@ default_categories = ['PHOTOVOLTAIQUE', 'HYDROELECTRICITE','EOLIENNES','GEOTHERM
 
 st.sidebar.subheader("Sélectionner les catégories :")
 selected_CATEGORIEs = st.sidebar.multiselect(
-    "olive", 
+    "", 
     categories, 
     default=default_categories  # Spécifier les catégories par défaut, label_visibility="collapsed"
 )
@@ -168,7 +168,7 @@ stacked_bar_chart.update_layout(
 st.plotly_chart(stacked_bar_chart)
 
 # Graphique par localité
-st.subheader("Répartition des projets par catégorie")
+st.subheader("Localisation des projets par catégorie")
 locality_category_counts = filtered_df.groupby(['LOCALITE', 'CATEGORIE']).size().reset_index(name='Nb de projets')
 locality_category_counts['LOCALITE'] = locality_category_counts['LOCALITE'].replace({'PORTS MARITIMES DE LA METROPOLE AIX-MARSEILLE PROVENCE, DU CG 13 ET DES COMMUNES DE CARRY-LE-ROUET, MARSEILLE ET SAINT-CHAMAS': 'PORTS MARITIMES DE LA METROPOLE AIX-MARSEILLE PROVENCE, DU CG 13'})
 
@@ -288,7 +288,7 @@ for idx, row in filtered_df.iterrows():
     ).add_to(marker_cluster)
 
 # Afficher la carte dans Streamlit
-st.subheader("Localisation des projets pour les catégories sélectionnées")
+st.subheader("Géolocalisation des projets par catégorie")
 st.subheader("")
 folium_static(m)  # Fonction pour afficher la carte Folium dans Streamlit
 
