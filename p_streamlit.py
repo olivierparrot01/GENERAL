@@ -120,6 +120,31 @@ filtered_df = filtered_df[filtered_df['CATEGORIE'].isin(selected_CATEGORIEs)]
 
 
 
+st.sidebar.subheader("Sélectionner une période :")
+year_range = st.sidebar.slider("", 
+                               min_value=min_year, 
+                               max_value=max_year, 
+                               value=(min_year, max_year), 
+                               step=1, label_visibility="collapsed")
+
+
+
+filtered_df = filtered_df[(filtered_df['DATE_PUBLI'].dt.year >= year_range[0]) & (filtered_df['DATE_PUBLI'].dt.year <= year_range[1])]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #st.sidebar.subheader("Sélectionner les catégories :")
 #selected_CATEGORIEs = st.sidebar.multiselect("", categories, default=categories)
 #filtered_df = filtered_df[filtered_df['CATEGORIE'].isin(selected_CATEGORIEs)]
