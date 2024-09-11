@@ -66,7 +66,7 @@ df['DATE_PUBLI'] = pd.to_datetime(df['DATE_PUBLI'])
 #date_mise_a_jour_str = date_mise_a_jour.strftime("%Y %B %d") 
 
 # Afficher la date de mise à jour en haut de la page
-st.header('Mise à jour : 2024-08-29')
+st.subheader('Mise à jour : 2024-08-29')
 
 
 # df['DATE_PUBLI'] = pd.to_datetime(df['DATE_PUBLI'])
@@ -130,7 +130,7 @@ selected_CATEGORIEs = st.sidebar.multiselect(
 #filtered_df = filtered_df[filtered_df['CATEGORIE'].isin(selected_CATEGORIEs)]
 filtered_df = df[df['CATEGORIE'].isin(selected_CATEGORIEs)]
 
-
+st.sidebar.subheader("")
 st.sidebar.subheader("Sélectionner une période :")
 year_range = st.sidebar.slider("", 
                                min_value=min_year, 
