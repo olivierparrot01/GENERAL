@@ -72,7 +72,7 @@ st.header('Mise à jour : 2024-08-29')
 # df['DATE_PUBLI'] = pd.to_datetime(df['DATE_PUBLI'])
 # Interface Streamlit
 #st.header("Analyse Spatio-Temporelle")
-st.header("Analyse des Projets MRAe par Période et Lieu")
+st.header("Analyse par Catégorie des Projets MRAe ")
 # Sélection des années
 
 # min_year = int(df['DATE_PUBLI'].dt.year.min())
@@ -84,7 +84,7 @@ max_year = df['DATE_PUBLI'].dt.year.max()
 
 
 st.sidebar.subheader("Sélectionner une période :")
-year_range = st.sidebar.slider("olive", 
+year_range = st.sidebar.slider("", 
                                min_value=min_year, 
                                max_value=max_year, 
                                value=(min_year, max_year), 
@@ -148,7 +148,7 @@ all_combinations_with_counts = all_combinations_with_counts.sort_values(by='CATE
 
 
 # Graphique empilé par catégorie et année
-st.subheader("Effectif par catégorie et par année")
+st.subheader("Effectifs par catégorie")
 stacked_bar_chart = px.bar(
     all_combinations_with_counts, 
     x='Année', 
@@ -168,7 +168,7 @@ stacked_bar_chart.update_layout(
 st.plotly_chart(stacked_bar_chart)
 
 # Graphique par localité
-st.subheader("Répartition des projets par localité et catégorie")
+st.subheader("Répartition des projets par catégorie")
 locality_category_counts = filtered_df.groupby(['LOCALITE', 'CATEGORIE']).size().reset_index(name='Nb de projets')
 locality_category_counts['LOCALITE'] = locality_category_counts['LOCALITE'].replace({'PORTS MARITIMES DE LA METROPOLE AIX-MARSEILLE PROVENCE, DU CG 13 ET DES COMMUNES DE CARRY-LE-ROUET, MARSEILLE ET SAINT-CHAMAS': 'PORTS MARITIMES DE LA METROPOLE AIX-MARSEILLE PROVENCE, DU CG 13'})
 
