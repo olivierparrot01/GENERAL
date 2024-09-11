@@ -112,7 +112,7 @@ max_year = df['DATE_PUBLI'].dt.year.max()
 
 
 
-filtered_df['Année'] = filtered_df['DATE_PUBLI'].dt.year
+#filtered_df['Année'] = filtered_df['DATE_PUBLI'].dt.year
 
 # Sélection des catégories
 
@@ -141,7 +141,7 @@ year_range = st.sidebar.slider("",
 
 
 filtered_df = filtered_df[(filtered_df['DATE_PUBLI'].dt.year >= year_range[0]) & (filtered_df['DATE_PUBLI'].dt.year <= year_range[1])]
-
+filtered_df['Année'] = filtered_df['DATE_PUBLI'].dt.year
 
 
 
