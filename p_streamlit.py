@@ -316,7 +316,18 @@ color_map = {
 }
 
 # Créer la carte centrée sur le centre des données
-m = folium.Map(location=[filtered_df['latitude'].mean(), filtered_df['longitude'].mean()], zoom_start=5)
+#m = folium.Map(location=[filtered_df['latitude'].mean(), filtered_df['longitude'].mean()], zoom_start=5)
+
+
+# Coordonnées approximatives du centre de la région PACA
+latitude_center = 43.5  # Latitude centrale de PACA
+longitude_center = 6.5  # Longitude centrale de PACA
+
+
+# Créer la carte centrée sur le centre des données
+m = folium.Map(location=[latitude_center, longitude_center], zoom_start=5)
+
+
 # Ajouter le bouton de plein écran
 Fullscreen().add_to(m)
 # Ajouter un cluster de points (facultatif)
