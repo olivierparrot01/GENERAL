@@ -127,8 +127,8 @@ selected_CATEGORIEs = st.sidebar.multiselect(
 )
 
 # Filtrer le DataFrame selon les catégories sélectionnées
-filtered_df = filtered_df[filtered_df['CATEGORIE'].isin(selected_CATEGORIEs)]
-
+#filtered_df = filtered_df[filtered_df['CATEGORIE'].isin(selected_CATEGORIEs)]
+filtered_df = df[df['CATEGORIE'].isin(selected_CATEGORIEs)]
 
 
 st.sidebar.subheader("Sélectionner une période :")
