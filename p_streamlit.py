@@ -328,7 +328,7 @@ mean_longitude = filtered_df['longitude'].mean()
 
 # Créer la carte centrée sur le centre des données
 #m = folium.Map(location=[latitude_center, longitude_center], zoom_start=5)
-m = folium.Map(location=[mean_latitude, mean_longitude], zoom_start=10)
+m = folium.Map(location=[mean_latitude, mean_longitude], zoom_start=8)
 
 
 # Ajouter le bouton de plein écran
