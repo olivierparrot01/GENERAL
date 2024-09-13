@@ -353,7 +353,7 @@ for idx, row in filtered_df.iterrows():
 # Afficher la carte dans Streamlit
 st.subheader("Géolocalisation des projets par catégorie")
 #st.subheader(" ")
-st.write("")
+#st.write("")
 
 folium_static(m)  # Fonction pour afficher la carte Folium dans Streamlit
 
