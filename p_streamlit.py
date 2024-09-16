@@ -323,12 +323,12 @@ color_map = {
 latitude_center = 43.5  # Latitude centrale de PACA
 longitude_center = 6.5  # Longitude centrale de PACA
 # Vérifiez les valeurs moyennes
-mean_latitude = filtered_df['latitude'].mean()
-mean_longitude = filtered_df['longitude'].mean()
+#mean_latitude = filtered_df['latitude'].mean()
+#mean_longitude = filtered_df['longitude'].mean()
 
 # Créer la carte centrée sur le centre des données
-#m = folium.Map(location=[latitude_center, longitude_center], zoom_start=5)
-m = folium.Map(location=[mean_latitude, mean_longitude], zoom_start=7)
+m = folium.Map(location=[latitude_center, longitude_center], zoom_start=5)
+#m = folium.Map(location=[mean_latitude, mean_longitude], zoom_start=7)
 
 
 # Ajouter le bouton de plein écran
