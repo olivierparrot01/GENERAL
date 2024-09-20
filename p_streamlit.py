@@ -290,8 +290,8 @@ filtered_df = gpd.GeoDataFrame(filtered_df)
 filtered_df = filtered_df.to_crs(epsg=4326)
 
 # Extraire la latitude et la longitude à partir de la colonne 'geometry'
-filtered_df['latitude'] = filtered_df.geometry.y
-filtered_df['longitude'] = filtered_df.geometry.x
+filtered_df['latitude'] = filtered_df.geometry.y.astype(float)
+filtered_df['longitude'] = filtered_df.geometry.x.astype(float)
 filtered_df['DATE_PUBLI'] = pd.to_datetime(df['DATE_PUBLI']).dt.date
 # Correspondance des catégories avec les couleurs disponibles dans Folium
 color_map = {
