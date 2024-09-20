@@ -339,7 +339,7 @@ marker_cluster = MarkerCluster().add_to(m)
 # Ajouter les points au cluster avec un style personnalisé selon la catégorie
 for idx, row in filtered_df.iterrows():
     category = row['CATEGORIE']
-    #color = color_map.get(category, "lightblue")  # Par défaut, bleu clair si la catégorie n'est pas trouvée
+    color = color_map.get(category, "lightblue")  # Par défaut, bleu clair si la catégorie n'est pas trouvée
     
     # Utiliser color pour changer la couleur de l'icône
     folium.Marker(
