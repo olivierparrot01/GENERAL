@@ -356,5 +356,36 @@ st.subheader("Géolocalisation des projets par catégorie")
 #st.subheader(" ")
 #st.write("")
 
+# Ajouter une légende personnalisée en HTML avec les couleurs de color_map
+legend_html = '''
+<div style="
+    position: fixed;
+    bottom: 50px; left: 50px; width: 250px; height: 400px;
+    background-color: white; z-index: 1000; padding: 10px; border: 2px solid grey;
+">
+    <h4> Légende des catégories </h4>
+    <i style="background:orange"></i> AGRICULTURE <br>
+    <i style="background:gray"></i> AMENAGEMENT-CONSTRUCTION <br>
+    <i style="background:lightgray"></i> AUTORISATION-REGULARISATION-RECONVERSION <br>
+    <i style="background:darkred"></i> CARRIERE <br>
+    <i style="background:orange"></i> DECHETS <br>
+    <i style="background:darkblue"></i> EAU-CAPTAGE-RETENUE-BARRAGE <br>
+    <i style="background:green"></i> EOLIENNES <br>
+    <i style="background:lightblue"></i> GEOTHERMIE <br>
+    <i style="background:blue"></i> HYDROELECTRICITE <br>
+    <i style="background:beige"></i> LOGISTIQUE <br>
+    <i style="background:pink"></i> MONTAGNE-LOISIR <br>
+    <i style="background:darkgreen"></i> PHOTOVOLTAIQUE <br>
+    <i style="background:cadetblue"></i> PORT-AMENAGEMENT-ACTIVITES <br>
+    <i style="background:lightgray"></i> RESEAU-ELECTRICITE-GAZ <br>
+    <i style="background:red"></i> RISQUES NATURELS-PROTECTION <br>
+    <i style="background:lightgray"></i> ROUTE-VOIERIE <br>
+    <i style="background:purple"></i> STEP <br>
+    <i style="background:black"></i> ZAC <br>
+</div>
+'''
+
+# Ajouter la légende à la carte
+m.get_root().html.add_child(folium.Element(legend_html))
 folium_static(m)  # Fonction pour afficher la carte Folium dans Streamlit
 
