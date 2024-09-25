@@ -218,7 +218,7 @@ stacked_bar_chart.update_layout(
 st.plotly_chart(stacked_bar_chart)
 
 # Graphique par localité
-st.subheader("Localisation des projets par catégorie")
+st.subheader("Localisation à la commune des projets par catégorie")
 locality_category_counts = filtered_df.groupby(['LOCALITE', 'CATEGORIE']).size().reset_index(name='Nb de projets')
 locality_category_counts['LOCALITE'] = locality_category_counts['LOCALITE'].replace({'PORTS MARITIMES DE LA METROPOLE AIX-MARSEILLE PROVENCE, DU CG 13 ET DES COMMUNES DE CARRY-LE-ROUET, MARSEILLE ET SAINT-CHAMAS': 'PORTS MARITIMES DE LA METROPOLE AIX-MARSEILLE PROVENCE, DU CG 13'})
 
