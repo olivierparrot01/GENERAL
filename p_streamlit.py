@@ -308,7 +308,7 @@ color_map = {
     "CARRIERE": "darkred",                   # Marron foncé
     "DECHETS": "orange",                     # Orange
     "EAU-CAPTAGE-RETENUE-BARRAGE": "darkblue",  # Bleu foncé
-    "EOLIENNES": "green",                    # Vert
+    "EOLIENNES": "lightgreen",                    # Vert
     "GEOTHERMIE": "lightblue",               # Proche de cyan
     "HYDROELECTRICITE": "blue",              # Bleu
     "LOGISTIQUE": "beige",                   # Gris clair
