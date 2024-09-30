@@ -302,7 +302,7 @@ filtered_df['longitude'] = filtered_df.geometry.x.astype(float)
 filtered_df['DATE_PUBLI'] = pd.to_datetime(df['DATE_PUBLI']).dt.date
 # Correspondance des catégories avec les couleurs disponibles dans Folium
 color_map = {
-    "AGRICULTURE": "orange",    # Proche de jaune#     
+    "AGRICULTURE": "#FFFF00",    # Proche de jaune#     
     "AMENAGEMENT-CONSTRUCTION": "gray",# Gris foncé
     "AUTORISATION-REGULARISATION-RECONVERSION": "lightgray", # Gris clair
     "CARRIERE": "darkred",                   # Marron foncé
