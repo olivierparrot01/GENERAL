@@ -34,7 +34,7 @@ colors = [
 ]
 
 #dict(zip(categories, colors))
-category_color_map = {"AGRICULTURE": "orange",    # Proche de jaune#     
+category_color_map = {"AGRICULTURE": "yellow",    # Proche de jaune#     
     "AMENAGEMENT-CONSTRUCTION": "gray",# Gris foncé
     "AUTORISATION-REGULARISATION-RECONVERSION": "lightgray", # Gris clair
     "CARRIERE": "darkred",                   # Marron foncé
@@ -302,7 +302,7 @@ filtered_df['longitude'] = filtered_df.geometry.x.astype(float)
 filtered_df['DATE_PUBLI'] = pd.to_datetime(df['DATE_PUBLI']).dt.date
 # Correspondance des catégories avec les couleurs disponibles dans Folium
 color_map = {
-    "AGRICULTURE": "orange",    # Proche de jaune#     
+    "AGRICULTURE": "yellow",    # Proche de jaune#     
     "AMENAGEMENT-CONSTRUCTION": "gray",# Gris foncé
     "AUTORISATION-REGULARISATION-RECONVERSION": "lightgray", # Gris clair
     "CARRIERE": "darkred",                   # Marron foncé
