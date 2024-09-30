@@ -11,27 +11,6 @@ df = gpd.read_file('https://raw.githubusercontent.com/olivierparrot01/GENERAL/ma
 df = df.drop_duplicates(subset='id')
 # Tri des catégories et définition des couleurs
 categories = sorted(df['CATEGORIE'].unique())
-colors = [
-    "#FFFF00",  # blue
-    "#626262",  # orange
-    "#E6E6E6",  # green
-    "#804040",  # red
-    "#FF8000",  # purple
-    "#0000FF",  # brown
-    "#00FF40",  # pink
-    "#21CCD0",  # gray
-    "#0000FF",  # yellow
-    "#B2B2B2",  # cyan
-    "#FF82FF",  # light blue
-    "#009B00",  # light orange
-    "#828282",  # light orange
-    "#C0C0C0",  # light green
-    "#FF0000",  # light red risque
-    "#CFCFCF",  # light purple route
-    "#9595FF",  # light brown
-    "#000000",  # light pink
-    
-]
 
 #dict(zip(categories, colors))
 category_color_map = {"AGRICULTURE": "yellow",    # Proche de jaune#     
