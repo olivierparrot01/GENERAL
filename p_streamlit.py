@@ -67,7 +67,7 @@ df['DATE_PUBLI'] = pd.to_datetime(df['DATE_PUBLI'])
 
 # Afficher la date de mise à jour en haut de la page
 st.subheader('Mise à jour : 2024-09-30')
-
+st.subheader('Synchronisé avec la carte interactive Avis et décisions de l’autorité environnementale en Provence-Alpes-Côte d'Azur')
 
 # df['DATE_PUBLI'] = pd.to_datetime(df['DATE_PUBLI'])
 # Interface Streamlit
