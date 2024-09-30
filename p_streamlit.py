@@ -69,7 +69,8 @@ df['DATE_PUBLI'] = pd.to_datetime(df['DATE_PUBLI'])
 st.subheader('Mise à jour : 2024-09-30')
 #st.subheader('''Synchronisée avec la carte interactive "Avis et décisions de l’autorité environnementale"''')
 #st.markdown('<p style="font-size:20px;">Synchronisée avec la carte interactive<br>"Avis et décisions de l’autorité environnementale"</p>', unsafe_allow_html=True)
-st.markdown('<p style="font-size:20px; font-weight:bold;">Synchronisée avec la carte interactive<br>"Avis et décisions de l’autorité environnementale"</p>', unsafe_allow_html=True)
+st.markdown('<p style="font-size:20px; font-weight:bold; color:red;">Synchronisée avec la carte interactive<br>"Avis et décisions de l’autorité environnementale"</p>', unsafe_allow_html=True)
+
 
 
 
