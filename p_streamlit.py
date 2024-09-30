@@ -71,6 +71,7 @@ st.subheader('Mise à jour : 2024-09-30')
 st.markdown('<p style="font-size:20px;">Synchronisée avec la carte interactive<br>"Avis et décisions de l’autorité environnementale"</p>', unsafe_allow_html=True)
 
 
+
 # df['DATE_PUBLI'] = pd.to_datetime(df['DATE_PUBLI'])
 # Interface Streamlit
 #st.header("Analyse Spatio-Temporelle")
