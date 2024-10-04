@@ -341,7 +341,7 @@ st.subheader("Géolocalisation des projets par catégorie")
 #st.subheader(" ")
 #st.write("")
 from streamlit_folium import st_folium
-import folium
+#import folium
 
 
 # Afficher la carte dans Streamlit
