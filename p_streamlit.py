@@ -1,5 +1,5 @@
 import streamlit as st
-from streamlit_folium import folium_static
+#from streamlit_folium import folium_static
 import pandas as pd
 import geopandas as gpd
 import plotly.express as px
@@ -340,7 +340,13 @@ for idx, row in filtered_df.iterrows():
 st.subheader("Géolocalisation des projets par catégorie")
 #st.subheader(" ")
 #st.write("")
+from streamlit_folium import st_folium
+import folium
 
 
-folium_static(m)  # Fonction pour afficher la carte Folium dans Streamlit
+# Afficher la carte dans Streamlit
+st_folium(m)
+
+
+#folium_static(m)  # Fonction pour afficher la carte Folium dans Streamlit
 
