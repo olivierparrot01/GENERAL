@@ -11,7 +11,7 @@ import plotly.express as px
 import re
 import plotly.graph_objs as go
 
-st.set_option('deprecation.showPyplotGlobalUse', False)
+#st.set_option('deprecation.showPyplotGlobalUse', False)
 
 # Chargement du fichier shapefile
 #gdf = gpd.read_file('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/Cas_par_cas_Projet_defrichement.shp')
