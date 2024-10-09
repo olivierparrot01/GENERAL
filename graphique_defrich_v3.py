@@ -151,7 +151,7 @@ fig.update_xaxes(tickvals=annees_personnalisees, ticktext=annees_personnalisees)
 # Afficher le graphique interactif
 st.plotly_chart(fig)
 
-
+gdf= pd.merge(gdf,gdf1,left_on="LOCALITE", right_on='NOM_COMM_M',how='left') 
 
 
 
