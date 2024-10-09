@@ -18,7 +18,7 @@ import plotly.graph_objs as go
 gdf = gpd.read_file('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/Cas_par_cas_Projet_defrichement_2024-10-09.geojson')
 
 # gdf = gpd.read_file(r'V:\CONSULTATION\AMENAGEMENT_URBANISME\N_ZONAGES_AMENAGEMENT\AVIS_AE\PROJET\Cas_par_cas_Projet_defrichement.shp')
-
+gdf = gdf.drop_duplicates(subset='id')
 gdf['S_DEFRICH'] = gdf['S_DEFRICH'].astype(float)
 
 gdf = gdf[gdf['S_DEFRICH'].notna()]
