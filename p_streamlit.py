@@ -343,6 +343,27 @@ st.subheader("Géolocalisation des projets par catégorie")
 from streamlit_folium import st_folium
 #import folium
 
+from branca.element import Template, MacroElement
+
+template = """
+{% macro html(this, kwargs) %}
+<div style="position: fixed; 
+            bottom: 50px; left: 50px; width: 150px; height: 200px; 
+            border:2px solid grey; z-index:9999; font-size:14px;">
+&nbsp; <b>Catégories</b> <br>
+&nbsp; AGRICULTURE <i class="fa fa-map-marker fa-2x" style="color:orange"></i><br>
+&nbsp; AMENAGEMENT-CONSTRUCTION <i class="fa fa-map-marker fa-2x" style="color:gray"></i><br>
+&nbsp; CARRIERE <i class="fa fa-map-marker fa-2x" style="color:darkred"></i><br>
+&nbsp; PHOTOVOLTAIQUE <i class="fa fa-map-marker fa-2x" style="color:darkgreen"></i><br>
+&nbsp; EOLIENNES <i class="fa fa-map-marker fa-2x" style="color:lightgreen"></i><br>
+&nbsp; GEOTHERMIE <i class="fa fa-map-marker fa-2x" style="color:lightblue"></i><br>
+</div>
+{% endmacro %}
+"""
+
+macro = MacroElement()
+macro._template = Template(template)
+m.get_root().add_child(macro)
 
 # Afficher la carte dans Streamlit
 st_folium(m)
