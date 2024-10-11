@@ -147,8 +147,8 @@ st.header("Évolution du défrichement par département")
 st.write("  ")
 
 # Liste déroulante multisélection pour sélectionner les communes (INSEE_DEP)
-st.sidebar.subheader("Comparer des départements (sélection multiple)")
-departements_selectionnees = st.sidebar.multiselect("", donnees_aggregatees_depart['INSEE_DEP'].unique())
+st.sidebar.subheader("Comparer des départements")
+departements_selectionnees = st.sidebar.multiselect("  ", donnees_aggregatees_depart['INSEE_DEP'].unique())
 
 # Filtrer les données en fonction des communes sélectionnées
 donnees_filtrees = donnees_aggregatees_depart[donnees_aggregatees_depart['INSEE_DEP'].isin(departements_selectionnees)]
