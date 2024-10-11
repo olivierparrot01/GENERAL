@@ -22,47 +22,11 @@ gdf = gdf.drop_duplicates(subset='id')
 gdf['S_DEFRICH'] = gdf['S_DEFRICH'].astype(float)
 
 gdf = gdf[gdf['S_DEFRICH'].notna()]
-
-
-
-
-
-
-
-def func(x):
-    
-    
-    a=re.findall("VITICOLE|VIGNE|VIGNOBLE", x)
-    b=re.findall("AGRICULTURE|AGRICOLE|PATURE|PATURAGE|PASTORAL|PRAIRIE|OLIVERAIE|OLIVIER|OLEICOLE|VERGER|FRUITIER|PLANTATION|PRAIRIE|CULTURE|RECONVERSION DES SOLS", x)   
-    
-   
-    if a!= []:
-        return 'VIGNE'   
-   
-  
-
-    elif b!= []:
-        return 'AGRICULTURE HORMIS LA VIGNE'
-
-
-    else:
-        return 'AMENAGEMENT-CONSTRUCTION'
-
-
-gdf['CATEGORIE'] = gdf['PROJET'].apply(func)
-
-
 # Sélectionner les lignes où 'LOCALITE' contient une virgule ','
 condition = gdf['LOCALITE'].str.contains(',')
 gdf.loc[condition, 'LOCALITE'] = gdf.loc[condition, 'LOCALITE'].str.split(',').str[0]
 
 
-#gdf1 = gpd.read_file(r'S:\1_SIG\1_REFERENTIEL\BDCARTO_IGN\ADMINISTRATIF\COMMUNE.shp')
-
-
-#url = 'https://raw.githubusercontent.com/olivierparrot01/ICPE/main/COMMUNE.dbf'
-#dbf = Dbf5('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/COMMUNE.dbf')
-#gdf1 = dbf.to_dataframe()
 
 gdf1= pd.read_excel ('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/COMMUNE.ods', dtype='str')
 
@@ -74,7 +38,10 @@ gdf1 = gdf1.loc[~((gdf1['NOM_COMM_M'] == 'ASPREMONT') & (gdf1['INSEE_DEP'] != '0
 #gdf1= Dbf5('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/COMMUNE.dbf')
 
 # Joindre les GeoDataFrames en utilisant la colonne 'NOM_COM'
-gdf = gdf.merge(gdf1[['NOM_COMM_M', 'INSEE_DEP_x']], left_on='LOCALITE',right_on='NOM_COMM_M', how='left')
+gdf = gdf.merge(gdf1[['NOM_COMM_M', 'INSEE_DEP']], left_on='LOCALITE',right_on='NOM_COMM_M', how='left')
+
+
+gdf = gdf[gdf['INSEE_DEP'].notna()]
 
 gdf = gdf[gdf['EI'] != 'ANNULATION']
 
@@ -85,16 +52,6 @@ gdf['ANNEE'] =2000 +  gdf['id'].str.extract(r'F093(\d{2})').astype(int)
 gdf['ANNEE'] = gdf['ANNEE'].replace(2013, 2014)
 
 
-# Fonction pour extraire les chiffres d'une chaîne
-def extraire_chiffres(chaine):
-    chiffres = re.sub(r'\D', '', str(chaine))
-    return chiffres
-
-# Appliquer la fonction à la colonne 'S_DEFRICH'
-gdf['S_DEFRICH'] = gdf['S_DEFRICH'].apply(extraire_chiffres)
-
-gdf['S_DEFRICH'] = gdf['S_DEFRICH'].astype(int)
-
 
 # Agréger les données par année en calculant la somme de "S_DEFRICH"
 donnees_aggregatees = gdf.groupby('ANNEE')['S_DEFRICH'].sum().reset_index()
@@ -104,7 +61,7 @@ donnees_aggregatees = gdf.groupby('ANNEE')['S_DEFRICH'].sum().reset_index()
 annees_personnalisees = list(range(2014, 2025, 1))
 
 st.write("\n")
-st.write("Évolution du défrichement régional")
+st.header("Évolution du défrichement régional")
 
 
 # Créer un modèle de survol personnalisé
@@ -113,13 +70,19 @@ hovertemplate = "Année : %{x}<br>Total : %{y}"
 fig = px.line(donnees_aggregatees, x='ANNEE', y='S_DEFRICH', markers=True)
 fig.update_traces(mode='markers+lines', hovertemplate=hovertemplate)
 
+# Remplacer les valeurs dans la colonne "CATEGORIE"
+gdf['CATEGORIE'] = gdf['CATEGORIE'].replace('AGRICULTURE HORS VIGNE', 'AGRICULTURE HORS VIGNE (oliveraies, vergers ...)')
+
+gdf['CATEGORIE'] = gdf['CATEGORIE'].replace('AMENAGEMENT-CONSTRUCTION', 'AMENAGEMENT-CONSTRUCTION (villas, lotissements ...)')
 
 # Définir une palette de couleurs personnalisée pour chaque catégorie
 couleurs_categories = {
-    'VIGNE': '#D10056',
-    'AGRICULTURE HORMIS LA VIGNE': '#4CAF50',
-    'AMENAGEMENT-CONSTRUCTION': 'gray'
+    'VIGNE': 'lightgreen',
+    'AGRICULTURE HORS VIGNE (oliveraies, vergers ...)': 'green',
+    'AMENAGEMENT-CONSTRUCTION (villas, lotissements ...)': 'gray'
 }
+
+
 
 
 
@@ -140,6 +103,7 @@ for categorie, couleur in couleurs_categories.items():
 
 
 
+
 fig.update_layout(xaxis_title="Année", yaxis_title="Défrichement total en m2")
 
 # Définir manuellement les valeurs de l'axe des x (toutes les années)
@@ -147,11 +111,12 @@ fig.update_xaxes(tickvals=annees_personnalisees, ticktext=annees_personnalisees)
 
 
 
-
 # Afficher le graphique interactif
 st.plotly_chart(fig)
 
-gdf= pd.merge(gdf,gdf1,left_on="LOCALITE", right_on='NOM_COMM_M',how='left') 
+
+
+
 
 
 
@@ -159,10 +124,14 @@ gdf= pd.merge(gdf,gdf1,left_on="LOCALITE", right_on='NOM_COMM_M',how='left')
 donnees_aggregatees_depart = gdf.groupby(['ANNEE', 'INSEE_DEP'])['S_DEFRICH'].sum().reset_index()
 
 # Créer une application Streamlit
-st.write("Évolution du défrichement par département")
-st.write("\n")
+st.header("Évolution du défrichement par département")
+#st.write("\n")
+
+st.write("  ")
+
 # Liste déroulante multisélection pour sélectionner les communes (INSEE_DEP)
-departements_selectionnees = st.multiselect("Comparer des départements (sélection multiple)", donnees_aggregatees_depart['INSEE_DEP'].unique())
+st.sidebar.subheader("Comparer des départements (sélection multiple)")
+departements_selectionnees = st.sidebar.multiselect("", donnees_aggregatees_depart['INSEE_DEP'].unique())
 
 # Filtrer les données en fonction des communes sélectionnées
 donnees_filtrees = donnees_aggregatees_depart[donnees_aggregatees_depart['INSEE_DEP'].isin(departements_selectionnees)]
@@ -176,29 +145,3 @@ fig.update_layout(xaxis_title="Année", yaxis_title="Défrichement total en m2",
 fig.update_xaxes(tickvals=annees_personnalisees, ticktext=annees_personnalisees)
 # Afficher le graphique interactif
 st.plotly_chart(fig)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
