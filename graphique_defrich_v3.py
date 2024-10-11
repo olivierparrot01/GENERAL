@@ -14,8 +14,23 @@ import plotly.graph_objs as go
 import numpy as np
 #st.set_option('deprecation.showPyplotGlobalUse', False)
 
+
+@st.cache_data
+def load_data():
+    gdf = gpd.read_file('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/Cas_par_cas_Projet_defrichement_2024-10-09.geojson')
+    gdf1 = pd.read_excel('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/COMMUNE.ods', dtype='str')
+    return gdf, gdf1
+
+# Chargement des données, en profitant du cache pour accélérer l'application
+gdf, gdf1 = load_data()
+
+
+
+
+
+
 # Chargement du fichier shapefile
-gdf = gpd.read_file('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/Cas_par_cas_Projet_defrichement_2024-10-09.geojson')
+#gdf = gpd.read_file('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/Cas_par_cas_Projet_defrichement_2024-10-09.geojson')
 
 # gdf = gpd.read_file(r'V:\CONSULTATION\AMENAGEMENT_URBANISME\N_ZONAGES_AMENAGEMENT\AVIS_AE\PROJET\Cas_par_cas_Projet_defrichement.shp')
 gdf = gdf.drop_duplicates(subset='id')
@@ -40,7 +55,7 @@ gdf['LOCALITE'] = gdf['LOCALITE'].str.split(',').str[0]
 
 
 
-gdf1= pd.read_excel ('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/COMMUNE.ods', dtype='str')
+#gdf1= pd.read_excel ('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/COMMUNE.ods', dtype='str')
 gdf1_filtered = gdf1[['NOM_COMM_M', 'INSEE_DEP']]
 gdf1 = gdf1.loc[~((gdf1['NOM_COMM_M'] == 'ASPREMONT') & (gdf1['INSEE_DEP'] != '06')) & 
                ~((gdf1['NOM_COMM_M'] == 'VITROLLES') & (gdf1['INSEE_DEP'] != '13')) &
