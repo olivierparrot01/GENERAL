@@ -20,19 +20,17 @@ gdf = gpd.read_file('https://raw.githubusercontent.com/olivierparrot01/ICPE/main
 # gdf = gpd.read_file(r'V:\CONSULTATION\AMENAGEMENT_URBANISME\N_ZONAGES_AMENAGEMENT\AVIS_AE\PROJET\Cas_par_cas_Projet_defrichement.shp')
 gdf = gdf.drop_duplicates(subset='id')
 
+# Création d'une fonction optimisée pour assigner les catégories
+def assign_categorie(df):
+    conditions = [
+        df['PROJET'].str.contains("VITICOLE|VIGNE|VIGNOBLE", regex=True),
+        df['PROJET'].str.contains("AGRICULTURE|AGRICOLE|PATURE|PATURAGE|PASTORAL|PRAIRIE|OLIVERAIE|OLIVIER|OLEICOLE|VERGER|FRUITIER|PLANTATION|PRAIRIE|CULTURE|RECONVERSION DES SOLS", regex=True)
+    ]
+    choices = ['VIGNE', 'AGRICULTURE HORS VIGNE (oliveraies, vergers ...)']
+    df['CATEGORIE'] = np.select(conditions, choices, default='AMENAGEMENT-CONSTRUCTION (villas, lotissements ...)')
+    return df
 
-def func(x):
-    a = re.findall("VITICOLE|VIGNE|VIGNOBLE", x)
-    b = re.findall("AGRICULTURE|AGRICOLE|PATURE|PATURAGE|PASTORAL|PRAIRIE|OLIVERAIE|OLIVIER|OLEICOLE|VERGER|FRUITIER|PLANTATION|PRAIRIE|CULTURE|RECONVERSION DES SOLS", x)   
-    if a != []:
-        return 'VIGNE'   
-    elif b != []:
-        return 'AGRICULTURE HORS VIGNE (oliveraies, vergers ...)'
-    else:
-        return 'AMENAGEMENT-CONSTRUCTION (villas, lotissements ...)'
-
-gdf['CATEGORIE'] = gdf['PROJET'].apply(func)
-
+gdf = assign_categorie(gdf)
 
 
 gdf['S_DEFRICH'] = gdf['S_DEFRICH'].astype(float)
