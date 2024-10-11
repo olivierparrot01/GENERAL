@@ -66,7 +66,7 @@ gdf['ANNEE'] = gdf['ANNEE'].replace(2013, 2014)
 
 
 # Agréger les données par année en calculant la somme de "S_DEFRICH"
-donnees_aggregatees = gdf.groupby('ANNEE')['S_DEFRICH'].sum().reset_index()
+donnees_aggregatees = gdf.groupby('ANNEE', as_index=False)['S_DEFRICH'].sum()
 
 
 # Création de la liste d'années personnalisée
