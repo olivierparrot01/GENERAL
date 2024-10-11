@@ -74,7 +74,7 @@ gdf1 = gdf1.loc[~((gdf1['NOM_COMM_M'] == 'ASPREMONT') & (gdf1['INSEE_DEP'] != '0
 #gdf1= Dbf5('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/COMMUNE.dbf')
 
 # Joindre les GeoDataFrames en utilisant la colonne 'NOM_COM'
-gdf = gdf.merge(gdf1[['NOM_COMM_M', 'INSEE_DEP']], left_on='LOCALITE',right_on='NOM_COMM_M', how='left')
+gdf = gdf.merge(gdf1[['NOM_COMM_M', 'INSEE_DEP_x']], left_on='LOCALITE',right_on='NOM_COMM_M', how='left')
 
 gdf = gdf[gdf['EI'] != 'ANNULATION']
 
