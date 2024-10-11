@@ -41,7 +41,7 @@ gdf['LOCALITE'] = gdf['LOCALITE'].str.split(',').str[0]
 
 
 gdf1= pd.read_excel ('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/COMMUNE.ods', dtype='str')
-
+gdf1_filtered = gdf1[['NOM_COMM_M', 'INSEE_DEP']]
 gdf1 = gdf1.loc[~((gdf1['NOM_COMM_M'] == 'ASPREMONT') & (gdf1['INSEE_DEP'] != '06')) & 
                ~((gdf1['NOM_COMM_M'] == 'VITROLLES') & (gdf1['INSEE_DEP'] != '13')) &
                ~((gdf1['NOM_COMM_M'] == 'MIRABEAU') & (gdf1['INSEE_DEP'] != '84')) &
