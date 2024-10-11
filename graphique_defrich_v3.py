@@ -11,7 +11,7 @@ import geopandas as gpd
 import plotly.express as px
 import re
 import plotly.graph_objs as go
-
+import numpy as np
 #st.set_option('deprecation.showPyplotGlobalUse', False)
 
 # Chargement du fichier shapefile
