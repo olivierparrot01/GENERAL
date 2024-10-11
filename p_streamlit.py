@@ -4,9 +4,19 @@ import pandas as pd
 import geopandas as gpd
 import plotly.express as px
 
+# Fonction unique avec mise en cache
+@st.cache_data
+def load_data():
+    # Chargement du fichier GeoJSON
+    df = gpd.read_file('https://raw.githubusercontent.com/olivierparrot01/GENERAL/main/Avis_Projet_point.geojson')
+    
+   
+    return df
 
+# Appel des données (les deux fichiers sont chargés simultanément)
+df = load_data()
 
-df = gpd.read_file('https://raw.githubusercontent.com/olivierparrot01/GENERAL/main/Avis_Projet_point.geojson')
+#df = gpd.read_file('https://raw.githubusercontent.com/olivierparrot01/GENERAL/main/Avis_Projet_point.geojson')
 
 df = df.drop_duplicates(subset='id')
 # Tri des catégories et définition des couleurs
