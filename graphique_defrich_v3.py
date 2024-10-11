@@ -31,14 +31,12 @@ def assign_categorie(df):
     return df
 
 gdf = assign_categorie(gdf)
+# Optimiser la conversion des colonnes et la suppression des valeurs manquantes
+gdf['S_DEFRICH'] = pd.to_numeric(gdf['S_DEFRICH'], errors='coerce')
+gdf = gdf.dropna(subset=['S_DEFRICH'])
+gdf['LOCALITE'] = gdf['LOCALITE'].str.split(',').str[0]
 
 
-gdf['S_DEFRICH'] = gdf['S_DEFRICH'].astype(float)
-
-gdf = gdf[gdf['S_DEFRICH'].notna()]
-# Sélectionner les lignes où 'LOCALITE' contient une virgule ','
-condition = gdf['LOCALITE'].str.contains(',')
-gdf.loc[condition, 'LOCALITE'] = gdf.loc[condition, 'LOCALITE'].str.split(',').str[0]
 
 
 
