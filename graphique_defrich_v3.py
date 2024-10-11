@@ -19,6 +19,22 @@ gdf = gpd.read_file('https://raw.githubusercontent.com/olivierparrot01/ICPE/main
 
 # gdf = gpd.read_file(r'V:\CONSULTATION\AMENAGEMENT_URBANISME\N_ZONAGES_AMENAGEMENT\AVIS_AE\PROJET\Cas_par_cas_Projet_defrichement.shp')
 gdf = gdf.drop_duplicates(subset='id')
+
+
+def func(x):
+    a = re.findall("VITICOLE|VIGNE|VIGNOBLE", x)
+    b = re.findall("AGRICULTURE|AGRICOLE|PATURE|PATURAGE|PASTORAL|PRAIRIE|OLIVERAIE|OLIVIER|OLEICOLE|VERGER|FRUITIER|PLANTATION|PRAIRIE|CULTURE|RECONVERSION DES SOLS", x)   
+    if a != []:
+        return 'VIGNE'   
+    elif b != []:
+        return 'AGRICULTURE HORS VIGNE (oliveraies, vergers ...)'
+    else:
+        return 'AMENAGEMENT-CONSTRUCTION (villas, lotissements ...)'
+
+gdf['CATEGORIE'] = gdf['PROJET'].apply(func)
+
+
+
 gdf['S_DEFRICH'] = gdf['S_DEFRICH'].astype(float)
 
 gdf = gdf[gdf['S_DEFRICH'].notna()]
@@ -70,10 +86,6 @@ hovertemplate = "Année : %{x}<br>Total : %{y}"
 fig = px.line(donnees_aggregatees, x='ANNEE', y='S_DEFRICH', markers=True)
 fig.update_traces(mode='markers+lines', hovertemplate=hovertemplate)
 
-# Remplacer les valeurs dans la colonne "CATEGORIE"
-gdf['CATEGORIE'] = gdf['CATEGORIE'].replace('AGRICULTURE HORS VIGNE', 'AGRICULTURE HORS VIGNE (oliveraies, vergers ...)')
-
-gdf['CATEGORIE'] = gdf['CATEGORIE'].replace('AMENAGEMENT-CONSTRUCTION', 'AMENAGEMENT-CONSTRUCTION (villas, lotissements ...)')
 
 # Définir une palette de couleurs personnalisée pour chaque catégorie
 couleurs_categories = {
