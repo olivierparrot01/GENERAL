@@ -79,9 +79,11 @@ annees_personnalisees = list(range(2014, 2025, 1))
 st.write("\n")
 st.header("Évolution du défrichement régional")
 #st.subheader('Mise à jour : 2024-09-30')
+st.write("  ")
 st.markdown('<p style="font-size:24px; font-weight:bold; color:red;">Mise à jour : 2024-09-25</p>', unsafe_allow_html=True)
 #st.subheader('''Synchronisée avec la carte interactive "Avis et décisions de l’autorité environnementale"''')
 #st.markdown('<p style="font-size:20px;">Synchronisée avec la carte interactive<br>"Avis et décisions de l’autorité environnementale"</p>', unsafe_allow_html=True)
+st.write("  ")
 st.markdown('<p style="font-size:20px; font-weight:bold; color:red;">Synchronisée avec la couche Cas_par_cas_Projet_defrichement_2014-2024<br>de la carte interactive "Avis et décisions de l’autorité environnementale"</p>', unsafe_allow_html=True)
 
 
