@@ -19,6 +19,8 @@ df = load_data()
 #df = gpd.read_file('https://raw.githubusercontent.com/olivierparrot01/GENERAL/main/Avis_Projet_point.geojson')
 
 df = df.drop_duplicates(subset='id')
+df = df.drop("LIEN_DDT")
+
 # Tri des catégories et définition des couleurs
 categories = sorted(df['CATEGORIE'].unique())
 
