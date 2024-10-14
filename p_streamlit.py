@@ -268,6 +268,7 @@ def convert_df_to_excel(df):
 excel_data = convert_df_to_excel(filtered_df)
 
 # Ajouter un bouton de téléchargement pour les données en format XLSX
+st.sidebar.write(" ")
 st.sidebar.download_button(
     label="Télécharger les données filtrées au format xlsx",
     data=excel_data,
