@@ -16,7 +16,7 @@ import numpy as np
 
 @st.cache_data
 def load_data():
-    gdf = gpd.read_file('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/Cas_par_cas_Projet_defrichement_2024-10-09.geojson')
+    gdf = gpd.read_file('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/Cas_par_cas_Projet_defrichement.geojson')
     gdf1 = pd.read_excel('https://raw.githubusercontent.com/olivierparrot01/ICPE/main/COMMUNE.ods', dtype='str')
     return gdf, gdf1
 
