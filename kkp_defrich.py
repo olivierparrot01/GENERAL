@@ -14,8 +14,7 @@ import numpy as np
 #st.set_option('deprecation.showPyplotGlobalUse', False)
 # Configuration de Streamlit
 st.set_page_config(
-    page_title="Transmission PostgreSQL",
-    page_icon="📊",
+  
     layout="wide"
 )
 
