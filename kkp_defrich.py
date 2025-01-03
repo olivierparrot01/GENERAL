@@ -12,7 +12,12 @@ import re
 import plotly.graph_objs as go
 import numpy as np
 #st.set_option('deprecation.showPyplotGlobalUse', False)
-
+# Configuration de Streamlit
+st.set_page_config(
+    page_title="Transmission PostgreSQL",
+    page_icon="📊",
+    layout="wide"
+)
 
 @st.cache_data
 def load_data():
