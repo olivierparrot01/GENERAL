@@ -4,6 +4,15 @@ import pandas as pd
 import geopandas as gpd
 import plotly.express as px
 
+
+# Configuration de Streamlit
+st.set_page_config(
+  
+    layout="wide"
+)
+
+
+
 # Fonction unique avec mise en cache
 @st.cache_data
 def load_data():
