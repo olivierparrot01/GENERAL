@@ -157,7 +157,7 @@ st.plotly_chart(fig)
 donnees_aggregatees_depart = gdf.groupby(['ANNEE', 'INSEE_DEP'])['S_DEFRICH'].sum().reset_index()
 
 # Créer une application Streamlit
-st.header("Évolution du défrichement par département")
+st.header("Évolution quantitative du défrichement par département")
 #st.write("\n")
 
 st.write("  ")
